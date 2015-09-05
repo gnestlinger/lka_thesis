@@ -1,0 +1,83 @@
+\begin{tikzpicture}[
+	mainStyle/.style = {rectangle,draw,fill=red!20,rounded corners=0.4ex,minimum height = 0.55cm,font=\ttfamily},
+	root/.style = {mainStyle},
+ 	grandchild/.style={grow=down,xshift=1em,anchor=west,
+		edge from parent path={(\tikzparentnode.south) |- (\tikzchildnode.west)}},
+ 	first/.style={level distance=6ex},
+ 	second/.style={level distance=12ex},
+ 	third/.style={level distance=18ex},
+ 	fourth/.style={level distance=24ex},
+ 	level 1/.style={sibling distance=18em,font=\ttfamily},
+ 	%level/.style={level distance=20mm*#1}
+ 	]
+  
+  
+    
+\node[root] {sol.$\langle \text{label}\rangle$}
+	[edge from parent fork down]
+    	%%% simIn
+    	%\coordinate
+    	child[] {node[mainStyle] {simProg}
+    		child[] {node[] {$\langle \text{Programm} \rangle$}}
+    	}
+    	%
+    	%%% simDate
+    	child {node[mainStyle] {simDate}
+    		child[] {node[] {$\langle \text{Zeitstempel} \rangle$}}
+    	}
+    	child {node[mainStyle] {simIn}
+    	    	% Controller
+    	    	child[grandchild,first] {node {Controller}
+    	    		child[grandchild,first] {node {lka}}
+    	    	}
+    	    	% VehicleModel
+    		child[grandchild,third] {node{VehicleModel}
+    			child[grandchild,first] {node {parameterFile}}
+    			child[grandchild,second] {node {parameter}}
+    			child[grandchild,third] {node {initialValue}}
+    		}
+    		% SteeringModel
+    		child[grandchild,level distance=42ex] {node {SteeringModel}
+    		}
+    	}
+    	%
+    	%%% simOut
+    	child {node[mainStyle] {simOut}
+    		child[grandchild,first] {node {$t$}}
+    		child[grandchild,second] {node {vehicleState}}
+    		child[grandchild,third] {node {lkaSensor: $y_L$, $\varepsilon_L$, $\kappa _L$}}
+    		child[grandchild,fourth] {node {ControlInp}
+    			child[grandchild,first] {node {$\langle \text{Bezeichnung} \rangle$}}
+    		}
+    	}
+    	%
+    	%%% simPost
+    	child {node[mainStyle] {simPost}
+    		child[grandchild,first] {node {relPos}
+    			child[grandchild,first] {node {lad\_0}}
+    			child[grandchild,second] {node {lad\_$\langle L \rangle$}}
+    		}
+    	};
+
+    		
+    		
+        % Parents
+    %\coordinate
+      %child[grow=right] {node[man,anchor=east]{sol.$\langle \text{LKA-Regler}\rangle$}}
+      %child[grow=right] {node[woman,anchor=west]{Jane}}
+      %child[grow=down,level distance=0ex]
+    %[edge from parent fork down]
+    % Children and grandchildren
+    %child{node[man] {Alfred}
+      %child[grandchild,first] {node[man]{Joe}}
+      %child[grandchild,second] {node[woman]{Heather}}
+      %child[grandchild,third] {node[woman] {Barbara}}}
+    %child{node[woman] {Berta}
+      %child[grandchild,first] {node[man]{Howard}}}
+    %child {node[man] {Charles}}
+    %child {node[woman]{Doris}
+      %child[grandchild,first] {node[man]{Nick}}
+     % child[grandchild,second] {node[woman]{Liz}}};
+    
+
+\end{tikzpicture}
