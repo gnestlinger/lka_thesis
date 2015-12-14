@@ -6,10 +6,10 @@
 % Source: VO Modellbildung und Simulation in der Fahrzeugtechnik 2012
 % 
 
-% Subject: 
-% $Author: georgnoname@gmail.com $
-% $LastChangedDate: 2015-08-12 11:19:04 +0200 (Mi, 12 Aug 2015) $
-% $Revision: 196 $
+% Subject: Parameter file
+% $Author$
+% $LastChangedDate$
+% $Revision$
 
 
 about.vehicle = 'MCC-Smart';

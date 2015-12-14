@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Sep 07 10:12:18 2015"
-  RTWModifiedTimeStamp	  363519236
-  ModelVersionFormat	  "1.%<AutoIncrement:761>"
+  LastModifiedDate	  "Mon Dec 14 09:34:00 2015"
+  RTWModifiedTimeStamp	  371986052
+  ModelVersionFormat	  "1.%<AutoIncrement:764>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -806,10 +806,10 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [214, 74, 1918, 1019]
+    Location		    [300, 78, 2004, 1023]
     Open		    on
     ModelBrowserVisibility  on
-    ModelBrowserWidth	    212
+    ModelBrowserWidth	    298
     ScreenColor		    "white"
     PaperOrientation	    "landscape"
     PaperPositionMode	    "auto"
@@ -820,7 +820,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2159"
+    SIDHighWatermark	    "2160"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -3650,7 +3650,7 @@ Library {
 	      Ports		      [3, 1]
 	      Position		      [100, 40, 140, 80]
 	      BackgroundColor	      "darkGreen"
-	      LibraryVersion	      "1.738"
+	      LibraryVersion	      "1.761"
 	      SourceBlock	      "library/Steering Models/CarMaker DSR"
 	      SourceType	      "SubSystem"
 	    }
@@ -3734,7 +3734,7 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "d_rack [N*s/rad]"
+	      Name		      "d_rack [N*s/m]"
 	      SID		      "2059"
 	      Position		      [20, 113, 50, 127]
 	      BackgroundColor	      "yellow"
@@ -3790,7 +3790,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "V [-]"
 	      SID		      "2057"
-	      Position		      [20, 378, 50, 392]
+	      Position		      [20, 368, 50, 382]
 	      BackgroundColor	      "yellow"
 	      Port		      "9"
 	      IconDisplay	      "Port number"
@@ -3799,7 +3799,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "F_left [N]"
 	      SID		      "2040"
-	      Position		      [20, 433, 50, 447]
+	      Position		      [20, 438, 50, 452]
 	      BackgroundColor	      "yellow"
 	      Port		      "10"
 	      IconDisplay	      "Port number"
@@ -3808,7 +3808,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "F_right [N]"
 	      SID		      "2041"
-	      Position		      [20, 468, 50, 482]
+	      Position		      [20, 473, 50, 487]
 	      BackgroundColor	      "yellow"
 	      Port		      "11"
 	      IconDisplay	      "Port number"
@@ -3818,7 +3818,7 @@ Library {
 	      Name		      "Add"
 	      SID		      "2102"
 	      Ports		      [2, 1]
-	      Position		      [175, 442, 205, 473]
+	      Position		      [175, 447, 205, 478]
 	      ZOrder		      -2
 	      NamePlacement	      "alternate"
 	      ShowName		      off
@@ -3832,7 +3832,7 @@ Library {
 	      Name		      "Divide1"
 	      SID		      "2087"
 	      Ports		      [3, 1]
-	      Position		      [410, 445, 440, 525]
+	      Position		      [425, 429, 455, 501]
 	      ZOrder		      -8
 	      ShowName		      off
 	      Inputs		      "**/"
@@ -3874,7 +3874,7 @@ Library {
 	      Name		      "Product2"
 	      SID		      "2071"
 	      Ports		      [2, 1]
-	      Position		      [410, 197, 440, 228]
+	      Position		      [425, 197, 455, 228]
 	      ZOrder		      -19
 	      ShowName		      off
 	      InputSameDT	      off
@@ -3886,7 +3886,7 @@ Library {
 	      Name		      "Product5"
 	      SID		      "2084"
 	      Ports		      [2, 1]
-	      Position		      [565, 117, 595, 148]
+	      Position		      [620, 117, 650, 148]
 	      ZOrder		      -19
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
@@ -4105,7 +4105,7 @@ Library {
 	      Name		      "b2"
 	      SID		      "2095"
 	      Ports		      [3, 1]
-	      Position		      [315, 355, 370, 415]
+	      Position		      [315, 345, 370, 405]
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
 	      RTWSystemCode	      "Auto"
@@ -4414,20 +4414,14 @@ Library {
 	    Line {
 	      SrcBlock		      "Divide1"
 	      SrcPort		      1
-	      Points		      [65, 0]
+	      Points		      [50, 0]
 	      DstBlock		      "Sum2"
 	      DstPort		      3
 	    }
 	    Line {
-	      SrcBlock		      "Add"
-	      SrcPort		      1
-	      DstBlock		      "Divide1"
-	      DstPort		      1
-	    }
-	    Line {
 	      SrcBlock		      "Product5"
 	      SrcPort		      1
-	      Points		      [-50, 0]
+	      Points		      [-105, 0]
 	      DstBlock		      "Sum2"
 	      DstPort		      1
 	    }
@@ -4478,14 +4472,14 @@ Library {
 	      Branch {
 		Points			[0, 65]
 		Branch {
-		  Points		  [0, 150]
-		  Branch {
-		    Points		    [0, 120]
-		    DstBlock		    "Divide1"
-		    DstPort		    2
-		  }
+		  Points		  [0, 140]
 		  Branch {
 		    DstBlock		    "b2"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, 85]
+		    DstBlock		    "Divide1"
 		    DstPort		    1
 		  }
 		}
@@ -4496,7 +4490,7 @@ Library {
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "d_rack [N*s/rad]"
+	      SrcBlock		      "d_rack [N*s/m]"
 	      SrcPort		      1
 	      DstBlock		      "a22"
 	      DstPort		      3
@@ -4506,10 +4500,10 @@ Library {
 	      SrcPort		      1
 	      Points		      [35, 0]
 	      Branch {
-		Points			[0, 160]
+		Points			[0, 150]
 		Branch {
 		  Labels		  [0, 0]
-		  Points		  [0, -255]
+		  Points		  [0, -245]
 		  DstBlock		  "a22"
 		  DstPort		  4
 		}
@@ -4520,7 +4514,7 @@ Library {
 		}
 	      }
 	      Branch {
-		Points			[0, 265]
+		Points			[0, 245]
 		DstBlock		"Divide1"
 		DstPort			3
 	      }
@@ -4548,21 +4542,22 @@ Library {
 	    Line {
 	      SrcBlock		      "b2"
 	      SrcPort		      1
-	      Points		      [20, 0]
+	      Points		      [35, 0]
 	      DstBlock		      "Product2"
 	      DstPort		      2
 	    }
 	    Line {
+	      Labels		      [2, 0]
 	      SrcBlock		      "a22"
 	      SrcPort		      1
-	      Points		      [245, 0; 0, 20]
+	      Points		      [290, 0]
 	      DstBlock		      "Product5"
 	      DstPort		      1
 	    }
 	    Line {
 	      SrcBlock		      "SWTorque [Nm]"
 	      SrcPort		      1
-	      Points		      [340, 0]
+	      Points		      [355, 0]
 	      DstBlock		      "Product2"
 	      DstPort		      1
 	    }
@@ -4597,6 +4592,12 @@ Library {
 	      SrcPort		      1
 	      DstBlock		      "xi"
 	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Add"
+	      SrcPort		      1
+	      DstBlock		      "Divide1"
+	      DstPort		      2
 	    }
 	  }
 	}
@@ -4844,7 +4845,7 @@ Library {
 	      Ports		      [3, 1]
 	      Position		      [180, 80, 340, 140]
 	      BackgroundColor	      "lightBlue"
-	      LibraryVersion	      "1.741"
+	      LibraryVersion	      "1.761"
 	      SourceBlock	      "library/Vehicle Models/Einspurmodell + Relativposition (exakt)"
 	      SourceType	      "SubSystem"
 	    }
@@ -4882,7 +4883,7 @@ Library {
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
-		SIDHighWatermark	"2107"
+		SIDHighWatermark	"2160"
 		Block {
 		  BlockType		  Inport
 		  Name			  "M_Driver [Nm]"
@@ -4913,7 +4914,7 @@ Library {
 		  Ports			  [3, 1]
 		  Position		  [100, 40, 140, 80]
 		  BackgroundColor	  "darkGreen"
-		  LibraryVersion	  "1.741"
+		  LibraryVersion	  "1.761"
 		  SourceBlock		  "library/Steering Models/CarMaker DSR"
 		  SourceType		  "SubSystem"
 		}
@@ -10770,6 +10771,7 @@ Library {
 	      SrcPort		      1
 	      Points		      [75, 0]
 	      Branch {
+		Labels			[1, 0]
 		DstBlock		"Terminator7"
 		DstPort			1
 	      }
@@ -10981,7 +10983,7 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "LAD [1/m]"
+	      Name		      "LAD [m]"
 	      SID		      "2007"
 	      Position		      [30, 318, 60, 332]
 	      BackgroundColor	      "yellow"
@@ -11001,7 +11003,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "y_LAD(0) [m]"
 	      SID		      "2009"
-	      Position		      [30, 628, 60, 642]
+	      Position		      [30, 378, 60, 392]
 	      BackgroundColor	      "yellow"
 	      Port		      "6"
 	      IconDisplay	      "Port number"
@@ -11010,7 +11012,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "eps_LAD(0) [rad]"
 	      SID		      "2010"
-	      Position		      [30, 658, 60, 672]
+	      Position		      [30, 408, 60, 422]
 	      BackgroundColor	      "yellow"
 	      Port		      "7"
 	      IconDisplay	      "Port number"
@@ -11094,7 +11096,7 @@ Library {
 	      SID		      "2015"
 	      Ports		      [7, 2]
 	      Position		      [615, 218, 775, 432]
-	      LibraryVersion	      "1.760"
+	      LibraryVersion	      "1.763"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking linear"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11118,7 +11120,7 @@ Library {
 	      SID		      "2016"
 	      Ports		      [8, 2]
 	      Position		      [615, 470, 775, 710]
-	      LibraryVersion	      "1.760"
+	      LibraryVersion	      "1.763"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking nonlinear"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11142,7 +11144,7 @@ Library {
 	      SID		      "2017"
 	      Ports		      [8, 7]
 	      Position		      [215, 31, 375, 199]
-	      LibraryVersion	      "1.760"
+	      LibraryVersion	      "1.763"
 	      SourceBlock	      "library/Vehicle Models/Single Track Model"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11254,7 +11256,7 @@ Library {
 	    Line {
 	      SrcBlock		      "curvature_LAD [1/m]"
 	      SrcPort		      1
-	      Points		      [390, 0]
+	      Points		      [430, 0]
 	      Branch {
 		DstBlock		"Lane Tracking linear"
 		DstPort			5
@@ -11290,7 +11292,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      2
-	      Points		      [135, 0]
+	      Points		      [175, 0]
 	      Branch {
 		DstBlock		"Bus\nCreator1"
 		DstPort			2
@@ -11312,7 +11314,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      4
-	      Points		      [115, 0]
+	      Points		      [155, 0]
 	      Branch {
 		DstBlock		"Bus\nCreator1"
 		DstPort			4
@@ -11386,13 +11388,13 @@ Library {
 	    Line {
 	      SrcBlock		      "eps_LAD(0) [rad]"
 	      SrcPort		      1
-	      Points		      [490, 0]
+	      Points		      [390, 0]
 	      Branch {
-		Points			[0, -250]
 		DstBlock		"Lane Tracking linear"
 		DstPort			7
 	      }
 	      Branch {
+		Points			[0, 250]
 		DstBlock		"Lane Tracking nonlinear"
 		DstPort			7
 	      }
@@ -11400,21 +11402,21 @@ Library {
 	    Line {
 	      SrcBlock		      "y_LAD(0) [m]"
 	      SrcPort		      1
-	      Points		      [470, 0]
+	      Points		      [410, 0]
 	      Branch {
-		Points			[0, -250]
 		DstBlock		"Lane Tracking linear"
 		DstPort			6
 	      }
 	      Branch {
+		Points			[0, 250]
 		DstBlock		"Lane Tracking nonlinear"
 		DstPort			6
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "LAD [1/m]"
+	      SrcBlock		      "LAD [m]"
 	      SrcPort		      1
-	      Points		      [410, 0]
+	      Points		      [450, 0]
 	      Branch {
 		DstBlock		"Lane Tracking linear"
 		DstPort			4
@@ -11488,7 +11490,7 @@ Library {
 	    Location		    [214, 82, 1918, 1027]
 	    Open		    off
 	    ModelBrowserVisibility  on
-	    ModelBrowserWidth	    200
+	    ModelBrowserWidth	    298
 	    ScreenColor		    "white"
 	    PaperOrientation	    "landscape"
 	    PaperPositionMode	    "auto"
@@ -11535,7 +11537,7 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "LAD [1/m]"
+	      Name		      "LAD [m]"
 	      SID		      "2142"
 	      Position		      [30, 458, 60, 472]
 	      BackgroundColor	      "yellow"
@@ -11564,7 +11566,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "F_right [N]"
 	      SID		      "2145"
-	      Position		      [30, 293, 60, 307]
+	      Position		      [30, 288, 60, 302]
 	      BackgroundColor	      "yellow"
 	      Port		      "8"
 	      IconDisplay	      "Port number"
@@ -11601,13 +11603,15 @@ Library {
 	      Name		      "Bus\nCreator1"
 	      SID		      "2149"
 	      Ports		      [13, 1]
-	      Position		      [1205, 26, 1210, 354]
+	      Position		      [1250, 26, 1255, 354]
 	      ShowName		      off
 	      Inputs		      "13"
 	      DisplayOption	      "bar"
 	      Port {
 		PortNumber		1
 		Name			"VehicleState"
+		PropagatedSignals	"sy, vy, yawAngle, yawRate, x_global, y_global, s_global, SWAngle, SWRate, y_LAD_linear, eps_LAD_l"
+		"inear, y_LAD_nonlinear, eps_LAD_nonlinear"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -11663,7 +11667,7 @@ Library {
 	      Name		      "Bus\nSelector2"
 	      SID		      "2151"
 	      Ports		      [1, 9]
-	      Position		      [110, 50, 115, 290]
+	      Position		      [110, 58, 115, 282]
 	      ZOrder		      -3
 	      ShowName		      off
 	      OutputSignals	      "d_rot,d_rack,i_HR,I_rot,m_left,m_right,m_rack,V,alpha"
@@ -11740,20 +11744,48 @@ Library {
 	      Name		      "Lane Tracking linear"
 	      SID		      "2158"
 	      Ports		      [7, 2]
-	      Position		      [930, 358, 1090, 572]
-	      LibraryVersion	      "1.760"
+	      Position		      [890, 358, 1050, 572]
+	      LibraryVersion	      "1.763"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking linear"
 	      SourceType	      "SubSystem"
+	      Port {
+		PortNumber		1
+		PropagatedSignals	"y_LAD_linear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		2
+		PropagatedSignals	"eps_LAD_linear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Reference
 	      Name		      "Lane Tracking nonlinear"
 	      SID		      "2159"
 	      Ports		      [8, 2]
-	      Position		      [930, 595, 1090, 835]
-	      LibraryVersion	      "1.760"
+	      Position		      [890, 595, 1050, 835]
+	      LibraryVersion	      "1.763"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking nonlinear"
 	      SourceType	      "SubSystem"
+	      Port {
+		PortNumber		1
+		PropagatedSignals	"y_LAD_nonlinear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		2
+		PropagatedSignals	"eps_LAD_nonlinear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -11761,7 +11793,7 @@ Library {
 	      SID		      "2155"
 	      Ports		      [8, 7]
 	      Position		      [565, 31, 725, 199]
-	      LibraryVersion	      "1.760"
+	      LibraryVersion	      "1.763"
 	      SourceBlock	      "library/Vehicle Models/Single Track Model"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11820,7 +11852,7 @@ Library {
 	      SID		      "2156"
 	      Ports		      [11, 2]
 	      Position		      [200, 30, 365, 310]
-	      LibraryVersion	      "1.760"
+	      LibraryVersion	      "1.763"
 	      SourceBlock	      "library/Steering Models/Steering Model: CM DSR"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11847,34 +11879,34 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking nonlinear"
 	      SrcPort		      2
-	      Points		      [90, 0; 0, -435]
+	      Points		      [75, 0; 0, -435]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      13
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking nonlinear"
 	      SrcPort		      1
-	      Points		      [80, 0; 0, -340]
+	      Points		      [55, 0; 0, -340]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      12
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking linear"
 	      SrcPort		      2
-	      Points		      [70, 0; 0, -230]
+	      Points		      [35, 0; 0, -230]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      11
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking linear"
 	      SrcPort		      1
-	      Points		      [60, 0; 0, -150]
+	      Points		      [15, 0; 0, -150]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      10
 	    }
@@ -11888,7 +11920,6 @@ Library {
 	    Line {
 	      SrcBlock		      "F_right [N]"
 	      SrcPort		      1
-	      Points		      [120, 0]
 	      DstBlock		      "Steering Model: CM DSR"
 	      DstPort		      11
 	    }
@@ -12035,7 +12066,7 @@ Library {
 	    Line {
 	      SrcBlock		      "curvature_LAD [1/m]"
 	      SrcPort		      1
-	      Points		      [705, 0]
+	      Points		      [710, 0]
 	      Branch {
 		DstBlock		"Lane Tracking linear"
 		DstPort			5
@@ -12055,18 +12086,18 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      1
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      1
 	    }
 	    Line {
-	      Labels		      [0, 0]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      2
-	      Points		      [100, 0]
+	      Points		      [105, 0]
 	      Branch {
+		Labels			[-1, 1]
 		DstBlock		"Bus\nCreator1"
 		DstPort			2
 	      }
@@ -12084,11 +12115,11 @@ Library {
 	      }
 	    }
 	    Line {
-	      Labels		      [0, 0]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      4
-	      Points		      [80, 0]
+	      Points		      [85, 0]
 	      Branch {
+		Labels			[-1, 1]
 		DstBlock		"Bus\nCreator1"
 		DstPort			4
 	      }
@@ -12106,21 +12137,21 @@ Library {
 	      }
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      5
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      5
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      6
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      6
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      7
 	      DstBlock		      "Bus\nCreator1"
@@ -12129,7 +12160,7 @@ Library {
 	    Line {
 	      SrcBlock		      "y_LAD(0) [m]"
 	      SrcPort		      1
-	      Points		      [785, 0]
+	      Points		      [690, 0]
 	      Branch {
 		DstBlock		"Lane Tracking linear"
 		DstPort			6
@@ -12141,9 +12172,9 @@ Library {
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "LAD [1/m]"
+	      SrcBlock		      "LAD [m]"
 	      SrcPort		      1
-	      Points		      [725, 0]
+	      Points		      [730, 0]
 	      Branch {
 		DstBlock		"Lane Tracking linear"
 		DstPort			4
@@ -12159,7 +12190,7 @@ Library {
 	      SrcPort		      1
 	      Points		      [460, 0]
 	      Branch {
-		Points			[370, 0]
+		Points			[330, 0]
 		Branch {
 		  DstBlock		  "Lane Tracking linear"
 		  DstPort		  1
@@ -12183,7 +12214,7 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      Labels		      [0, 0]
+	      Labels		      [-1, 1]
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      3
 	      DstBlock		      "Bus\nCreator1"
@@ -12220,7 +12251,7 @@ Library {
 	    Line {
 	      SrcBlock		      "eps_LAD(0) [rad]"
 	      SrcPort		      1
-	      Points		      [805, 0]
+	      Points		      [670, 0]
 	      Branch {
 		DstBlock		"Lane Tracking linear"
 		DstPort			7
