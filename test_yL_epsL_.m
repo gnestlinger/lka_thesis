@@ -164,19 +164,25 @@ figure;
 
 % yL
 subplot(2,1,1);
-plot(sol.simOut.t,[...
+p = plot(sol.simOut.t,[...
     sol.simOut.lkaSensor.yL,...
     sol.simOut.vehicleState.yL_linMdl,...
     sol.simOut.vehicleState.yL_exactMdl]);
+set(p(1),'LineWidth',2)
+set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
+set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
 grid on
 title('y_L')
 
 % epsL
 subplot(2,1,2);
-plot(sol.simOut.t,[...
+p = plot(sol.simOut.t,[...
     sol.simOut.lkaSensor.epsL,...
     sol.simOut.vehicleState.epsL_linMdl,...
     sol.simOut.vehicleState.epsL_exactMdl]);
+set(p(1),'LineWidth',2)
+set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
+set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
 grid on
 title('eps_L')
 
