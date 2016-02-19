@@ -1,11 +1,11 @@
 classdef lkaSegment
 %LKASEGMENT    Superclass to create a path of street sections.
 %   
-%   LKASEGMENT(SEGMENTTYPE,SELTASET,XYSTART) (just used by subclasses)
+%   LKASEGMENT(SEGMENTTYPE,DELTASET,XYSTART) (just used by subclasses)
 %   
 %   Input arguments:
 %   SEGMENTTYPE ... string indicating the type of the segment
-%   SELTASET ...... intended distance between nearby points of segment [m]
+%   DELTASET ...... desired distance between nearby points of segment [m]
 %   XYSTART ....... starting point of segment [m]
 %   
 %   
@@ -132,9 +132,9 @@ classdef lkaSegment
     
     
     
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     %%% CONSTRUCTOR
     methods
@@ -178,9 +178,9 @@ classdef lkaSegment
         
         %%% resample the segment with new delta
         function obj = resample(obj,deltaNew)
-        %RESAMPLE   Apply a set distance between points.
+        %RESAMPLE   Apply a desired distance between points.
         %   RESAMPLE(OBJ,DELTA) sets the maximum distance between two
-        %   nearby points of street section OBJ to be DELTA.
+        %   nearby points of street section OBJ to be DELTANEW.
         %
         
            
