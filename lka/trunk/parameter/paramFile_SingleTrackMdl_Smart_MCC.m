@@ -18,7 +18,7 @@ about.source = 'FTG-LV';
 m = 820;		% Fahrzeugmasse [kg]
 Iz = 3000;		% Trägheitsmoment um die Hochachse [kg*m^2]
 
-lv = 1.142;		% Schwerpunktlage/Forderachse [m]
+lv = 1.142;		% Schwerpunktlage/Vorderachse [m]
 lh = 0.670;		% Schwerpunktlage/Hinterachse [m]
 l = lv+lh;		% Achsabstand [m]
 

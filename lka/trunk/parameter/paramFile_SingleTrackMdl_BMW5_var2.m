@@ -18,7 +18,7 @@ about.source = 'IPG Carmaker 4.0';
 m = 1564;		% Fahrzeugmasse [kg]
 Iz = 2230;		% Trägheitsmoment um die Hochachse [kg*m^2]
 
-lv = 1.268;		% Schwerpunktlage/Forderachse [m]
+lv = 1.268;		% Schwerpunktlage/Vorderachse [m]
 lh = 1.620;		% Schwerpunktlage/Hinterachse [m]
 l = lv+lh;		% Achsabstand [m]
 
