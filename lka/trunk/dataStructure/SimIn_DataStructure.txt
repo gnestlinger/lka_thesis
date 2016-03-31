@@ -1,0 +1,16 @@
+SimIn
+|--	Vehicle
+	|--	VehicleMdl
+		|--	Kind
+		|--	Parameter
+		|--	States
+		|--	InitiValues
+		|--	Info
+	|--	SteeringMdl
+		|--	Kind
+		|--	Parameter
+		|--	States
+		|--	InitiValues
+		|--	Info
+|--	Road
+|--	Traffic
