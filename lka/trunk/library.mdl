@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Feb 19 10:42:37 2016"
-  RTWModifiedTimeStamp	  377777788
-  ModelVersionFormat	  "1.%<AutoIncrement:779>"
+  LastModifiedDate	  "Thu Apr 14 14:07:22 2016"
+  RTWModifiedTimeStamp	  382541259
+  ModelVersionFormat	  "1.%<AutoIncrement:787>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -289,7 +289,7 @@ Library {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "Warning"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  LoggingUnavailableSignals "error"
@@ -806,8 +806,8 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [416, 111, 1834, 970]
-    Open		    on
+    Location		    [426, 102, 1844, 961]
+    Open		    off
     ModelBrowserVisibility  on
     ModelBrowserWidth	    298
     ScreenColor		    "white"
@@ -820,7 +820,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "2294"
+    SIDHighWatermark	    "2296"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -2318,8 +2318,8 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"LKA-Sensorik"
-	Location		[369, 283, 1350, 706]
-	Open			off
+	Location		[426, 102, 1844, 961]
+	Open			on
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	215
 	ScreenColor		"white"
@@ -2409,7 +2409,7 @@ Library {
 	  SID			  "340"
 	  Ports			  [1, 1]
 	  Position		  [55, 140, 230, 200]
-	  LibraryVersion	  "1.762"
+	  LibraryVersion	  "*1.786"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -2419,7 +2419,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Videosensorik"
-	    Location		    [433, 403, 1177, 697]
+	    Location		    [533, 204, 1735, 1037]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -2445,14 +2445,13 @@ Library {
 	      Name		      "Bus\nCreator1"
 	      SID		      "875"
 	      Ports		      [3, 1]
-	      Position		      [455, 15, 460, 65]
+	      Position		      [490, 15, 495, 65]
 	      ShowName		      off
 	      Inputs		      "3"
 	      DisplayOption	      "bar"
 	      Port {
 		PortNumber		1
-		Name			"Vehicle_Video_Sensor"
-		PropagatedSignals	"yL_Sensor, epsL_Sensor, kapL_Sensor"
+		Name			"Sensor"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -2464,22 +2463,22 @@ Library {
 	      Ports		      [1, 3]
 	      Position		      [95, 15, 100, 65]
 	      ShowName		      off
-	      OutputSignals	      "x_g,y_g,psi"
+	      OutputSignals	      "x_global,y_global,yawAngle"
 	      Port {
 		PortNumber		1
-		Name			"<x_g>"
+		Name			"<x_global>"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		2
-		Name			"<y_g>"
+		Name			"<y_global>"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		3
-		Name			"<psi>"
+		Name			"<yawAngle>"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -2495,22 +2494,19 @@ Library {
 	      DisplayOption	      "bar"
 	      Port {
 		PortNumber		1
-		Name			"yL_Sensor"
-		PropagatedSignals	"yL_Sensor"
+		Name			"latOff_LAD_Sensor"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		2
-		Name			"epsL_Sensor"
-		PropagatedSignals	"epsL_Sensor"
+		Name			"angDev_LAD_Sensor"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		3
-		Name			"kapL_Sensor"
-		PropagatedSignals	"kapL_Sensor"
+		Name			"curvature_LAD_Sensor"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -2535,22 +2531,22 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Outport
-	      Name		      "Vehicle_Video_Sensor"
+	      Name		      "Sensor"
 	      SID		      "880"
 	      Position		      [620, 33, 650, 47]
 	      BackgroundColor	      "gray"
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      Name		      "Vehicle_Video_Sensor"
+	      Name		      "Sensor"
 	      Labels		      [1, 0]
 	      SrcBlock		      "Bus\nCreator1"
 	      SrcPort		      1
-	      DstBlock		      "Vehicle_Video_Sensor"
+	      DstBlock		      "Sensor"
 	      DstPort		      1
 	    }
 	    Line {
-	      Name		      "kapL_Sensor"
+	      Name		      "curvature_LAD_Sensor"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Demux"
 	      SrcPort		      3
@@ -2558,7 +2554,7 @@ Library {
 	      DstPort		      3
 	    }
 	    Line {
-	      Name		      "epsL_Sensor"
+	      Name		      "angDev_LAD_Sensor"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Demux"
 	      SrcPort		      2
@@ -2566,7 +2562,7 @@ Library {
 	      DstPort		      2
 	    }
 	    Line {
-	      Name		      "yL_Sensor"
+	      Name		      "latOff_LAD_Sensor"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Demux"
 	      SrcPort		      1
@@ -2580,7 +2576,7 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      Name		      "<psi>"
+	      Name		      "<yawAngle>"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector"
 	      SrcPort		      3
@@ -2588,7 +2584,7 @@ Library {
 	      DstPort		      3
 	    }
 	    Line {
-	      Name		      "<y_g>"
+	      Name		      "<y_global>"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector"
 	      SrcPort		      2
@@ -2596,7 +2592,7 @@ Library {
 	      DstPort		      2
 	    }
 	    Line {
-	      Name		      "<x_g>"
+	      Name		      "<x_global>"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector"
 	      SrcPort		      1
@@ -2623,7 +2619,7 @@ Library {
 	  SID			  "1539"
 	  Ports			  [1, 1]
 	  Position		  [605, 149, 700, 191]
-	  LibraryVersion	  "1.762"
+	  LibraryVersion	  "*1.786"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -2633,7 +2629,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "epsL_Sensor"
-	    Location		    [433, 403, 931, 703]
+	    Location		    [533, 204, 1735, 1037]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -2664,8 +2660,13 @@ Library {
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
-	      OutputSignals	      "Vehicle_Video_Sensor.epsL_Sensor"
-	      OutputAsBus	      on
+	      OutputSignals	      "Sensor.angDev_LAD_Sensor"
+	      Port {
+		PortNumber		1
+		Name			"<angDev_LAD_Sensor>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2677,6 +2678,8 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      Name		      "<angDev_LAD_Sensor>"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector8"
 	      SrcPort		      1
 	      DstBlock		      "epsL"
@@ -2696,7 +2699,7 @@ Library {
 	  SID			  "1536"
 	  Ports			  [1, 1]
 	  Position		  [605, 299, 700, 341]
-	  LibraryVersion	  "1.762"
+	  LibraryVersion	  "*1.786"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -2706,7 +2709,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "epsL_exactMdl"
-	    Location		    [433, 403, 931, 703]
+	    Location		    [533, 204, 1735, 1037]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -2737,8 +2740,13 @@ Library {
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
-	      OutputSignals	      "Vehicle_State.epsL_exactMdl"
-	      OutputAsBus	      on
+	      OutputSignals	      "VehicleState.angDev_LAD_nonlinear"
+	      Port {
+		PortNumber		1
+		Name			"<angDev_LAD_nonlinear>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2750,6 +2758,8 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      Name		      "<angDev_LAD_nonlinear>"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector8"
 	      SrcPort		      1
 	      DstBlock		      "epsL"
@@ -2769,7 +2779,7 @@ Library {
 	  SID			  "1533"
 	  Ports			  [1, 1]
 	  Position		  [605, 224, 700, 266]
-	  LibraryVersion	  "1.762"
+	  LibraryVersion	  "*1.786"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -2779,7 +2789,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "epsL_linMdl"
-	    Location		    [433, 403, 931, 703]
+	    Location		    [533, 204, 1735, 1037]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -2810,8 +2820,13 @@ Library {
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
-	      OutputSignals	      "Vehicle_State.epsL_linMdl"
-	      OutputAsBus	      on
+	      OutputSignals	      "VehicleState.angDev_LAD_linear"
+	      Port {
+		PortNumber		1
+		Name			"<angDev_LAD_linear>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -2823,6 +2838,8 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      Name		      "<angDev_LAD_linear>"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector8"
 	      SrcPort		      1
 	      DstBlock		      "epsL"
@@ -2986,6 +3003,7 @@ Library {
 	  Ports			  [1, 1]
 	  Position		  [395, 149, 495, 191]
 	  BlockMirror		  on
+	  LibraryVersion	  "*1.786"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -2995,7 +3013,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "yL_Sensor"
-	    Location		    [437, 357, 1169, 654]
+	    Location		    [533, 204, 1735, 1037]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -3026,8 +3044,13 @@ Library {
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
-	      OutputSignals	      "Vehicle_Video_Sensor.yL_Sensor"
-	      OutputAsBus	      on
+	      OutputSignals	      "Sensor.latOff_LAD_Sensor"
+	      Port {
+		PortNumber		1
+		Name			"<latOff_LAD_Sensor>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -3039,6 +3062,8 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      Name		      "<latOff_LAD_Sensor>"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector8"
 	      SrcPort		      1
 	      DstBlock		      "yL"
@@ -3059,6 +3084,7 @@ Library {
 	  Ports			  [1, 1]
 	  Position		  [395, 299, 495, 341]
 	  BlockMirror		  on
+	  LibraryVersion	  "*1.786"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -3068,7 +3094,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "yL_exactMdl"
-	    Location		    [437, 357, 1169, 654]
+	    Location		    [533, 204, 1735, 1037]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -3099,8 +3125,13 @@ Library {
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
-	      OutputSignals	      "Vehicle_State.yL_exactMdl"
-	      OutputAsBus	      on
+	      OutputSignals	      "VehicleState.latOff_LAD_nonlinear"
+	      Port {
+		PortNumber		1
+		Name			"<latOff_LAD_nonlinear>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -3118,6 +3149,8 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
+	      Name		      "<latOff_LAD_nonlinear>"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector8"
 	      SrcPort		      1
 	      DstBlock		      "yL"
@@ -3132,6 +3165,7 @@ Library {
 	  Ports			  [1, 1]
 	  Position		  [395, 224, 495, 266]
 	  BlockMirror		  on
+	  LibraryVersion	  "*1.786"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -3141,7 +3175,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "yL_linMdl"
-	    Location		    [725, 588, 1165, 678]
+	    Location		    [533, 204, 1735, 1037]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -3172,8 +3206,13 @@ Library {
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
-	      OutputSignals	      "Vehicle_State.yL_linMdl"
-	      OutputAsBus	      on
+	      OutputSignals	      "VehicleState.latOff_LAD_linear"
+	      Port {
+		PortNumber		1
+		Name			"<latOff_LAD_linear>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Outport
@@ -3185,6 +3224,8 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
+	      Name		      "<latOff_LAD_linear>"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      1
 	      DstBlock		      "yL"
@@ -4730,8 +4771,6 @@ Library {
 	      Port {
 		PortNumber		1
 		Name			"Vehicle_State"
-		PropagatedSignals	"s_y, s_yDot, psi, psiDot, x_g, y_g, s_g, yL, epsL, steering wheel angle, steering wheel angle vel"
-		"ocity"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -5181,7 +5220,6 @@ Library {
 	      Port {
 		PortNumber		1
 		Name			"Vehicle_State"
-		PropagatedSignals	"s_y, s_yDot, psi, psiDot, x_g, y_g, s_g"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -5931,7 +5969,6 @@ Library {
 	      Port {
 		PortNumber		1
 		Name			"Vehicle_State"
-		PropagatedSignals	"s_y, s_yDot, psi, psiDot, x_g, y_g, s_g, yL_linMdl, epsL_linMdl, yL_exactMdl, epsL_exactMdl"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -6359,7 +6396,6 @@ Library {
 	      Port {
 		PortNumber		1
 		Name			"Vehicle_State"
-		PropagatedSignals	"s_y, s_yDot, psi, psiDot, x_g, y_g, s_g, yL_linMdl, epsL_linMdl"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -6430,7 +6466,7 @@ Library {
 	      Ports		      [1, 1]
 	      Position		      [125, 75, 285, 135]
 	      BackgroundColor	      "lightBlue"
-	      LibraryVersion	      "1.773"
+	      LibraryVersion	      "1.781"
 	      SourceBlock	      "library/Vehicle Models/Einspurmodell"
 	      SourceType	      "SubSystem"
 	    }
@@ -6440,7 +6476,7 @@ Library {
 	      SID		      "1462"
 	      Ports		      [4, 2]
 	      Position		      [510, 189, 670, 261]
-	      LibraryVersion	      "1.773"
+	      LibraryVersion	      "1.781"
 	      SourceBlock	      "library/Vehicle Models/Relativposition zu Sollbahn (linear)"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -6608,7 +6644,7 @@ Library {
 	  Name			  "Lane Tracking linear"
 	  SID			  "1839"
 	  Ports			  [7, 2]
-	  Position		  [210, 71, 405, 239]
+	  Position		  [205, 71, 400, 239]
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -6736,7 +6772,7 @@ Library {
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
 		PortNumber		1
-		Name			"latOff_LAD"
+		Name			"latOff_LAD_linear"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -6751,7 +6787,7 @@ Library {
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
 		PortNumber		1
-		Name			"eps_LAD_linear"
+		Name			"angDev_LAD_linear"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -6871,8 +6907,8 @@ Library {
 	      DstPort		      2
 	    }
 	    Line {
-	      Name		      "latOff_LAD"
-	      Labels		      [-1, 1]
+	      Name		      "latOff_LAD_linear"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator1"
 	      SrcPort		      1
 	      DstBlock		      "latOff_LAD [m]"
@@ -6899,12 +6935,12 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      Name		      "eps_LAD_linear"
+	      Name		      "angDev_LAD_linear"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator2"
 	      SrcPort		      1
 	      Points		      [30, 0]
 	      Branch {
-		Labels			[-1, 1]
 		DstBlock		"angDev_LAD [rad]"
 		DstPort			1
 	      }
@@ -7139,7 +7175,7 @@ Library {
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
 		PortNumber		1
-		Name			"y_LAD_nonlinear"
+		Name			"latOff_LAD_nonlinear"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -7154,7 +7190,7 @@ Library {
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
 		PortNumber		1
-		Name			"eps_LAD_nonlinear"
+		Name			"angDev_LAD_nonlinear"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -7246,7 +7282,7 @@ Library {
 	      BlockType		      Terminator
 	      Name		      "Terminator"
 	      SID		      "1886"
-	      Position		      [880, 13, 900, 27]
+	      Position		      [950, 13, 970, 27]
 	      ZOrder		      -5
 	      ShowName		      off
 	    }
@@ -7254,7 +7290,7 @@ Library {
 	      BlockType		      Terminator
 	      Name		      "Terminator1"
 	      SID		      "1887"
-	      Position		      [880, 43, 900, 57]
+	      Position		      [950, 43, 970, 57]
 	      ZOrder		      -5
 	      ShowName		      off
 	    }
@@ -7262,7 +7298,7 @@ Library {
 	      BlockType		      Terminator
 	      Name		      "Terminator2"
 	      SID		      "1888"
-	      Position		      [880, 73, 900, 87]
+	      Position		      [950, 73, 970, 87]
 	      ZOrder		      -5
 	      ShowName		      off
 	    }
@@ -7270,7 +7306,7 @@ Library {
 	      BlockType		      Terminator
 	      Name		      "Terminator3"
 	      SID		      "1889"
-	      Position		      [880, 103, 900, 117]
+	      Position		      [950, 103, 970, 117]
 	      ZOrder		      -5
 	      ShowName		      off
 	    }
@@ -7278,7 +7314,7 @@ Library {
 	      BlockType		      Terminator
 	      Name		      "Terminator4"
 	      SID		      "1890"
-	      Position		      [880, 163, 900, 177]
+	      Position		      [950, 163, 970, 177]
 	      ZOrder		      -5
 	      ShowName		      off
 	    }
@@ -7286,7 +7322,7 @@ Library {
 	      BlockType		      Terminator
 	      Name		      "Terminator5"
 	      SID		      "1891"
-	      Position		      [880, 133, 900, 147]
+	      Position		      [950, 133, 970, 147]
 	      ZOrder		      -5
 	      ShowName		      off
 	    }
@@ -7316,7 +7352,7 @@ Library {
 	      BlockType		      Outport
 	      Name		      "latOff_LAD [m]"
 	      SID		      "1880"
-	      Position		      [875, 293, 905, 307]
+	      Position		      [945, 293, 975, 307]
 	      BackgroundColor	      "gray"
 	      IconDisplay	      "Port number"
 	    }
@@ -7324,7 +7360,7 @@ Library {
 	      BlockType		      Outport
 	      Name		      "angDev_LAD [rad]"
 	      SID		      "1881"
-	      Position		      [875, 478, 905, 492]
+	      Position		      [945, 478, 975, 492]
 	      BackgroundColor	      "gray"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -7384,7 +7420,7 @@ Library {
 	    Line {
 	      SrcBlock		      "LAD [m]"
 	      SrcPort		      1
-	      Points		      [155, 0]
+	      Points		      [150, 0]
 	      Branch {
 		DstBlock		"Terminator3"
 		DstPort			1
@@ -7437,7 +7473,7 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      Name		      "y_LAD_nonlinear"
+	      Name		      "latOff_LAD_nonlinear"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator1"
 	      SrcPort		      1
@@ -7461,7 +7497,7 @@ Library {
 		}
 	      }
 	      Branch {
-		Points			[65, 0]
+		Points			[60, 0]
 		Branch {
 		  Points		  [0, 190]
 		  DstBlock		  "Product3"
@@ -7487,11 +7523,11 @@ Library {
 	      }
 	    }
 	    Line {
-	      Name		      "eps_LAD_nonlinear"
+	      Name		      "angDev_LAD_nonlinear"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator2"
 	      SrcPort		      1
-	      Points		      [45, 0]
+	      Points		      [120, 0]
 	      Branch {
 		Points			[0, 0]
 		Branch {
@@ -11028,7 +11064,7 @@ Library {
 	  Name			  "Single Track Model/LaneTracking"
 	  SID			  "2003"
 	  Ports			  [8, 1]
-	  Position		  [690, 30, 855, 305]
+	  Position		  [685, 30, 850, 305]
 	  BackgroundColor	  "lightBlue"
 	  LibraryVersion	  "*1.713"
 	  MinAlgLoopOccurrences	  off
@@ -11074,7 +11110,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "vx [m/s]"
 	      SID		      "2006"
-	      Position		      [35, 228, 65, 242]
+	      Position		      [35, 223, 65, 237]
 	      BackgroundColor	      "yellow"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
@@ -11083,7 +11119,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "LAD [m]"
 	      SID		      "2007"
-	      Position		      [35, 318, 65, 332]
+	      Position		      [35, 313, 65, 327]
 	      BackgroundColor	      "yellow"
 	      Port		      "4"
 	      IconDisplay	      "Port number"
@@ -11092,7 +11128,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "curvature_LAD [1/m]"
 	      SID		      "2008"
-	      Position		      [35, 348, 65, 362]
+	      Position		      [35, 343, 65, 357]
 	      BackgroundColor	      "yellow"
 	      Port		      "5"
 	      IconDisplay	      "Port number"
@@ -11101,7 +11137,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "y_LAD(0) [m]"
 	      SID		      "2009"
-	      Position		      [35, 378, 65, 392]
+	      Position		      [35, 373, 65, 387]
 	      BackgroundColor	      "yellow"
 	      Port		      "6"
 	      IconDisplay	      "Port number"
@@ -11110,7 +11146,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "eps_LAD(0) [rad]"
 	      SID		      "2010"
-	      Position		      [35, 408, 65, 422]
+	      Position		      [35, 403, 65, 417]
 	      BackgroundColor	      "yellow"
 	      Port		      "7"
 	      IconDisplay	      "Port number"
@@ -11119,7 +11155,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "y_LAD_exact [m]"
 	      SID		      "2011"
-	      Position		      [35, 688, 65, 702]
+	      Position		      [35, 683, 65, 697]
 	      BackgroundColor	      "yellow"
 	      Port		      "8"
 	      IconDisplay	      "Port number"
@@ -11136,8 +11172,6 @@ Library {
 	      Port {
 		PortNumber		1
 		Name			"VehicleState"
-		PropagatedSignals	"sy, vy, yawAngle, yawRate, x_global, y_global, s_global, y_LAD_linear, eps_LAD_linear, yL_exactMd"
-		"l, epsL_exactMdl"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -11193,20 +11227,20 @@ Library {
 	      Name		      "Lane Tracking linear"
 	      SID		      "2015"
 	      Ports		      [7, 2]
-	      Position		      [615, 218, 775, 432]
-	      LibraryVersion	      "1.779"
+	      Position		      [615, 213, 775, 427]
+	      LibraryVersion	      "1.785"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking linear"
 	      SourceType	      "SubSystem"
 	      Port {
 		PortNumber		1
-		PropagatedSignals	"y_LAD_linear"
+		PropagatedSignals	"latOff_LAD_linear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		2
-		PropagatedSignals	"eps_LAD_linear"
+		PropagatedSignals	"angDev_LAD_linear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
@@ -11217,20 +11251,20 @@ Library {
 	      Name		      "Lane Tracking nonlinear"
 	      SID		      "2016"
 	      Ports		      [8, 2]
-	      Position		      [615, 470, 775, 710]
-	      LibraryVersion	      "1.779"
+	      Position		      [615, 465, 775, 705]
+	      LibraryVersion	      "1.785"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking nonlinear"
 	      SourceType	      "SubSystem"
 	      Port {
 		PortNumber		1
-		PropagatedSignals	"y_LAD_nonlinear"
+		PropagatedSignals	"latOff_LAD_nonlinear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		2
-		PropagatedSignals	"eps_LAD_nonlinear"
+		PropagatedSignals	"angDev_LAD_nonlinear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
@@ -11242,7 +11276,7 @@ Library {
 	      SID		      "2017"
 	      Ports		      [8, 7]
 	      Position		      [215, 31, 375, 199]
-	      LibraryVersion	      "1.779"
+	      LibraryVersion	      "1.785"
 	      SourceBlock	      "library/Vehicle Models/Single Track Model"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11396,7 +11430,7 @@ Library {
 		DstPort			2
 	      }
 	      Branch {
-		Points			[0, 200]
+		Points			[0, 195]
 		Branch {
 		  Points		  [0, 250]
 		  DstBlock		  "Lane Tracking nonlinear"
@@ -11418,7 +11452,7 @@ Library {
 		DstPort			4
 	      }
 	      Branch {
-		Points			[0, 180]
+		Points			[0, 175]
 		Branch {
 		  Points		  [0, 250]
 		  DstBlock		  "Lane Tracking nonlinear"
@@ -11455,7 +11489,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking linear"
 	      SrcPort		      1
-	      Points		      [40, 0; 0, -60]
+	      Points		      [20, 0; 0, -55]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      8
 	    }
@@ -11463,7 +11497,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking linear"
 	      SrcPort		      2
-	      Points		      [65, 0; 0, -140]
+	      Points		      [40, 0; 0, -135]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      9
 	    }
@@ -11471,7 +11505,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking nonlinear"
 	      SrcPort		      1
-	      Points		      [90, 0; 0, -265]
+	      Points		      [60, 0; 0, -260]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      10
 	    }
@@ -11479,7 +11513,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking nonlinear"
 	      SrcPort		      2
-	      Points		      [115, 0; 0, -360]
+	      Points		      [80, 0; 0, -355]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      11
 	    }
@@ -11542,7 +11576,7 @@ Library {
 		}
 	      }
 	      Branch {
-		Points			[0, -50]
+		Points			[0, -45]
 		DstBlock		"Single Track Model"
 		DstPort			8
 	      }
@@ -11573,7 +11607,7 @@ Library {
 	  Name			  "Single Track Model/LaneTracking/Steering Model"
 	  SID			  "2020"
 	  Ports			  [11, 1]
-	  Position		  [895, 29, 1060, 311]
+	  Position		  [880, 29, 1045, 311]
 	  BackgroundColor	  "lightBlue"
 	  LibraryVersion	  "*1.774"
 	  MinAlgLoopOccurrences	  off
@@ -11850,20 +11884,20 @@ Library {
 	      Name		      "Lane Tracking linear"
 	      SID		      "2158"
 	      Ports		      [7, 2]
-	      Position		      [915, 328, 1075, 542]
-	      LibraryVersion	      "1.779"
+	      Position		      [855, 328, 1015, 542]
+	      LibraryVersion	      "1.785"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking linear"
 	      SourceType	      "SubSystem"
 	      Port {
 		PortNumber		1
-		PropagatedSignals	"y_LAD_linear"
+		PropagatedSignals	"latOff_LAD_linear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		2
-		PropagatedSignals	"eps_LAD_linear"
+		PropagatedSignals	"angDev_LAD_linear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
@@ -11874,20 +11908,20 @@ Library {
 	      Name		      "Lane Tracking nonlinear"
 	      SID		      "2159"
 	      Ports		      [8, 2]
-	      Position		      [915, 565, 1075, 805]
-	      LibraryVersion	      "1.779"
+	      Position		      [855, 565, 1015, 805]
+	      LibraryVersion	      "1.785"
 	      SourceBlock	      "library/Vehicle Models/Lane Tracking nonlinear"
 	      SourceType	      "SubSystem"
 	      Port {
 		PortNumber		1
-		PropagatedSignals	"y_LAD_nonlinear"
+		PropagatedSignals	"latOff_LAD_nonlinear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		2
-		PropagatedSignals	"eps_LAD_nonlinear"
+		PropagatedSignals	"angDev_LAD_nonlinear"
 		ShowPropagatedSignals	"on"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
@@ -11899,7 +11933,7 @@ Library {
 	      SID		      "2155"
 	      Ports		      [8, 7]
 	      Position		      [590, 21, 750, 189]
-	      LibraryVersion	      "1.779"
+	      LibraryVersion	      "1.785"
 	      SourceBlock	      "library/Vehicle Models/Single Track Model"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11958,7 +11992,7 @@ Library {
 	      SID		      "2156"
 	      Ports		      [11, 2]
 	      Position		      [225, 20, 390, 300]
-	      LibraryVersion	      "1.779"
+	      LibraryVersion	      "1.785"
 	      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -11996,7 +12030,7 @@ Library {
 	    Line {
 	      SrcBlock		      "eps_LAD(0) [rad]"
 	      SrcPort		      1
-	      Points		      [690, 0]
+	      Points		      [630, 0]
 	      Branch {
 		Points			[0, 235]
 		DstBlock		"Lane Tracking nonlinear"
@@ -12058,7 +12092,7 @@ Library {
 		DstPort			8
 	      }
 	      Branch {
-		Points			[330, 0]
+		Points			[270, 0]
 		Branch {
 		  Points		  [0, 235]
 		  DstBlock		  "Lane Tracking nonlinear"
@@ -12073,7 +12107,7 @@ Library {
 	    Line {
 	      SrcBlock		      "LAD [m]"
 	      SrcPort		      1
-	      Points		      [750, 0]
+	      Points		      [690, 0]
 	      Branch {
 		Points			[0, 235]
 		DstBlock		"Lane Tracking nonlinear"
@@ -12087,7 +12121,7 @@ Library {
 	    Line {
 	      SrcBlock		      "y_LAD(0) [m]"
 	      SrcPort		      1
-	      Points		      [710, 0]
+	      Points		      [650, 0]
 	      Branch {
 		Points			[0, 235]
 		DstBlock		"Lane Tracking nonlinear"
@@ -12122,7 +12156,7 @@ Library {
 	    Line {
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      4
-	      Points		      [85, 0]
+	      Points		      [25, 0]
 	      Branch {
 		Points			[0, 300]
 		Branch {
@@ -12144,7 +12178,7 @@ Library {
 	    Line {
 	      SrcBlock		      "Single Track Model"
 	      SrcPort		      2
-	      Points		      [105, 0]
+	      Points		      [45, 0]
 	      Branch {
 		Points			[0, 320]
 		Branch {
@@ -12181,7 +12215,7 @@ Library {
 	    Line {
 	      SrcBlock		      "curvature_LAD [1/m]"
 	      SrcPort		      1
-	      Points		      [730, 0]
+	      Points		      [670, 0]
 	      Branch {
 		Points			[0, 235]
 		DstBlock		"Lane Tracking nonlinear"
@@ -12348,7 +12382,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking linear"
 	      SrcPort		      1
-	      Points		      [15, 0; 0, -130]
+	      Points		      [20, 0; 0, -130]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      10
 	    }
@@ -12356,7 +12390,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking linear"
 	      SrcPort		      2
-	      Points		      [35, 0; 0, -210]
+	      Points		      [40, 0; 0, -210]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      11
 	    }
@@ -12364,7 +12398,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking nonlinear"
 	      SrcPort		      1
-	      Points		      [55, 0; 0, -320]
+	      Points		      [60, 0; 0, -320]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      12
 	    }
@@ -12372,7 +12406,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking nonlinear"
 	      SrcPort		      2
-	      Points		      [75, 0; 0, -415]
+	      Points		      [80, 0; 0, -415]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      13
 	    }
@@ -12441,7 +12475,7 @@ Library {
 	      Ports		      [3, 1]
 	      Position		      [100, 40, 140, 80]
 	      BackgroundColor	      "darkGreen"
-	      LibraryVersion	      "1.779"
+	      LibraryVersion	      "1.780"
 	      SourceBlock	      "library/Vehicle Models/Einspurmodell + Relativposition (exakt)"
 	      SourceType	      "SubSystem"
 	    }
