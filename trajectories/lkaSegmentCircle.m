@@ -1,29 +1,22 @@
 classdef lkaSegmentCircle < lkaSegment
-% LKASEGMENTCIRCLE  Create circular street section.
-%   _______
-%   Syntax:
-%   out = LKASEGMENTCIRCLE(deltaSet,angleStart,angleStop,radius)
-%   ________________
-%   Input arguments:
-%   deltaSet ..... (opt.) see superclass
-%   angleStart ... Angle of normal at starting point 'xyStart' [rad]
-%   angleStop .... Angle of normal at end point 'xyStop' [rad]    
-%   radius ....... Radius of circular segment (>0) [m]
-%   _________________
-%   Output arguments:
-%   see superclass
-% 
-%   draws a circle of radius 'radius' 
-%   .) clockwise if 'angleStart' > 'angleStop' with curvature < 0
-%   .) counter-clockwise if 'angleStart' < 'angleStop' with curvature > 0
+%LKASEGMENTCIRCLE 	Create circular street segment.
+%	
+%   SEG = LKASEGMENTCIRCLE(DELTASET,ANGLESTART,ANGLESTOP,RADIUS) creates a
+%   circular street segment of radius RADIUS>0 starting at the angle
+%   ANGLESTART and finishing at the angle ANGLESTOP
+%    .) clockwise if ANGLESTART > ANGLESTOP with curvature < 0,
+%	 .) counter-clockwise if ANGLESTART < ANGLESTOP with curvature > 0.
+%	
+%	SEG = LKASEGMENTCIRCLE([],ANGLESTART,ANGLESTOP,RADIUS) applies the
+%	default value for DELTASET (see superclass LKASEGMENT).
 % 
 %   See also LKASEGMENT.
 % 
 
 % Subject: lka
-% Author: $Author: georgnoname@gmail.com $
-% Date: $LastChangedDate: 2015-04-10 09:40:31 +0200 (Fr, 10 Apr 2015) $
-% Revision: $Revision: 157 $
+% Author: $Author$
+% Date: $LastChangedDate$
+% Revision: $Revision$
 
 
 
@@ -57,10 +50,9 @@ classdef lkaSegmentCircle < lkaSegment
     %%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %%% CONSTRUCTOR & Co
+    %%% CONSTRUCTOR
     methods
         
-        %%% Constructor
         function obj = lkaSegmentCircle(deltaSet,angleStart,angleStop,radius)
             
             % call superclass constructor
@@ -81,7 +73,7 @@ classdef lkaSegmentCircle < lkaSegment
             
         end%Constructor
         
-    end%methods
+    end%CONSTRUCTOR-methods
     
     
     %%% GET-Methods

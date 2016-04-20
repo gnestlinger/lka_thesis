@@ -1,24 +1,20 @@
 classdef lkaSegmentStraight < lkaSegment
-% LKASEGMENTSTRAIGHT    Create straight street section.
-%   _______
-%   Syntax:
-%   out = LKASEGMENTSTRAIGHT(deltaSet,length,angle)
-%   ________________
-%   Input arguments:
-%   deltaSet ... (opt.) see superclass
-%   length ..... length of segment [m]
-%   angle ...... angle of segment [rad]
-%   _________________
-%   Output arguments:
-%   see superclass
-% 
-%   See also LKASEGMENT.
+%LKASEGMENTSTRAIGHT		Create straight street segment.
+%
+%	SEG = LKASEGMENTSTRAIGHT(DELTASET,LENGTH,ANGLE) creates a straight
+%	street segment SEG of length LENGTH and orientation ANGLE. Each two
+%	nearby street segment points have a distance of at most DELTASET.
+%	
+%	SEG = LKASEGMENTSTRAIGHT([],LENGTH,ANGLE) applies the default value
+%	for DELTASET (see superclass LKASEGMENT).
+%
+%	See also LKASEGMENT.
 % 
 
 % Subject: lka
-% Author: $Author: georgnoname@gmail.com $
-% Date: $LastChangedDate: 2015-04-10 09:40:31 +0200 (Fr, 10 Apr 2015) $
-% Revision: $Revision: 157 $
+% Author: $Author$
+% Date: $LastChangedDate$
+% Revision: $Revision$
 
 
 
@@ -43,7 +39,7 @@ classdef lkaSegmentStraight < lkaSegment
     %%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %%% CONSTRUCTOR & Co
+    %%% CONSTRUCTOR
     methods
         
         %%% Constructor
@@ -70,12 +66,11 @@ classdef lkaSegmentStraight < lkaSegment
 %         end%fcn
         
         
-    end%methods
+    end%CONSTRUCTOR-methods
     
     
     %%% GET-Methods
     methods
-         
     end%GET-Methods
     
     

@@ -1,29 +1,49 @@
 classdef lkaSegment
-%LKASEGMENT    Superclass to create a path of street sections.
-%   
-%   LKASEGMENT(SEGMENTTYPE,DELTASET,XYSTART) (just used by subclasses)
-%   
-%   Input arguments:
-%   SEGMENTTYPE ... string indicating the type of the segment
-%   DELTASET ...... desired distance between nearby points of segment [m]
-%   XYSTART ....... starting point of segment [m]
-%   
-%   
-%   This class is not user-facing and cannot be instantiated!
-%   User-facing subclasses include:
-%     * Straight segments: LKASEGMENTSTRAIGHT
-%     * Circular segments: LKASEGMENTCIRCLE
-%     * Clothoid segments: LKASEGMENTCLOTHOID
-%   
-%   See also LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
-%   LKASEGMENTCLOTHOID, SEGDAT.
+%LKASEGMENT 	Superclass to create a path of street segments.
+%	
+%	This class is not user-facing and cannot be instantiated!
+%	User-facing subclasses include:
+%	  * Straight segments: LKASEGMENTSTRAIGHT
+%	  * Circular segments: LKASEGMENTCIRCLE
+%	  * Clothoid segments: LKASEGMENTCLOTHOID
+%	
+%	LKASEGMENT Properties:
+%	 segmentType - Name of the segment type.
+%	 deltaSet	 - Desired distance between nearby points of segment.
+%	 deltaAct	 - Actual distance between nearby points of segment.
+%	 nbrOfPoints - Number of points representing the segment.
+%	 xyStart	 - Coordinate of segment data starting point.
+%	 xyStop		 - Coordinate of segment data end point.
+%	 segmentData - The segment data.
+%	
+%	LKASEGMENT Methods:
+%	 resample	 - Apply a new value for DELTASET.
+%	 shift		 - Shift segment.
+%	 plot		 - Plot segment.
+%	 plottangent - Plot segment and tangents of specified segment points.
+%	 plotdiff	 - Plot segment using segment-type specific plot styles.
+%	
+%	--- (just used by subclasses) ---------------------------------------
+%	OBJ = LKASEGMENT(SEGMENTTYPE,DELTASET,XYSTART) sets the segment type
+%	SEGMENTTYPE, the desired 
+%	
+%	OBJ = LKASEGMENT(SEGMENTTYPE,[],XYSTART) applies the default value
+%	for DELTASET.
+%	----------------------------------------------------------------------
+%	
+%	See also LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE, LKASEGMENTCLOTHOID,
+%	SEGDAT.
 % 
 
 % Subject: lka
-% Author: $Author: georgnoname@gmail.com $
-% Date: $LastChangedDate: 2015-07-28 15:52:23 +0200 (Di, 28 Jul 2015) $
-% Revision: $Revision: 176 $
+% Author: $Author$
+% Date: $LastChangedDate$
+% Revision: $Revision$
 
+
+% DEVELOPMENT NOTES:
+%	(1) get rid of property DESIGNPROPERTIES? Is it necessary?
+%	(2) set GetAccess=protected for proterties ROTMATX/Y?
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%% PROPERTIES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -33,7 +53,7 @@ classdef lkaSegment
         
         % segmentTypeValid - Valid segment types.
         %
-        % Cell of strings defining the valid segment types
+        % Cell of strings defining the valid segment types.
         %
         segmentTypeValid = {'connected','straight','circle','clothoid'};
         
@@ -81,20 +101,35 @@ classdef lkaSegment
         %
         segmentType; %segment info data
         
-        % deltaSet - Intended distance between two consecutive points [m].
-        deltaSet = 0.2; %segment design data
+        % deltaSet - Desired distance between two consecutive points [m].
+		%
+		%	The desired distance DELTASET between two consecutive points
+		%	can not always be fullfilled exactly (depending on the other
+		%	street segment design parameters) and is therefore treated as
+		%	an upper bound.
+		%	
+		%	The default value is DELTASET = 1.
+		%
+        deltaSet = 1; %segment design data
         
     end
     
     
     properties (Dependent, SetAccess = private)
         
-        % deltaAct - Actual distance between two consecutive points [m].
+        % deltaAct - Actual distance between two nearby points [m].
         %   
+		%	Currently used distance between two nearby segment points. This
+		%	value will in general differ from the desired distance
+		%	DELTASET.
+		%	
         deltaAct; %segment design data
         
-        % nbrOfPoints - Number of segment-points to match 'deltaSet'.
-        %   
+        % nbrOfPoints - Number of segment-points [-].
+		%	
+		%	This is the minimum and currently used number of segment points
+		%	required, to fullfill DELTAACT < DELTASET.
+		%	
         nbrOfPoints; %segment info data
         
     end
@@ -139,7 +174,6 @@ classdef lkaSegment
     %%% CONSTRUCTOR
     methods
         
-        %%% Constructor
         function obj = lkaSegment(segmentType,deltaSet,xyStart)
             
             obj.segmentType = segmentType;
@@ -149,7 +183,7 @@ classdef lkaSegment
             
             obj.xyStart = xyStart;
              
-        end%fcn
+        end%Constructor
         
     end%CONSTRUCTOR-methods
     
@@ -159,13 +193,12 @@ classdef lkaSegment
              
         %%% shift segment to xyStart point
         function obj = shift(obj,point)
-        %SHIFT  Shift the street section.
-        %   SHIFT(OBJ,POINT) shifts the starting point of street section
-        %   OBJ to POINT.
+        %SHIFT  Shift the street segment.
+        %   OBJ = SHIFT(OBJ,POINT) shifts the starting point of street
+        %   segment OBJ to coordinate POINT.
         %
-        %   SHIFT(OBJ) uses the origin [0,0] for POINT.
+        %   OBJ = SHIFT(OBJ) shifts to the origin [0,0].
         %
-        
         
             if nargin < 2
                 point = [0,0];
@@ -179,22 +212,23 @@ classdef lkaSegment
         %%% resample the segment with new delta
         function obj = resample(obj,deltaNew)
         %RESAMPLE   Apply a desired distance between points.
-        %   RESAMPLE(OBJ,DELTA) sets the maximum distance between two
-        %   nearby points of street section OBJ to be DELTANEW.
+        %   OBJ = RESAMPLE(OBJ,DELTANEW) sets the maximum distance between
+        %   two nearby points of street segment OBJ to DELTANEW.
         %
         
-           
             obj.deltaSet = deltaNew;
             
         end%fcn
         
         
-        %%% connect street sections
+        %%% connect street segments
         function obj = plus(obj1,obj2)
         %+ Plus.
         %   OBJ1 + OBJ2 works on the property 'segmentData' and connects
         %   the starting point of OBJ2 to the end point of OBJ1. The result
         %   is of subclass lkaSegmentConnect.
+		%	
+		%	Note that here + is a non-commutative operation!
         %
         %   See also LKASEGMENTCONNECT.
         
@@ -263,14 +297,21 @@ classdef lkaSegment
         
         
             %%% handle input arguments
-            if nargin < 2; fh = @(x) diff(x.type); end%if
-            
-            if ~isa(fh,'function_handle')
-                error('class')
-            end%if
-            
-            %%% call segDat-class  method
-            h = plotdiff(obj.segmentData,fh);
+			if nargin < 2; 
+				fh = @(x) diff(x.type);
+				
+				%%% call segDat-class  method
+				h = plotdiff(obj.segmentData);
+				
+			else
+				
+				if ~isa(fh,'function_handle')
+					error('class');
+				end%if
+				
+				%%% call segDat-class  method
+				h = plotdiff(obj.segmentData,fh);
+			end%if
         
         end%fcn
         
