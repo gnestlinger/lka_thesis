@@ -1,22 +1,17 @@
 classdef lkaSegmentConnect < lkaSegment
-% LKASEGMENTCONNECT    create straight segment
-%   _______
-%   Syntax:
-%   out = LKASEGMENTCONNECT(segdat) (just used by superclass-methods)
-%   ________________
-%   Input arguments:
-%   segdat ..... object of class segDat
-%   _________________
-%   Output arguments:
-%   see superclass
-% 
+%LKASEGMENTCONNECT	Create connected segments.
+%	
+%	--- (just used by subclasse-methods) ---------------------------------
+%	SEG = LKASEGMENTCONNECT(SEGDAT) stores the segment data SEGDAT object.
+%	----------------------------------------------------------------------
+%	
 %   See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
 %   LKASEGMENTCLOTHOID.
 
 % Subject: lka
-% Author: $Author: georgnoname@gmail.com $
-% Date: $LastChangedDate: 2015-04-10 09:40:31 +0200 (Fr, 10 Apr 2015) $
-% Revision: $Revision: 157 $
+% Author: $Author$
+% Date: $LastChangedDate$
+% Revision: $Revision$
 
 
 
@@ -49,10 +44,9 @@ classdef lkaSegmentConnect < lkaSegment
     end
     
     
-    %%% CONSTRUCTOR & Co
+    %%% CONSTRUCTOR
     methods
         
-        %%% Constructor
         function obj = lkaSegmentConnect(segmentData)
             
             % call superclass constructor
@@ -61,15 +55,19 @@ classdef lkaSegmentConnect < lkaSegment
             obj.segmentDataConnected = segmentData;
             obj.nbrOfPointsConnected = length(obj.segmentDataConnected.x);
             
-            
-        end%Constructor  
-        
-        
+        end%Constructor
+		
+    end%CONSTRUCTOR-methods
+    
+    
+    %%% User-facing methods
+    methods
+         
         %%% redefine superclass-method
         function obj = shift(obj,point)
-        %SHIFT  Shift the street section.
+        %SHIFT  Shift the street segment.
         %   For objects of class LKASEGMENTCONNECT, shifting the starting
-        %   point of the street section is not possible.
+        %   point of the street segment is not possible.
         %
         
         
@@ -92,25 +90,24 @@ classdef lkaSegmentConnect < lkaSegment
         function obj = resample(obj,deltaNew)
         %RESAMPLE   Apply a set distance between points.
         %   For objects of class LKASEGMENTCONNECT, resampling the
-        %   connected street section is not possible.
+        %   connected street segment is not possible.
         
            
-            msg = ['You are trying to resample a connected street section ',...
+            msg = ['You are trying to resample a connected street segment ',...
                 'with a current average delta of %.2f ',...
                 'with a new delta of %.2f.\n'];
             msg = sprintf(msg,obj.deltaAct,deltaNew);
             
             errmsg = ['For objects of class lkaSegmentConnect, ',...
-                'resampling the street section is not allowed!'];
+                'resampling the street segment is not allowed!'];
             error([msg,errmsg]);
             
         end%fcn
-        
-        
+         
     end%methods
-    
-    
-    %%% GET-Methods
+	
+	
+	%%% GET-Methods
     methods
         
         function value = get.length(obj)

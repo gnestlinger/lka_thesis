@@ -1,35 +1,32 @@
 classdef lkaSegmentClothoid < lkaSegment
-% LKASEGMENTCLOTHOID    Create clothoidal street section.
-%   _______
-%   Syntax:
-%   out = LKASEGMENTCLOTHOID(deltaSet,curvStart,curvStop,slopeStart,A)
-%   ________________
-%   Input arguments:
-%   deltaSet ..... (opt.) see superclass
-%   curvStart .... Clothoid curvature at starting point 'xyStart' [1/m]
-%   curvStop ..... Clothoid curvature at endpoint 'xyStop' [1/m]
-%   slopeStart ... Slope of clothoid at starting point 'xyStart' [rad]
-%   A ............ Clothoid parameter A^2 = R*s, where R is the radius and 
-%                  s the corresponding length of curve [m]
-%                   > 0 ... Curvature counter-clockwise
-%                   < 0 ... Curvature clockwise
-%   _________________
-%   Output arguments:
-%   see superclass
+%LKASEGMENTCLOTHOID		Create clothoidal street segment.
+%	
+%	SEG = LKASEGMENTCLOTHOID(DELTASET,CURVSTART,CURVSTOP,SLOPESTART,A)
+%	creates a clothoidal shaped street segment with an initial/end
+%	curvature CURVSTART/CURVSTOP, an initial slope SLOPESTART and the
+%	clothoid parameter A.
+%	
+%	Interpretation of the clothoid parameter A: a clothiods curvature k is
+%	proportional to its length s by k = s/A^2.
+%		A > 0: Curvature counter-clockwise
+%		A < 0: Curvature clockwise
+%	
+%	SEG = LKASEGMENTCLOTHOID([],CURVSTART,CURVSTOP,SLOPESTART,A) applies
+%	the default value for DELTASET (see superclass LKASEGMENT).
 % 
 %   See also LKASEGMENT.
 % 
 
 % Subject: lka
-% Author: $Author: georgnoname@gmail.com $
-% Date: $LastChangedDate: 2015-04-10 09:40:31 +0200 (Fr, 10 Apr 2015) $
-% Revision: $Revision: 157 $
+% Author: $Author$
+% Date: $LastChangedDate$
+% Revision: $Revision$
 
 
 
     properties (Constant, Hidden)
         
-        % user-adjustable design properties for clothoidal street section
+        % user-adjustable design properties for clothoidal street segment
         designProperties = {'curvStart','curvStop','slopeStart','A'};
         
         % clothoid relation of curve length as function of curvature
@@ -95,7 +92,6 @@ classdef lkaSegmentClothoid < lkaSegment
     %%% CONSTRUCTOR & Co
     methods
         
-        %%% Constructor
         function obj = lkaSegmentClothoid(deltaSet,curvStart,curvStop,slopeStart,A)
             
             % call superclass constructor
@@ -109,14 +105,14 @@ classdef lkaSegmentClothoid < lkaSegment
             
         end%Constructor
         
-    end%methods
+    end%CONSTRUCTOR-methods
     
     
     %%% GET-Methods
     methods
             
         function value = get.length(obj)
-        % get the length of street section
+        % get the length of street segment
             
             value = abs(obj.sStop - obj.sStart);
             
@@ -205,7 +201,6 @@ classdef lkaSegmentClothoid < lkaSegment
     
     
     methods (Access = protected)
-        
         
         %%% get the number of segment points
         function value = getNbrOfPoints(obj)
