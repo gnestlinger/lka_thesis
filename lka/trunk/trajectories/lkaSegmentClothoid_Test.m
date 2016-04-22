@@ -29,19 +29,19 @@ ind = [1,101,201,401,701];
 col = {'r','g'};
 
 sbplt(1);
-tangent(a,ind,col{:});
+plottangent(a,ind,col{:});
 title('a: should turn counter-clockwise');
 
 sbplt(3); 
-tangent(b,ind,col{:});
+plottangent(b,ind,col{:});
 title('b: should turn clockwise');
 
 sbplt(2);
-tangent(c,ind,col{:});
+plottangent(c,ind,col{:});
 title('c: should turn counter-clockwise');
 
 sbplt(4);
-tangent(d,ind,col{:});
+plottangent(d,ind,col{:});
 title('d: should turn clockwise');
 
 
