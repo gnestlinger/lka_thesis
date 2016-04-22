@@ -66,6 +66,9 @@ classdef lkaSegmentClothoid < lkaSegment
     
     
     properties (Constant, Hidden)
+		
+		% squared root of pi
+        sqrtPi = 1.7724538509055160272981674833411451827975494561223871282;
         
         % clothoid integrand (parameterized form)
         intx = @(t) cos(pi.*t.^2./2);
@@ -78,8 +81,10 @@ classdef lkaSegmentClothoid < lkaSegment
             - t^14/factorial(14) + t^16/factorial(16) ...
             - t^18/factorial(18) + t^20/factorial(20);
         
-        % squared root of pi
-        sqrtPi = sqrt(pi);
+		clothx = @(A,k,t0,t1) abs(A)*lkaSegmentClothoid.sqrtPi*...
+			quad(lkaSegmentClothoid.intx,t0,t1)*sign(k);
+		clothy = @(A,k,t0,t1) abs(A)*lkaSegmentClothoid.sqrtPi*...
+			quad(lkaSegmentClothoid.inty,t0,t1)*sign(A);
         
     end
     
@@ -225,21 +230,17 @@ classdef lkaSegmentClothoid < lkaSegment
 			
             % get sign of clothoid parameter A
             signA = sign(obj.A);
-            obj.A = abs(obj.A);
+            absA = abs(obj.A);
             
-            % 
-            if obj.curvStart > obj.curvStop; 
-                signk = -1; 
-            else
-                signk = 1; 
-            end
+            % get the sign of clothoid curvature
+ 			signk = sign(obj.curvStop - obj.curvStart);
             
             % get dependent property 'nbrOfPoints'
             nbrOfPointsDEP = obj.nbrOfPoints;
             
             % pre-calculation
             s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)';
-            l = s/(obj.A*obj.sqrtPi)*signk;
+            l = s/(absA*obj.sqrtPi)*signk;
             
             % pre-allocation
             length_l = length(l);
@@ -247,13 +248,13 @@ classdef lkaSegmentClothoid < lkaSegment
             cloth.y(length_l,1) = 0;
             
             % num. integration
-            cloth.x(1) = obj.A*obj.sqrtPi*quad(obj.intx,0,l(1))*signk;
-            cloth.y(1) = obj.A*obj.sqrtPi*quad(obj.inty,0,l(1))*signA;
+			cloth.x(1) = obj.clothx(obj.A,signk,0,l(1));
+			cloth.y(1) = obj.clothy(obj.A,signk,0,l(1));
 			done_percent_old = 0;
 			fprintf('    ');
             for i = 2:length_l
-                cloth.x(i) = cloth.x(i-1) + obj.A*obj.sqrtPi*quad(obj.intx,l(i-1),l(i))*signk;
-                cloth.y(i) = cloth.y(i-1) + obj.A*obj.sqrtPi*quad(obj.inty,l(i-1),l(i))*signA;
+				cloth.x(i) = cloth.x(i-1) + obj.clothx(obj.A,signk,l(i-1),l(i));
+				cloth.y(i) = cloth.y(i-1) + obj.clothy(obj.A,signk,l(i-1),l(i));
 				done_percent = i/length_l*100;
 				delta = 2;
 				if round(done_percent-done_percent_old) > delta
@@ -266,8 +267,8 @@ classdef lkaSegmentClothoid < lkaSegment
             
             % derivative to compute tangent vector
             % http://mathworld.wolfram.com/TangentVector.html
-            xD = obj.A*obj.sqrtPi*obj.intx(l)*signk;
-            yD = obj.A*obj.sqrtPi*obj.inty(l)*signA;
+            xD = absA*obj.sqrtPi*obj.intx(l)*signk;
+            yD = absA*obj.sqrtPi*obj.inty(l)*signA;
             tang.x = xD./sqrt(xD.^2+yD.^2);
             tang.y = yD./sqrt(xD.^2+yD.^2);
             
@@ -299,7 +300,7 @@ classdef lkaSegmentClothoid < lkaSegment
             y = cloth.rot.y + yShift;
             sCloth = sort(abs(s));
             sOut = sCloth - sCloth(1);
-            k = s/obj.A^2*signA;
+            k = s/absA^2*signA;
             phi = unwrap(angle(tang.rot.x + 1i*tang.rot.y));%(s).^2/(2*obj.A^2);
             type = 2*ones(nbrOfPointsDEP,1);
             nbr = ones(nbrOfPointsDEP,1);
