@@ -125,7 +125,6 @@ classdef lkaSegmentStraight < lkaSegment
         %%% create straight segment based on object data
         function segdat = getSegmentData(obj)
             
-            disp('*** straight calculation ***')
             
             % get dependent property 'xyStop'
             xyStopDEP = obj.xyStop;

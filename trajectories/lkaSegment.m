@@ -297,14 +297,12 @@ classdef lkaSegment
         
         
             %%% handle input arguments
-			if nargin < 2; 
-				fh = @(x) diff(x.type);
+			if nargin < 2;
+% 				fh = @(x) diff(x.type);
 				
 				%%% call segDat-class  method
 				h = plotdiff(obj.segmentData);
-				
 			else
-				
 				if ~isa(fh,'function_handle')
 					error('class');
 				end%if
@@ -355,8 +353,13 @@ classdef lkaSegment
         
         function segdat = get.segmentData(obj)
             
+			disp(['*** Calculation started (',obj.segmentType,')'])
+			
             % call abstract method
             segdat = getSegmentData(obj);
+			
+			disp('*** Calculation finished!')
+			fprintf('\n')
             
         end%fcn
         

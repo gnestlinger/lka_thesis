@@ -115,7 +115,7 @@ classdef lkaSegmentClothoid < lkaSegment
         % get the length of street segment
             
             value = abs(obj.sStop - obj.sStart);
-            
+					
         end%fcn
         
         
@@ -206,7 +206,7 @@ classdef lkaSegmentClothoid < lkaSegment
         function value = getNbrOfPoints(obj)
             % calc the number of points of segment to match 'deltaSet'
             
-            value = ceil(abs(obj.sStop-obj.sStart)/obj.deltaSet) + 1;
+            value = ceil(obj.length/obj.deltaSet) + 1;
          
         end%fcn
         
@@ -220,10 +220,9 @@ classdef lkaSegmentClothoid < lkaSegment
         
         
         %%% create clothoid segment based on object data
-        function segdat = getSegmentData(obj)
+        function segdat = getSegmentData(obj)            
             
-            disp('*** clothoid calculation ***')
-            
+			
             % get sign of clothoid parameter A
             signA = sign(obj.A);
             obj.A = abs(obj.A);
@@ -250,10 +249,20 @@ classdef lkaSegmentClothoid < lkaSegment
             % num. integration
             cloth.x(1) = obj.A*obj.sqrtPi*quad(obj.intx,0,l(1))*signk;
             cloth.y(1) = obj.A*obj.sqrtPi*quad(obj.inty,0,l(1))*signA;
+			done_percent_old = 0;
+			fprintf('    ');
             for i = 2:length_l
                 cloth.x(i) = cloth.x(i-1) + obj.A*obj.sqrtPi*quad(obj.intx,l(i-1),l(i))*signk;
                 cloth.y(i) = cloth.y(i-1) + obj.A*obj.sqrtPi*quad(obj.inty,l(i-1),l(i))*signA;
+				done_percent = i/length_l*100;
+				delta = 2;
+				if round(done_percent-done_percent_old) > delta
+% 					disp([num2str(done_percent),'% '])
+					fprintf('%d%% ',round(done_percent));
+					done_percent_old = done_percent;
+				end%if
             end%for
+			fprintf('%d%% \n',100);
             
             % derivative to compute tangent vector
             % http://mathworld.wolfram.com/TangentVector.html
@@ -267,9 +276,9 @@ classdef lkaSegmentClothoid < lkaSegment
             slopeStartDue2curvStart = angle(tang.x(1) + 1i*tang.y(1)); % falls curvStart ~= 0
             slopeStartDue2curvStart2 = mod(obj.phiOfCurvature(obj.A,obj.curvStart),2*pi);
             if slopeStartDue2curvStart == slopeStartDue2curvStart2
-                disp('*** is equal')
+                disp('    is equal')
             else 
-                disp('*** is NOT equal')
+                disp('    is NOT equal')
             end%if
             alph = (obj.slopeStart - slopeStartDue2curvStart);
             

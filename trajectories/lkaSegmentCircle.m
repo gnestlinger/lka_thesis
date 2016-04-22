@@ -144,12 +144,9 @@ classdef lkaSegmentCircle < lkaSegment
         %%% get the number of segment points
         function value = getNbrOfPoints(obj)
             % calc the number of elements of segment to match 'deltaSet'
-                    
-            % length of circle sector circumference
-            circumference = (obj.angleStop-obj.angleStart)*obj.radius;
             
             % the number of required points to match 'deltaSet'
-            value = ceil(abs(circumference)/obj.deltaSet) + 1;
+            value = ceil(obj.length/obj.deltaSet) + 1;
          
         end%fcn
         
@@ -167,7 +164,6 @@ classdef lkaSegmentCircle < lkaSegment
         %%% create circular segment based on object data
         function segdat = getSegmentData(obj)
             
-            disp('*** circle calculation ***')
             
 %             % ensure column-vectors
 %             obj.xyStart = lkaSegment.col(obj.xyStart);
