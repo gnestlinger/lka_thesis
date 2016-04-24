@@ -38,7 +38,7 @@ t = lka_trajectory_03;
 
 a = lkaSegmentStraight([],50,0);
 b = lkaSegmentClothoid([],0,0.005,0,400);
-c = lkaSegmentClothoid([],b.segmentData.k(end),0,b.segmentData.phi(end),-400);
+c = lkaSegmentClothoid([],-b.segmentData.k(end),0,b.segmentData.phi(end),400);
 d = lkaSegmentStraight([],50,0);
 p = a + b + c + d;
 
@@ -50,7 +50,7 @@ t = lka_trajectory_04;
 
 a = lkaSegmentStraight([],100,0);
 b = lkaSegmentClothoid([],0,0.004,0,300);
-c = lkaSegmentClothoid([],b.segmentData.k(end),0,b.segmentData.phi(end),-300);
+c = lkaSegmentClothoid([],-b.segmentData.k(end),0,b.segmentData.phi(end),300);
 d = lkaSegmentStraight([],100,0);
 p = a + b + c + d;
 
@@ -125,11 +125,11 @@ c = lkaSegmentClothoid([],1/200,1/100,pi/2,A);
 A = sqrt(157.06^2/(2*(2*pi/360*45)));
 d = lkaSegmentClothoid([],1/100,0,3/4*pi,A);
 
-A = -sqrt(3140.6^2/(2*(2*pi/360*300)));
-e = lkaSegmentClothoid([],0,1/300,pi,A);
+A = sqrt(3140.6^2/(2*(2*pi/360*300)));
+e = lkaSegmentClothoid([],0,-1/300,pi,A);
 
-A = -sqrt(209.4^2/(2*(2*pi/360*20)));
-f = lkaSegmentClothoid([],1/300,0,-2.0911,A);
+A = sqrt(209.4^2/(2*(2*pi/360*20)));
+f = lkaSegmentClothoid([],-1/300,0,-2.0911,A);
 
 g = lkaSegmentStraight([],500,2*pi/360*(180-320));
 

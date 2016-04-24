@@ -20,10 +20,10 @@ curvStop = 0.04;
 slopeStart = 0;
 A = 100;
 
-a = lkaSegmentClothoid(delta,curvStart,curvStop,slopeStart,A);
-b = lkaSegmentClothoid(delta,curvStart,curvStop,slopeStart,-A);
-c = lkaSegmentClothoid(delta,curvStop,curvStart,slopeStart,A);
-d = lkaSegmentClothoid(delta,curvStop,curvStart,slopeStart,-A);
+a = lkaSegmentClothoid(delta,+curvStart,+curvStop,slopeStart,A);
+b = lkaSegmentClothoid(delta,-curvStart,-curvStop,slopeStart,A);
+c = lkaSegmentClothoid(delta,+curvStop,+curvStart,slopeStart,A);
+d = lkaSegmentClothoid(delta,-curvStop,-curvStart,slopeStart,A);
 
 ind = [1,101,201,401,701];
 col = {'r','g'};

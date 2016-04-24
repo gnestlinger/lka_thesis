@@ -33,7 +33,10 @@ classdef lkaSegmentClothoid < lkaSegment
         sOfCurvature = @(A,curvature) A^2*curvature;
         
         % clothoid relation of tangent angle as function of curvature
-        phiOfCurvature = @(A,curvature) A^2*curvature;
+        phiOfCurvature = @(A,curvature) A^2*curvature^2/2;
+        % k = s/A^2 and phi = s^2/(2*A^2) -> phi = A^2*k^2/2
+        
+        phiOfLength = @(A,s) s^2/(2*A^2);
         
     end
     
@@ -70,6 +73,9 @@ classdef lkaSegmentClothoid < lkaSegment
 		% squared root of pi
         sqrtPi = 1.7724538509055160272981674833411451827975494561223871282;
         
+		% asymptotic points
+		P_asymptotic = @(A) A*lkaSegmentClothoid.sqrtPi/2*[1;1];
+		
         % clothoid integrand (parameterized form)
         intx = @(t) cos(pi.*t.^2./2);
         inty = @(t) sin(pi.*t.^2./2);
@@ -189,6 +195,14 @@ classdef lkaSegmentClothoid < lkaSegment
                 error('numel(A) ~= 1');
             end%if
             
+			% limit to A > 0
+			if value <= 0
+				warning('lkaSegmentClothoid:A:valueRange',...
+					['Clothoid Parameter ''A'' has to be positive.',...
+					'Using the absolute value of the provided value.']);
+				value = -value;
+			end%if
+			
             % set value
             obj.A = value;
             
@@ -205,6 +219,26 @@ classdef lkaSegmentClothoid < lkaSegment
     end%SET-Methods
     
     
+	methods
+		
+		function plotasypoints(obj)
+			
+			plot(obj);
+			Pasy = obj.P_asymptotic(obj.A);
+			
+			if obj.curvStop < 0
+				Pasy(2) = -Pasy(2);
+			end%if
+			
+			hold on
+			plot(Pasy(1),Pasy(2),'rx');
+			hold off 
+			
+		end
+		
+	end%methods
+
+
     methods (Access = protected)
         
         %%% get the number of segment points
@@ -227,7 +261,7 @@ classdef lkaSegmentClothoid < lkaSegment
         %%% create clothoid segment based on object data
         function segdat = getSegmentData(obj)            
             
-			
+			% TODO: can be removed since A is limited to A>0
             % get sign of clothoid parameter A
             signA = sign(obj.A);
             absA = abs(obj.A);
@@ -243,22 +277,20 @@ classdef lkaSegmentClothoid < lkaSegment
             l = s/(absA*obj.sqrtPi)*signk;
             
             % pre-allocation
-            length_l = length(l);
-            cloth.x(length_l,1) = 0;
-            cloth.y(length_l,1) = 0;
+            cloth.x(nbrOfPointsDEP,1) = 0;
+            cloth.y(nbrOfPointsDEP,1) = 0;
             
             % num. integration
 			cloth.x(1) = obj.clothx(obj.A,signk,0,l(1));
 			cloth.y(1) = obj.clothy(obj.A,signk,0,l(1));
 			done_percent_old = 0;
 			fprintf('    ');
-            for i = 2:length_l
+            for i = 2:nbrOfPointsDEP
 				cloth.x(i) = cloth.x(i-1) + obj.clothx(obj.A,signk,l(i-1),l(i));
 				cloth.y(i) = cloth.y(i-1) + obj.clothy(obj.A,signk,l(i-1),l(i));
-				done_percent = i/length_l*100;
+				done_percent = i/nbrOfPointsDEP*100;
 				delta = 2;
 				if round(done_percent-done_percent_old) > delta
-% 					disp([num2str(done_percent),'% '])
 					fprintf('%d%% ',round(done_percent));
 					done_percent_old = done_percent;
 				end%if
