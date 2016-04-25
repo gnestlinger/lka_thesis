@@ -76,6 +76,13 @@ classdef lkaSegment
         %
         rotMatY = @(phi) [sin(phi) +cos(phi)];
         
+		% rotMat - Rotation matrix in R^2.
+		%
+		%	A vector p = [x;y] is rotated by an angle phi counter-clockwise
+		%	by rotMat(phi)*p.
+		%
+		rotMat = @(phi) [lkaSegment.rotMatX(phi);lkaSegment.rotMatY(phi)];
+		
     end
     
     
