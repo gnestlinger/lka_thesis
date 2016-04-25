@@ -316,12 +316,12 @@ classdef lkaSegmentClothoid < lkaSegment
             alph = (obj.slopeStart - slopeStartDue2curvStart);
             
             % rotate clothoid
-            cloth.rot.x = [cloth.x,cloth.y]*obj.rotMatX(alph);
-            cloth.rot.y = [cloth.x,cloth.y]*obj.rotMatY(alph);
+            cloth.rot.x = (obj.rotMatX(alph)*[cloth.x,cloth.y]')';
+            cloth.rot.y = (obj.rotMatY(alph)*[cloth.x,cloth.y]')';
             
             % rotate tangent
-            tang.rot.x = [tang.x,tang.y]*obj.rotMatX(alph);
-            tang.rot.y = [tang.x,tang.y]*obj.rotMatY(alph);
+            tang.rot.x = (obj.rotMatX(alph)*[tang.x,tang.y]')';
+            tang.rot.y = (obj.rotMatY(alph)*[tang.x,tang.y]')';
             
             % shift whole trajectory ([x(1);y(1)] matches xyStart)
             xShift = obj.xyStart(1) - cloth.rot.x(1);
