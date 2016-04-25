@@ -67,16 +67,14 @@ classdef lkaSegment
         %   The x-component of a vector p = [x;y] is rotated by an angle
         %   phi counter-clockwise by rotMatX(phi)*p.
         %   
-        rotMatX = @(phi) [cos(phi); -sin(phi)]; 
-        % should be [cos(phi) -sin(phi) -> affects lkaSegmentClothoid
+        rotMatX = @(phi) [cos(phi) -sin(phi)];
         
         % rotMatY - Rotation matrix y-component.
         %   
         %   The y-component of a vector p = [x;y] is rotated by an angle
         %   phi counter-clockwise by rotMatY(phi)*p.
         %
-        rotMatY = @(phi) [sin(phi); +cos(phi)]; 
-        % should be [sin(phi) cos(phi) -> affects lkaSegmentClothoid
+        rotMatY = @(phi) [sin(phi) +cos(phi)];
         
     end
     
