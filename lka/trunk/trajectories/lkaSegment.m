@@ -60,7 +60,7 @@ classdef lkaSegment
     end
     
     
-    properties (Constant, Hidden)% add GetAccess = protected!?
+    properties (Constant, Hidden, GetAccess = protected)
         
         % rotMatX - Rotation matrix x-component.
         %   
