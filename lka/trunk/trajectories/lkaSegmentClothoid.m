@@ -316,29 +316,30 @@ classdef lkaSegmentClothoid < lkaSegment
             alph = (obj.slopeStart - slopeStartDue2curvStart);
             
             % rotate clothoid
-            cloth.rot.x = (obj.rotMatX(alph)*[cloth.x,cloth.y]')';
-            cloth.rot.y = (obj.rotMatY(alph)*[cloth.x,cloth.y]')';
+            cloth.x_rot = (obj.rotMatX(alph)*[cloth.x,cloth.y]')';
+            cloth.y_rot = (obj.rotMatY(alph)*[cloth.x,cloth.y]')';
             
             % rotate tangent
-            tang.rot.x = (obj.rotMatX(alph)*[tang.x,tang.y]')';
-            tang.rot.y = (obj.rotMatY(alph)*[tang.x,tang.y]')';
+            tang.x_rot = (obj.rotMatX(alph)*[tang.x,tang.y]')';
+            tang.y_rot = (obj.rotMatY(alph)*[tang.x,tang.y]')';
             
-            % shift whole trajectory ([x(1);y(1)] matches xyStart)
-            xShift = obj.xyStart(1) - cloth.rot.x(1);
-            yShift = obj.xyStart(2) - cloth.rot.y(1);
+            % shift whole trajectory so [x(1);y(1)] matches xyStart
+            xShift = obj.xyStart(1) - cloth.x_rot(1);
+            yShift = obj.xyStart(2) - cloth.y_rot(1);
             
             % output arguments
-            x = cloth.rot.x + xShift;
-            y = cloth.rot.y + yShift;
+            x = cloth.x_rot + xShift;
+            y = cloth.y_rot + yShift;
             sCloth = sort(abs(s));
             sOut = sCloth - sCloth(1);
             k = s/absA^2*signA;
-            phi = unwrap(angle(tang.rot.x + 1i*tang.rot.y));%(s).^2/(2*obj.A^2);
-            type = 2*ones(nbrOfPointsDEP,1);
-            nbr = ones(nbrOfPointsDEP,1);
+            phi = unwrap(angle(tang.x_rot + 1i*tang.y_rot));%(s).^2/(2*obj.A^2);
             
             % store data in segDat class
-            segdat = segDat(x,y,sOut,k,phi,type,nbr);
+            segdat = segDat(x,y,sOut,k,phi,...
+				2*ones(nbrOfPointsDEP,1),... % type
+				1*ones(nbrOfPointsDEP,1) ... % segment number
+				); 
             
         end%fcn
         
