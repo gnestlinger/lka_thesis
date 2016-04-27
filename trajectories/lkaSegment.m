@@ -42,8 +42,8 @@ classdef lkaSegment
 
 
 % DEVELOPMENT NOTES:
-%	(1) get rid of property DESIGNPROPERTIES? Is it necessary?
-%	(2) set GetAccess=protected for proterties ROTMATX/Y?
+%	(1) get rid of property DESIGNPROPERTIES? Keep it, is used by
+%	errorMsg_SetDependent.
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%% PROPERTIES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
