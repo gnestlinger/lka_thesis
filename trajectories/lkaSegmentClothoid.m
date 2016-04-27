@@ -197,10 +197,7 @@ classdef lkaSegmentClothoid < lkaSegment
             
 			% limit to A > 0
 			if value <= 0
-				warning('lkaSegmentClothoid:A:valueRange',...
-					['Clothoid Parameter ''A'' has to be positive.',...
-					'Using the absolute value of the provided value.']);
-				value = -value;
+				error('Clothoid parameter ''A'' has to be positive!');
 			end%if
 			
             % set value
@@ -261,11 +258,6 @@ classdef lkaSegmentClothoid < lkaSegment
         %%% create clothoid segment based on object data
         function segdat = getSegmentData(obj)            
             
-			% TODO: can be removed since A is limited to A>0
-            % get sign of clothoid parameter A
-            signA = sign(obj.A);
-            absA = abs(obj.A);
-            
             % get the sign of clothoid curvature
  			signk = sign(obj.curvStop - obj.curvStart);
             
@@ -274,7 +266,7 @@ classdef lkaSegmentClothoid < lkaSegment
             
             % pre-calculation
             s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)';
-            l = s/(absA*obj.sqrtPi)*signk;
+            l = s/(obj.A*obj.sqrtPi)*signk;
             
             % pre-allocation
             cloth.x(nbrOfPointsDEP,1) = 0;
@@ -299,8 +291,8 @@ classdef lkaSegmentClothoid < lkaSegment
             
             % derivative to compute tangent vector
             % http://mathworld.wolfram.com/TangentVector.html
-            xD = absA*obj.sqrtPi*obj.intx(l)*signk;
-            yD = absA*obj.sqrtPi*obj.inty(l)*signA;
+            xD = obj.A*obj.sqrtPi*obj.intx(l)*signk;
+            yD = obj.A*obj.sqrtPi*obj.inty(l);
             tang.x = xD./sqrt(xD.^2+yD.^2);
             tang.y = yD./sqrt(xD.^2+yD.^2);
             
@@ -332,14 +324,14 @@ classdef lkaSegmentClothoid < lkaSegment
             y = cloth.y_rot + yShift;
             sCloth = sort(abs(s));
             sOut = sCloth - sCloth(1);
-            k = s/absA^2*signA;
+            k = s/obj.A^2;
             phi = unwrap(angle(tang.x_rot + 1i*tang.y_rot));%(s).^2/(2*obj.A^2);
             
             % store data in segDat class
             segdat = segDat(x,y,sOut,k,phi,...
 				2*ones(nbrOfPointsDEP,1),... % type
 				1*ones(nbrOfPointsDEP,1) ... % segment number
-				); 
+				);
             
         end%fcn
         
