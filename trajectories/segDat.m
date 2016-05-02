@@ -6,18 +6,18 @@ classdef segDat
 %	using the properties listed below.
 %	
 %	SEGDAT Properties:
-%	 X - x-coordinate [m]
-%	 Y - y-coordinate [m]
-%	 S - length measured from the starting point [x(1);y(1)] [m]
-%	 K - curvature [1/m]
-%	 PHI - angle beetween the positive x-axis and the tangent [rad]
-%	 TYPE - integer indicating the street segment type
-%	 NBR - street segment number of connected segments
+%	 X - x-coordinate [m].
+%	 Y - y-coordinate [m].
+%	 S - Length measured from the starting point [x(1);y(1)] [m].
+%	 K - Curvature [1/m].
+%	 PHI - Angle beetween the positive x-axis and the tangent [rad].
+%	 TYPE - Integer indicating the street segment type.
+%	 NBR - Street segment number of connected segments.
 %	
-%	K > 0 (K < 0) indicates a left (right) turn by moving from P1 -> Pend,
-%	where Pi = [X(i),Y(i)].
+%	K > 0 (K < 0) indicates a left (right) turn by moving from [X(1),Y(1)]
+%	-> [X(end),Y(end)].
 %	
-%	TYPE = 1 indicates a straight, 2 a circular and 3 a clothoidal street
+%	TYPE = 0 indicates a straight, 1 a circular and 2 a clothoidal street
 %	segment.
 %	
 %	NBR is usually 1, but becomes interesting when some street segments are
@@ -172,7 +172,7 @@ classdef segDat
 			h = plot(obj.x,obj.y,plotOpts{:});
 			grid on;
 			axis equal;
-			title('Street segment');
+			title(getLegendCellString(obj));
 			ylabel('y [m]');
 			xlabel('x [m]');
 		
@@ -314,7 +314,7 @@ classdef segDat
 			
 			%%% extend the plot settings to the number of segments to plot
 			n = ceil(nbrInd/size(obj.plotMarker,2));
-			obj.plotMarker = repmat(obj.plotMarker,1,n);
+			plotMarker_ = repmat(obj.plotMarker,1,n);
 			
 			
 			%%% plot the segments with according plot options
@@ -326,8 +326,8 @@ classdef segDat
 				h(i) = plot(obj.x(indi),obj.y(indi),...
 					'LineStyle','none',...
 					'Color',obj.plotColor{obj.type(indi(1))+1},...
-					'Marker',obj.plotMarker{1,i},...
-					'MarkerSize',obj.plotMarker{2,i});
+					'Marker',plotMarker_{1,i},...
+					'MarkerSize',plotMarker_{2,i});
 				
 				hold on
 				
@@ -343,11 +343,37 @@ classdef segDat
 			hold off
 			grid on
 			axis equal
+			title(getLegendCellString(obj));
+			ylabel('y [m]');
+			xlabel('x [m]');
 			
 		end%fcn
 		
 	end%methods
 	
+	
+	methods (Access = private)
+		
+		function cellStr = getLegendCellString(obj)
+			
+			ts = {'straight','circle','clothoid'};
+			if all(obj.type(1) == obj.type)
+				gettype = ts{obj.type(1)+1};
+			else
+				gettype = 'connected';
+			end%if
+			lengthStr = [sprintf('%.2f',obj.s(end)),' m'];
+			pointsStr = sprintf('%.0d',length(obj.s));
+			startStr = sprintf('(%g;%g)',obj.x(1),obj.y(1));
+			endStr = sprintf('(%g;%g)',obj.x(end),obj.y(end));
+			cellStr = {...
+				['Street segment of type ''',gettype,''''],...
+				['length: ',lengthStr,' using ',pointsStr,' points'],...
+				['moves from ',startStr,' \rightarrow ', endStr]};
+			
+		end%fcn
+		
+	end%methods
 	
 	%%% SET-Methods
 	methods
