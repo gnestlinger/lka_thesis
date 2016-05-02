@@ -71,11 +71,11 @@ classdef lkaSegmentClothoid < lkaSegment
     properties (Constant, Hidden)
 		
 		% squared root of pi
-        sqrtPi = 1.7724538509055160272981674833411451827975494561223871282;
-        
+		sqrtPi = 1.7724538509055160272981674833411451827975494561223871282;
+		
 		% asymptotic points
 		P_asymptotic = @(A) A*lkaSegmentClothoid.sqrtPi/2*[1;1];
-		
+        
         % clothoid integrand (parameterized form)
         intx = @(t) cos(pi.*t.^2./2);
         inty = @(t) sin(pi.*t.^2./2);
@@ -195,11 +195,11 @@ classdef lkaSegmentClothoid < lkaSegment
                 error('numel(A) ~= 1');
             end%if
             
-			% limit to A > 0
+            % limit to A > 0
 			if value <= 0
 				error('Clothoid parameter ''A'' has to be positive!');
 			end%if
-			
+            
             % set value
             obj.A = value;
             
@@ -216,26 +216,26 @@ classdef lkaSegmentClothoid < lkaSegment
     end%SET-Methods
     
     
-	methods
-		
-		function plotasypoints(obj)
-			
-			plot(obj);
+    methods
+        
+        function plotasypoints(obj)
+            
+            plot(obj);
 			Pasy = obj.P_asymptotic(obj.A);
 			
 			if obj.curvStop < 0
 				Pasy(2) = -Pasy(2);
 			end%if
 			
-			hold on
-			plot(Pasy(1),Pasy(2),'rx');
-			hold off 
-			
-		end
-		
-	end%methods
-
-
+            hold on
+            plot(Pasy(1),Pasy(2),'rx');
+            hold off 
+        
+        end
+        
+    end%methods
+    
+    
     methods (Access = protected)
         
         %%% get the number of segment points
@@ -259,7 +259,7 @@ classdef lkaSegmentClothoid < lkaSegment
         function segdat = getSegmentData(obj)            
             
             % get the sign of clothoid curvature
- 			signk = sign(obj.curvStop - obj.curvStart);
+			signk = sign(obj.curvStop - obj.curvStart);
             
             % get dependent property 'nbrOfPoints'
             nbrOfPointsDEP = obj.nbrOfPoints;
@@ -300,11 +300,9 @@ classdef lkaSegmentClothoid < lkaSegment
             % with slope ~= 0 at start point
             slopeStartDue2curvStart = angle(tang.x(1) + 1i*tang.y(1)); % falls curvStart ~= 0
             slopeStartDue2curvStart2 = mod(obj.phiOfCurvature(obj.A,obj.curvStart),2*pi);
-            if slopeStartDue2curvStart == slopeStartDue2curvStart2
-                disp('    is equal')
-            else 
-                disp('    is NOT equal')
-            end%if
+            slopeStartDue2curvStart3 = mod(obj.phiOfLength(obj.A,obj.sOfCurvature(obj.A,obj.curvStart)),2*pi);
+            fprintf('    diff off slope start calc.: %.4f\n',...
+				slopeStartDue2curvStart-slopeStartDue2curvStart2);
             alph = (obj.slopeStart - slopeStartDue2curvStart);
             
             % rotate clothoid
