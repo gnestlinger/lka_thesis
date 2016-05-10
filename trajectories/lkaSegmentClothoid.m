@@ -13,8 +13,8 @@ classdef lkaSegmentClothoid < lkaSegment
 %	
 %	SEG = LKASEGMENTCLOTHOID([],CURVSTART,CURVSTOP,SLOPESTART,A) applies
 %	the default value for DELTASET (see superclass LKASEGMENT).
-% 
-%   See also LKASEGMENT.
+%	
+%	See also LKASEGMENT.
 % 
 
 % Subject: lka
@@ -80,17 +80,17 @@ classdef lkaSegmentClothoid < lkaSegment
         intx = @(t) cos(pi.*t.^2./2);
         inty = @(t) sin(pi.*t.^2./2);
         
-        intx_taylor = @(t) 1 ...
-            - t^2/factorial(2) + t^4/factorial(4) ...
-            - t^6/factorial(6) + t^8/factorial(8) ...
+        cosOfX_taylor = @(t) 1 ...
+            - t^02/factorial(02) + t^04/factorial(04) ...
+            - t^06/factorial(06) + t^08/factorial(08) ...
             - t^10/factorial(10) + t^12/factorial(12) ...
             - t^14/factorial(14) + t^16/factorial(16) ...
             - t^18/factorial(18) + t^20/factorial(20);
         
-		clothx = @(A,k,t0,t1) abs(A)*lkaSegmentClothoid.sqrtPi*...
+		clothx = @(A,k,t0,t1) A*lkaSegmentClothoid.sqrtPi*...
 			quad(lkaSegmentClothoid.intx,t0,t1)*sign(k);
-		clothy = @(A,k,t0,t1) abs(A)*lkaSegmentClothoid.sqrtPi*...
-			quad(lkaSegmentClothoid.inty,t0,t1)*sign(A);
+		clothy = @(A,k,t0,t1) A*lkaSegmentClothoid.sqrtPi*...
+			quad(lkaSegmentClothoid.inty,t0,t1);
         
     end
     
@@ -256,7 +256,7 @@ classdef lkaSegmentClothoid < lkaSegment
         
         
         %%% create clothoid segment based on object data
-        function segdat = getSegmentData(obj)            
+        function segdat = getSegmentData(obj)
             
             % get the sign of clothoid curvature
 			signk = sign(obj.curvStop - obj.curvStart);
