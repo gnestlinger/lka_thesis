@@ -80,13 +80,6 @@ classdef lkaSegmentClothoid < lkaSegment
         intx = @(t) cos(pi.*t.^2./2);
         inty = @(t) sin(pi.*t.^2./2);
         
-        cosOfX_taylor = @(t) 1 ...
-            - t^02/factorial(02) + t^04/factorial(04) ...
-            - t^06/factorial(06) + t^08/factorial(08) ...
-            - t^10/factorial(10) + t^12/factorial(12) ...
-            - t^14/factorial(14) + t^16/factorial(16) ...
-            - t^18/factorial(18) + t^20/factorial(20);
-        
 		clothx = @(A,k,t0,t1) A*lkaSegmentClothoid.sqrtPi*...
 			quad(lkaSegmentClothoid.intx,t0,t1)*sign(k);
 		clothy = @(A,k,t0,t1) A*lkaSegmentClothoid.sqrtPi*...
@@ -215,7 +208,8 @@ classdef lkaSegmentClothoid < lkaSegment
         
     end%SET-Methods
     
-    
+	
+    %%% User-facing methods
     methods
         
         function plotasypoints(obj)
@@ -236,6 +230,7 @@ classdef lkaSegmentClothoid < lkaSegment
     end%methods
     
     
+	%%% Implementation of abstract methods
     methods (Access = protected)
         
         %%% get the number of segment points
