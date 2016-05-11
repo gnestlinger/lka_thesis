@@ -6,16 +6,16 @@ classdef segDat
 %	using the properties listed below.
 %	
 %	SEGDAT Properties:
-%	 X - x-coordinate [m].
-%	 Y - y-coordinate [m].
-%	 S - Length measured from the starting point [x(1);y(1)] [m].
-%	 K - Curvature [1/m].
-%	 PHI - Angle beetween the positive x-axis and the tangent [rad].
-%	 TYPE - Integer indicating the street segment type.
-%	 NBR - Street segment number of connected segments.
+%	 X		- x-coordinate [m].
+%	 Y		- y-coordinate [m].
+%	 S		- Length measured from the starting point [x(1);y(1)] [m].
+%	 K		- Curvature [1/m].
+%	 PHI	- Angle beetween the positive x-axis and the tangent [rad].
+%	 TYPE	- Integer indicating the street segment type.
+%	 NBR	- Street segment number of connected segments.
 %	
-%	K > 0 (K < 0) indicates a left (right) turn by moving from [X(1),Y(1)]
-%	-> [X(end),Y(end)].
+%	A curvature K > 0 (K < 0) indicates a left (right) turn by moving from
+%	[X(1),Y(1)] -> [X(end),Y(end)].
 %	
 %	TYPE = 0 indicates a straight, 1 a circular and 2 a clothoidal street
 %	segment.
@@ -29,7 +29,8 @@ classdef segDat
 %
 
 % DEVELOPMENT NOTES:
-%	(1) add methods for plot labeling (x/y labels, title, ...)
+%	(1) Add methods for plot labeling (x/y labels, title, ...). DONE
+%	(2) Show the clothoid direction in plots.
 
 % Subject: lka
 % Author: $Author$
@@ -321,15 +322,27 @@ classdef segDat
 			h = zeros(nbrInd-1,1);
 			for i = 1:nbrInd-1
 				
-				indi = ind(i)+1:ind(i+1);
+				% plot range
+				indRange = ind(i)+1:ind(i+1);
 				
-				h(i) = plot(obj.x(indi),obj.y(indi),...
-					'LineStyle','none',...
-					'Color',obj.plotColor{obj.type(indi(1))+1},...
-					'Marker',plotMarker_{1,i},...
-					'MarkerSize',plotMarker_{2,i});
+				% create the segment data to plot
+				sd = segDat(...
+					obj.x(indRange),...
+					obj.y(indRange),...
+					obj.s(indRange),...
+					obj.k(indRange),...
+					obj.phi(indRange),...
+					obj.type(indRange),...
+					ones(size(indRange'))...
+					);
 				
 				hold on
+				h(i) = plot(sd,...
+					'LineStyle','none',...
+					'Color',obj.plotColor{obj.type(indRange(1))+1},...
+					'Marker',plotMarker_{1,i},...
+					'MarkerSize',plotMarker_{2,i});
+				hold off
 				
 			end%for
 			
@@ -338,14 +351,6 @@ classdef segDat
 			if nargin < 2
 				set(h,'LineStyle','-','LineWidth',2,'Marker','none');
 			end%if
-			
-			% some plot settings
-			hold off
-			grid on
-			axis equal
-			title(getLegendCellString(obj));
-			ylabel('y [m]');
-			xlabel('x [m]');
 			
 		end%fcn
 		
