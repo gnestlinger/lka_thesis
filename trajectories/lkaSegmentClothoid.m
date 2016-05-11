@@ -80,10 +80,14 @@ classdef lkaSegmentClothoid < lkaSegment
         intx = @(t) cos(pi.*t.^2./2);
         inty = @(t) sin(pi.*t.^2./2);
         
-		clothx = @(A,k,t0,t1) A*lkaSegmentClothoid.sqrtPi*...
-			quad(lkaSegmentClothoid.intx,t0,t1)*sign(k);
-		clothy = @(A,k,t0,t1) A*lkaSegmentClothoid.sqrtPi*...
-			quad(lkaSegmentClothoid.inty,t0,t1);
+		clothx = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*sign(k)*...
+			quad(lkaSegmentClothoid.intx,...
+			sStart/(lkaSegmentClothoid.sqrtPi*A),...
+			sStop/(lkaSegmentClothoid.sqrtPi*A));
+		clothy = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*...
+			quad(lkaSegmentClothoid.inty,...
+			sStart/(lkaSegmentClothoid.sqrtPi*A),...
+			sStop/(lkaSegmentClothoid.sqrtPi*A));
         
     end
     
@@ -260,21 +264,20 @@ classdef lkaSegmentClothoid < lkaSegment
             nbrOfPointsDEP = obj.nbrOfPoints;
             
             % pre-calculation
-            s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)';
-            l = s/(obj.A*obj.sqrtPi)*signk;
+            s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)'*signk;
             
             % pre-allocation
             cloth.x(nbrOfPointsDEP,1) = 0;
             cloth.y(nbrOfPointsDEP,1) = 0;
             
             % num. integration
-			cloth.x(1) = obj.clothx(obj.A,signk,0,l(1));
-			cloth.y(1) = obj.clothy(obj.A,signk,0,l(1));
+			cloth.x(1) = obj.clothx(obj.A,signk,0,s(1));
+			cloth.y(1) = obj.clothy(obj.A,signk,0,s(1));
 			done_percent_old = 0;
 			fprintf('    ');
             for i = 2:nbrOfPointsDEP
-				cloth.x(i) = cloth.x(i-1) + obj.clothx(obj.A,signk,l(i-1),l(i));
-				cloth.y(i) = cloth.y(i-1) + obj.clothy(obj.A,signk,l(i-1),l(i));
+				cloth.x(i) = cloth.x(i-1) + obj.clothx(obj.A,signk,s(i-1),s(i));
+				cloth.y(i) = cloth.y(i-1) + obj.clothy(obj.A,signk,s(i-1),s(i));
 				done_percent = i/nbrOfPointsDEP*100;
 				delta = 2;
 				if round(done_percent-done_percent_old) > delta
@@ -286,8 +289,8 @@ classdef lkaSegmentClothoid < lkaSegment
             
             % derivative to compute tangent vector
             % http://mathworld.wolfram.com/TangentVector.html
-            xD = obj.A*obj.sqrtPi*obj.intx(l)*signk;
-            yD = obj.A*obj.sqrtPi*obj.inty(l);
+            xD = obj.A*obj.sqrtPi*obj.intx(s/(obj.A*obj.sqrtPi))*signk;
+            yD = obj.A*obj.sqrtPi*obj.inty(s/(obj.A*obj.sqrtPi));
             tang.x = xD./sqrt(xD.^2+yD.^2);
             tang.y = yD./sqrt(xD.^2+yD.^2);
             
@@ -309,12 +312,12 @@ classdef lkaSegmentClothoid < lkaSegment
             tang.y_rot = (obj.rotMatY(alph)*[tang.x,tang.y]')';
             
             % shift whole trajectory so [x(1);y(1)] matches xyStart
-            xShift = obj.xyStart(1) - cloth.x_rot(1);
-            yShift = obj.xyStart(2) - cloth.y_rot(1);
+            xShift = cloth.x_rot(1) - obj.xyStart(1);
+            yShift = cloth.y_rot(1) - obj.xyStart(2);
             
             % output arguments
-            x = cloth.x_rot + xShift;
-            y = cloth.y_rot + yShift;
+            x = cloth.x_rot - xShift;
+            y = cloth.y_rot - yShift;
             sCloth = sort(abs(s));
             sOut = sCloth - sCloth(1);
             k = s/obj.A^2;
