@@ -316,17 +316,17 @@ classdef lkaSegmentClothoid < lkaSegment
             yShift = cloth.y_rot(1) - obj.xyStart(2);
             
             % output arguments
-            x = cloth.x_rot - xShift;
-            y = cloth.y_rot - yShift;
-            sCloth = sort(abs(s));
-            sOut = sCloth - sCloth(1);
-            k = s/obj.A^2;
             phi = unwrap(angle(tang.x_rot + 1i*tang.y_rot));%(s).^2/(2*obj.A^2);
             
             % store data in segDat class
-            segdat = segDat(x,y,sOut,k,phi,...
-				2*ones(nbrOfPointsDEP,1),... % type
-				1*ones(nbrOfPointsDEP,1) ... % segment number
+            segdat = segDat(...
+				cloth.x_rot - xShift,...		% x-coordinate
+				cloth.y_rot - yShift,...		% y-coordinate
+				abs(s-s(1)),...					% curve length
+				s/obj.A^2*signk,...				% curvature
+				phi,...							% tangent angle
+				2*ones(nbrOfPointsDEP,1),...	% type
+				1*ones(nbrOfPointsDEP,1) ...	% segment number
 				);
             
         end%fcn
