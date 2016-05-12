@@ -247,6 +247,14 @@ classdef segDat
 					obj.x(iind)+[-1e3*cos(obj.phi(iind));1e3*cos(obj.phi(iind))],...
 					obj.y(iind)+[-1e3*sin(obj.phi(iind));1e3*sin(obj.phi(iind))],...
 					'Color',tangentColor{i});
+% 				x01 = obj.x(iind)+[-1e3*cos(obj.phi(iind));1e3*cos(obj.phi(iind))];
+% 				y01 = obj.y(iind)+[-1e3*sin(obj.phi(iind));1e3*sin(obj.phi(iind))];
+% 				x0 = linspace(x01(1),x01(2),100);
+% 				y0 = linspace(y01(1),y01(2),100);
+% 				u = ones(size(x0))*(x01(2)-x01(1))/100;
+% 				v = ones(size(y0))*(y01(2)-y01(1))/100;
+% 				scale = 0;
+% 				h(i+1,2) = quiver(x0,y0,u,v,scale,'Color',tangentColor{i});
 			end%for
 			hold off
 			
