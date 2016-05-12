@@ -266,26 +266,9 @@ classdef lkaSegmentClothoid < lkaSegment
             % pre-calculation
             s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)'*signk;
             
-            % pre-allocation
-            cloth.x(nbrOfPointsDEP,1) = 0;
-            cloth.y(nbrOfPointsDEP,1) = 0;
-            
-            % num. integration
-			cloth.x(1) = obj.clothx(obj.A,signk,0,s(1));
-			cloth.y(1) = obj.clothy(obj.A,signk,0,s(1));
-			done_percent_old = 0;
-			fprintf('    ');
-            for i = 2:nbrOfPointsDEP
-				cloth.x(i) = cloth.x(i-1) + obj.clothx(obj.A,signk,s(i-1),s(i));
-				cloth.y(i) = cloth.y(i-1) + obj.clothy(obj.A,signk,s(i-1),s(i));
-				done_percent = i/nbrOfPointsDEP*100;
-				delta = 2;
-				if round(done_percent-done_percent_old) > delta
-					fprintf('%d%% ',round(done_percent));
-					done_percent_old = done_percent;
-				end%if
-            end%for
-			fprintf('%d%% \n',100);
+			[x,y] = lkaSegmentClothoid.clothoid_numInt(s,obj.A,signk,obj.clothx,obj.clothy);
+			cloth.x = x;
+			cloth.y = y;
             
             % derivative to compute tangent vector
             % http://mathworld.wolfram.com/TangentVector.html
@@ -332,6 +315,42 @@ classdef lkaSegmentClothoid < lkaSegment
         end%fcn
         
     end%methods
-    
-    
+	
+	
+	
+	methods (Static)%, Access = private)
+		
+		function [x,y] = clothoid_numInt(s,A,signk,clothx,clothy)
+			
+			nbrOfPoints = length(s);
+			
+			% pre-allocation
+			cloth.x(nbrOfPoints,1) = 0;
+			cloth.y(nbrOfPoints,1) = 0;
+			
+			% num. integration
+			cloth.x(1) = clothx(A,signk,0,s(1));
+			cloth.y(1) = clothy(A,signk,0,s(1));
+			done_percent_old = 0;
+			fprintf('    ');
+			for i = 2:nbrOfPoints
+				cloth.x(i) = cloth.x(i-1) + clothx(A,signk,s(i-1),s(i));
+				cloth.y(i) = cloth.y(i-1) + clothy(A,signk,s(i-1),s(i));
+				done_percent = i/nbrOfPoints*100;
+				delta = 2;
+				if round(done_percent-done_percent_old) > delta
+					fprintf('%d%% ',round(done_percent));
+					done_percent_old = done_percent;
+				end%if
+			end%for
+			fprintf('%d%% \n',100);
+			
+			x = cloth.x;
+			y = cloth.y;
+			
+		end%fcn
+		
+	end%methods
+	
+	
 end%classdef
