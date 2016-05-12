@@ -320,8 +320,25 @@ classdef lkaSegmentClothoid < lkaSegment
 	
 	methods (Static)%, Access = private)
 		
-		function [x,y] = clothoid_numInt(s,A,signk,clothx,clothy)
+		function [x,y] = clothoid_numInt(s,A,signk,clothX,clothY)
 			
+			% check input arguments
+			if ~isvector(s)
+				error('Input argument s has to be vector-sized!');
+			else
+				% ensure column vector orientation
+				s = s(:);
+			end%if
+			
+			if A <= 0
+				error('Input argument A has to be positive!')
+			end%if
+			
+			% clothoid integrands
+			integrandX = @(t) cos(pi.*t.^2./2);
+			integrandY = @(t) sin(pi.*t.^2./2);
+			
+			% 
 			nbrOfPoints = length(s);
 			
 			% pre-allocation
@@ -329,13 +346,13 @@ classdef lkaSegmentClothoid < lkaSegment
 			cloth.y(nbrOfPoints,1) = 0;
 			
 			% num. integration
-			cloth.x(1) = clothx(A,signk,0,s(1));
-			cloth.y(1) = clothy(A,signk,0,s(1));
+			cloth.x(1) = clothX(A,signk,0,s(1));
+			cloth.y(1) = clothY(A,signk,0,s(1));
 			done_percent_old = 0;
 			fprintf('    ');
 			for i = 2:nbrOfPoints
-				cloth.x(i) = cloth.x(i-1) + clothx(A,signk,s(i-1),s(i));
-				cloth.y(i) = cloth.y(i-1) + clothy(A,signk,s(i-1),s(i));
+				cloth.x(i) = cloth.x(i-1) + clothX(A,signk,s(i-1),s(i));
+				cloth.y(i) = cloth.y(i-1) + clothY(A,signk,s(i-1),s(i));
 				done_percent = i/nbrOfPoints*100;
 				delta = 2;
 				if round(done_percent-done_percent_old) > delta
@@ -347,6 +364,16 @@ classdef lkaSegmentClothoid < lkaSegment
 			
 			x = cloth.x;
 			y = cloth.y;
+			k = s./A^2;
+			phi = mod(s.^2/(2*A^2),2*pi)*signk;
+			
+			% derivative to compute tangent vector
+			% http://mathworld.wolfram.com/TangentVector.html
+			xD = A*sqrt(pi)*integrandX(s/(sqrt(pi)*A))*signk;
+			yD = A*sqrt(pi)*integrandY(s/(sqrt(pi)*A));
+			tang.x = xD./sqrt(xD.^2+yD.^2);
+			tang.y = yD./sqrt(xD.^2+yD.^2);
+			phi_check = angle(tang.x + 1i*tang.y);
 			
 		end%fcn
 		
