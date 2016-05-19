@@ -243,9 +243,12 @@ classdef segDat
 				iind = ind(i);
 				h(i+1,1) = plot(obj.x(iind),obj.y(iind),...
 					'Marker','*','MarkerSize',7,'Color',tangentColor{i});
+% 				r1 = -1e3; r2 = +1e3;
+				[r1,r2] = obj.scaleTangentToAxis(xLimits,yLimits,...
+					[obj.x(iind) obj.y(iind)],obj.phi(iind));
 				h(i+1,2) = plot(...
-					obj.x(iind)+[-1e3*cos(obj.phi(iind));1e3*cos(obj.phi(iind))],...
-					obj.y(iind)+[-1e3*sin(obj.phi(iind));1e3*sin(obj.phi(iind))],...
+					obj.x(iind)+[r1*cos(obj.phi(iind));r2*cos(obj.phi(iind))],...
+					obj.y(iind)+[r1*sin(obj.phi(iind));r2*sin(obj.phi(iind))],...
 					'Color',tangentColor{i});
 % 				x01 = obj.x(iind)+[-1e3*cos(obj.phi(iind));1e3*cos(obj.phi(iind))];
 % 				y01 = obj.y(iind)+[-1e3*sin(obj.phi(iind));1e3*sin(obj.phi(iind))];
@@ -406,5 +409,82 @@ classdef segDat
 		end%fcn
 		
 	end%SET-Methods
+	
+	
+	%%% Static-Methods
+	methods (Static)
+		
+		function [r1 r2] = scaleTangentToAxis(xLimits,yLimits,xy,phi)
+		%SCALETANGENTTOAXIS		Scale length of tangent to axis limits.
+		%   [R1 R2] = SCALETANGENTTOAXIS(XLIMITS,YLIMITS,XY,PHI) calculates
+		%   the lengths R1 and R2 for the tangent at point XY with angle
+		%   PHI, so that the tangent does not exceed given limits XLIMITS =
+		%   [xMin xMax] and YLIMITS = [yMin yMax].
+		%
+		%	The intended usage is for plotting something like tangents in
+		%	existing plot figures maintaining the current axis limits.
+			
+			
+			% assign inputs to meaningful variables
+			xMin = xLimits(1);
+			xMax = xLimits(2);
+			yMin = yLimits(1);
+			yMax = yLimits(2);
+			xT = xy(1);
+			yT = xy(2);
+			
+			% map phi to [0,2*pi)
+			phi = mod(phi,2*pi);
+			
+			% get the angles from tangent point to XLIMITS/YLIMITS corners
+			alph1 = mod(atan2(yMax-yT,xMax-xT)+2*pi,2*pi);
+			alph2 = mod(atan2(yMax-yT,xMin-xT)+2*pi,2*pi);
+			alph3 = mod(atan2(yMin-yT,xMin-xT)+2*pi,2*pi);
+			alph4 = mod(atan2(yMin-yT,xMax-xT)+2*pi,2*pi);
+			
+			% calc r1
+			if 0 <= phi && phi <= alph1
+				r1 = (xMax-xT)/cos(phi);
+				
+			elseif alph1 < phi && phi <= alph2
+				r1 = (yMax-yT)/sin(phi);
+				
+			elseif alph2 < phi && phi <= alph3
+				r1 = (xMin-xT)/cos(phi);
+				
+			elseif alph3 < phi && phi <= alph4
+				r1 = (yMin-yT)/sin(phi);
+				
+			elseif alph4 < phi && phi <= 2*pi
+				r1 = (xMax-xT)/cos(phi);
+				
+			else
+				error('Fatal error at calculating r1!');
+			end%if
+			
+			% calc r2
+			phi_ = mod(phi + pi,2*pi);
+			if 0 <= phi_ && phi_ <= alph1
+				r2 = (xMax-xT)/cos(phi);
+				
+			elseif alph1 < phi_ && phi_ <= alph2
+				r2 = (yMax-yT)/sin(phi);
+				
+			elseif alph2 < phi_ && phi_ <= alph3
+				r2 = (xMin-xT)/cos(phi);
+				
+			elseif alph3 < phi_ && phi_ <= alph4
+				r2 = (yMin-yT)/sin(phi);
+				
+			elseif alph4 < phi_ && phi_ <= 2*pi
+				r2 = (xMax-xT)/cos(phi);
+				
+			else
+				error('Fatal error at calculating r2!');
+			end%if
+			
+		end%fcn
+		
+	end%methods
 	
 end%class
