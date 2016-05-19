@@ -246,18 +246,28 @@ classdef segDat
 % 				r1 = -1e3; r2 = +1e3;
 				[r1,r2] = obj.scaleTangentToAxis(xLimits,yLimits,...
 					[obj.x(iind) obj.y(iind)],obj.phi(iind));
-				h(i+1,2) = plot(...
-					obj.x(iind)+[r1*cos(obj.phi(iind));r2*cos(obj.phi(iind))],...
-					obj.y(iind)+[r1*sin(obj.phi(iind));r2*sin(obj.phi(iind))],...
-					'Color',tangentColor{i});
-% 				x01 = obj.x(iind)+[-1e3*cos(obj.phi(iind));1e3*cos(obj.phi(iind))];
-% 				y01 = obj.y(iind)+[-1e3*sin(obj.phi(iind));1e3*sin(obj.phi(iind))];
-% 				x0 = linspace(x01(1),x01(2),100);
-% 				y0 = linspace(y01(1),y01(2),100);
-% 				u = ones(size(x0))*(x01(2)-x01(1))/100;
-% 				v = ones(size(y0))*(y01(2)-y01(1))/100;
-% 				scale = 0;
-% 				h(i+1,2) = quiver(x0,y0,u,v,scale,'Color',tangentColor{i});
+% 				h(i+1,2) = plot(...
+% 					obj.x(iind)+[r1*cos(obj.phi(iind));r2*cos(obj.phi(iind))],...
+% 					obj.y(iind)+[r1*sin(obj.phi(iind));r2*sin(obj.phi(iind))],...
+% 					'Color',tangentColor{i});
+				
+				% start/end point of tangent
+				Pstart = [...
+					obj.x(iind)+r2*cos(obj.phi(iind));...
+					obj.y(iind)+r2*sin(obj.phi(iind))];
+				Pstop = [...
+					obj.x(iind)+r1*cos(obj.phi(iind));...
+					obj.y(iind)+r1*sin(obj.phi(iind))];
+				
+				% draw the tangent using N arrows sticked together
+				N = 25;
+				xq = linspace(Pstart(1),Pstop(1),N);
+				yq = linspace(Pstart(2),Pstop(2),N);
+				uq = ones(size(xq))*(Pstop(1)-Pstart(1))/N;
+				vq = ones(size(yq))*(Pstop(2)-Pstart(2))/N;
+				scale = 0;
+				h(i+1,2) = quiver(xq,yq,uq,vq,scale,'Color',tangentColor{i});
+				
 			end%for
 			hold off
 			
