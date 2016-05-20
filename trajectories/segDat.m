@@ -138,6 +138,35 @@ classdef segDat
 		end%fcn
 		
 		
+		function obj = shift(obj,P)
+		% SHIFT		Shift street segment.
+		%	OBJ = SHIFT(OBJ,P) shifts the street segment OBJ so that its
+		%	starting point [OBJ.x(1) OBJ.y(1)] matches P.
+		%	
+		%	OBJ = SHIFT(OBJ) applies the default value [0 0] for P.
+			
+			
+			if nargin < 2
+				P = [0 0];
+			end%if
+			
+			if numel(P) ~= 2 || ~isnumeric(P)
+				error(['Method SHIFT requires a numeric input',...
+					' arguments with two elements.']);
+			end%if
+			
+			obj = segDat(...
+				obj.x - obj.x(1) + P(1),...
+				obj.y - obj.y(1) + P(2),...
+				obj.s,...
+				obj.k,...
+				obj.phi,...
+				obj.type,...
+				obj.nbr); 
+			
+		end%fcn
+		
+		
 		%%% plot of street segment
 		function h = plot(obj,varargin)
 		%PLOT	Plots the street segment.
@@ -176,7 +205,7 @@ classdef segDat
 			title(getLegendCellString(obj));
 			ylabel('y [m]');
 			xlabel('x [m]');
-		
+			
 		end%fcn
 		
 		
@@ -496,5 +525,37 @@ classdef segDat
 		end%fcn
 		
 	end%methods
+	
+	methods (Static, Hidden)
+		
+		function test_shift()
+			
+			fig = figure;
+			a = lkaSegmentStraight([],100,pi/8);
+			b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
+			c = lkaSegmentClothoid([],1/100,0,0,100);
+			
+			sd_a = a.segmentData;
+			sd_b = b.segmentData;
+			sd_c = c.segmentData;
+			
+			sd_a = shift(sd_a,[10 30]);
+			sd_b = shift(sd_b,[20 20]);
+			sd_c = shift(sd_c,[30 10]);
+			
+			plotdiff(sd_a);
+			plotdiff(sd_b);
+			plotdiff(sd_c);
+			
+			plotdiff(shift(sd_a));
+			plotdiff(shift(sd_b));
+			plotdiff(shift(sd_c));
+			
+			pause
+			close(fig)
+			
+		end%fcn
+		
+	end
 	
 end%class
