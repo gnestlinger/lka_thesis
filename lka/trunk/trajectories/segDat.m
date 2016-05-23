@@ -207,8 +207,37 @@ classdef segDat
 		end%fcn
 		
 		
-		function obj = changeSignOfCurvature(obj)
+		function obj = reverseDirection(obj)
+		% REVERSEDIRECTION	Reverse street segment direction.
+		%	OBJ = REVERSEDIRECTION(OBJ) reverses the direction of street
+		%	segment OBJ so [x(end),y(end)] becomes [x(1),y(1)] and so on.
+		%	
+		%	The other properties are manipulated accordingly.
 			
+			
+			%%% handle input arguments
+			narginchk(1,1);
+			
+			%%% reverse direction of segment
+			obj = segDat(...
+				+flipud(obj.x),...
+				+flipud(obj.y),...
+				+obj.s(end)-flipud(obj.s),... % in case of non-equally distributed x/y
+				-obj.k,...
+				+flipud(obj.phi) + pi,... 
+				+obj.type,...
+				+obj.nbr); 
+			
+		end%fcn
+		
+		
+		function obj = changeSignOfCurvature(obj)
+		% CHANGESIGNOFCURVATURE		Change street segments curvature sign.
+		%	OBJ = CHANGESIGNOFCURVATURE(OBJ) changes the curvature sign of
+		%	street segment OBJ.
+		%	
+		%	The other properties are manipulated accordingly.
+		
 			% get starting point/angle
 			P0 = [obj.x(1); obj.y(1)];
 			phi0 = obj.phi(1);
@@ -642,6 +671,25 @@ classdef segDat
 			plotdiff(sd_b);
 			
 			plotdiff(rotate(sd_b,phi));
+			
+			pause
+			close(fig)
+			
+		end%fcn
+		
+		
+		function test_reverseDirection(obj)
+			
+			fig = figure;
+			
+			obj_ = reverseDirection(obj);
+			
+			ind = 1:10:21;
+			h = plottangent(obj,ind,'b');
+			
+			hold on
+			h = plottangent(obj_,ind,'r');
+			set(h(1,1),'LineStyle',':','Color','r');
 			
 			pause
 			close(fig)
