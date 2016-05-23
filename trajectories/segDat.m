@@ -262,6 +262,11 @@ classdef segDat
 			
 		end%fcn
 		
+	end%methods
+	
+	
+	%%% plot-methods
+	methods
 		
 		%%% plot of street segment
 		function h = plot(obj,varargin)
