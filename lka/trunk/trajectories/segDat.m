@@ -146,15 +146,20 @@ classdef segDat
 		%	OBJ = SHIFT(OBJ) applies the default value [0 0] for P.
 			
 			
+			%%% handle input arguments
+			narginchk(2,2);
+			
 			if nargin < 2
 				P = [0 0];
 			end%if
 			
 			if numel(P) ~= 2 || ~isnumeric(P)
 				error(['Method SHIFT requires a numeric input',...
-					' arguments with two elements.']);
+					' argument with two elements.']);
 			end%if
 			
+			
+			%%% shift segment
 			obj = segDat(...
 				obj.x - obj.x(1) + P(1),...
 				obj.y - obj.y(1) + P(2),...
@@ -165,6 +170,42 @@ classdef segDat
 				obj.nbr); 
 			
 		end%fcn
+		
+		
+		function obj = rotate(obj,phi)
+		% ROTATE	Rotate street segment.
+		%	OBJ = ROTATE(OBJ,PHI) rotates the street segment OBJ by an
+		%	angle PHI in radians.
+			
+			
+			%%% handle input arguments
+			narginchk(2,2);
+			
+			if numel(phi) ~= 1 || ~isnumeric(phi)
+				error(['Method ROTATE requires a numeric input',...
+					' argument with one element.']);
+			end%if
+			
+			
+			%%% rotate segment
+			% rotation matrix in R^2.
+			rotMat = [...
+				cos(phi) -sin(phi);...
+				sin(phi) +cos(phi)];
+			
+			xy_new = rotMat*[obj.x';obj.y'];
+			
+			obj = segDat(...
+				xy_new(1,:)',...
+				xy_new(2,:)',...
+				obj.s,...
+				obj.k,...
+				obj.phi+phi,...
+				obj.type,...
+				obj.nbr); 
+			
+		end%fcn
+		
 		
 		
 		%%% plot of street segment
@@ -205,7 +246,7 @@ classdef segDat
 			title(getLegendCellString(obj));
 			ylabel('y [m]');
 			xlabel('x [m]');
-			
+		
 		end%fcn
 		
 		
@@ -430,6 +471,7 @@ classdef segDat
 		
 	end%methods
 	
+	
 	%%% SET-Methods
 	methods
 		
@@ -526,6 +568,8 @@ classdef segDat
 		
 	end%methods
 	
+	
+	%%% Test-Methods
 	methods (Static, Hidden)
 		
 		function test_shift()
@@ -556,6 +600,28 @@ classdef segDat
 			
 		end%fcn
 		
-	end
+		
+		function test_rotate(P0,phi)
+			
+			if nargin < 2; phi = pi/2; end%if
+			if nargin < 1; P0 = [20 0]; end%if
+			
+			fig = figure;
+			b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
+			
+			sd_b = b.segmentData;
+			
+			sd_b = shift(sd_b,P0);
+			
+			plotdiff(sd_b);
+			
+			plotdiff(rotate(sd_b,phi));
+			
+			pause
+			close(fig)
+			
+		end%fcn
+		
+	end%methods
 	
 end%class
