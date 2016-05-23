@@ -147,7 +147,7 @@ classdef segDat
 			
 			
 			%%% handle input arguments
-			narginchk(2,2);
+			narginchk(1,2);
 			
 			if nargin < 2
 				P = [0 0];
@@ -207,7 +207,7 @@ classdef segDat
 		end%fcn
 		
 		
-		
+			
 		%%% plot of street segment
 		function h = plot(obj,varargin)
 		%PLOT	Plots the street segment.
