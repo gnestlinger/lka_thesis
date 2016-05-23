@@ -207,7 +207,33 @@ classdef segDat
 		end%fcn
 		
 		
+		function obj = changeSignOfCurvature(obj)
 			
+			% get starting point/angle
+			P0 = [obj.x(1); obj.y(1)];
+			phi0 = obj.phi(1);
+			
+			% shift to origin an rotate so initial slope is zero
+			obj = shift(obj);
+			obj = rotate(obj,-phi0);
+			
+			% invert the curvature
+			obj = segDat(...
+				+obj.x,...
+				-obj.y,...
+				+obj.s,...
+				-obj.k,...
+				-obj.phi,...
+				+obj.type,...
+				+obj.nbr);
+			
+			% undo the shift/rotate procedure
+			obj = shift(obj,P0);
+			obj = rotate(obj,phi0);
+			
+		end%fcn
+		
+		
 		%%% plot of street segment
 		function h = plot(obj,varargin)
 		%PLOT	Plots the street segment.
@@ -616,6 +642,36 @@ classdef segDat
 			plotdiff(sd_b);
 			
 			plotdiff(rotate(sd_b,phi));
+			
+			pause
+			close(fig)
+			
+		end%fcn
+		
+		
+		function test_changeSignOfCurvature(obj)
+			
+			if nargin < 1;
+				b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
+				obj = b.segmentData;
+			end%if
+			
+			fig = figure;
+			
+			ind = 1:10:21;
+			h = plottangent(obj,ind);
+			set(h(1,1),'Color','b','LineWidth',1);
+			set(h(2:end,1),'Color','c','Marker','o','MarkerFaceColor','c');
+			set(h(2:end,2),'Color','c');
+				
+			obj_ = changeSignOfCurvature(obj);
+			hold on
+			h = plottangent(obj_,ind);
+			set(h(1,1),'Color','r','LineWidth',1);
+			set(h(2:end,1),'Color','m','Marker','h','MarkerFaceColor','m');
+			set(h(2:end,2),'Color','m');
+			
+			axis auto
 			
 			pause
 			close(fig)
