@@ -393,6 +393,11 @@ classdef segDat
 				N = 25;
 				xq = linspace(Pstart(1),Pstop(1),N);
 				yq = linspace(Pstart(2),Pstop(2),N);
+				% quiver would draw one arrow at every point of xq/yq of
+				% length uq/vq; since the last element of xq/yq is the end
+				% point, no arrow has to be drawn there
+				xq = xq(1:end-1);
+				yq = yq(1:end-1);
 				uq = ones(size(xq))*(Pstop(1)-Pstart(1))/N;
 				vq = ones(size(yq))*(Pstop(2)-Pstart(2))/N;
 				scale = 0;
@@ -648,15 +653,15 @@ classdef segDat
 			else
 				% consider the opposite direction of phi which is whithin
 				% [-pi/2,+pi/2]
-				phi_pmPi_ = mod(phi_pmPi - pi,pi);
+				phi_pmPi_ = mod(phi_pmPi - pi,pi); % ??? consider the sign of x in y for mod(x,y)
 				isPhiReversed = true;
 			end%if
 			
 			
 			%%% calculate the equation of a line at [xT yT] for phi
-			% y(xT) = 0 -> k*xT + d = 0 -> d = -k*xT
+			% y(xT) = yT -> k*xT + d = yT -> d = yT - k*xT
 			k1 = tan(phi_pmPi_); % tangents slope
-			d = - k1*xT; % tangents offset
+			d = yT - k1*xT; % tangents offset
 			y_x = @(x) k1*x + d; % tangents equation of a line
 			
 			
@@ -694,8 +699,8 @@ classdef segDat
 			
 			
 			%%% calculate the tangent lengths
-			r1 = +sqrt((xR-xT)^2 + y_x(xR-xT)^2);
-			r2 = -sqrt((xL-xT)^2 + y_x(xL-xT)^2);
+			r1 = +sqrt((xR-xT)^2 + (y_x(xR)-y_x(xT))^2);
+			r2 = -sqrt((xL-xT)^2 + (y_x(xL)-y_x(xT))^2);
 			
 			% fix tangent lengths if the slope is +-inf
 			if phi_pmPi_ == +pi/2
