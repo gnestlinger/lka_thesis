@@ -561,6 +561,8 @@ classdef segDat
 		%   the lengths R1 and R2 for the tangent at point XY with angle
 		%   PHI, so that the tangent does not exceed given limits XLIMITS =
 		%   [xMin xMax] and YLIMITS = [yMin yMax].
+		%	Length R1 counts in the direction of PHI, whereas R2 counts in
+		%	the opposite direction.
 		%
 		%	The intended usage is for plotting something like tangents in
 		%	existing plot figures maintaining the current axis limits.
@@ -573,6 +575,10 @@ classdef segDat
 			yMax = yLimits(2);
 			xT = xy(1);
 			yT = xy(2);
+			
+			%{ 
+			this approach fails since some angles alphX do not exist if the
+			tangents point is located in one of the plot corners.
 			
 			% map phi to [0,2*pi)
 			phi = mod(phi,2*pi);
@@ -622,6 +628,91 @@ classdef segDat
 				
 			else
 				error('Fatal error at calculating r2!');
+			end%if
+			%}
+			
+			
+			%%% map phi to [-pi,+pi) (plus/minus pi)
+			if phi >= pi
+				phi_pmPi = phi - 2*pi;
+			else
+				phi_pmPi = phi;
+			end%if
+			
+			
+			%%% reduce problem to angles of [-pi/2,+pi/2]
+			if phi_pmPi <= pi/2 && phi_pmPi >= -pi/2
+				% keep the original value
+				phi_pmPi_ = phi_pmPi;
+				isPhiReversed = false;
+			else
+				% consider the opposite direction of phi which is whithin
+				% [-pi/2,+pi/2]
+				phi_pmPi_ = mod(phi_pmPi - pi,pi);
+				isPhiReversed = true;
+			end%if
+			
+			
+			%%% calculate the equation of a line at [xT yT] for phi
+			% y(xT) = 0 -> k*xT + d = 0 -> d = -k*xT
+			k1 = tan(phi_pmPi_); % tangents slope
+			d = - k1*xT; % tangents offset
+			y_x = @(x) k1*x + d; % tangents equation of a line
+			
+			
+			%%% calculate the plot-range [xL,xR] depending on the sign of
+			%%% the tangents slope
+			if k1 >= 0
+				
+				if y_x(xMax) <= yMax
+					xR = xMax;
+				else
+					xR = (yMax-d)/k1;
+				end%if
+				
+				if y_x(xMin) >= yMin
+					xL = xMin;
+				else
+					xL = (yMin-d)/k1;
+				end%if
+				
+			else
+				
+				if y_x(xMax) >= yMin
+					xR = xMax;
+				else
+					xR = (yMin-d)/k1;
+				end%if
+				
+				if y_x(xMin) <= yMax
+					xL = xMin;
+				else
+					xL = (yMax-d)/k1;
+				end%if
+				
+			end%if
+			
+			
+			%%% calculate the tangent lengths
+			r1 = +sqrt((xR-xT)^2 + y_x(xR-xT)^2);
+			r2 = -sqrt((xL-xT)^2 + y_x(xL-xT)^2);
+			
+			% fix tangent lengths if the slope is +-inf
+			if phi_pmPi_ == +pi/2
+				r1 = yMax - yT;
+				r2 = yMin - yT;
+			elseif phi_pmPi == -pi/2
+				r1 = -(yMin - yT);
+				r2 = -(yMax - yT);
+			end%if
+			
+			
+			%%% switch R1/R2 and their signs if the opposite problem was
+			%%% considered
+			if isPhiReversed
+				dummy = r1;
+				r1 = -r2;
+				r2 = -dummy;
 			end%if
 			
 		end%fcn
@@ -728,6 +819,83 @@ classdef segDat
 			
 			pause
 			close(fig)
+			
+		end%fcn
+		
+		
+		function indFailed = test_scaleTangentToAxis(nbr)
+			
+			
+			% define some test cases and their desired results
+			tc = {...
+				%solution	xLimits		yLimits		point		angle
+				%
+				% tangent point at lower left corner
+				{[+10 0],	[0 10],		[0 10],		[0 0],		0};...
+				{[+10 0],	[0 10],		[0 10],		[0 0],		pi/2};...
+				{[0 -10],	[0 10],		[0 10],		[0 0],		pi};...
+				{[0 -10],	[0 10],		[0 10],		[0 0],		3*pi/2};...
+				%
+				% tangent point at lower right corner
+				{[0 -10],	[0 10],		[0 10],		[10 0],		0};...
+				{[+10 0],	[0 10],		[0 10],		[10 0],		pi/2};...
+				{[+10 0],	[0 10],		[0 10],		[10 0],		pi};...
+				{[0 -10],	[0 10],		[0 10],		[10 0],		3*pi/2};...
+				%
+				% tangent point at upper right corner
+				{[0 -10],	[0 10],		[0 10],		[10 10],	0};...
+				{[0 -10],	[0 10],		[0 10],		[10 10],	pi/2};...
+				{[+10 0],	[0 10],		[0 10],		[10 10],	pi};...
+				{[+10 0],	[0 10],		[0 10],		[10 10],	3*pi/2};...
+				%
+				% tangent point at upper left corner
+				{[+10 0],	[0 10],		[0 10],		[0 10],		0};...
+				{[0 -10],	[0 10],		[0 10],		[0 10],		pi/2};...
+				{[0 -10],	[0 10],		[0 10],		[0 10],		pi};...
+				{[+10 0],	[0 10],		[0 10],		[0 10],		3*pi/2};...
+				%
+				% tangent point at upper left corner
+				% k = tan(phi)
+				% d = k*x - y(x) = 5 - 5*tan(phi)
+				% r1 = sqrt(5^2 + (5-d)^2)
+				% r2 = -r1
+				{[sqrt(25+25*tan(pi/8)^2) -sqrt(25+25*tan(pi/8)^2)],...
+							[0 10],		[0 10],		[5 5],		pi/8};...
+			};
+			
+			if nargin < 1
+				nbr = 1:length(tc);
+			end%if
+			
+			isTestSuccesfull = false(length(nbr),1);
+			tc = tc(nbr);
+			for i = 1:length(tc)
+				
+				[r1 r2] = segDat.scaleTangentToAxis(...
+					tc{i}{2},...
+					tc{i}{3},...
+					tc{i}{4},...
+					tc{i}{5});
+				
+				isTestSuccesfull(i) = all(tc{i}{1} == [r1 r2]);
+				
+			end%for
+			
+			nbrSuccesfull = sum(isTestSuccesfull);
+			nbrFailed = sum(~isTestSuccesfull);
+			fprintf('   Test results: \n')
+			fprintf('     succesfull: %3d of %d.\n',nbrSuccesfull,length(tc))
+			fprintf('     failed:     %3d of %d.\n',nbrFailed,length(tc))
+			
+			ind = 1:length(tc);
+			indFailed = ind(~isTestSuccesfull);
+			formatString = repmat('%d, ',1,nbrFailed);
+			formatString = [formatString(1:end-2),'.'];
+			if ~isempty(indFailed)
+				fprintf(['     test cases failed: ',formatString,'\n'],...
+					indFailed);
+			end%if
+			fprintf('\n');
 			
 		end%fcn
 		
