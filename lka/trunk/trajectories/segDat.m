@@ -832,7 +832,7 @@ classdef segDat
 			
 			
 			% define some test cases and their desired results
-			tc = {...
+			tc = [...
 				%solution	xLimits		yLimits		point		angle
 				%
 				% tangent point at lower left corner
@@ -865,24 +865,26 @@ classdef segDat
 				% r1 = sqrt(5^2 + (5-d)^2)
 				% r2 = -r1
 				{[sqrt(25+25*tan(pi/8)^2) -sqrt(25+25*tan(pi/8)^2)],...
-							[0 10],		[0 10],		[5 5],		pi/8};...
-			};
+							[0 10],		[0 10],		[5 5],		pi/8};
+			];
+		
+% 			cell2struct(tc,{'sol','xLimits','yLimits','point','angle'},2);
 			
 			if nargin < 1
 				nbr = 1:length(tc);
 			end%if
 			
 			isTestSuccesfull = false(length(nbr),1);
-			tc = tc(nbr);
+			tc = tc(nbr,:);
 			for i = 1:length(tc)
 				
 				[r1 r2] = segDat.scaleTangentToAxis(...
-					tc{i}{2},...
-					tc{i}{3},...
-					tc{i}{4},...
-					tc{i}{5});
+					tc{i,2},...
+					tc{i,3},...
+					tc{i,4},...
+					tc{i,5});
 				
-				isTestSuccesfull(i) = all(tc{i}{1} == [r1 r2]);
+				isTestSuccesfull(i) = all(tc{i,1} == [r1 r2]);
 				
 			end%for
 			
