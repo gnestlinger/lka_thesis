@@ -90,14 +90,23 @@ classdef segDat
 		%SEGDAT 	Create an instance of the SEGDAT object.
 		
 		
-			% all inputs have to be non-empty column vectors, just check x
-			% and check the size of all others against x
+			% all inputs have to be non-empty column vectors, 
 			[m,n] = size(x);
+			
+			% expand the lenght of TYPE/NBR if they are scalar
+			if isscalar(type) && isscalar(nbr)
+				type = type*ones(m,n);
+				nbr = nbr*ones(m,n);
+			end%if
+			
+			% just check X and check the size of all others against X
 			if (m<1) || (n>1)
-				error('Inputs have to be non-empty column vectors')
+				error('SEGDAT:segDat:nonemptyColumnVectors',...
+					'Inputs have to be non-empty column vectors')
 			end%if
 			if ~isequal(size(x),size(y),size(s),size(k),size(phi),size(type),size(nbr))
-				error('Inputs must have the same size.')
+				error('SEGDAT:segDat:unequalInputArgumentSizes',...
+					'Inputs must have the same size.')
 			end%if
 			
 			obj.x = x;
