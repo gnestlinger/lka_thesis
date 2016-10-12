@@ -4,15 +4,16 @@ classdef lkaSegmentClothoid < lkaSegment
 %	SEG = LKASEGMENTCLOTHOID(DELTASET,CURVSTART,CURVSTOP,SLOPESTART,A)
 %	creates a clothoidal shaped street segment with an initial/end
 %	curvature CURVSTART/CURVSTOP, an initial slope SLOPESTART and the
-%	clothoid parameter A.
-%	
-%	Interpretation of the clothoid parameter A: a clothiods curvature k is
-%	proportional to its length s by k = s/A^2.
-%		A > 0: Curvature counter-clockwise
-%		A < 0: Curvature clockwise
+%	clothoid parameter A>0.
 %	
 %	SEG = LKASEGMENTCLOTHOID([],CURVSTART,CURVSTOP,SLOPESTART,A) applies
 %	the default value for DELTASET (see superclass LKASEGMENT).
+%	
+%	Interpretation of the clothoid parameter A: a clothiods curvature k is
+%	proportional to its length s by k = s/A^2.
+%	
+%	A positive/negative curvature yields a path turning
+%	counter-clockwise/clockwise.
 %	
 %	See also LKASEGMENT.
 % 
@@ -269,7 +270,7 @@ classdef lkaSegmentClothoid < lkaSegment
 			[x,y] = lkaSegmentClothoid.clothoid_numInt(s,obj.A,signk,obj.clothx,obj.clothy);
 			cloth.x = x;
 			cloth.y = y;
-            
+			
             % derivative to compute tangent vector
             % http://mathworld.wolfram.com/TangentVector.html
             xD = obj.A*obj.sqrtPi*obj.intx(s/(obj.A*obj.sqrtPi))*signk;
@@ -282,7 +283,7 @@ classdef lkaSegmentClothoid < lkaSegment
             slopeStartDue2curvStart = angle(tang.x(1) + 1i*tang.y(1)); % falls curvStart ~= 0
             slopeStartDue2curvStart2 = mod(obj.phiOfCurvature(obj.A,obj.curvStart),2*pi);
             slopeStartDue2curvStart3 = mod(obj.phiOfLength(obj.A,obj.sOfCurvature(obj.A,obj.curvStart)),2*pi);
-            fprintf('    diff off slope start calc.: %.4f\n',...
+            fprintf('    diff off slope start calc.: %.4e\n',...
 				slopeStartDue2curvStart-slopeStartDue2curvStart2);
             alph = (obj.slopeStart - slopeStartDue2curvStart);
             
