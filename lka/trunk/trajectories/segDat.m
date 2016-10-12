@@ -879,13 +879,20 @@ classdef segDat
 		
 % 			cell2struct(tc,{'sol','xLimits','yLimits','point','angle'},2);
 			
+			% handle input arguments
 			if nargin < 1
-				nbr = 1:length(tc);
+				nbr = 1:size(tc,1);
 			end%if
 			
-			isTestSuccesfull = false(length(nbr),1);
+			% select test cases to perform
 			tc = tc(nbr,:);
-			for i = 1:length(tc)
+			nbrOfTestCases = size(tc,1);
+			
+			% pre-allocation
+			isTestSuccesfull = false(nbrOfTestCases,1);
+			
+			% run test cases
+			for i = 1:nbrOfTestCases
 				
 				[r1 r2] = segDat.scaleTangentToAxis(...
 					tc{i,2},...
@@ -897,11 +904,12 @@ classdef segDat
 				
 			end%for
 			
+			% evaluation and command line output
 			nbrSuccesfull = sum(isTestSuccesfull);
 			nbrFailed = sum(~isTestSuccesfull);
 			fprintf('   Test results: \n')
-			fprintf('     succesfull: %3d of %d.\n',nbrSuccesfull,length(tc))
-			fprintf('     failed:     %3d of %d.\n',nbrFailed,length(tc))
+			fprintf('     succesfull: %3d of %d.\n',nbrSuccesfull,nbrOfTestCases)
+			fprintf('     failed:     %3d of %d.\n',nbrFailed,nbrOfTestCases)
 			
 			ind = 1:length(tc);
 			indFailed = ind(~isTestSuccesfull);
