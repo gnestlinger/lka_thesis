@@ -5,6 +5,13 @@ classdef segDat
 %	OBJ of class SEGDAT representing the geometric data of a street segment
 %	using the properties listed below.
 %	
+%	A curvature K > 0 (K < 0) indicates a left (right) turn by moving from
+%	[X(1),Y(1)] -> [X(end),Y(end)].
+%	
+%	NBR is usually 1, but becomes interesting when street segments are
+%	connected together. Then NBR represents the number of the street
+%	segment in the path of connected segments.
+%	
 %	SEGDAT Properties:
 %	 X		- x-coordinate [m].
 %	 Y		- y-coordinate [m].
@@ -14,15 +21,16 @@ classdef segDat
 %	 TYPE	- Integer indicating the street segment type.
 %	 NBR	- Street segment number of connected segments.
 %	
-%	A curvature K > 0 (K < 0) indicates a left (right) turn by moving from
-%	[X(1),Y(1)] -> [X(end),Y(end)].
-%	
-%	TYPE = 0 indicates a straight, 1 a circular and 2 a clothoidal street
-%	segment.
-%	
-%	NBR is usually 1, but becomes interesting when some street segments are
-%	connected together. Then NBR represents the number of the street
-%	segment in the path of connected segments.
+%	SEGDAT Methods:
+%	 changeSignOfCurvature - Change street segments curvature sign.
+%	 plus	- Connect street segments using '+'.
+%	 reverseDirection - Reverse street segment direction.
+%	 rotate - Rotate street segment.
+%	 shift	- Shift street segment.
+%	 plot	- Plot the street segment.
+%	 plotdiff - Plot the street segment with specific appearance.
+%	 plottangent - Plot the street segment and specified tangents.
+%	 
 %	
 %	See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
 %	LKASEGMENTCLOTHOID.
@@ -55,7 +63,10 @@ classdef segDat
 		% Tangent angle.
 		phi
 		
-		% Street segment type.
+		% Street segment type:
+		%	0 .. straight
+		%	1 .. circular
+		%	2 .. clothoid
 		type
 		
 		% Street segment number of connected segments.
@@ -128,11 +139,11 @@ classdef segDat
 		%%% connect street segment data
 		function obj = plus(obj1,obj2)
 		%+ Plus.
-		%	SEGDAT = SEGDAT1 + SEGDAT2 adds the street segment data SEGDAT2
-		%	with its starting point to the end point of street segment data
-		%	SEGDAT1 resulting in the street segment data SEGDAT.
+		%	OBJ12 = OBJ1 + OBJ2 adds the street segment data OBJ2 with its
+		%	starting point to the end point of street segment data OBJ1
+		%	resulting in the street segment data OBJ12.
 		%	
-		%	Note that here + is a non-commutative operation!
+		%	Note that here plus (+) is a non-commutative operation!
 		
 		
 			obj = segDat(...
@@ -279,7 +290,7 @@ classdef segDat
 		
 		%%% plot of street segment
 		function h = plot(obj,varargin)
-		%PLOT	Plots the street segment.
+		%PLOT	Plot the street segment.
 		%	PLOT(OBJ) plots OBJ.y over OBJ.x
 		%	
 		%	PLOT(OBJ,S) additionally applies the line specification
@@ -321,7 +332,7 @@ classdef segDat
 		
 		%%% tangent plot of street segment
 		function h = plottangent(obj,ind,varargin) 
-		%PLOTTANGENT	Plots the street segment and specified tangents.
+		%PLOTTANGENT	Plot the street segment and specified tangents.
 		%	PLOTTANGENT(OBJ,IND) plots OBJ.y over OBJ.x, the tangents of
 		%	the elements of indices IND and highlights the elements IND by
 		%	a marker '*'.
@@ -423,7 +434,7 @@ classdef segDat
 		
 		%%% plot of street segment using appearance variations
 		function h = plotdiff(obj,fh)
-		%PLOTDIFF	Plots the street segment with specific appearance.
+		%PLOTDIFF	Plot the street segment with specific appearance.
 		%	PLOTDIFF(OBJ) plots each street segment type of OBJ using the
 		%	according pre-defined type-color.
 		%	
