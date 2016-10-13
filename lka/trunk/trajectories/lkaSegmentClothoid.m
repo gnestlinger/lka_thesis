@@ -81,15 +81,6 @@ classdef lkaSegmentClothoid < lkaSegment
         intx = @(t) cos(pi.*t.^2./2);
         inty = @(t) sin(pi.*t.^2./2);
         
-		clothx = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*sign(k)*...
-			quad(lkaSegmentClothoid.intx,...
-			sStart/(lkaSegmentClothoid.sqrtPi*A),...
-			sStop/(lkaSegmentClothoid.sqrtPi*A));
-		clothy = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*...
-			quad(lkaSegmentClothoid.inty,...
-			sStart/(lkaSegmentClothoid.sqrtPi*A),...
-			sStop/(lkaSegmentClothoid.sqrtPi*A));
-        
     end
     
     
@@ -267,7 +258,7 @@ classdef lkaSegmentClothoid < lkaSegment
             % pre-calculation
             s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)'*signk;
             
-			[x,y] = lkaSegmentClothoid.clothoid_numInt(s,obj.A,signk,obj.clothx,obj.clothy);
+			[x,y] = lkaSegmentClothoid.clothoid_numInt(s,obj.A,signk);
 			cloth.x = x;
 			cloth.y = y;
 			
@@ -321,7 +312,7 @@ classdef lkaSegmentClothoid < lkaSegment
 	
 	methods (Static)%, Access = private)
 		
-		function [x,y] = clothoid_numInt(s,A,signk,clothX,clothY)
+		function [x,y] = clothoid_numInt(s,A,signk)
 			
 			% check input arguments
 			if ~isvector(s)
@@ -339,23 +330,32 @@ classdef lkaSegmentClothoid < lkaSegment
 			integrandX = @(t) cos(pi.*t.^2./2);
 			integrandY = @(t) sin(pi.*t.^2./2);
 			
+			clothX = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*sign(k)*...
+				quad(integrandX,...
+				sStart/(lkaSegmentClothoid.sqrtPi*A),...
+				sStop/(lkaSegmentClothoid.sqrtPi*A));
+			clothY = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*...
+				quad(integrandY,...
+				sStart/(lkaSegmentClothoid.sqrtPi*A),...
+				sStop/(lkaSegmentClothoid.sqrtPi*A));
+			
 			% 
 			nbrOfPoints = length(s);
 			
 			% pre-allocation
-			cloth.x(nbrOfPoints,1) = 0;
-			cloth.y(nbrOfPoints,1) = 0;
+			x(nbrOfPoints,1) = 0;
+			y(nbrOfPoints,1) = 0;
 			
 			% num. integration
-			cloth.x(1) = clothX(A,signk,0,s(1));
-			cloth.y(1) = clothY(A,signk,0,s(1));
+			x(1) = clothX(A,signk,0,s(1));
+			y(1) = clothY(A,signk,0,s(1));
 			done_percent_old = 0;
 			fprintf('    ');
 			for i = 2:nbrOfPoints
-				cloth.x(i) = cloth.x(i-1) + clothX(A,signk,s(i-1),s(i));
-				cloth.y(i) = cloth.y(i-1) + clothY(A,signk,s(i-1),s(i));
+				x(i) = x(i-1) + clothX(A,signk,s(i-1),s(i));
+				y(i) = y(i-1) + clothY(A,signk,s(i-1),s(i));
 				done_percent = i/nbrOfPoints*100;
-				delta = 2;
+				delta = 4;
 				if round(done_percent-done_percent_old) > delta
 					fprintf('%d%% ',round(done_percent));
 					done_percent_old = done_percent;
@@ -363,8 +363,6 @@ classdef lkaSegmentClothoid < lkaSegment
 			end%for
 			fprintf('%d%% \n',100);
 			
-			x = cloth.x;
-			y = cloth.y;
 			k = s./A^2;
 			phi = mod(s.^2/(2*A^2),2*pi)*signk;
 			
@@ -374,7 +372,12 @@ classdef lkaSegmentClothoid < lkaSegment
 			yD = A*sqrt(pi)*integrandY(s/(sqrt(pi)*A));
 			tang.x = xD./sqrt(xD.^2+yD.^2);
 			tang.y = yD./sqrt(xD.^2+yD.^2);
-			phi_check = angle(tang.x + 1i*tang.y);
+			phi_check = atan2(tang.y,tang.x);
+			
+			% compare phi/phi_check
+			phi_atan2 = atan2(cos(phi),sin(phi));
+			disp(['    phi==phi_check: ',...
+				num2str(all(abs(phi_atan2 - phi_check) < 1e-12))]);
 			
 		end%fcn
 		
