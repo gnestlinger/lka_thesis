@@ -20,8 +20,8 @@ classdef lkaSegment
 %	 resample	 - Apply a new value for DELTASET.
 %	 shift		 - Shift segment.
 %	 plot		 - Plot segment.
-%	 plottangent - Plot segment and tangents of specified segment points.
 %	 plotdiff	 - Plot segment using segment-type specific plot styles.
+%	 plottangent - Plot segment and tangents of specified segment points.
 %	
 %	--- (just used by subclasses) ---------------------------------------
 %	OBJ = LKASEGMENT(SEGMENTTYPE,DELTASET,XYSTART) sets the segment type
@@ -194,10 +194,9 @@ classdef lkaSegment
     
     
     %%% User-facing methods
-    methods 
-             
-        %%% shift segment to xyStart point
-        function obj = shift(obj,point)
+	methods
+		
+		function obj = shift(obj,point)
         %SHIFT  Shift the street segment.
         %   OBJ = SHIFT(OBJ,POINT) shifts the starting point of street
         %   segment OBJ to coordinate POINT.
@@ -212,21 +211,8 @@ classdef lkaSegment
             obj.xyStart = point;
             
         end%fcn
-        
-        
-        %%% resample the segment with new delta
-        function obj = resample(obj,deltaNew)
-        %RESAMPLE   Apply a desired distance between points.
-        %   OBJ = RESAMPLE(OBJ,DELTANEW) sets the maximum distance between
-        %   two nearby points of street segment OBJ to DELTANEW.
-        %
-        
-            obj.deltaSet = deltaNew;
-            
-        end%fcn
-        
-        
-        %%% connect street segments
+		
+		
         function obj = plus(obj1,obj2)
         %+ Plus.
         %   OBJ1 + OBJ2 works on the property 'segmentData' and connects
@@ -243,10 +229,26 @@ classdef lkaSegment
                 
         end%fcn
         
+		
+		function obj = resample(obj,deltaNew)
+        %RESAMPLE   Apply a desired distance between points.
+        %   OBJ = RESAMPLE(OBJ,DELTANEW) sets the maximum distance between
+        %   two nearby points of street segment OBJ to DELTANEW.
+        %
         
-        %%% plot single segments
+            obj.deltaSet = deltaNew;
+            
+        end%fcn
+		
+	end%methods
+	
+	
+	
+	%%% User-facing methods (plot related)
+	methods
+		
         function h = plot(obj,varargin)
-        %PLOT   Plots the street segment.
+        %PLOT   Plot the street segment.
         %
         %   For the documentation see class segDat.
         %
@@ -269,11 +271,10 @@ classdef lkaSegment
 %                 });
         
         end%fcn
-        
-        
-        %%% tangent plot of elements specified by index ind
+		
+		
         function h = plottangent(obj,ind,varargin)
-        %PLOTTANGENT    Plots the street segment and specified tangents.
+        %PLOTTANGENT    Plot the street segment and specified tangents.
         %
         %   For the documentation see class segDat.
         %
@@ -290,9 +291,8 @@ classdef lkaSegment
             h = plottangent(obj.segmentData,ind,plotColor{:});
             
         end%fcn
-        
-        
-        %%% plot of single segments using segment type specific color
+		
+		
         function h = plotdiff(obj,fh)
         %PLOTDIFF   Plots the street segment with specific appearance.
         % 
