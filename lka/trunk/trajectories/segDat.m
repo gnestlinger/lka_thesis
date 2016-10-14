@@ -136,7 +136,6 @@ classdef segDat
 	%%% User-facing methods
 	methods
 		
-		%%% connect street segment data
 		function obj = plus(obj1,obj2)
 		%+ Plus.
 		%	OBJ12 = OBJ1 + OBJ2 adds the street segment data OBJ2 with its
@@ -288,7 +287,6 @@ classdef segDat
 	%%% plot-methods
 	methods
 		
-		%%% plot of street segment
 		function h = plot(obj,varargin)
 		%PLOT	Plot the street segment.
 		%	PLOT(OBJ) plots OBJ.y over OBJ.x
@@ -330,7 +328,6 @@ classdef segDat
 		end%fcn
 		
 		
-		%%% tangent plot of street segment
 		function h = plottangent(obj,ind,varargin) 
 		%PLOTTANGENT	Plot the street segment and specified tangents.
 		%	PLOTTANGENT(OBJ,IND) plots OBJ.y over OBJ.x, the tangents of
@@ -387,19 +384,18 @@ classdef segDat
 				ind(ind > length(obj.x)) = [];
 			end%if
 			
-			% plot the tangets and the corresponding segment-elements
+			% plot the tangents and the corresponding segment-elements
 			hold on
 			for i = 1:length(ind)
 				iind = ind(i);
+				
+				% marker of tangent point
 				h(i+1,1) = plot(obj.x(iind),obj.y(iind),...
 					'Marker','*','MarkerSize',7,'Color',tangentColor{i});
-% 				r1 = -1e3; r2 = +1e3;
+				
+				% length of tangent
 				[r1,r2] = obj.scaleTangentToAxis(xLimits,yLimits,...
 					[obj.x(iind) obj.y(iind)],obj.phi(iind));
-% 				h(i+1,2) = plot(...
-% 					obj.x(iind)+[r1*cos(obj.phi(iind));r2*cos(obj.phi(iind))],...
-% 					obj.y(iind)+[r1*sin(obj.phi(iind));r2*sin(obj.phi(iind))],...
-% 					'Color',tangentColor{i});
 				
 				% start/end point of tangent
 				Pstart = [...
@@ -432,7 +428,6 @@ classdef segDat
 		end%fcn
 		
 		
-		%%% plot of street segment using appearance variations
 		function h = plotdiff(obj,fh)
 		%PLOTDIFF	Plot the street segment with specific appearance.
 		%	PLOTDIFF(OBJ) plots each street segment type of OBJ using the
