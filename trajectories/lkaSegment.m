@@ -196,23 +196,6 @@ classdef lkaSegment
     %%% User-facing methods
 	methods
 		
-		function obj = shift(obj,point)
-        %SHIFT  Shift the street segment.
-        %   OBJ = SHIFT(OBJ,POINT) shifts the starting point of street
-        %   segment OBJ to coordinate POINT.
-        %
-        %   OBJ = SHIFT(OBJ) shifts to the origin [0,0].
-        %
-        
-            if nargin < 2
-                point = [0,0];
-            end%if
-            
-            obj.xyStart = point;
-            
-        end%fcn
-		
-		
         function obj = plus(obj1,obj2)
         %+ Plus.
         %   OBJ1 + OBJ2 works on the property 'segmentData' and connects
@@ -237,6 +220,23 @@ classdef lkaSegment
         %
         
             obj.deltaSet = deltaNew;
+            
+        end%fcn
+		
+		
+		function obj = shift(obj,point)
+        %SHIFT  Shift the street segment.
+        %   OBJ = SHIFT(OBJ,POINT) shifts the starting point of street
+        %   segment OBJ to coordinate POINT.
+        %
+        %   OBJ = SHIFT(OBJ) shifts to the origin [0,0].
+        %
+        
+            if nargin < 2
+                point = [0,0];
+            end%if
+            
+            obj.xyStart = point;
             
         end%fcn
 		
@@ -273,26 +273,6 @@ classdef lkaSegment
         end%fcn
 		
 		
-        function h = plottangent(obj,ind,varargin)
-        %PLOTTANGENT    Plot the street segment and specified tangents.
-        %
-        %   For the documentation see class segDat.
-        %
-        %   See also segDat/PLOTTANGENT.
-        
-        
-            % apply plot options if unspecified
-            if nargin < 3
-                plotColor = {'r'};
-            else
-                plotColor = varargin;
-            end%if
-            
-            h = plottangent(obj.segmentData,ind,plotColor{:});
-            
-        end%fcn
-		
-		
         function h = plotdiff(obj,fh)
         %PLOTDIFF   Plots the street segment with specific appearance.
         % 
@@ -318,6 +298,26 @@ classdef lkaSegment
         
         end%fcn
         
+		
+		function h = plottangent(obj,ind,varargin)
+        %PLOTTANGENT    Plot the street segment and specified tangents.
+        %
+        %   For the documentation see class segDat.
+        %
+        %   See also segDat/PLOTTANGENT.
+        
+        
+            % apply plot options if unspecified
+            if nargin < 3
+                plotColor = {'r'};
+            else
+                plotColor = varargin;
+            end%if
+            
+            h = plottangent(obj.segmentData,ind,plotColor{:});
+            
+        end%fcn
+		
     end%methods
     
     
