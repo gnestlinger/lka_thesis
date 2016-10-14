@@ -189,40 +189,6 @@ classdef segDat
 		end%fcn
 		
 		
-		function obj = shift(obj,P)
-		% SHIFT		Shift street segment.
-		%	OBJ = SHIFT(OBJ,P) shifts the street segment OBJ so that its
-		%	starting point [OBJ.x(1) OBJ.y(1)] matches P.
-		%	
-		%	OBJ = SHIFT(OBJ) applies the default value [0 0] for P.
-			
-			
-			%%% handle input arguments
-			narginchk(1,2);
-			
-			if nargin < 2
-				P = [0 0];
-			end%if
-			
-			if numel(P) ~= 2 || ~isnumeric(P)
-				error(['Method SHIFT requires a numeric input',...
-					' argument with two elements.']);
-			end%if
-			
-			
-			%%% shift segment
-			obj = segDat(...
-				obj.x - obj.x(1) + P(1),...
-				obj.y - obj.y(1) + P(2),...
-				obj.s,...
-				obj.k,...
-				obj.phi,...
-				obj.type,...
-				obj.nbr); 
-			
-		end%fcn
-		
-		
 		function obj = reverseDirection(obj)
 		% REVERSEDIRECTION	Reverse street segment direction.
 		%	OBJ = REVERSEDIRECTION(OBJ) reverses the direction of street
@@ -282,6 +248,39 @@ classdef segDat
 		end%fcn
 		
 		
+		function obj = shift(obj,P)
+		% SHIFT		Shift street segment.
+		%	OBJ = SHIFT(OBJ,P) shifts the street segment OBJ so that its
+		%	starting point [OBJ.x(1) OBJ.y(1)] matches P.
+		%	
+		%	OBJ = SHIFT(OBJ) applies the default value [0 0] for P.
+			
+			
+			%%% handle input arguments
+			narginchk(1,2);
+			
+			if nargin < 2
+				P = [0 0];
+			end%if
+			
+			if numel(P) ~= 2 || ~isnumeric(P)
+				error(['Method SHIFT requires a numeric input',...
+					' argument with two elements.']);
+			end%if
+			
+			
+			%%% shift segment
+			obj = segDat(...
+				obj.x - obj.x(1) + P(1),...
+				obj.y - obj.y(1) + P(2),...
+				obj.s,...
+				obj.k,...
+				obj.phi,...
+				obj.type,...
+				obj.nbr); 
+			
+		end%fcn
+		
 	end%methods
 	
 	
@@ -326,6 +325,104 @@ classdef segDat
 			ylabel('y [m]');
 			xlabel('x [m]');
 		
+		end%fcn
+		
+		
+		function h = plotdiff(obj,fh)
+		%PLOTDIFF	Plot the street segment with specific appearance.
+		%	PLOTDIFF(OBJ) plots each street segment type of OBJ using the
+		%	according pre-defined type-color.
+		%	
+		%	PLOTDIFF(OBJ,FH) similar to PLOTDIFF(OBJ) but marker symbols
+		%	replace the solid plot line and the marker symbols are switched
+		%	periodically at indices specified by the function handle FH.
+		%	Some usefull values of FH might be
+		%		.) @(OBJ) diff(OBJ.type) 
+		%		.) @(OBJ) diff(OBJ.type) | diff(sign(OBJ.k))
+		%		.) @(OBJ) diff(OBJ.nbr)
+		%	where the first one is used by PLOTDIFF(OBJ). You can also
+		%	specify the indices where marker symbols change manually by
+		%	using something like
+		%		.) @(OBJ) [0 0 1 0 1 0 0 0 1 ...].
+		%	Internally FH is evaluated to FH(OBJ) ~= 0.
+		%	
+		%	H = PLOTDIFF(...) returns a column vector of handles to
+		%	lineseries objects, one handle per plotted street segment.
+		%	
+		%	To modify the plot colors set the hidden property plotColour.
+		%	The default colors are blue (straight), green (circle) and red
+		%	(clothoid).
+		%	
+		%	To modify the plot marker set the hidden property plotMarker,
+		%	where row one applies to the marker symbol and row two to the
+		%	marker size. The default marker symbols are 'o' and 'diamond'
+		%	repeated periodically.
+		%	
+		%	See also segDat/PLOT, segDat/TANGENT.
+		
+		
+			%%% handle input arguments
+			if nargin < 2; fh = @(arg) diff(arg.type); end%if
+			
+			if ~isa(fh,'function_handle')
+				error('class')
+			end%if
+			
+			
+			%%% index numbering of number of elements of OBJ
+			indBase = 1:length(obj.x);
+			
+			
+			%%% get the segment-grouping indices and the number of indices
+			flag = fh(obj) ~= 0;
+			if length(flag) > length(indBase)
+				error(['The length of your evaluated function handle ',...
+					'FH exceeds the length of the street segment: ',...
+					'%u > %u.'],length(flag),length(indBase));
+			end%if
+			ind = [0,indBase(flag),indBase(end)];
+			nbrInd = length(ind);
+			
+			
+			%%% extend the plot settings to the number of segments to plot
+			n = ceil(nbrInd/size(obj.plotMarker,2));
+			plotMarker_ = repmat(obj.plotMarker,1,n);
+			
+			
+			%%% plot the segments with according plot options
+			h = zeros(nbrInd-1,1);
+			for i = 1:nbrInd-1
+				
+				% plot range
+				indRange = ind(i)+1:ind(i+1);
+				
+				% create the segment data to plot
+				sd = segDat(...
+					obj.x(indRange),...
+					obj.y(indRange),...
+					obj.s(indRange),...
+					obj.k(indRange),...
+					obj.phi(indRange),...
+					obj.type(indRange),...
+					ones(size(indRange'))...
+					);
+				
+				hold on
+				h(i) = plot(sd,...
+					'LineStyle','none',...
+					'Color',obj.plotColor{obj.type(indRange(1))+1},...
+					'Marker',plotMarker_{1,i},...
+					'MarkerSize',plotMarker_{2,i});
+				hold off
+				
+			end%for
+			
+			% unsure about usefulness
+			% line style plotting if no additional ....
+			if nargin < 2
+				set(h,'LineStyle','-','LineWidth',2,'Marker','none');
+			end%if
+			
 		end%fcn
 		
 		
@@ -425,104 +522,6 @@ classdef segDat
 			
 			% set the axis limtis corresponding to segment data
 			axis([xLimits,yLimits]);
-			
-		end%fcn
-		
-		
-		function h = plotdiff(obj,fh)
-		%PLOTDIFF	Plot the street segment with specific appearance.
-		%	PLOTDIFF(OBJ) plots each street segment type of OBJ using the
-		%	according pre-defined type-color.
-		%	
-		%	PLOTDIFF(OBJ,FH) similar to PLOTDIFF(OBJ) but marker symbols
-		%	replace the solid plot line and the marker symbols are switched
-		%	periodically at indices specified by the function handle FH.
-		%	Some usefull values of FH might be
-		%		.) @(OBJ) diff(OBJ.type) 
-		%		.) @(OBJ) diff(OBJ.type) | diff(sign(OBJ.k))
-		%		.) @(OBJ) diff(OBJ.nbr)
-		%	where the first one is used by PLOTDIFF(OBJ). You can also
-		%	specify the indices where marker symbols change manually by
-		%	using something like
-		%		.) @(OBJ) [0 0 1 0 1 0 0 0 1 ...].
-		%	Internally FH is evaluated to FH(OBJ) ~= 0.
-		%	
-		%	H = PLOTDIFF(...) returns a column vector of handles to
-		%	lineseries objects, one handle per plotted street segment.
-		%	
-		%	To modify the plot colors set the hidden property plotColour.
-		%	The default colors are blue (straight), green (circle) and red
-		%	(clothoid).
-		%	
-		%	To modify the plot marker set the hidden property plotMarker,
-		%	where row one applies to the marker symbol and row two to the
-		%	marker size. The default marker symbols are 'o' and 'diamond'
-		%	repeated periodically.
-		%	
-		%	See also segDat/PLOT, segDat/TANGENT.
-		
-		
-			%%% handle input arguments
-			if nargin < 2; fh = @(arg) diff(arg.type); end%if
-			
-			if ~isa(fh,'function_handle')
-				error('class')
-			end%if
-			
-			
-			%%% index numbering of number of elements of OBJ
-			indBase = 1:length(obj.x);
-			
-			
-			%%% get the segment-grouping indices and the number of indices
-			flag = fh(obj) ~= 0;
-			if length(flag) > length(indBase)
-				error(['The length of your evaluated function handle ',...
-					'FH exceeds the length of the street segment: ',...
-					'%u > %u.'],length(flag),length(indBase));
-			end%if
-			ind = [0,indBase(flag),indBase(end)];
-			nbrInd = length(ind);
-			
-			
-			%%% extend the plot settings to the number of segments to plot
-			n = ceil(nbrInd/size(obj.plotMarker,2));
-			plotMarker_ = repmat(obj.plotMarker,1,n);
-			
-			
-			%%% plot the segments with according plot options
-			h = zeros(nbrInd-1,1);
-			for i = 1:nbrInd-1
-				
-				% plot range
-				indRange = ind(i)+1:ind(i+1);
-				
-				% create the segment data to plot
-				sd = segDat(...
-					obj.x(indRange),...
-					obj.y(indRange),...
-					obj.s(indRange),...
-					obj.k(indRange),...
-					obj.phi(indRange),...
-					obj.type(indRange),...
-					ones(size(indRange'))...
-					);
-				
-				hold on
-				h(i) = plot(sd,...
-					'LineStyle','none',...
-					'Color',obj.plotColor{obj.type(indRange(1))+1},...
-					'Marker',plotMarker_{1,i},...
-					'MarkerSize',plotMarker_{2,i});
-				hold off
-				
-			end%for
-			
-			% unsure about usefulness
-			% line style plotting if no additional ....
-			if nargin < 2
-				set(h,'LineStyle','-','LineWidth',2,'Marker','none');
-			end%if
 			
 		end%fcn
 		
@@ -744,7 +743,6 @@ classdef segDat
 	%%% Test-Methods
 	methods (Static, Hidden)
 		
-		
 		function test_changeSignOfCurvature(obj)
 			
 			if nargin < 1;
@@ -769,35 +767,6 @@ classdef segDat
 			
 			axis auto
 			legend([h(1,1),h_(1,1)],'original','curvature*(-1)','location','Best')
-			pause
-			close(fig)
-			
-		end%fcn
-		
-		
-		function test_shift()
-			
-			fig = figure;
-			a = lkaSegmentStraight([],100,pi/8);
-			b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
-			c = lkaSegmentClothoid([],1/100,0,0,100);
-			
-			sd_a = a.segmentData;
-			sd_b = b.segmentData;
-			sd_c = c.segmentData;
-			
-			sd_a = shift(sd_a,[10 30]);
-			sd_b = shift(sd_b,[20 20]);
-			sd_c = shift(sd_c,[30 10]);
-			
-			plotdiff(sd_a);
-			plotdiff(sd_b);
-			plotdiff(sd_c);
-			
-			plotdiff(shift(sd_a));
-			plotdiff(shift(sd_b));
-			plotdiff(shift(sd_c));
-			
 			pause
 			close(fig)
 			
@@ -928,6 +897,35 @@ classdef segDat
 					indFailed);
 			end%if
 			fprintf('\n');
+			
+		end%fcn
+		
+		
+		function test_shift()
+			
+			fig = figure;
+			a = lkaSegmentStraight([],100,pi/8);
+			b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
+			c = lkaSegmentClothoid([],1/100,0,0,100);
+			
+			sd_a = a.segmentData;
+			sd_b = b.segmentData;
+			sd_c = c.segmentData;
+			
+			sd_a = shift(sd_a,[10 30]);
+			sd_b = shift(sd_b,[20 20]);
+			sd_c = shift(sd_c,[30 10]);
+			
+			plotdiff(sd_a);
+			plotdiff(sd_b);
+			plotdiff(sd_c);
+			
+			plotdiff(shift(sd_a));
+			plotdiff(shift(sd_b));
+			plotdiff(shift(sd_c));
+			
+			pause
+			close(fig)
 			
 		end%fcn
 		
