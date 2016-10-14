@@ -48,28 +48,28 @@ classdef segDat
 
 
 	properties (SetAccess = private)
-		% x-coordinate.
+		% x-coordinate [m].
 		x
 		
-		% y-coordinate.
+		% y-coordinate [m].
 		y
 		
-		% Covered distance.
+		% Covered distance [m].
 		s
 		
-		% Curvature.
+		% Curvature [1/m].
 		k
 		
-		% Tangent angle.
+		% Tangent angle [rad].
 		phi
 		
-		% Street segment type:
+		% Street segment type [-]:
 		%	0 .. straight
 		%	1 .. circular
 		%	2 .. clothoid
 		type
 		
-		% Street segment number of connected segments.
+		% Street segment number of connected segments [-].
 		nbr
 	end%properties
 	
@@ -136,6 +136,38 @@ classdef segDat
 	%%% User-facing methods
 	methods
 		
+		function obj = changeSignOfCurvature(obj)
+		% CHANGESIGNOFCURVATURE		Change street segments curvature sign.
+		%	OBJ = CHANGESIGNOFCURVATURE(OBJ) changes the curvature sign of
+		%	street segment OBJ.
+		%	
+		%	The other properties are manipulated accordingly.
+		
+			% get starting point/angle
+			P0 = [obj.x(1); obj.y(1)];
+			phi0 = obj.phi(1);
+			
+			% shift to origin an rotate so initial slope is zero
+			obj = shift(obj);
+			obj = rotate(obj,-phi0);
+			
+			% invert the curvature
+			obj = segDat(...
+				+obj.x,...
+				-obj.y,...
+				+obj.s,...
+				-obj.k,...
+				-obj.phi,...
+				+obj.type,...
+				+obj.nbr);
+			
+			% undo the shift/rotate procedure
+			obj = shift(obj,P0);
+			obj = rotate(obj,phi0);
+			
+		end%fcn
+		
+		
 		function obj = plus(obj1,obj2)
 		%+ Plus.
 		%	OBJ12 = OBJ1 + OBJ2 adds the street segment data OBJ2 with its
@@ -191,6 +223,30 @@ classdef segDat
 		end%fcn
 		
 		
+		function obj = reverseDirection(obj)
+		% REVERSEDIRECTION	Reverse street segment direction.
+		%	OBJ = REVERSEDIRECTION(OBJ) reverses the direction of street
+		%	segment OBJ so [x(end),y(end)] becomes [x(1),y(1)] and so on.
+		%	
+		%	The other properties are manipulated accordingly.
+			
+			
+			%%% handle input arguments
+			narginchk(1,1);
+			
+			%%% reverse direction of segment
+			obj = segDat(...
+				+flipud(obj.x),...
+				+flipud(obj.y),...
+				+obj.s(end)-flipud(obj.s),... % in case of non-equally distributed x/y
+				-obj.k,...
+				+flipud(obj.phi) + pi,... 
+				+obj.type,...
+				+obj.nbr); 
+			
+		end%fcn
+		
+		
 		function obj = rotate(obj,phi)
 		% ROTATE	Rotate street segment.
 		%	OBJ = ROTATE(OBJ,PHI) rotates the street segment OBJ by an
@@ -226,65 +282,10 @@ classdef segDat
 		end%fcn
 		
 		
-		function obj = reverseDirection(obj)
-		% REVERSEDIRECTION	Reverse street segment direction.
-		%	OBJ = REVERSEDIRECTION(OBJ) reverses the direction of street
-		%	segment OBJ so [x(end),y(end)] becomes [x(1),y(1)] and so on.
-		%	
-		%	The other properties are manipulated accordingly.
-			
-			
-			%%% handle input arguments
-			narginchk(1,1);
-			
-			%%% reverse direction of segment
-			obj = segDat(...
-				+flipud(obj.x),...
-				+flipud(obj.y),...
-				+obj.s(end)-flipud(obj.s),... % in case of non-equally distributed x/y
-				-obj.k,...
-				+flipud(obj.phi) + pi,... 
-				+obj.type,...
-				+obj.nbr); 
-			
-		end%fcn
-		
-		
-		function obj = changeSignOfCurvature(obj)
-		% CHANGESIGNOFCURVATURE		Change street segments curvature sign.
-		%	OBJ = CHANGESIGNOFCURVATURE(OBJ) changes the curvature sign of
-		%	street segment OBJ.
-		%	
-		%	The other properties are manipulated accordingly.
-		
-			% get starting point/angle
-			P0 = [obj.x(1); obj.y(1)];
-			phi0 = obj.phi(1);
-			
-			% shift to origin an rotate so initial slope is zero
-			obj = shift(obj);
-			obj = rotate(obj,-phi0);
-			
-			% invert the curvature
-			obj = segDat(...
-				+obj.x,...
-				-obj.y,...
-				+obj.s,...
-				-obj.k,...
-				-obj.phi,...
-				+obj.type,...
-				+obj.nbr);
-			
-			% undo the shift/rotate procedure
-			obj = shift(obj,P0);
-			obj = rotate(obj,phi0);
-			
-		end%fcn
-		
 	end%methods
 	
 	
-	%%% plot-methods
+	%%% User-facing methods (plot related)
 	methods
 		
 		function h = plot(obj,varargin)
@@ -743,6 +744,37 @@ classdef segDat
 	%%% Test-Methods
 	methods (Static, Hidden)
 		
+		
+		function test_changeSignOfCurvature(obj)
+			
+			if nargin < 1;
+				b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
+				obj = b.segmentData;
+			end%if
+			
+			fig = figure;
+			
+			ind = 1:10:21;
+			h = plottangent(obj,ind);
+			set(h(1,1),'Color','b','LineWidth',1);
+			set(h(2:end,1),'Color','c','Marker','o','MarkerFaceColor','c');
+			set(h(2:end,2),'Color','c');
+			
+			obj_ = changeSignOfCurvature(obj);
+			hold on
+			h_ = plottangent(obj_,ind);
+			set(h_(1,1),'Color','r','LineWidth',1);
+			set(h_(2:end,1),'Color','m','Marker','h','MarkerFaceColor','m');
+			set(h_(2:end,2),'Color','m');
+			
+			axis auto
+			legend([h(1,1),h_(1,1)],'original','curvature*(-1)','location','Best')
+			pause
+			close(fig)
+			
+		end%fcn
+		
+		
 		function test_shift()
 			
 			fig = figure;
@@ -806,36 +838,6 @@ classdef segDat
 			hold on
 			h = plottangent(obj_,ind,'r');
 			set(h(1,1),'LineStyle',':','Color','r');
-			
-			pause
-			close(fig)
-			
-		end%fcn
-		
-		
-		function test_changeSignOfCurvature(obj)
-			
-			if nargin < 1;
-				b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
-				obj = b.segmentData;
-			end%if
-			
-			fig = figure;
-			
-			ind = 1:10:21;
-			h = plottangent(obj,ind);
-			set(h(1,1),'Color','b','LineWidth',1);
-			set(h(2:end,1),'Color','c','Marker','o','MarkerFaceColor','c');
-			set(h(2:end,2),'Color','c');
-				
-			obj_ = changeSignOfCurvature(obj);
-			hold on
-			h = plottangent(obj_,ind);
-			set(h(1,1),'Color','r','LineWidth',1);
-			set(h(2:end,1),'Color','m','Marker','h','MarkerFaceColor','m');
-			set(h(2:end,2),'Color','m');
-			
-			axis auto
 			
 			pause
 			close(fig)
