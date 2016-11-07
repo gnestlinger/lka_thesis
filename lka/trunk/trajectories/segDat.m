@@ -139,7 +139,7 @@ classdef segDat
 		function obj = changeSignOfCurvature(obj)
 		% CHANGESIGNOFCURVATURE		Change street segments curvature sign.
 		%	OBJ = CHANGESIGNOFCURVATURE(OBJ) changes the curvature sign of
-		%	street segment OBJ.
+		%	street segment OBJ while maintaining the initial point.
 		%	
 		%	The other properties are manipulated accordingly.
 		
@@ -147,7 +147,7 @@ classdef segDat
 			P0 = [obj.x(1); obj.y(1)];
 			phi0 = obj.phi(1);
 			
-			% shift to origin an rotate so initial slope is zero
+			% shift to origin and rotate so initial slope is zero
 			obj = shift(obj);
 			obj = rotate(obj,-phi0);
 			
@@ -162,8 +162,8 @@ classdef segDat
 				+obj.nbr);
 			
 			% undo the shift/rotate procedure
-			obj = shift(obj,P0);
 			obj = rotate(obj,phi0);
+			obj = shift(obj,P0);
 			
 		end%fcn
 		
