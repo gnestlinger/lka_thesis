@@ -319,6 +319,9 @@ classdef segDat
 			
 			% plot street segment
 			h = plot(obj.x,obj.y,plotOpts{:});
+			hold on; 
+			plot(obj.x(1),obj.y(1),plotOpts{:},'Marker','o');
+			hold off
 			grid on;
 			axis equal;
 			title(getLegendCellString(obj));
@@ -419,9 +422,9 @@ classdef segDat
 			
 			% unsure about usefulness
 			% line style plotting if no additional ....
-			if nargin < 2
-				set(h,'LineStyle','-','LineWidth',2,'Marker','none');
-			end%if
+% 			if nargin < 2
+% 				set(h,'LineStyle','-','LineWidth',2,'Marker','none');
+% 			end%if
 			
 		end%fcn
 		
