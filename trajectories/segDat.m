@@ -746,13 +746,14 @@ classdef segDat
 		function test_changeSignOfCurvature(obj)
 			
 			if nargin < 1;
-				b = lkaSegmentCircle([],3/2*pi,4/2*pi,50);
+				b = lkaSegmentCircle([],5/3*pi,4/2*pi,50);
+				b = shift(b,[20,10]);
 				obj = b.segmentData;
 			end%if
 			
 			fig = figure;
 			
-			ind = 1:10:21;
+			ind = [1,length(obj.x)];
 			h = plottangent(obj,ind);
 			set(h(1,1),'Color','b','LineWidth',1);
 			set(h(2:end,1),'Color','c','Marker','o','MarkerFaceColor','c');
