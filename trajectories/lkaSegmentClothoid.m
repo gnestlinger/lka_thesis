@@ -229,7 +229,6 @@ classdef lkaSegmentClothoid < lkaSegment
 	%%% Implementation of abstract methods
     methods (Access = protected)
         
-        %%% get the number of segment points
         function value = getNbrOfPoints(obj)
             % calc the number of points of segment to match 'deltaSet'
             
@@ -238,7 +237,6 @@ classdef lkaSegmentClothoid < lkaSegment
         end%fcn
         
         
-        %%% get endpoint
         function value = getEndPoint(obj)
             
             value = 'currently unsupported to get that value';
@@ -246,65 +244,46 @@ classdef lkaSegmentClothoid < lkaSegment
         end%fcn
         
         
-        %%% create clothoid segment based on object data
-        function segdat = getSegmentData(obj)
-            
-            % get the sign of clothoid curvature
-			signk = sign(obj.curvStop - obj.curvStart);
-            
-            % get dependent property 'nbrOfPoints'
-            nbrOfPointsDEP = obj.nbrOfPoints;
-            
-            % pre-calculation
-            s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)'*signk;
-            
-			[x,y] = lkaSegmentClothoid.clothoid_numInt(s,obj.A,signk);
-			cloth.x = x;
-			cloth.y = y;
+		function segdat = getSegmentData(obj)
 			
-            % derivative to compute tangent vector
-            % http://mathworld.wolfram.com/TangentVector.html
-            xD = obj.A*obj.sqrtPi*obj.intx(s/(obj.A*obj.sqrtPi))*signk;
-            yD = obj.A*obj.sqrtPi*obj.inty(s/(obj.A*obj.sqrtPi));
-            tang.x = xD./sqrt(xD.^2+yD.^2);
-            tang.y = yD./sqrt(xD.^2+yD.^2);
-            
-            % rotation angle, curvStart ~= 0 results in a tangent vector
-            % with slope ~= 0 at start point
-            slopeStartDue2curvStart = angle(tang.x(1) + 1i*tang.y(1)); % falls curvStart ~= 0
-            slopeStartDue2curvStart2 = mod(obj.phiOfCurvature(obj.A,obj.curvStart),2*pi);
-            slopeStartDue2curvStart3 = mod(obj.phiOfLength(obj.A,obj.sOfCurvature(obj.A,obj.curvStart)),2*pi);
-            fprintf('    diff off slope start calc.: %.4e\n',...
-				slopeStartDue2curvStart-slopeStartDue2curvStart2);
-            alph = (obj.slopeStart - slopeStartDue2curvStart);
-            
-            % rotate clothoid
-            cloth.x_rot = (obj.rotMatX(alph)*[cloth.x,cloth.y]')';
-            cloth.y_rot = (obj.rotMatY(alph)*[cloth.x,cloth.y]')';
-            
-            % rotate tangent
-            tang.x_rot = (obj.rotMatX(alph)*[tang.x,tang.y]')';
-            tang.y_rot = (obj.rotMatY(alph)*[tang.x,tang.y]')';
-            
-            % shift whole trajectory so [x(1);y(1)] matches xyStart
-            xShift = cloth.x_rot(1) - obj.xyStart(1);
-            yShift = cloth.y_rot(1) - obj.xyStart(2);
-            
-            % output arguments
-            phi = unwrap(angle(tang.x_rot + 1i*tang.y_rot));%(s).^2/(2*obj.A^2);
-            
-            % store data in segDat class
-            segdat = segDat(...
-				cloth.x_rot - xShift,...		% x-coordinate
-				cloth.y_rot - yShift,...		% y-coordinate
-				abs(s-s(1)),...					% curve length
-				s/obj.A^2*signk,...				% curvature
-				phi,...							% tangent angle
-				2*ones(nbrOfPointsDEP,1),...	% type
-				1*ones(nbrOfPointsDEP,1) ...	% segment number
-				);
-            
-        end%fcn
+			% get the sign of clothoid curvature
+			signk = sign(obj.curvStop - obj.curvStart);
+			
+			% get dependent property 'nbrOfPoints'
+			nbrOfPointsDEP = obj.nbrOfPoints;
+			
+			% pre-calculation
+			s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)'*signk;
+			
+			% numerical integration of clothoid coordinates
+			[x,y] = lkaSegmentClothoid.clothoid_numInt(s,obj.A);
+			
+			% create segDat object
+			segdat = segDat(...
+				x,...					% x coordinate
+				y,...					% y coordinate
+				s,...					% curve length
+				s/obj.A^2,...			% k = s/A^2
+				s.^2/(2*obj.A^2),...	% phi = A^2*k^2/2 = s^2/(2*A^2)
+				2,...					% segment type
+				1);						% segment number
+			
+			if signk < 0
+				segdat = changeSignOfCurvature(segdat);
+			end%if
+			
+			% rotate clothoid
+			segdat = rotate(segdat,obj.slopeStart-segdat.phi(1));
+			
+			% shift whole trajectory so [x(1);y(1)] matches xyStart
+			segdat = shift(segdat,[0,0]);
+			
+			% just for debugging
+			if false
+				plottangent(segdat,[1,length(segdat.x)]);
+			end%if
+			
+		end%fcn
         
     end%methods
 	
@@ -312,11 +291,31 @@ classdef lkaSegmentClothoid < lkaSegment
 	
 	methods (Static)%, Access = private)
 		
-		function [x,y] = clothoid_numInt(s,A,signk)
+		function [x,y] = clothoid_numInt(s,A,doPlot)
+		% CLOTHOID_NUMINT	Numerical integration of clothoid.
+		%	[X,Y] = CLOTHOID_NUMINT(S,A) calculates the clothoid points
+		%	Y(X) for the vector of clothoid length S using the chlothoid
+		%	parameter A>0.
+		% 
+		%	The input argument S must be vector sized, must not contain
+		%	equal elements and must be strictly monotonically increasing or
+		%	decreasing!
+		% 
+		% 
+		%	[X,Y] = CLOTHOID_NUMINT(...,DOPLOT) enables some plot output by
+		%	setting DOPLOT to logical 1.
+		% 
+		%	[x;y] = A*sqrt(pi)*Int([cos(pi*t^2/2);sin(pi*t^2/2)],...
+		%	S(1)/(sqrt(pi)*A),S(end)/(sqrt(pi)*A))
+			
 			
 			% check input arguments
 			if ~isvector(s)
-				error('Input argument s has to be vector-sized!');
+				error('Input argument S has to be vector-sized!');
+			elseif any(diff(s) == 0)
+				error('Input argument S must not contain equal elements!');
+			elseif abs(sum(sign(diff(s)))) ~= length(s)-1
+				error('Input argument S must be strictly monotonically decreasing/increasing!');
 			else
 				% ensure column vector orientation
 				s = s(:);
@@ -326,20 +325,25 @@ classdef lkaSegmentClothoid < lkaSegment
 				error('Input argument A has to be positive!')
 			end%if
 			
+			if nargin < 3
+				doPlot = false;
+			end%if
+			
+			
 			% clothoid integrands
 			integrandX = @(t) cos(pi.*t.^2./2);
 			integrandY = @(t) sin(pi.*t.^2./2);
 			
-			clothX = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*sign(k)*...
+			clothX = @(A,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*...
 				quad(integrandX,...
 				sStart/(lkaSegmentClothoid.sqrtPi*A),...
 				sStop/(lkaSegmentClothoid.sqrtPi*A));
-			clothY = @(A,k,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*...
+			clothY = @(A,sStart,sStop) A*lkaSegmentClothoid.sqrtPi*...
 				quad(integrandY,...
 				sStart/(lkaSegmentClothoid.sqrtPi*A),...
 				sStop/(lkaSegmentClothoid.sqrtPi*A));
 			
-			% 
+			% number of points 
 			nbrOfPoints = length(s);
 			
 			% pre-allocation
@@ -347,37 +351,60 @@ classdef lkaSegmentClothoid < lkaSegment
 			y(nbrOfPoints,1) = 0;
 			
 			% num. integration
-			x(1) = clothX(A,signk,0,s(1));
-			y(1) = clothY(A,signk,0,s(1));
+			x(1) = clothX(A,0,s(1));
+			y(1) = clothY(A,0,s(1));
 			done_percent_old = 0;
 			fprintf('    ');
 			for i = 2:nbrOfPoints
-				x(i) = x(i-1) + clothX(A,signk,s(i-1),s(i));
-				y(i) = y(i-1) + clothY(A,signk,s(i-1),s(i));
+				x(i) = x(i-1) + clothX(A,s(i-1),s(i));
+				y(i) = y(i-1) + clothY(A,s(i-1),s(i));
 				done_percent = i/nbrOfPoints*100;
-				delta = 4;
-				if round(done_percent-done_percent_old) > delta
+				delta = 10;
+				if (done_percent-done_percent_old) > delta
 					fprintf('%d%% ',round(done_percent));
 					done_percent_old = done_percent;
 				end%if
 			end%for
 			fprintf('%d%% \n',100);
 			
+			% curvature and tangent angle
 			k = s./A^2;
-			phi = mod(s.^2/(2*A^2),2*pi)*signk;
+			phi = s.^2/(2*A^2);
 			
-			% derivative to compute tangent vector
-			% http://mathworld.wolfram.com/TangentVector.html
-			xD = A*sqrt(pi)*integrandX(s/(sqrt(pi)*A))*signk;
-			yD = A*sqrt(pi)*integrandY(s/(sqrt(pi)*A));
-			tang.x = xD./sqrt(xD.^2+yD.^2);
-			tang.y = yD./sqrt(xD.^2+yD.^2);
-			phi_check = atan2(tang.y,tang.x);
-			
+% 			% derivative to compute tangent vector
+% 			% http://mathworld.wolfram.com/TangentVector.html
+% 			xD = A*sqrt(pi)*integrandX(s/(sqrt(pi)*A));
+% 			yD = A*sqrt(pi)*integrandY(s/(sqrt(pi)*A));
+% 			x_tang = xD./sqrt(xD.^2+yD.^2);
+% 			y_tang = yD./sqrt(xD.^2+yD.^2);
+% 			phi_check = atan2(y_tang,x_tang);
+% 			
 			% compare phi/phi_check
-			phi_atan2 = atan2(cos(phi),sin(phi));
-			disp(['    phi==phi_check: ',...
-				num2str(all(abs(phi_atan2 - phi_check) < 1e-12))]);
+			phi_atan2 = atan2(sin(phi),cos(phi));
+% 			disp(['    phi==phi_check: ',...
+% 				num2str(all(abs(phi_atan2 - phi_check) < 1e-12))]);
+			
+			if doPlot
+				
+				sd = segDat(x,y,s,k,phi,2,1);
+				
+				subplot(2,1,1)
+				plottangent(sd,[1,length(sd.x)]);
+				hold on; plot(x(1),y(1),'o'); hold off;
+				grid on; 
+				axis equal;
+				
+				subplot(2,1,2)
+				ph = plot(...
+					s,phi,...
+					s,phi_atan2);
+% 					s,phi_check,'.');
+				grid on
+				set(ph(1),'LineWidth',2);
+				set(ph(2),'color','g');
+				legend('phi','phi\_atan2','location','Best');
+				
+			end%if
 			
 		end%fcn
 		
