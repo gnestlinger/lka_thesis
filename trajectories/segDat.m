@@ -420,6 +420,9 @@ classdef segDat
 				
 			end%for
 			
+			% override single segment legend with legend of connected OBJ
+			title(getLegendCellString(obj));
+			
 			% unsure about usefulness
 			% line style plotting if no additional ....
 % 			if nargin < 2
