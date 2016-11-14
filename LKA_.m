@@ -20,10 +20,16 @@ load_system(mdlName);
 
 %% LKA-controller design
 
+paramFile_SingleTrackMdl_BMW5
+
+% nicht steuerbar bei
+vx0 = sqrt(-csh*(Iz-lv*lh*m)*(lv+lh)/(lv^2*m^2));
+
 % LKA-controller design: vehicle parameter
 stringCvehicle = 'paramFile_SingleTrackMdl_BMW5';
 
 % LKA-controller design: longitudinal velocity vx [m/s]
+% vxC = vx0;
 vxC = 20;
 
 % LKA-controller design: look-ahead distance lad [m]
