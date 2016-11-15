@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.166"
+    ComputedModelVersion    "1.169"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,13 +27,13 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Feb 19 10:34:32 2016"
-  RTWModifiedTimeStamp	  377778741
-  ModelVersionFormat	  "1.%<AutoIncrement:166>"
+  LastModifiedDate	  "Tue Nov 15 13:58:45 2016"
+  RTWModifiedTimeStamp	  401117772
+  ModelVersionFormat	  "1.%<AutoIncrement:169>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
-  LibraryLinkDisplay	  "none"
+  LibraryLinkDisplay	  "all"
   WideLines		  off
   ShowLineDimensions	  off
   ShowPortDataTypes	  off
@@ -52,8 +52,8 @@ Model {
   BlockDescriptionStringDataTip	off
   ToolBar		  on
   StatusBar		  on
-  BrowserShowLibraryLinks off
-  BrowserLookUnderMasks	  off
+  BrowserShowLibraryLinks on
+  BrowserLookUnderMasks	  on
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
   Profile		  off
@@ -630,10 +630,6 @@ Model {
   }
   BlockParameterDefaults {
     Block {
-      BlockType		      BusSelector
-      OutputAsBus	      off
-    }
-    Block {
       BlockType		      Constant
       Value		      "1"
       VectorParams1D	      on
@@ -795,10 +791,13 @@ Model {
       SaturateOnIntegerOverflow	on
       SampleTime	      "-1"
     }
+    Block {
+      BlockType		      Terminator
+    }
   }
   System {
     Name		    "Lenkung_CarMaker_DSR"
-    Location		    [539, 202, 1561, 893]
+    Location		    [781, 231, 1920, 940]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    223
@@ -812,87 +811,12 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "400"
-    Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector1"
-      SID		      "147"
-      Ports		      [1, 1]
-      Position		      [755, 106, 760, 144]
-      ShowName		      off
-      OutputSignals	      "steering wheel angle"
-      Port {
-	PortNumber		1
-	Name			"<steering wheel angle>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector2"
-      SID		      "228"
-      Ports		      [1, 1]
-      Position		      [755, 346, 760, 384]
-      ShowName		      off
-      OutputSignals	      "steering wheel angle"
-      Port {
-	PortNumber		1
-	Name			"<steering wheel angle>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector3"
-      SID		      "372"
-      Ports		      [1, 1]
-      Position		      [755, 571, 760, 609]
-      ShowName		      off
-      OutputSignals	      "steering wheel angle"
-      Port {
-	PortNumber		1
-	Name			"<steering wheel angle>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "CarMaker DSR"
-      SID		      "390"
-      Ports		      [3, 1]
-      Position		      [580, 88, 715, 162]
-      LibraryVersion	      "1.779"
-      SourceBlock	      "library/Steering Models/CarMaker DSR"
-      SourceType	      "SubSystem"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "CarMaker DSR1"
-      SID		      "392"
-      Ports		      [3, 1]
-      Position		      [575, 328, 710, 402]
-      LibraryVersion	      "1.779"
-      SourceBlock	      "library/Steering Models/CarMaker DSR"
-      SourceType	      "SubSystem"
-    }
-    Block {
-      BlockType		      Reference
-      Name		      "CarMaker DSR2"
-      SID		      "393"
-      Ports		      [3, 1]
-      Position		      [575, 553, 710, 627]
-      LibraryVersion	      "1.779"
-      SourceBlock	      "library/Steering Models/CarMaker DSR"
-      SourceType	      "SubSystem"
-    }
+    SIDHighWatermark	    "409"
     Block {
       BlockType		      Constant
       Name		      "Constant"
       SID		      "384"
-      Position		      [450, 116, 480, 134]
+      Position		      [420, 111, 450, 129]
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
@@ -901,7 +825,7 @@ Model {
       BlockType		      Constant
       Name		      "Constant1"
       SID		      "399"
-      Position		      [450, 356, 480, 374]
+      Position		      [420, 351, 450, 369]
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
@@ -910,7 +834,7 @@ Model {
       BlockType		      Constant
       Name		      "Constant2"
       SID		      "400"
-      Position		      [450, 581, 480, 599]
+      Position		      [420, 576, 450, 594]
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
@@ -964,7 +888,7 @@ Model {
       BlockType		      From
       Name		      "From"
       SID		      "395"
-      Position		      [450, 381, 560, 399]
+      Position		      [420, 371, 530, 389]
       ZOrder		      -9
       GotoTag		      "disturbance"
     }
@@ -972,7 +896,7 @@ Model {
       BlockType		      From
       Name		      "From1"
       SID		      "397"
-      Position		      [450, 606, 560, 624]
+      Position		      [420, 596, 530, 614]
       ZOrder		      -9
       GotoTag		      "disturbance"
     }
@@ -980,7 +904,7 @@ Model {
       BlockType		      From
       Name		      "From2"
       SID		      "398"
-      Position		      [450, 141, 560, 159]
+      Position		      [420, 131, 530, 149]
       ZOrder		      -9
       GotoTag		      "disturbance"
     }
@@ -1044,7 +968,7 @@ Model {
       Port {
 	PortNumber		1
 	Name			"delta_SW"
-	PropagatedSignals	"delta_SW_soll, steering wheel angle"
+	PropagatedSignals	"delta_SW_soll, SWAngle"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1061,7 +985,7 @@ Model {
       Port {
 	PortNumber		1
 	Name			"delta_SW"
-	PropagatedSignals	"delta_SW_soll, steering wheel angle"
+	PropagatedSignals	"delta_SW_soll, SWAngle"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1078,7 +1002,7 @@ Model {
       Port {
 	PortNumber		1
 	Name			"delta_SW"
-	PropagatedSignals	"delta_SW_soll, steering wheel angle"
+	PropagatedSignals	"delta_SW_soll, SWAngle"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1391,9 +1315,9 @@ Model {
       Name		      "Scope1"
       SID		      "200"
       Ports		      [2]
-      Position		      [950, 56, 980, 89]
+      Position		      [930, 56, 960, 89]
       Floating		      off
-      Location		      [128, 159, 952, 894]
+      Location		      [10, 61, 952, 1024]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -1423,9 +1347,9 @@ Model {
       Name		      "Scope2"
       SID		      "233"
       Ports		      [2]
-      Position		      [945, 296, 975, 329]
+      Position		      [930, 296, 960, 329]
       Floating		      off
-      Location		      [61, 152, 885, 887]
+      Location		      [10, 61, 952, 1024]
       Open		      off
       NumInputPorts	      "2"
       List {
@@ -1456,7 +1380,7 @@ Model {
       Name		      "Scope3"
       SID		      "376"
       Ports		      [2]
-      Position		      [950, 521, 980, 554]
+      Position		      [930, 521, 960, 554]
       Floating		      off
       Location		      [726, 158, 1550, 893]
       Open		      off
@@ -1479,9 +1403,9 @@ Model {
       Name		      "Scope4"
       SID		      "383"
       Ports		      [3]
-      Position		      [1035, 274, 1065, 306]
+      Position		      [985, 274, 1015, 306]
       Floating		      off
-      Location		      [350, 220, 1174, 1010]
+      Location		      [364, 109, 1188, 899]
       Open		      off
       NumInputPorts	      "3"
       List {
@@ -1507,6 +1431,84 @@ Model {
       DataFormat	      "StructureWithTime"
       LimitDataPoints	      off
       SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Steering Model: CarMaker DSR [masked]"
+      SID		      "403"
+      Ports		      [3, 2]
+      Position		      [555, 90, 720, 150]
+      ZOrder		      -19
+      LibraryVersion	      "1.788"
+      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
+      SourceType	      "Steering model parameterization"
+      d_rot		      "pin.SteeringModel.parameter.values.drot"
+      d_rack		      "pin.SteeringModel.parameter.values.drack"
+      i			      "pin.SteeringModel.parameter.values.iHR"
+      I_rot		      "pin.SteeringModel.parameter.values.J"
+      m_left		      "pin.SteeringModel.parameter.values.mL"
+      m_right		      "pin.SteeringModel.parameter.values.mR"
+      m_rack		      "pin.SteeringModel.parameter.values.mr"
+      V			      "pin.SteeringModel.parameter.values.V"
+      Port {
+	PortNumber		1
+	PropagatedSignals	"SWAngle"
+	ShowPropagatedSignals	"on"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Steering Model: CarMaker DSR [masked]1"
+      SID		      "406"
+      Ports		      [3, 2]
+      Position		      [555, 330, 720, 390]
+      ZOrder		      -19
+      LibraryVersion	      "1.788"
+      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
+      SourceType	      "Steering model parameterization"
+      d_rot		      "pin.SteeringModel.parameter.values.drot"
+      d_rack		      "pin.SteeringModel.parameter.values.drack"
+      i			      "pin.SteeringModel.parameter.values.iHR"
+      I_rot		      "pin.SteeringModel.parameter.values.J"
+      m_left		      "pin.SteeringModel.parameter.values.mL"
+      m_right		      "pin.SteeringModel.parameter.values.mR"
+      m_rack		      "pin.SteeringModel.parameter.values.mr"
+      V			      "pin.SteeringModel.parameter.values.V"
+      Port {
+	PortNumber		1
+	PropagatedSignals	"SWAngle"
+	ShowPropagatedSignals	"on"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Steering Model: CarMaker DSR [masked]2"
+      SID		      "408"
+      Ports		      [3, 2]
+      Position		      [545, 555, 710, 615]
+      ZOrder		      -19
+      LibraryVersion	      "1.788"
+      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
+      SourceType	      "Steering model parameterization"
+      d_rot		      "pin.SteeringModel.parameter.values.drot"
+      d_rack		      "pin.SteeringModel.parameter.values.drack"
+      i			      "pin.SteeringModel.parameter.values.iHR"
+      I_rot		      "pin.SteeringModel.parameter.values.J"
+      m_left		      "pin.SteeringModel.parameter.values.mL"
+      m_right		      "pin.SteeringModel.parameter.values.mR"
+      m_rack		      "pin.SteeringModel.parameter.values.mr"
+      V			      "pin.SteeringModel.parameter.values.V"
+      Port {
+	PortNumber		1
+	PropagatedSignals	"SWAngle"
+	ShowPropagatedSignals	"on"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
     }
     Block {
       BlockType		      Step
@@ -1556,6 +1558,30 @@ Model {
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator"
+      SID		      "405"
+      Position		      [750, 125, 770, 145]
+      ZOrder		      -5
+      ShowName		      off
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator1"
+      SID		      "407"
+      Position		      [750, 365, 770, 385]
+      ZOrder		      -5
+      ShowName		      off
+    }
+    Block {
+      BlockType		      Terminator
+      Name		      "Terminator2"
+      SID		      "409"
+      Position		      [750, 590, 770, 610]
+      ZOrder		      -5
+      ShowName		      off
+    }
     Line {
       Name		      "Moment"
       SrcBlock		      "Sum"
@@ -1568,29 +1594,7 @@ Model {
 	DstPort			2
       }
       Branch {
-	DstBlock		"CarMaker DSR"
-	DstPort			1
-      }
-    }
-    Line {
-      SrcBlock		      "CarMaker DSR"
-      SrcPort		      1
-      DstBlock		      "Bus\nSelector1"
-      DstPort		      1
-    }
-    Line {
-      Name		      "<steering wheel angle>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector1"
-      SrcPort		      1
-      Points		      [80, 0]
-      Branch {
-	DstBlock		"Mux3"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, 70]
-	DstBlock		"Controller R"
+	DstBlock		"Steering Model: CarMaker DSR [masked]"
 	DstPort			1
       }
     }
@@ -1599,13 +1603,13 @@ Model {
       Labels		      [1, 0]
       SrcBlock		      "Mux3"
       SrcPort		      1
-      Points		      [65, 0]
+      Points		      [45, 0]
       Branch {
 	DstBlock		"Scope1"
 	DstPort			1
       }
       Branch {
-	Points			[85, 0]
+	Points			[55, 0]
 	DstBlock		"Scope4"
 	DstPort			1
       }
@@ -1623,24 +1627,17 @@ Model {
 	DstPort			2
       }
       Branch {
-	DstBlock		"CarMaker DSR1"
+	DstBlock		"Steering Model: CarMaker DSR [masked]1"
 	DstPort			1
       }
     }
     Line {
-      SrcBlock		      "CarMaker DSR1"
-      SrcPort		      1
-      DstBlock		      "Bus\nSelector2"
-      DstPort		      1
-    }
-    Line {
-      Name		      "<steering wheel angle>"
       Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector2"
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]1"
       SrcPort		      1
-      Points		      [80, 0]
+      Points		      [120, 0]
       Branch {
-	Points			[0, 60; -560, 0]
+	Points			[0, 85; -560, 0]
 	DstBlock		"Regler als ein System!"
 	DstPort			2
       }
@@ -1654,7 +1651,7 @@ Model {
       Labels		      [1, 0]
       SrcBlock		      "Mux1"
       SrcPort		      1
-      Points		      [60, 0]
+      Points		      [45, 0]
       Branch {
 	DstBlock		"Scope2"
 	DstPort			1
@@ -1684,19 +1681,12 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "CarMaker DSR2"
-      SrcPort		      1
-      DstBlock		      "Bus\nSelector3"
-      DstPort		      1
-    }
-    Line {
-      Name		      "<steering wheel angle>"
       Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector3"
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]2"
       SrcPort		      1
-      Points		      [80, 0]
+      Points		      [50, 0; 80, 0]
       Branch {
-	Points			[0, 60; -575, 0]
+	Points			[0, 80; -575, 0]
 	DstBlock		"Sum1"
 	DstPort			2
       }
@@ -1710,13 +1700,13 @@ Model {
       Labels		      [1, 0]
       SrcBlock		      "Mux2"
       SrcPort		      1
-      Points		      [65, 0]
+      Points		      [45, 0]
       Branch {
 	DstBlock		"Scope3"
 	DstPort			1
       }
       Branch {
-	Points			[85, 0]
+	Points			[55, 0]
 	DstBlock		"Scope4"
 	DstPort			3
       }
@@ -1734,7 +1724,7 @@ Model {
 	DstPort			2
       }
       Branch {
-	DstBlock		"CarMaker DSR2"
+	DstBlock		"Steering Model: CarMaker DSR [masked]2"
 	DstPort			1
       }
     }
@@ -1767,19 +1757,19 @@ Model {
     Line {
       SrcBlock		      "Constant"
       SrcPort		      1
-      DstBlock		      "CarMaker DSR"
+      DstBlock		      "Steering Model: CarMaker DSR [masked]"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Constant1"
       SrcPort		      1
-      DstBlock		      "CarMaker DSR1"
+      DstBlock		      "Steering Model: CarMaker DSR [masked]1"
       DstPort		      2
     }
     Line {
       SrcBlock		      "Constant2"
       SrcPort		      1
-      DstBlock		      "CarMaker DSR2"
+      DstBlock		      "Steering Model: CarMaker DSR [masked]2"
       DstPort		      2
     }
     Line {
@@ -1834,20 +1824,53 @@ Model {
     Line {
       SrcBlock		      "From"
       SrcPort		      1
-      DstBlock		      "CarMaker DSR1"
+      DstBlock		      "Steering Model: CarMaker DSR [masked]1"
       DstPort		      3
     }
     Line {
       SrcBlock		      "From1"
       SrcPort		      1
-      DstBlock		      "CarMaker DSR2"
+      DstBlock		      "Steering Model: CarMaker DSR [masked]2"
       DstPort		      3
     }
     Line {
       SrcBlock		      "From2"
       SrcPort		      1
-      DstBlock		      "CarMaker DSR"
+      DstBlock		      "Steering Model: CarMaker DSR [masked]"
       DstPort		      3
+    }
+    Line {
+      Labels		      [0, 0]
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]"
+      SrcPort		      1
+      Points		      [120, 0]
+      Branch {
+	DstBlock		"Mux3"
+	DstPort			2
+      }
+      Branch {
+	Points			[0, 90]
+	DstBlock		"Controller R"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]"
+      SrcPort		      2
+      DstBlock		      "Terminator"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]1"
+      SrcPort		      2
+      DstBlock		      "Terminator1"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]2"
+      SrcPort		      2
+      DstBlock		      "Terminator2"
+      DstPort		      1
     }
   }
 }
