@@ -1,12 +1,12 @@
 Model {
   Name			  "LKA_Lenkung_CarMaker_DSR_kaskadiert"
-  Version		  7.4
+  Version		  7.9
   MdlSubVersion		  0
   GraphicalInterface {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.102"
+    ComputedModelVersion    "1.105"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -16,18 +16,20 @@ Model {
   OverrideScopeRefreshTime on
   DisableAllScopes	  off
   DataTypeOverride	  "UseLocalSettings"
+  DataTypeOverrideAppliesTo "AllNumericTypes"
   MinMaxOverflowLogging	  "UseLocalSettings"
   MinMaxOverflowArchiveMode "Overwrite"
+  FPTRunName		  "Run 1"
   MaxMDLFileLineLength	  120
   Created		  "Thu Jan 17 11:35:56 2013"
   Creator		  "Georg"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Georg"
+  LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 26 20:59:04 2013"
-  RTWModifiedTimeStamp	  288910741
-  ModelVersionFormat	  "1.%<AutoIncrement:102>"
+  LastModifiedDate	  "Tue Nov 15 16:37:13 2016"
+  RTWModifiedTimeStamp	  401128401
+  ModelVersionFormat	  "1.%<AutoIncrement:105>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -35,6 +37,7 @@ Model {
   WideLines		  off
   ShowLineDimensions	  off
   ShowPortDataTypes	  off
+  ShowDesignRanges	  off
   ShowLoopsOnError	  on
   IgnoreBidirectionalLines off
   ShowStorageClass	  off
@@ -49,7 +52,7 @@ Model {
   BlockDescriptionStringDataTip	off
   ToolBar		  on
   StatusBar		  on
-  BrowserShowLibraryLinks off
+  BrowserShowLibraryLinks on
   BrowserLookUnderMasks	  off
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
@@ -102,13 +105,13 @@ Model {
     Dimension		    1
     Simulink.ConfigSet {
       $ObjectID		      1
-      Version		      "1.6.0"
+      Version		      "1.12.0"
       Array {
 	Type			"Handle"
 	Dimension		8
 	Simulink.SolverCC {
 	  $ObjectID		  2
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  StartTime		  "0.0"
 	  StopTime		  "tend"
 	  AbsTol		  "auto"
@@ -126,8 +129,11 @@ Model {
 	  MaxConsecutiveMinStep	  "1"
 	  RelTol		  "1e-3"
 	  SolverMode		  "Auto"
+	  EnableConcurrentExecution off
+	  ConcurrentTasks	  off
 	  Solver		  "ode23"
 	  SolverName		  "ode23"
+	  SolverJacobianMethodControl "auto"
 	  ShapePreserveControl	  "DisableAll"
 	  ZeroCrossControl	  "UseLocalSettings"
 	  ZeroCrossAlgorithm	  "Nonadaptive"
@@ -140,7 +146,7 @@ Model {
 	}
 	Simulink.DataIOCC {
 	  $ObjectID		  3
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  Decimation		  "1"
 	  ExternalInput		  "[t, u]"
 	  FinalStateName	  "xFinal"
@@ -152,9 +158,11 @@ Model {
 	  SaveFinalState	  off
 	  SaveCompleteFinalSimState off
 	  SaveFormat		  "Array"
+	  SignalLoggingSaveFormat "ModelDataLogs"
 	  SaveOutput		  on
 	  SaveState		  off
 	  SignalLogging		  on
+	  DSMLogging		  on
 	  InspectSignalLogs	  off
 	  SaveTime		  on
 	  ReturnWorkspaceOutputs  off
@@ -162,6 +170,7 @@ Model {
 	  TimeSaveName		  "tout"
 	  OutputSaveName	  "yout"
 	  SignalLoggingName	  "logsout"
+	  DSMLoggingName	  "dsmout"
 	  OutputOption		  "RefineOutputTimes"
 	  OutputTimes		  "[]"
 	  ReturnWorkspaceOutputsName "out"
@@ -169,7 +178,7 @@ Model {
 	}
 	Simulink.OptimizationCC {
 	  $ObjectID		  4
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    7
@@ -187,14 +196,16 @@ Model {
 	  ConditionallyExecuteInputs on
 	  InlineParams		  off
 	  UseIntDivNetSlope	  off
+	  UseFloatMulNetSlope	  off
+	  UseSpecifiedMinMax	  off
 	  InlineInvariantSignals  off
 	  OptimizeBlockIOStorage  on
 	  BufferReuse		  on
 	  EnhancedBackFolding	  off
 	  StrengthReduction	  off
-	  EnforceIntegerDowncast  on
 	  ExpressionFolding	  on
 	  BooleansAsBitfields	  off
+	  BitfieldContainerType	  "uint_T"
 	  EnableMemcpy		  on
 	  MemcpyThreshold	  64
 	  PassReuseOutputArgsAs	  "Structure reference"
@@ -214,13 +225,15 @@ Model {
 	  EfficientMapNaN2IntZero on
 	  OptimizeModelRefInitCode off
 	  LifeSpan		  "inf"
+	  MaxStackSize		  "Inherit from target"
 	  BufferReusableBoundary  on
 	  SimCompilerOptimization "Off"
 	  AccelVerboseBuild	  off
+	  ParallelExecutionInRapidAccelerator on
 	}
 	Simulink.DebuggingCC {
 	  $ObjectID		  5
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  RTPrefix		  "error"
 	  ConsistencyChecking	  "none"
 	  ArrayBoundsChecking	  "none"
@@ -243,6 +256,8 @@ Model {
 	  MinStepSizeMsg	  "warning"
 	  TimeAdjustmentMsg	  "none"
 	  MaxConsecutiveZCsMsg	  "error"
+	  MaskedZcDiagnostic	  "warning"
+	  IgnoredZcDiagnostic	  "warning"
 	  SolverPrmCheckMsg	  "warning"
 	  InheritedTsInSrcMsg	  "warning"
 	  DiscreteInheritContinuousMsg "warning"
@@ -273,12 +288,14 @@ Model {
 	  UnconnectedOutputMsg	  "warning"
 	  UnconnectedLineMsg	  "warning"
 	  SFcnCompatibilityMsg	  "none"
+	  FrameProcessingCompatibilityMsg "warning"
 	  UniqueDataStoreMsg	  "none"
 	  BusObjectLabelMismatch  "warning"
 	  RootOutportRequireBusObject "warning"
 	  AssertControl		  "UseLocalSettings"
 	  EnableOverflowDetection off
 	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
 	  ModelReferenceVersionMismatchMessage "none"
 	  ModelReferenceIOMismatchMessage "none"
 	  ModelReferenceCSMismatchMessage "none"
@@ -288,17 +305,32 @@ Model {
 	  ModelReferenceExtraNoncontSigs "error"
 	  StateNameClashWarn	  "warning"
 	  SimStateInterfaceChecksumMismatchMsg "warning"
+	  SimStateOlderReleaseMsg "error"
+	  InitInArrayFormatMsg	  "warning"
 	  StrictBusMsg		  "Warning"
+	  BusNameAdapt		  "WarnAndRepair"
+	  NonBusSignalsTreatedAsBus "none"
 	  LoggingUnavailableSignals "error"
 	  BlockIODiagnostic	  "none"
+	  SFUnusedDataAndEventsDiag "warning"
+	  SFUnexpectedBacktrackingDiag "warning"
+	  SFInvalidInputDataAccessInChartInitDiag "warning"
+	  SFNoUnconditionalDefaultTransitionDiag "warning"
+	  SFTransitionOutsideNaturalParentDiag "warning"
+	  SFUnconditionalTransitionShadowingDiag "warning"
 	}
 	Simulink.HardwareCC {
 	  $ObjectID		  6
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  ProdBitPerChar	  8
 	  ProdBitPerShort	  16
 	  ProdBitPerInt		  32
 	  ProdBitPerLong	  32
+	  ProdBitPerFloat	  32
+	  ProdBitPerDouble	  64
+	  ProdBitPerPointer	  32
+	  ProdLargestAtomicInteger "Char"
+	  ProdLargestAtomicFloat  "None"
 	  ProdIntDivRoundTo	  "Undefined"
 	  ProdEndianess		  "Unspecified"
 	  ProdWordSize		  32
@@ -308,6 +340,11 @@ Model {
 	  TargetBitPerShort	  16
 	  TargetBitPerInt	  32
 	  TargetBitPerLong	  32
+	  TargetBitPerFloat	  32
+	  TargetBitPerDouble	  64
+	  TargetBitPerPointer	  32
+	  TargetLargestAtomicInteger "Char"
+	  TargetLargestAtomicFloat "None"
 	  TargetShiftRightIntArith on
 	  TargetIntDivRoundTo	  "Undefined"
 	  TargetEndianess	  "Unspecified"
@@ -321,16 +358,22 @@ Model {
 	}
 	Simulink.ModelReferenceCC {
 	  $ObjectID		  7
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
 	  CheckModelReferenceTargetMessage "error"
+	  EnableParallelModelReferenceBuilds off
+	  ParallelModelReferenceErrorOnInvalidPool on
+	  ParallelModelReferenceMATLABWorkerInit "None"
 	  ModelReferenceNumInstancesAllowed "Multi"
+	  PropagateVarSize	  "Infer from blocks in model"
 	  ModelReferencePassRootInputsByReference on
 	  ModelReferenceMinAlgLoopOccurrences off
+	  PropagateSignalLabelsOutOfModel off
+	  SupportModelReferenceSimTargetCustomCode off
 	}
 	Simulink.SFSimCC {
 	  $ObjectID		  8
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  SFSimEnableDebug	  on
 	  SFSimOverflowDetection  on
 	  SFSimEcho		  on
@@ -339,12 +382,13 @@ Model {
 	  SimExtrinsic		  on
 	  SimIntegrity		  on
 	  SimUseLocalCustomCode	  off
+	  SimParseCustomCode	  on
 	  SimBuildMode		  "sf_incremental_build"
 	}
 	Simulink.RTWCC {
 	  $BackupClass		  "Simulink.RTWCC"
 	  $ObjectID		  9
-	  Version		  "1.6.0"
+	  Version		  "1.12.0"
 	  Array {
 	    Type		    "Cell"
 	    Dimension		    6
@@ -385,14 +429,18 @@ Model {
 	  GenerateTraceReportSf	  off
 	  GenerateTraceReportEml  off
 	  GenerateCodeInfo	  off
+	  GenerateWebview	  off
+	  GenerateCodeMetricsReport off
+	  GenerateCodeReplacementReport	off
 	  RTWCompilerOptimization "Off"
 	  CheckMdlBeforeBuild	  "Off"
+	  CustomRebuildMode	  "OnUpdate"
 	  Array {
 	    Type		    "Handle"
 	    Dimension		    2
 	    Simulink.CodeAppCC {
 	      $ObjectID		      10
-	      Version		      "1.6.0"
+	      Version		      "1.12.0"
 	      Array {
 		Type			"Cell"
 		Dimension		19
@@ -429,6 +477,7 @@ Model {
 	      IncAutoGenComments      off
 	      SimulinkDataObjDesc     off
 	      SFDataObjDesc	      off
+	      MATLABFcnDesc	      off
 	      IncDataTypeInIds	      off
 	      MangleLength	      1
 	      CustomSymbolStrGlobalVar "$R$N$M"
@@ -443,7 +492,9 @@ Model {
 	      ParamNamingRule	      "None"
 	      SignalNamingRule	      "None"
 	      InsertBlockDesc	      off
+	      InsertPolySpaceComments off
 	      SimulinkBlockComments   on
+	      MATLABSourceComments    off
 	      EnableCustomComments    off
 	      InlinedPrmAccess	      "Literals"
 	      ReqsInCode	      off
@@ -452,10 +503,10 @@ Model {
 	    Simulink.GRTTargetCC {
 	      $BackupClass	      "Simulink.TargetCC"
 	      $ObjectID		      11
-	      Version		      "1.6.0"
+	      Version		      "1.12.0"
 	      Array {
 		Type			"Cell"
-		Dimension		17
+		Dimension		16
 		Cell			"GeneratePreprocessorConditionals"
 		Cell			"IncludeMdlTerminateFcn"
 		Cell			"CombineOutputUpdateFcns"
@@ -467,20 +518,20 @@ Model {
 		Cell			"CPPClassGenCompliant"
 		Cell			"MultiInstanceERTCode"
 		Cell			"PurelyIntegerCode"
-		Cell			"SupportNonFinite"
+		Cell			"PortableWordSizes"
 		Cell			"SupportComplex"
 		Cell			"SupportAbsoluteTime"
 		Cell			"SupportContinuousTime"
 		Cell			"SupportNonInlinedSFcns"
-		Cell			"PortableWordSizes"
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
 	      TargetLibSuffix	      ""
 	      TargetPreCompLibLocation ""
-	      TargetFunctionLibrary   "ANSI_C"
+	      CodeReplacementLibrary  "ANSI_C"
 	      UtilityFuncGeneration   "Auto"
 	      ERTMultiwordTypeDef     "System defined"
+	      CodeExecutionProfiling  off
 	      ERTMultiwordLength      256
 	      MultiwordLength	      2048
 	      GenerateFullHeader      on
@@ -490,9 +541,11 @@ Model {
 	      ModelReferenceCompliant on
 	      ParMdlRefBuildCompliant on
 	      CompOptLevelCompliant   on
+	      ConcurrentExecutionCompliant on
 	      IncludeMdlTerminateFcn  on
 	      GeneratePreprocessorConditionals "Disable all"
 	      CombineOutputUpdateFcns off
+	      CombineSignalStateStructs	off
 	      SuppressErrorStatus     off
 	      ERTFirstTimeCompliant   off
 	      IncludeFileDelimiter    "Auto"
@@ -513,6 +566,7 @@ Model {
 	      ModelStepFunctionPrototypeControlCompliant off
 	      CPPClassGenCompliant    off
 	      AutosarCompliant	      off
+	      GRTInterface	      on
 	      UseMalloc		      off
 	      ExtMode		      off
 	      ExtModeStaticAlloc      off
@@ -524,6 +578,7 @@ Model {
 	      RTWCAPISignals	      off
 	      RTWCAPIParams	      off
 	      RTWCAPIStates	      off
+	      RTWCAPIRootIO	      off
 	      GenerateASAP2	      off
 	    }
 	    PropName		    "Components"
@@ -533,7 +588,7 @@ Model {
       }
       Name		      "Configuration"
       CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition    " [ 409, 197, 1357, 861 ] "
+      ConfigPrmDlgPosition     [ 409, 197, 1357, 861 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -541,6 +596,7 @@ Model {
     $PropName		    "ActiveConfigurationSet"
     $ObjectID		    1
   }
+  ExplicitPartitioning	  off
   BlockDefaults {
     ForegroundColor	    "black"
     BackgroundColor	    "white"
@@ -577,8 +633,7 @@ Model {
       BlockType		      BusCreator
       Inputs		      "4"
       DisplayOption	      "none"
-      UseBusObject	      off
-      BusObject		      "BusObject"
+      OutDataTypeStr	      "Inherit: auto"
       NonVirtualBus	      off
     }
     Block {
@@ -592,14 +647,11 @@ Model {
       SamplingMode	      "Sample based"
       OutMin		      "[]"
       OutMax		      "[]"
-      OutDataTypeMode	      "Inherit from 'Constant value'"
-      OutDataType	      "fixdt(1,16,0)"
-      ConRadixGroup	      "Use specified scaling"
-      OutScaling	      "[]"
       OutDataTypeStr	      "Inherit: Inherit from 'Constant value'"
       LockScale		      off
       SampleTime	      "inf"
       FramePeriod	      "inf"
+      PreserveConstantTs      off
     }
     Block {
       BlockType		      Gain
@@ -607,16 +659,9 @@ Model {
       Multiplication	      "Element-wise(K.*u)"
       ParamMin		      "[]"
       ParamMax		      "[]"
-      ParameterDataTypeMode   "Same as input"
-      ParameterDataType	      "fixdt(1,16,0)"
-      ParameterScalingMode    "Best Precision: Matrix-wise"
-      ParameterScaling	      "[]"
       ParamDataTypeStr	      "Inherit: Same as input"
       OutMin		      "[]"
       OutMax		      "[]"
-      OutDataTypeMode	      "Same as input"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
       OutDataTypeStr	      "Inherit: Same as input"
       LockScale		      off
       RndMeth		      "Floor"
@@ -626,23 +671,19 @@ Model {
     Block {
       BlockType		      Inport
       Port		      "1"
-      UseBusObject	      off
-      BusObject		      "BusObject"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
       BusOutputAsStruct	      off
       PortDimensions	      "-1"
       VarSizeSig	      "Inherit"
       SampleTime	      "-1"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      DataType		      "auto"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: auto"
-      LockScale		      off
       SignalType	      "auto"
       SamplingMode	      "auto"
       LatchByDelayingOutsideSignal off
-      LatchByCopyingInsideSignal off
+      LatchInputForFeedbackSignals off
       Interpolate	      on
     }
     Block {
@@ -661,21 +702,24 @@ Model {
       ContinuousStateAttributes	"''"
     }
     Block {
-      BlockType		      Outport
-      Port		      "1"
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
       UseBusObject	      off
       BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
       BusOutputAsStruct	      off
       PortDimensions	      "-1"
       VarSizeSig	      "Inherit"
       SampleTime	      "-1"
-      OutMin		      "[]"
-      OutMax		      "[]"
-      DataType		      "auto"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
-      OutDataTypeStr	      "Inherit: auto"
-      LockScale		      off
       SignalType	      "auto"
       SamplingMode	      "auto"
       SourceOfInitialOutputValue "Dialog"
@@ -693,6 +737,7 @@ Model {
       YMax		      "5"
       SaveToWorkspace	      off
       SaveName		      "ScopeData"
+      DataFormat	      "Array"
       LimitDataPoints	      on
       MaxDataPoints	      "5000"
       Decimation	      "1"
@@ -725,7 +770,11 @@ Model {
       RTWMemSecDataParameters "Inherit from model"
       SimViewingDevice	      off
       DataTypeOverride	      "UseLocalSettings"
+      DataTypeOverrideAppliesTo	"AllNumericTypes"
       MinMaxOverflowLogging   "UseLocalSettings"
+      SFBlockType	      "NONE"
+      Variant		      off
+      GeneratePreprocessorConditionals off
     }
     Block {
       BlockType		      Sum
@@ -737,9 +786,6 @@ Model {
       AccumDataTypeStr	      "Inherit: Inherit via internal rule"
       OutMin		      "[]"
       OutMax		      "[]"
-      OutDataTypeMode	      "Same as first input"
-      OutDataType	      "fixdt(1,16,0)"
-      OutScaling	      "[]"
       OutDataTypeStr	      "Inherit: Same as first input"
       LockScale		      off
       RndMeth		      "Floor"
@@ -755,15 +801,17 @@ Model {
       MaxDataPoints	      "1000"
       Decimation	      "1"
       SampleTime	      "0"
+      SaveFormat	      "Array"
       FixptAsFi		      off
+      NumInputs		      "1"
     }
   }
   System {
     Name		    "LKA_Lenkung_CarMaker_DSR_kaskadiert"
-    Location		    [55, 108, 1463, 743]
+    Location		    [362, 108, 1797, 723]
     Open		    on
-    ModelBrowserVisibility  off
-    ModelBrowserWidth	    200
+    ModelBrowserVisibility  on
+    ModelBrowserWidth	    310
     ScreenColor		    "white"
     PaperOrientation	    "landscape"
     PaperPositionMode	    "auto"
@@ -774,28 +822,22 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    487
+    SIDHighWatermark	    "507"
     Block {
       BlockType		      Gain
       Name		      "1/alph"
-      SID		      484
-      Position		      [480, 180, 510, 210]
+      SID		      "484"
+      Position		      [490, 180, 520, 210]
       NamePlacement	      "alternate"
       Gain		      "1/pin.SteeringModel.parameter.values.alph"
-      ParameterDataTypeMode   "Inherit via internal rule"
-      ParameterDataType	      "fixdt(1, 16)"
-      ParameterScaling	      "2^0"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
-      OutDataTypeMode	      "Inherit via internal rule"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
-      SID		      481
+      SID		      "481"
       Ports		      [2, 1]
       Position		      [1075, 161, 1080, 199]
       ShowName		      off
@@ -805,66 +847,41 @@ Model {
     Block {
       BlockType		      BusSelector
       Name		      "Bus\nSelector2"
-      SID		      190
+      SID		      "190"
       Ports		      [1, 2]
       Position		      [1130, 161, 1135, 199]
       ShowName		      off
-      OutputSignals	      "Vehicle_Video_Sensor.yL_Sensor,Vehicle_Video_Sensor.epsL_Sensor"
+      OutputSignals	      "Sensor.latOff_LAD_Sensor,Sensor.angDev_LAD_Sensor"
       Port {
 	PortNumber		1
-	Name			"<yL_Sensor>"
+	Name			"<latOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		2
-	Name			"<epsL_Sensor>"
+	Name			"<angDev_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
-    }
-    Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector3"
-      SID		      444
-      Ports		      [1, 1]
-      Position		      [375, 61, 380, 99]
-      ShowName		      off
-      OutputSignals	      "steering wheel angle,steering wheel angle velocity"
-      OutputAsBus	      on
     }
     Block {
       BlockType		      BusSelector
       Name		      "Bus\nSelector4"
-      SID		      191
+      SID		      "191"
       Ports		      [1, 2]
       Position		      [1130, 25, 1135, 65]
       ShowName		      off
-      OutputSignals	      "Vehicle_State.x_g,Vehicle_State.y_g"
+      OutputSignals	      "VehicleState.x_global,VehicleState.y_global"
       Port {
 	PortNumber		1
-	Name			"<x_g>"
+	Name			"<x_global>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		2
-	Name			"<y_g>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector5"
-      SID		      314
-      Ports		      [1, 1]
-      Position		      [375, 176, 380, 214]
-      ShowName		      off
-      OutputSignals	      "steering wheel angle"
-      Port {
-	PortNumber		1
-	Name			"<steering wheel angle>"
+	Name			"<y_global>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -872,22 +889,22 @@ Model {
     Block {
       BlockType		      BusSelector
       Name		      "Bus\nSelector6"
-      SID		      480
+      SID		      "480"
       Ports		      [1, 2]
       Position		      [1045, 377, 1050, 433]
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
-      OutputSignals	      "Vehicle_State.s_yDot,Vehicle_State.psiDot"
+      OutputSignals	      "VehicleState.vy,VehicleState.yawRate"
       Port {
 	PortNumber		1
-	Name			"<s_yDot>"
+	Name			"<vy>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		2
-	Name			"<psiDot>"
+	Name			"<yawRate>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -895,20 +912,20 @@ Model {
     Block {
       BlockType		      BusSelector
       Name		      "Bus\nSelector7"
-      SID		      486
+      SID		      "486"
       Ports		      [1, 2]
       Position		      [570, 206, 575, 244]
       ShowName		      off
-      OutputSignals	      "yL_Sensor,kapL_Sensor"
+      OutputSignals	      "curvature_LAD_Sensor,latOff_LAD_Sensor"
       Port {
 	PortNumber		1
-	Name			"<yL_Sensor>"
+	Name			"<curvature_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		2
-	Name			"<kapL_Sensor>"
+	Name			"<latOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -916,31 +933,27 @@ Model {
     Block {
       BlockType		      Constant
       Name		      "Constant"
-      SID		      441
-      Position		      [265, 290, 295, 320]
+      SID		      "441"
+      Position		      [265, 305, 295, 335]
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
     }
     Block {
       BlockType		      Constant
       Name		      "Constant1"
-      SID		      472
+      SID		      "472"
       Position		      [815, 345, 845, 375]
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
     }
     Block {
       BlockType		      SubSystem
       Name		      "Controller4"
-      SID		      448
+      SID		      "448"
       Ports		      [2, 1]
       Position		      [140, 145, 175, 205]
       NamePlacement	      "alternate"
@@ -955,7 +968,7 @@ Model {
 	Name			"Controller4"
 	Location		[148, 167, 1238, 765]
 	Open			off
-	ModelBrowserVisibility	off
+	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
@@ -969,14 +982,14 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "r"
-	  SID			  449
+	  SID			  "449"
 	  Position		  [85, 143, 115, 157]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "y"
-	  SID			  450
+	  SID			  "450"
 	  Position		  [85, 203, 115, 217]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
@@ -984,33 +997,21 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain"
-	  SID			  451
+	  SID			  "451"
 	  Position		  [490, 270, 520, 300]
 	  BlockMirror		  on
 	  Gain			  "pin.Controller.steerSys.R.ss.a"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "fixdt(1, 16)"
-	  ParameterScaling	  "2^0"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain1"
-	  SID			  452
+	  SID			  "452"
 	  Position		  [150, 195, 180, 225]
 	  Gain			  "-1"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "fixdt(1, 16)"
-	  ParameterScaling	  "2^0"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	  Port {
@@ -1023,110 +1024,80 @@ Model {
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain2"
-	  SID			  453
+	  SID			  "453"
 	  Position		  [285, 195, 315, 225]
 	  Gain			  "pin.Controller.steerSys.R.ss.b"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "fixdt(1, 16)"
-	  ParameterScaling	  "2^0"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain3"
-	  SID			  454
+	  SID			  "454"
 	  Position		  [290, 135, 315, 165]
 	  Gain			  "pin.Controller.steerSys.V.ss.b"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "fixdt(1, 16)"
-	  ParameterScaling	  "2^0"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain4"
-	  SID			  455
+	  SID			  "455"
 	  Position		  [290, 70, 315, 100]
 	  Gain			  "pin.Controller.steerSys.V.ss.d"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "fixdt(1, 16)"
-	  ParameterScaling	  "2^0"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Gain
 	  Name			  "Gain5"
-	  SID			  456
+	  SID			  "456"
 	  Position		  [490, 335, 515, 365]
 	  Gain			  "pin.Controller.steerSys.R.ss.d"
-	  ParameterDataTypeMode	  "Inherit via internal rule"
-	  ParameterDataType	  "fixdt(1, 16)"
-	  ParameterScaling	  "2^0"
 	  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Integrator
 	  Name			  "Integrator"
-	  SID			  457
+	  SID			  "457"
 	  Ports			  [1, 1]
 	  Position		  [490, 195, 520, 225]
 	}
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum"
-	  SID			  458
+	  SID			  "458"
 	  Ports			  [3, 1]
 	  Position		  [405, 200, 425, 220]
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "+++"
 	  InputSameDT		  off
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Sum
 	  Name			  "Sum1"
-	  SID			  459
+	  SID			  "459"
 	  Ports			  [3, 1]
 	  Position		  [670, 200, 690, 220]
 	  ShowName		  off
 	  IconShape		  "round"
 	  Inputs		  "+++"
 	  InputSameDT		  off
-	  OutDataTypeMode	  "Inherit via internal rule"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
 	  SaturateOnIntegerOverflow off
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "u"
-	  SID			  460
+	  SID			  "460"
 	  Position		  [850, 203, 880, 217]
 	  IconDisplay		  "Port number"
 	}
@@ -1231,7 +1202,7 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
-      SID		      475
+      SID		      "475"
       Ports		      [5, 1]
       Position		      [690, 349, 790, 491]
       BlockMirror	      on
@@ -1258,30 +1229,29 @@ Model {
 	Name			"LKA-Controller"
 	Location		[148, 182, 646, 482]
 	Open			off
-	ModelBrowserVisibility	off
+	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
 	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	1113
-	SIDPrevWatermark	1113
+	SIDHighWatermark	"2406"
 	Block {
 	  BlockType		  Inport
 	  Name			  "r"
-	  SID			  1072
+	  SID			  "475::1072"
 	  Position		  [20, 40, 40, 60]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "vy"
-	  SID			  1110
+	  SID			  "475::1110"
 	  Position		  [20, 120, 40, 140]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
@@ -1289,7 +1259,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "psiDot"
-	  SID			  1111
+	  SID			  "475::1111"
 	  Position		  [20, 160, 40, 180]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
@@ -1297,7 +1267,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "yL"
-	  SID			  1112
+	  SID			  "475::1112"
 	  Position		  [20, 200, 40, 220]
 	  Port			  "4"
 	  IconDisplay		  "Port number"
@@ -1305,7 +1275,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "epsL"
-	  SID			  1113
+	  SID			  "475::1113"
 	  Position		  [20, 240, 40, 260]
 	  Port			  "5"
 	  IconDisplay		  "Port number"
@@ -1313,27 +1283,19 @@ Model {
 	Block {
 	  BlockType		  Reference
 	  Name			  "LQR_2int"
-	  SID			  1075
+	  SID			  "475::1075"
 	  Ports			  [5, 1]
 	  Position		  [100, 40, 140, 80]
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.653"
+	  LibraryVersion	  "1.807"
 	  SourceBlock		  "library/LKA-Controller/LQR_2int"
 	  SourceType		  "SubSystem"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "delta [rad]"
-	  SID			  1074
+	  SID			  "475::1074"
 	  Position		  [200, 40, 220, 60]
 	  IconDisplay		  "Port number"
 	}
@@ -1378,7 +1340,7 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Sensorik"
-      SID		      482
+      SID		      "482"
       Ports		      [1, 1]
       Position		      [865, 185, 1040, 245]
       BackgroundColor	      "darkGreen"
@@ -1398,49 +1360,40 @@ Model {
 	Name			"LKA-Sensorik"
 	Location		[148, 182, 646, 482]
 	Open			off
-	ModelBrowserVisibility	off
+	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
 	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	421
-	SIDPrevWatermark	421
+	SIDHighWatermark	"2407"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vehicle_State"
-	  SID			  352
+	  SID			  "482::352"
 	  Position		  [20, 40, 40, 60]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "Videosensorik"
-	  SID			  354
+	  SID			  "482::354"
 	  Ports			  [1, 1]
 	  Position		  [100, 40, 140, 80]
 	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.653"
+	  LibraryVersion	  "1.807"
 	  SourceBlock		  "library/LKA-Sensorik/Videosensorik"
 	  SourceType		  "SubSystem"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
 	}
 	Block {
 	  BlockType		  Outport
-	  Name			  "Vehicle_Video_Sensor"
-	  SID			  421
+	  Name			  "Sensor"
+	  SID			  "482::2407"
 	  Position		  [200, 40, 220, 60]
 	  IconDisplay		  "Port number"
 	}
@@ -1453,15 +1406,26 @@ Model {
 	Line {
 	  SrcBlock		  "Videosensorik"
 	  SrcPort		  1
-	  DstBlock		  "Vehicle_Video_Sensor"
+	  DstBlock		  "Sensor"
 	  DstPort		  1
 	}
       }
     }
     Block {
+      BlockType		      Mux
+      Name		      "Mux"
+      SID		      "507"
+      Ports		      [2, 1]
+      Position		      [445, 61, 450, 99]
+      ZOrder		      -12
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
       BlockType		      Scope
       Name		      "Scope"
-      SID		      242
+      SID		      "242"
       Ports		      [2]
       Position		      [1290, 160, 1320, 195]
       ShowName		      off
@@ -1474,6 +1438,7 @@ Model {
 	axes1			"%<SignalLabel>"
 	axes2			"%<SignalLabel>"
       }
+      ShowLegends	      off
       TimeRange		      "12.76           "
       YMin		      "-0.0018~1.07115"
       YMax		      "-2.1684e-019~1.0721"
@@ -1484,7 +1449,7 @@ Model {
     Block {
       BlockType		      Scope
       Name		      "Scope1"
-      SID		      243
+      SID		      "243"
       Ports		      [3]
       Position		      [1290, 262, 1320, 298]
       ShowName		      off
@@ -1498,6 +1463,7 @@ Model {
 	axes2			"%<SignalLabel>"
 	axes3			"%<SignalLabel>"
       }
+      ShowLegends	      off
       TimeRange		      "20"
       YMin		      "-0.001~0.0215~0.915"
       YMax		      "0.003~0.0235~0.985"
@@ -1509,7 +1475,7 @@ Model {
     Block {
       BlockType		      Scope
       Name		      "Scope4"
-      SID		      246
+      SID		      "246"
       Ports		      [1]
       Position		      [270, 63, 300, 97]
       Floating		      off
@@ -1520,6 +1486,7 @@ Model {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
+      ShowLegends	      off
       YMin		      "-2.25e-007"
       YMax		      "3.5e-007"
       SaveName		      "ScopeData4"
@@ -1530,7 +1497,7 @@ Model {
     Block {
       BlockType		      Scope
       Name		      "Scope8"
-      SID		      445
+      SID		      "445"
       Ports		      [1]
       Position		      [480, 62, 510, 98]
       ShowName		      off
@@ -1542,6 +1509,17 @@ Model {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
+      ShowLegends	      off
       TimeRange		      "12.76           "
       YMin		      "-0.8"
       YMax		      "1.5"
@@ -1553,7 +1531,7 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "Simout"
-      SID		      462
+      SID		      "462"
       Ports		      [2]
       Position		      [1245, 99, 1340, 141]
       LibraryVersion	      "1.762"
@@ -1568,7 +1546,7 @@ Model {
 	Name			"Simout"
 	Location		[534, 251, 1459, 724]
 	Open			off
-	ModelBrowserVisibility	off
+	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
@@ -1582,48 +1560,44 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vehicle_Data"
-	  SID			  463
+	  SID			  "463"
 	  Position		  [105, 133, 135, 147]
 	  BackgroundColor	  "yellow"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "Control_Input"
-	  SID			  464
+	  SID			  "464"
 	  Position		  [105, 208, 135, 222]
 	  BackgroundColor	  "yellow"
 	  Port			  "2"
 	  IconDisplay		  "Port number"
-	  OutDataType		  "fixdt(1, 16)"
-	  OutScaling		  "2^0"
 	}
 	Block {
 	  BlockType		  BusSelector
 	  Name			  "Bus\nSelector"
-	  SID			  465
+	  SID			  "465"
 	  Ports			  [1, 1]
 	  Position		  [365, 96, 370, 134]
 	  ShowName		  off
-	  OutputSignals		  "Vehicle_State"
+	  OutputSignals		  "VehicleState"
 	  OutputAsBus		  on
 	}
 	Block {
 	  BlockType		  BusSelector
 	  Name			  "Bus\nSelector1"
-	  SID			  466
+	  SID			  "466"
 	  Ports			  [1, 1]
 	  Position		  [365, 146, 370, 184]
 	  ShowName		  off
-	  OutputSignals		  "Vehicle_Video_Sensor"
+	  OutputSignals		  "Sensor"
 	  OutputAsBus		  on
 	}
 	Block {
 	  BlockType		  ToWorkspace
 	  Name			  "To Workspace"
-	  SID			  467
+	  SID			  "467"
 	  Ports			  [1]
 	  Position		  [580, 100, 720, 130]
 	  BackgroundColor	  "gray"
@@ -1636,7 +1610,7 @@ Model {
 	Block {
 	  BlockType		  ToWorkspace
 	  Name			  "To Workspace1"
-	  SID			  468
+	  SID			  "468"
 	  Ports			  [1]
 	  Position		  [580, 150, 720, 180]
 	  BackgroundColor	  "gray"
@@ -1649,7 +1623,7 @@ Model {
 	Block {
 	  BlockType		  ToWorkspace
 	  Name			  "To Workspace2"
-	  SID			  469
+	  SID			  "469"
 	  Ports			  [1]
 	  Position		  [580, 200, 720, 230]
 	  BackgroundColor	  "gray"
@@ -1695,121 +1669,36 @@ Model {
       }
     }
     Block {
-      BlockType		      SubSystem
-      Name		      "Steering Model1"
-      SID		      447
-      Ports		      [3, 1]
-      Position		      [235, 165, 330, 225]
-      BackgroundColor	      "darkGreen"
-      NamePlacement	      "alternate"
-      AttributesFormatString  "%<BlockChoice>"
-      BlockChoice	      "CarMaker DSR"
-      TemplateBlock	      "library/Steering Models/Steering Model"
-      MemberBlocks	      "CarMaker DSR"
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"Steering Model1"
-	Location		[148, 182, 646, 482]
-	Open			off
-	ModelBrowserVisibility	off
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	SIDHighWatermark	937
-	SIDPrevWatermark	937
-	Block {
-	  BlockType		  Inport
-	  Name			  "M_Driver [Nm]"
-	  SID			  935
-	  Position		  [20, 40, 40, 60]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "F_left [N]"
-	  SID			  936
-	  Position		  [20, 80, 40, 100]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "F_right [N]"
-	  SID			  937
-	  Position		  [20, 120, 40, 140]
-	  Port			  "3"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "CarMaker DSR"
-	  SID			  475
-	  Ports			  [3, 1]
-	  Position		  [100, 40, 140, 80]
-	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.653"
-	  SourceBlock		  "library/Steering Models/CarMaker DSR"
-	  SourceType		  "SubSystem"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "x"
-	  SID			  474
-	  Position		  [200, 40, 220, 60]
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "M_Driver [Nm]"
-	  SrcPort		  1
-	  DstBlock		  "CarMaker DSR"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "F_left [N]"
-	  SrcPort		  1
-	  DstBlock		  "CarMaker DSR"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "F_right [N]"
-	  SrcPort		  1
-	  DstBlock		  "CarMaker DSR"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "CarMaker DSR"
-	  SrcPort		  1
-	  DstBlock		  "x"
-	  DstPort		  1
-	}
+      BlockType		      Reference
+      Name		      "Steering Model: CarMaker DSR [masked]"
+      SID		      "506"
+      Ports		      [3, 2]
+      Position		      [230, 181, 375, 239]
+      ZOrder		      -19
+      LibraryVersion	      "1.807"
+      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
+      SourceType	      "Steering model parameterization"
+      d_rot		      "pin.SteeringModel.parameter.values.drot"
+      d_rack		      "pin.SteeringModel.parameter.values.drack"
+      i			      "pin.SteeringModel.parameter.values.iHR"
+      I_rot		      "pin.SteeringModel.parameter.values.J"
+      m_left		      "pin.SteeringModel.parameter.values.mL"
+      m_right		      "pin.SteeringModel.parameter.values.mR"
+      m_rack		      "pin.SteeringModel.parameter.values.mr"
+      V			      "pin.SteeringModel.parameter.values.V"
+      Port {
+	PortNumber		1
+	PropagatedSignals	"SWAngle"
+	ShowPropagatedSignals	"on"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
       }
     }
     Block {
       BlockType		      Step
       Name		      "Step"
-      SID		      461
-      Position		      [265, 245, 295, 275]
+      SID		      "461"
+      Position		      [265, 260, 295, 290]
       BlockMirror	      on
       NamePlacement	      "alternate"
       Time		      "10"
@@ -1818,22 +1707,22 @@ Model {
     Block {
       BlockType		      Terminator
       Name		      "Terminator"
-      SID		      261
+      SID		      "261"
       Position		      [1280, 25, 1300, 45]
       ShowName		      off
     }
     Block {
       BlockType		      Terminator
       Name		      "Terminator1"
-      SID		      262
+      SID		      "262"
       Position		      [1280, 45, 1300, 65]
       ShowName		      off
     }
     Block {
       BlockType		      Terminator
       Name		      "Terminator3"
-      SID		      473
-      Position		      [145, 250, 165, 270]
+      SID		      "473"
+      Position		      [145, 265, 165, 285]
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
@@ -1841,8 +1730,8 @@ Model {
     Block {
       BlockType		      Terminator
       Name		      "Terminator4"
-      SID		      474
-      Position		      [145, 295, 165, 315]
+      SID		      "474"
+      Position		      [145, 310, 165, 330]
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
@@ -1850,15 +1739,9 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "Vehicle Model"
-      SID		      483
+      SID		      "489"
       Ports		      [3, 1]
-      Position		      [660, 183, 820, 247]
-      BackgroundColor	      "darkGreen"
-      NamePlacement	      "alternate"
-      AttributesFormatString  "%<BlockChoice>"
-      BlockChoice	      "Einspurmodell + Relativposition (exakt)"
-      TemplateBlock	      "library/Vehicle Models/Vehicle Model"
-      MemberBlocks	      "Einspurmodell + Relativposition (exakt),Einspurmodell + Relativposition (linear)"
+      Position		      [660, 184, 830, 246]
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -1868,126 +1751,320 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Vehicle Model"
-	Location		[148, 182, 646, 482]
+	Location		[465, 138, 1517, 805]
 	Open			off
-	ModelBrowserVisibility	off
+	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
 	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	1476
-	SIDPrevWatermark	1476
 	Block {
 	  BlockType		  Inport
-	  Name			  "steer angle [rad]"
-	  SID			  1270
-	  Position		  [20, 120, 40, 140]
+	  Name			  "steerAngle [rad]"
+	  SID			  "490"
+	  Position		  [35, 33, 65, 47]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
-	  Name			  "yL_Sensor [m]"
-	  SID			  1467
-	  Position		  [20, 80, 40, 100]
+	  Name			  "curvature_LAD [1/m]"
+	  SID			  "491"
+	  Position		  [35, 133, 65, 147]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
-	  Name			  "kapL [1/m]"
-	  SID			  1468
-	  Position		  [20, 120, 40, 140]
+	  Name			  "y_LAD_exact [m]"
+	  SID			  "492"
+	  Position		  [35, 208, 65, 222]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
 	Block {
+	  BlockType		  BusCreator
+	  Name			  "Bus\nCreator"
+	  SID			  "493"
+	  Ports			  [6, 1]
+	  Position		  [395, 298, 400, 422]
+	  ZOrder		  -2
+	  ShowName		  off
+	  Inputs		  "6"
+	  DisplayOption		  "bar"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant1"
+	  SID			  "494"
+	  Position		  [225, 81, 405, 99]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.vx"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant10"
+	  SID			  "495"
+	  Position		  [95, 401, 320, 419]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.parameter.values.Iz"
+	  Port {
+	    PortNumber		    1
+	    Name		    "Izz"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant2"
+	  SID			  "496"
+	  Position		  [225, 156, 405, 174]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.yL "
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant3"
+	  SID			  "497"
+	  Position		  [225, 181, 405, 199]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.epsL"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant4"
+	  SID			  "498"
+	  Position		  [225, 106, 405, 124]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.lad"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant5"
+	  SID			  "499"
+	  Position		  [95, 301, 320, 319]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.parameter.values.csv"
+	  Port {
+	    PortNumber		    1
+	    Name		    "csv"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant6"
+	  SID			  "500"
+	  Position		  [95, 321, 320, 339]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.parameter.values.csh"
+	  Port {
+	    PortNumber		    1
+	    Name		    "csh"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant7"
+	  SID			  "501"
+	  Position		  [95, 341, 320, 359]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.parameter.values.lv"
+	  Port {
+	    PortNumber		    1
+	    Name		    "lv"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant8"
+	  SID			  "502"
+	  Position		  [95, 361, 320, 379]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.parameter.values.lh"
+	  Port {
+	    PortNumber		    1
+	    Name		    "lh"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant9"
+	  SID			  "503"
+	  Position		  [95, 381, 320, 399]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.parameter.values.m"
+	  Port {
+	    PortNumber		    1
+	    Name		    "m"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
 	  BlockType		  Reference
-	  Name			  "Einspurmodell + Relativposition (exakt)"
-	  SID			  1476
-	  Ports			  [3, 1]
-	  Position		  [100, 40, 140, 80]
-	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.653"
-	  SourceBlock		  "library/Vehicle Models/Einspurmodell + Relativposition (exakt)"
+	  Name			  "Single Track Model/LaneTracking"
+	  SID			  "504"
+	  Ports			  [8, 1]
+	  Position		  [460, 27, 620, 228]
+	  BackgroundColor	  "lightBlue"
+	  LibraryVersion	  "1.807"
+	  SourceBlock		  "library/Vehicle Models/Single Track Model//LaneTracking"
 	  SourceType		  "SubSystem"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
 	}
 	Block {
 	  BlockType		  Outport
-	  Name			  "Vehicle_State"
-	  SID			  309
-	  Position		  [200, 40, 220, 60]
+	  Name			  "VehicleState"
+	  SID			  "505"
+	  Position		  [725, 123, 755, 137]
 	  IconDisplay		  "Port number"
 	}
 	Line {
-	  SrcBlock		  "steer angle [rad]"
+	  SrcBlock		  "Single Track Model/LaneTracking"
 	  SrcPort		  1
-	  DstBlock		  "Einspurmodell + Relativposition (exakt)"
+	  DstBlock		  "VehicleState"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "yL_Sensor [m]"
+	  SrcBlock		  "Constant2"
 	  SrcPort		  1
-	  DstBlock		  "Einspurmodell + Relativposition (exakt)"
-	  DstPort		  2
+	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstPort		  6
 	}
 	Line {
-	  SrcBlock		  "kapL [1/m]"
+	  SrcBlock		  "Constant3"
 	  SrcPort		  1
-	  DstBlock		  "Einspurmodell + Relativposition (exakt)"
+	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstPort		  7
+	}
+	Line {
+	  SrcBlock		  "Constant1"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model/LaneTracking"
 	  DstPort		  3
 	}
 	Line {
-	  SrcBlock		  "Einspurmodell + Relativposition (exakt)"
+	  SrcBlock		  "Constant4"
 	  SrcPort		  1
-	  DstBlock		  "Vehicle_State"
+	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "steerAngle [rad]"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model/LaneTracking"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "curvature_LAD [1/m]"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "y_LAD_exact [m]"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstPort		  8
+	}
+	Line {
+	  Name			  "csv"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Constant5"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "csh"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Constant6"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "lv"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Constant7"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  3
+	}
+	Line {
+	  Name			  "lh"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Constant8"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "m"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Constant9"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  5
+	}
+	Line {
+	  Name			  "Izz"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Constant10"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Bus\nCreator"
+	  SrcPort		  1
+	  Points		  [35, 0; 0, -295]
+	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstPort		  2
 	}
       }
     }
     Block {
       BlockType		      Gain
       Name		      "alph"
-      SID		      487
+      SID		      "487"
       Position		      [70, 145, 100, 175]
       NamePlacement	      "alternate"
       Gain		      "pin.SteeringModel.parameter.values.alph"
-      ParameterDataTypeMode   "Inherit via internal rule"
-      ParameterDataType	      "fixdt(1, 16)"
-      ParameterScaling	      "2^0"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
-      OutDataTypeMode	      "Inherit via internal rule"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
     }
     Block {
       BlockType		      Gain
       Name		      "rad2deg "
-      SID		      266
+      SID		      "266"
       Position		      [935, 275, 965, 305]
       Gain		      "(180/pi)"
-      ParameterDataTypeMode   "Inherit via internal rule"
-      ParameterDataType	      "fixdt(1, 16)"
-      ParameterScaling	      "2^0"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
-      OutDataTypeMode	      "Inherit via internal rule"
-      OutDataType	      "fixdt(1, 16)"
-      OutScaling	      "2^0"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
       SaturateOnIntegerOverflow	off
       Port {
@@ -2000,7 +2077,7 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "select epsL"
-      SID		      479
+      SID		      "479"
       Ports		      [1, 1]
       Position		      [900, 534, 1000, 576]
       BlockMirror	      on
@@ -2009,7 +2086,7 @@ Model {
       AttributesFormatString  "%<BlockChoice>"
       BlockChoice	      "epsL_exactMdl"
       TemplateBlock	      "library/LKA-Sensorik/select epsL"
-      MemberBlocks	      "epsL_Sensor,epsL_exactMdl,epsL_intMdl"
+      MemberBlocks	      "epsL_Sensor,epsL_exactMdl,epsL_linMdl"
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -2021,50 +2098,41 @@ Model {
 	Name			"select epsL"
 	Location		[148, 182, 646, 482]
 	Open			off
-	ModelBrowserVisibility	off
+	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
 	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	1554
-	SIDPrevWatermark	1554
+	SIDHighWatermark	"2406"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vehicle_Data"
-	  SID			  1553
+	  SID			  "479::1553"
 	  Position		  [20, 40, 40, 60]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "epsL_exactMdl"
-	  SID			  1536
+	  SID			  "479::1536"
 	  Ports			  [1, 1]
 	  Position		  [100, 40, 140, 80]
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.653"
+	  LibraryVersion	  "1.807"
 	  SourceBlock		  "library/LKA-Sensorik/epsL_exactMdl"
 	  SourceType		  "SubSystem"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "epsL"
-	  SID			  1554
+	  SID			  "479::1554"
 	  Position		  [200, 40, 220, 60]
 	  IconDisplay		  "Port number"
 	}
@@ -2085,7 +2153,7 @@ Model {
     Block {
       BlockType		      SubSystem
       Name		      "select yL"
-      SID		      478
+      SID		      "478"
       Ports		      [1, 1]
       Position		      [900, 454, 1000, 496]
       BlockMirror	      on
@@ -2094,7 +2162,7 @@ Model {
       AttributesFormatString  "%<BlockChoice>"
       BlockChoice	      "yL_Sensor"
       TemplateBlock	      "library/LKA-Sensorik/select yL"
-      MemberBlocks	      "yL_Sensor,yL_exactMdl,yL_intMdl"
+      MemberBlocks	      "yL_Sensor,yL_exactMdl,yL_linMdl"
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -2106,50 +2174,41 @@ Model {
 	Name			"select yL"
 	Location		[148, 182, 646, 482]
 	Open			off
-	ModelBrowserVisibility	off
+	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
 	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	1531
-	SIDPrevWatermark	1531
+	SIDHighWatermark	"2406"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vehicle_Data"
-	  SID			  1511
+	  SID			  "478::1511"
 	  Position		  [20, 40, 40, 60]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "yL_Sensor"
-	  SID			  1526
+	  SID			  "478::1577"
 	  Ports			  [1, 1]
 	  Position		  [100, 40, 140, 80]
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.653"
+	  LibraryVersion	  "1.807"
 	  SourceBlock		  "library/LKA-Sensorik/yL_Sensor"
 	  SourceType		  "SubSystem"
-	  ShowPortLabels	  "FromPortIcon"
-	  SystemSampleTime	  "-1"
-	  FunctionWithSeparateData off
-	  RTWMemSecFuncInitTerm	  "Inherit from model"
-	  RTWMemSecFuncExecute	  "Inherit from model"
-	  RTWMemSecDataConstants  "Inherit from model"
-	  RTWMemSecDataInternal	  "Inherit from model"
-	  RTWMemSecDataParameters "Inherit from model"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "yL"
-	  SID			  1531
+	  SID			  "478::1531"
 	  Position		  [200, 40, 220, 60]
 	  IconDisplay		  "Port number"
 	}
@@ -2168,7 +2227,7 @@ Model {
       }
     }
     Line {
-      Name		      "<x_g>"
+      Name		      "<x_global>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector4"
       SrcPort		      1
@@ -2176,7 +2235,7 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<y_g>"
+      Name		      "<y_global>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector4"
       SrcPort		      2
@@ -2208,7 +2267,7 @@ Model {
       }
     }
     Line {
-      Name		      "<yL_Sensor>"
+      Name		      "<latOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector2"
       SrcPort		      1
@@ -2225,8 +2284,8 @@ Model {
       }
     }
     Line {
-      Name		      "<epsL_Sensor>"
-      Labels		      [0, 0; 0, 0; 0, 0]
+      Name		      "<angDev_LAD_Sensor>"
+      Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector2"
       SrcPort		      2
       Points		      [95, 0; 0, 90]
@@ -2256,42 +2315,36 @@ Model {
       SrcPort		      1
       Points		      [25, 0]
       Branch {
-	DstBlock		"Steering Model1"
-	DstPort			1
-      }
-      Branch {
 	Points			[0, -95]
 	DstBlock		"Scope4"
 	DstPort			1
       }
-    }
-    Line {
-      SrcBlock		      "Steering Model1"
-      SrcPort		      1
-      Points		      [15, 0]
       Branch {
-	DstBlock		"Bus\nSelector5"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, -115]
-	DstBlock		"Bus\nSelector3"
+	Points			[10, 0]
+	DstBlock		"Steering Model: CarMaker DSR [masked]"
 	DstPort			1
       }
     }
     Line {
-      Name		      "<steering wheel angle>"
-      Labels		      [0, 1]
-      SrcBlock		      "Bus\nSelector5"
+      Labels		      [0, 0]
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]"
       SrcPort		      1
-      Points		      [35, 0]
+      Points		      [5, 0]
       Branch {
-	Points			[0, 155; -295, 0]
-	DstBlock		"Controller4"
-	DstPort			2
+	Points			[35, 0]
+	Branch {
+	  Points		  [0, 155; -295, 0]
+	  DstBlock		  "Controller4"
+	  DstPort		  2
+	}
+	Branch {
+	  DstBlock		  "1/alph"
+	  DstPort		  1
+	}
       }
       Branch {
-	DstBlock		"1/alph"
+	Points			[0, -125]
+	DstBlock		"Mux"
 	DstPort			1
       }
     }
@@ -2302,7 +2355,7 @@ Model {
       DstPort		      1
     }
     Line {
-      SrcBlock		      "Bus\nSelector3"
+      SrcBlock		      "Mux"
       SrcPort		      1
       DstBlock		      "Scope8"
       DstPort		      1
@@ -2324,13 +2377,13 @@ Model {
       Branch {
 	Points			[0, -90]
 	Branch {
-	  Points		  [0, -20]
-	  DstBlock		  "Steering Model1"
-	  DstPort		  2
+	  DstBlock		  "Steering Model: CarMaker DSR [masked]"
+	  DstPort		  3
 	}
 	Branch {
-	  DstBlock		  "Steering Model1"
-	  DstPort		  3
+	  Points		  [0, -20]
+	  DstBlock		  "Steering Model: CarMaker DSR [masked]"
+	  DstPort		  2
 	}
       }
     }
@@ -2341,7 +2394,7 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<s_yDot>"
+      Name		      "<vy>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector6"
       SrcPort		      1
@@ -2349,7 +2402,7 @@ Model {
       DstPort		      2
     }
     Line {
-      Name		      "<psiDot>"
+      Name		      "<yawRate>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector6"
       SrcPort		      2
@@ -2387,7 +2440,7 @@ Model {
     Line {
       SrcBlock		      "Vehicle Model"
       SrcPort		      1
-      Points		      [15, 0]
+      Points		      [5, 0]
       Branch {
 	Points			[0, -65; 220, 0]
 	DstBlock		"Bus\nCreator"
@@ -2405,20 +2458,20 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<yL_Sensor>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector7"
-      SrcPort		      1
-      DstBlock		      "Vehicle Model"
-      DstPort		      2
-    }
-    Line {
-      Name		      "<kapL_Sensor>"
+      Name		      "<latOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector7"
       SrcPort		      2
       DstBlock		      "Vehicle Model"
       DstPort		      3
+    }
+    Line {
+      Name		      "<curvature_LAD_Sensor>"
+      Labels		      [0, 0]
+      SrcBlock		      "Bus\nSelector7"
+      SrcPort		      1
+      DstBlock		      "Vehicle Model"
+      DstPort		      2
     }
     Line {
       SrcBlock		      "Bus\nCreator"
@@ -2463,7 +2516,15 @@ Model {
 	}
       }
     }
+    Line {
+      SrcBlock		      "Steering Model: CarMaker DSR [masked]"
+      SrcPort		      2
+      Points		      [50, 0]
+      DstBlock		      "Mux"
+      DstPort		      2
+    }
     Annotation {
+      SID		      "488"
       Position		      [1305, 185]
     }
   }
