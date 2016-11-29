@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.169"
+    ComputedModelVersion    "1.170"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 15 13:58:45 2016"
-  RTWModifiedTimeStamp	  401117772
-  ModelVersionFormat	  "1.%<AutoIncrement:169>"
+  LastModifiedDate	  "Tue Nov 29 09:05:08 2016"
+  RTWModifiedTimeStamp	  402311091
+  ModelVersionFormat	  "1.%<AutoIncrement:170>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -797,10 +797,10 @@ Model {
   }
   System {
     Name		    "Lenkung_CarMaker_DSR"
-    Location		    [781, 231, 1920, 940]
+    Location		    [840, 238, 1867, 906]
     Open		    on
     ModelBrowserVisibility  on
-    ModelBrowserWidth	    223
+    ModelBrowserWidth	    335
     ScreenColor		    "white"
     PaperOrientation	    "landscape"
     PaperPositionMode	    "auto"
@@ -816,7 +816,7 @@ Model {
       BlockType		      Constant
       Name		      "Constant"
       SID		      "384"
-      Position		      [420, 111, 450, 129]
+      Position		      [420, 96, 450, 114]
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
@@ -825,7 +825,7 @@ Model {
       BlockType		      Constant
       Name		      "Constant1"
       SID		      "399"
-      Position		      [420, 351, 450, 369]
+      Position		      [420, 336, 450, 354]
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
@@ -834,7 +834,7 @@ Model {
       BlockType		      Constant
       Name		      "Constant2"
       SID		      "400"
-      Position		      [420, 576, 450, 594]
+      Position		      [420, 561, 450, 579]
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
@@ -844,7 +844,7 @@ Model {
       Name		      "Controller R"
       SID		      "379"
       Ports		      [1, 1]
-      Position		      [615, 180, 675, 210]
+      Position		      [615, 165, 675, 195]
       BlockMirror	      on
       LibraryVersion	      "1.108"
       SourceBlock	      "cstblocks/LTI System"
@@ -857,7 +857,7 @@ Model {
       Name		      "Controller Rpol"
       SID		      "374"
       Ports		      [1, 1]
-      Position		      [300, 550, 360, 580]
+      Position		      [300, 535, 360, 565]
       NamePlacement	      "alternate"
       LibraryVersion	      "1.108"
       SourceBlock	      "cstblocks/LTI System"
@@ -876,7 +876,7 @@ Model {
       Name		      "Controller V"
       SID		      "370"
       Ports		      [1, 1]
-      Position		      [300, 85, 360, 115]
+      Position		      [300, 70, 360, 100]
       NamePlacement	      "alternate"
       LibraryVersion	      "1.108"
       SourceBlock	      "cstblocks/LTI System"
@@ -888,7 +888,7 @@ Model {
       BlockType		      From
       Name		      "From"
       SID		      "395"
-      Position		      [420, 371, 530, 389]
+      Position		      [420, 356, 530, 374]
       ZOrder		      -9
       GotoTag		      "disturbance"
     }
@@ -896,7 +896,7 @@ Model {
       BlockType		      From
       Name		      "From1"
       SID		      "397"
-      Position		      [420, 596, 530, 614]
+      Position		      [420, 581, 530, 599]
       ZOrder		      -9
       GotoTag		      "disturbance"
     }
@@ -904,7 +904,7 @@ Model {
       BlockType		      From
       Name		      "From2"
       SID		      "398"
-      Position		      [420, 131, 530, 149]
+      Position		      [420, 116, 530, 134]
       ZOrder		      -9
       GotoTag		      "disturbance"
     }
@@ -912,7 +912,7 @@ Model {
       BlockType		      Goto
       Name		      "Goto"
       SID		      "396"
-      Position		      [125, 206, 235, 224]
+      Position		      [125, 191, 235, 209]
       ZOrder		      -10
       GotoTag		      "disturbance"
     }
@@ -921,7 +921,7 @@ Model {
       Name		      "Manual Switch"
       SID		      "366"
       Ports		      [2, 1]
-      Position		      [95, 82, 125, 118]
+      Position		      [95, 67, 125, 103]
       ShowName		      off
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
@@ -941,7 +941,7 @@ Model {
       Name		      "Manual Switch1"
       SID		      "380"
       Ports		      [2, 1]
-      Position		      [75, 197, 105, 233]
+      Position		      [75, 182, 105, 218]
       ShowName		      off
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
@@ -961,7 +961,7 @@ Model {
       Name		      "Mux1"
       SID		      "232"
       Ports		      [2, 1]
-      Position		      [860, 271, 865, 309]
+      Position		      [860, 256, 865, 294]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -978,7 +978,7 @@ Model {
       Name		      "Mux2"
       SID		      "375"
       Ports		      [2, 1]
-      Position		      [860, 496, 865, 534]
+      Position		      [860, 481, 865, 519]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -995,7 +995,7 @@ Model {
       Name		      "Mux3"
       SID		      "199"
       Ports		      [2, 1]
-      Position		      [860, 31, 865, 69]
+      Position		      [860, 16, 865, 54]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -1012,7 +1012,7 @@ Model {
       Name		      "Ramp"
       SID		      "367"
       Ports		      [0, 1]
-      Position		      [15, 125, 45, 155]
+      Position		      [15, 110, 45, 140]
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Sources/Ramp"
       SourceType	      "Ramp"
@@ -1026,7 +1026,7 @@ Model {
       Name		      "Ramp1"
       SID		      "381"
       Ports		      [0, 1]
-      Position		      [15, 240, 45, 270]
+      Position		      [15, 225, 45, 255]
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Sources/Ramp"
       SourceType	      "Ramp"
@@ -1040,7 +1040,7 @@ Model {
       Name		      "Regler als ein System!"
       SID		      "338"
       Ports		      [2, 1]
-      Position		      [300, 318, 360, 362]
+      Position		      [300, 303, 360, 347]
       NamePlacement	      "alternate"
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -1315,7 +1315,7 @@ Model {
       Name		      "Scope1"
       SID		      "200"
       Ports		      [2]
-      Position		      [930, 56, 960, 89]
+      Position		      [930, 41, 960, 74]
       Floating		      off
       Location		      [10, 61, 952, 1024]
       Open		      off
@@ -1347,7 +1347,7 @@ Model {
       Name		      "Scope2"
       SID		      "233"
       Ports		      [2]
-      Position		      [930, 296, 960, 329]
+      Position		      [930, 281, 960, 314]
       Floating		      off
       Location		      [10, 61, 952, 1024]
       Open		      off
@@ -1380,7 +1380,7 @@ Model {
       Name		      "Scope3"
       SID		      "376"
       Ports		      [2]
-      Position		      [930, 521, 960, 554]
+      Position		      [930, 506, 960, 539]
       Floating		      off
       Location		      [726, 158, 1550, 893]
       Open		      off
@@ -1403,7 +1403,7 @@ Model {
       Name		      "Scope4"
       SID		      "383"
       Ports		      [3]
-      Position		      [985, 274, 1015, 306]
+      Position		      [985, 259, 1015, 291]
       Floating		      off
       Location		      [364, 109, 1188, 899]
       Open		      off
@@ -1437,9 +1437,9 @@ Model {
       Name		      "Steering Model: CarMaker DSR [masked]"
       SID		      "403"
       Ports		      [3, 2]
-      Position		      [555, 90, 720, 150]
+      Position		      [555, 75, 720, 135]
       ZOrder		      -19
-      LibraryVersion	      "1.788"
+      LibraryVersion	      "1.817"
       SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
       SourceType	      "Steering model parameterization"
       d_rot		      "pin.SteeringModel.parameter.values.drot"
@@ -1450,6 +1450,7 @@ Model {
       m_right		      "pin.SteeringModel.parameter.values.mR"
       m_rack		      "pin.SteeringModel.parameter.values.mr"
       V			      "pin.SteeringModel.parameter.values.V"
+      x0		      "[0;0]"
       Port {
 	PortNumber		1
 	PropagatedSignals	"SWAngle"
@@ -1463,9 +1464,9 @@ Model {
       Name		      "Steering Model: CarMaker DSR [masked]1"
       SID		      "406"
       Ports		      [3, 2]
-      Position		      [555, 330, 720, 390]
+      Position		      [555, 315, 720, 375]
       ZOrder		      -19
-      LibraryVersion	      "1.788"
+      LibraryVersion	      "1.817"
       SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
       SourceType	      "Steering model parameterization"
       d_rot		      "pin.SteeringModel.parameter.values.drot"
@@ -1476,6 +1477,7 @@ Model {
       m_right		      "pin.SteeringModel.parameter.values.mR"
       m_rack		      "pin.SteeringModel.parameter.values.mr"
       V			      "pin.SteeringModel.parameter.values.V"
+      x0		      "[0;0]"
       Port {
 	PortNumber		1
 	PropagatedSignals	"SWAngle"
@@ -1489,9 +1491,9 @@ Model {
       Name		      "Steering Model: CarMaker DSR [masked]2"
       SID		      "408"
       Ports		      [3, 2]
-      Position		      [545, 555, 710, 615]
+      Position		      [545, 540, 710, 600]
       ZOrder		      -19
-      LibraryVersion	      "1.788"
+      LibraryVersion	      "1.817"
       SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
       SourceType	      "Steering model parameterization"
       d_rot		      "pin.SteeringModel.parameter.values.drot"
@@ -1502,6 +1504,7 @@ Model {
       m_right		      "pin.SteeringModel.parameter.values.mR"
       m_rack		      "pin.SteeringModel.parameter.values.mr"
       V			      "pin.SteeringModel.parameter.values.V"
+      x0		      "[0;0]"
       Port {
 	PortNumber		1
 	PropagatedSignals	"SWAngle"
@@ -1514,14 +1517,14 @@ Model {
       BlockType		      Step
       Name		      "Step"
       SID		      "368"
-      Position		      [15, 75, 45, 105]
+      Position		      [15, 60, 45, 90]
       SampleTime	      "0"
     }
     Block {
       BlockType		      Step
       Name		      "Step1"
       SID		      "382"
-      Position		      [15, 190, 45, 220]
+      Position		      [15, 175, 45, 205]
       Time		      "5"
       After		      "100"
       SampleTime	      "0"
@@ -1531,7 +1534,7 @@ Model {
       Name		      "Sum"
       SID		      "42"
       Ports		      [2, 1]
-      Position		      [400, 90, 420, 110]
+      Position		      [400, 75, 420, 95]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+-"
@@ -1550,7 +1553,7 @@ Model {
       Name		      "Sum1"
       SID		      "378"
       Ports		      [2, 1]
-      Position		      [260, 555, 280, 575]
+      Position		      [260, 540, 280, 560]
       ShowName		      off
       IconShape		      "round"
       Inputs		      "|+-"
@@ -1562,7 +1565,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator"
       SID		      "405"
-      Position		      [750, 125, 770, 145]
+      Position		      [750, 110, 770, 130]
       ZOrder		      -5
       ShowName		      off
     }
@@ -1570,7 +1573,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator1"
       SID		      "407"
-      Position		      [750, 365, 770, 385]
+      Position		      [750, 350, 770, 370]
       ZOrder		      -5
       ShowName		      off
     }
@@ -1578,7 +1581,7 @@ Model {
       BlockType		      Terminator
       Name		      "Terminator2"
       SID		      "409"
-      Position		      [750, 590, 770, 610]
+      Position		      [750, 575, 770, 595]
       ZOrder		      -5
       ShowName		      off
     }
@@ -1684,7 +1687,7 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Steering Model: CarMaker DSR [masked]2"
       SrcPort		      1
-      Points		      [50, 0; 80, 0]
+      Points		      [130, 0]
       Branch {
 	Points			[0, 80; -575, 0]
 	DstBlock		"Sum1"
