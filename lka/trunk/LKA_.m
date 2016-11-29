@@ -30,15 +30,15 @@ stringCvehicle = 'paramFile_SingleTrackMdl_BMW5';
 
 % LKA-controller design: longitudinal velocity vx [m/s]
 % vxC = vx0;
-vxC = 20;
+vx_Ctrl = 20;
 
 % LKA-controller design: look-ahead distance lad [m]
-ladC = 10;
+LAD_Ctrl = 10;
 
 % LKA-controler design: calculate controller with upper parameters
-contr.t = lkaController_t(stringCvehicle,vxC,ladC);
+contr.t = lkaController_t(stringCvehicle,vx_Ctrl,LAD_Ctrl);
 addpath('algSynth');
-contr.s = lkaController_s(stringCvehicle,vxC,ladC);
+contr.s = lkaController_s(stringCvehicle,vx_Ctrl,LAD_Ctrl);
 
 
 %% Simulation parameter
@@ -58,23 +58,26 @@ end
 % simulation: vehicle parameter
 stringSim = 'paramFile_SingleTrackMdl_BMW5';
 pin.VehicleModel.parameterFile = stringSim;
-pin.VehicleModel.parameter = loadParameter(stringSim,'about');
+pin.VehicleModel.parameter = paramFile2Struct(stringSim);
 
 % simulation: longitudinal velocity vx [m/s]
-pin.vx = vxC;
+pin.vx = vx_Ctrl;
 
 % simulation: look-ahead distance lad [m]
-pin.lad = ladC;
+pin.LAD = LAD_Ctrl;
 
 % simulation: vehicle model state-space model
 % pin.VehicleModel.ssMdl = ssMdl_SingleTrack('stvis',stringSim,pin.vx,pin.lad);
 
-% add folder 'trajectories' to search path and load intended trajectory
-addpath('trajectories');
-[pin.traj,trajErr] = lka_trajectory_07(0,0.05);
+% load desired path
+% [pin.traj,trajErr] = lka_trajectory_07(0,0.05);
+pin.traj = ...
+	lkaSegmentStraight(0.05,50,0) + ...
+	lkaSegmentCircle(0.05,-pi/2,0,200);
+pin.traj_sd = pin.traj.segmentData;
 
 % simulation: interval of integration
-tend = pin.traj.s(end)/pin.vx - 2*pin.lad/pin.vx;
+tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.LAD/pin.vx;
 
 % vehicle model: initial condition
 pin.VehicleModel.initialValue.sy = 0;
@@ -91,9 +94,9 @@ pin.VehicleModel.initialValue.epsL = 0;
 %% set solver parameter
 
 % für Sollbahn mit sprungf. Krümmungsverlauf (kapL wird richtig ermittelt)
-% set_param(mdlName,'SolverType','Fixed-step')
-% set_param(mdlName,'Solver','ode3')
-% set_param(mdlName,'FixedStep','0.01')
+set_param(mdlName,'SolverType','fixed-step')
+set_param(mdlName,'solver','ode3')
+set_param(mdlName,'fixedstep','0.01')
 
 % sonst
 set_param(mdlName,'SolverType','Variable-step')
@@ -120,14 +123,14 @@ soli.(lbl).simDate = datestr(now);
 
 %% post-processing
 
-sol.(lbl) = lkaPostProcessing(soli.(lbl),pin,[],simoutState,simoutSensor,simoutSteerAngle);
+% sol.(lbl) = lkaPostProcessing(soli.(lbl),pin,[],simoutState,simoutSensor,simoutSteerAngle);
 
 
 %% plot
 
 % figure
 % lkaPlot(sol,0,'traj');
-lkaPlot(sol,0,'add');
+% lkaPlot(sol,0,'add');
 % lkaPlot(sol,pin.lad,'add');
 % lkaPlot(sol,0);
 

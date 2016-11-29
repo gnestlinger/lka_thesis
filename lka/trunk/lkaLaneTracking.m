@@ -69,7 +69,7 @@ indx = find(logIndx); % indx = traj.ind(logIndx);
 yTraj = zeros(length(indx),1);
 try
     for i = 1:length(indx)
-        [indl,indu] = interpIndex(indx(i),1,traj.ind(end));
+        [indl,indu] = interpIndex(indx(i),1,length(traj.x));
 %         yTraj(i) = interp1(V.traj.x(indl:indu),V.traj.y(indl:indu),...
 %             V.L.x,'spline');
         % same result like interp1(..,'spline') but faster
@@ -99,7 +99,7 @@ end%if
 yL = yTraj(minInd) - V.CG.y;
 
 % refresh interpolating-indices
-[indl,indu] = interpIndex(indx(minInd),1,traj.ind(end));
+[indl,indu] = interpIndex(indx(minInd),1,length(traj.x));
 
 % Tangentenvektor
 tangent = [V.traj.x(indu)-V.traj.x(indl); V.traj.y(indu)-V.traj.y(indl)];
