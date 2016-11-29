@@ -24,13 +24,13 @@ load_system(mdlName);
 stringC = 'paramFile_SingleTrackMdl_BMW5';
 
 % LKA-controller design: longitudinal velocity vx [m/s]
-vxC = 30;
+vx_Ctrl = 30;
 
 % LKA-controller design: look-ahead distance lad [m]
-ladC = 10;
+LAD_Ctrl = 10;
 
 % LKA-controler design: calculate controller with upper parameters
-contr.t = lkaController_t(stringC,vxC,ladC);
+contr.t = lkaController_t(stringC,vx_Ctrl,LAD_Ctrl);
 
 
 %% Simulation parameter
@@ -38,20 +38,24 @@ contr.t = lkaController_t(stringC,vxC,ladC);
 % simulation: vehicle parameter
 stringSim = 'paramFile_SingleTrackMdl_BMW5';
 pin.VehicleModel.parameterFile = stringSim;
-pin.VehicleModel.parameter = loadParameter(stringSim,'about');
+pin.VehicleModel.parameter = paramFile2Struct(stringSim);
 
 % simulation: longitudinal velocity vx [m/s]
-pin.vx = vxC;
+pin.vx = vx_Ctrl;
 
 % simulation: look-ahead distance lad [m]
-pin.lad = ladC;
+pin.LAD = LAD_Ctrl;
 
-% load intended trajectory
-[pin.traj,trajErr] = lka_trajectory_01(0,0.05);
+% load desired path
+% [pin.traj,trajErr] = lka_trajectory_01(1,0.05);
+pin.traj = ...
+	lkaSegmentStraight(0.05,100,0) + ...
+	lkaSegmentCircle(0.05,-pi/2,0,500);
+pin.traj_sd = pin.traj.segmentData;
 
 % simulation: interval of integration
 % tend = pin.traj.s(end)/pin.vx - 2*pin.lad/pin.vx;
-tend = (max(pin.traj.x)-2*pin.lad)/pin.vx;
+tend = (max(pin.traj_sd.x)-2*pin.LAD)/pin.vx;
 tend = floor(tend);
 
 % reduce 'MaxStep' or enlarge 'delta' of lka_trajectory_xx(sw,delta) if

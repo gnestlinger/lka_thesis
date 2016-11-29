@@ -45,7 +45,7 @@ sysSingleTrackVis = ssMdl_SingleTrack('stvis',paramFile,vx,lad);
 
 %%% load parameter %%%
 eval(paramFile);
-vehicleParam = loadParameter(paramFile,'about');
+vehicleParam = paramFile2Struct(paramFile);
 
 
 %% Lead-Lag-Glied

@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.921"
+    ComputedModelVersion    "1.925"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 15 15:33:22 2016"
-  RTWModifiedTimeStamp	  348074157
-  ModelVersionFormat	  "1.%<AutoIncrement:921>"
+  LastModifiedDate	  "Tue Nov 29 10:40:43 2016"
+  RTWModifiedTimeStamp	  402316132
+  ModelVersionFormat	  "1.%<AutoIncrement:925>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -779,7 +779,7 @@ Model {
   }
   System {
     Name		    "test_yL_epsL"
-    Location		    [465, 138, 1517, 805]
+    Location		    [652, 259, 1704, 926]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    241
@@ -793,7 +793,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1727"
+    SIDHighWatermark	    "1747"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -987,80 +987,6 @@ Model {
       Value		      "0"
     }
     Block {
-      BlockType		      SubSystem
-      Name		      "LKA-Sensorik"
-      SID		      "1013"
-      Ports		      [1, 1]
-      Position		      [405, 145, 580, 205]
-      BackgroundColor	      "darkGreen"
-      NamePlacement	      "alternate"
-      AttributesFormatString  "%<BlockChoice>"
-      BlockChoice	      "Videosensorik"
-      TemplateBlock	      "library/LKA-Sensorik/LKA-Sensorik"
-      MemberBlocks	      "Videosensorik"
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"LKA-Sensorik"
-	Location		[148, 182, 646, 482]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	SIDHighWatermark	"2404"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Vehicle_State"
-	  SID			  "1013::352"
-	  Position		  [20, 40, 40, 60]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Videosensorik"
-	  SID			  "1013::354"
-	  Ports			  [1, 1]
-	  Position		  [100, 40, 140, 80]
-	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.799"
-	  SourceBlock		  "library/LKA-Sensorik/Videosensorik"
-	  SourceType		  "SubSystem"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "Sensor"
-	  SID			  "1013::2404"
-	  Position		  [200, 40, 220, 60]
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Vehicle_State"
-	  SrcPort		  1
-	  DstBlock		  "Videosensorik"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Videosensorik"
-	  SrcPort		  1
-	  DstBlock		  "Sensor"
-	  DstPort		  1
-	}
-      }
-    }
-    Block {
       BlockType		      Reference
       Name		      "LQR_2int"
       SID		      "1067"
@@ -1068,7 +994,7 @@ Model {
       Position		      [140, 284, 240, 426]
       BlockMirror	      on
       NamePlacement	      "alternate"
-      LibraryVersion	      "1.799"
+      LibraryVersion	      "1.822"
       SourceBlock	      "library/LKA-Controller/LQR_2int"
       SourceType	      "SubSystem"
       Port {
@@ -1093,7 +1019,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Lane Tracking"
-	Location		[970, 523, 1520, 770]
+	Location		[970, 523, 1540, 770]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
@@ -1171,7 +1097,7 @@ Model {
 	  Position		  [25, 101, 205, 119]
 	  BackgroundColor	  "yellow"
 	  ShowName		  off
-	  Value			  "pin.lad"
+	  Value			  "pin.LAD"
 	}
 	Block {
 	  BlockType		  Reference
@@ -1179,7 +1105,7 @@ Model {
 	  SID			  "1697"
 	  Ports			  [8, 2]
 	  Position		  [350, 25, 545, 220]
-	  LibraryVersion	  "1.799"
+	  LibraryVersion	  "1.822"
 	  SourceBlock		  "library/Vehicle Models/Lane Tracking/Lane Tracking nonlinear"
 	  SourceType		  "SubSystem"
 	}
@@ -1447,6 +1373,125 @@ Model {
     }
     Block {
       BlockType		      SubSystem
+      Name		      "Sensor Model"
+      SID		      "1738"
+      Ports		      [1, 1]
+      Position		      [435, 144, 555, 206]
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"Sensor Model"
+	Location		[972, 379, 1307, 491]
+	Open			off
+	ModelBrowserVisibility	on
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "VehicleState"
+	  SID			  "1743"
+	  Position		  [35, 43, 65, 57]
+	  ZOrder		  -1
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector"
+	  SID			  "1744"
+	  Ports			  [1, 3]
+	  Position		  [105, 20, 110, 80]
+	  ZOrder		  -3
+	  ShowName		  off
+	  OutputSignals		  "x_global,y_global,yawAngle"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<x_global>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    2
+	    Name		    "<y_global>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "<yawAngle>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Videosensorik"
+	  SID			  "1728"
+	  Ports			  [3, 1]
+	  Position		  [190, 20, 365, 80]
+	  LibraryVersion	  "1.822"
+	  SourceBlock		  "library/LKA-Sensorik/Videosensorik"
+	  SourceType		  "SubSystem"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Sensor"
+	  SID			  "1741"
+	  Position		  [400, 43, 430, 57]
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "Videosensorik"
+	  SrcPort		  1
+	  DstBlock		  "Sensor"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "VehicleState"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nSelector"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<x_global>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  1
+	  DstBlock		  "Videosensorik"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<y_global>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  2
+	  DstBlock		  "Videosensorik"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "<yawAngle>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  3
+	  DstBlock		  "Videosensorik"
+	  DstPort		  3
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
       Name		      "Simout1"
       SID		      "1073"
       Ports		      [2]
@@ -1663,17 +1708,6 @@ Model {
 	  IconDisplay		  "Port number"
 	}
 	Block {
-	  BlockType		  BusCreator
-	  Name			  "Bus\nCreator"
-	  SID			  "1720"
-	  Ports			  [6, 1]
-	  Position		  [395, 298, 400, 422]
-	  ZOrder		  -2
-	  ShowName		  off
-	  Inputs		  "6"
-	  DisplayOption		  "bar"
-	}
-	Block {
 	  BlockType		  Constant
 	  Name			  "Constant1"
 	  SID			  "1711"
@@ -1681,21 +1715,6 @@ Model {
 	  BackgroundColor	  "yellow"
 	  ShowName		  off
 	  Value			  "pin.vx"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant10"
-	  SID			  "1718"
-	  Position		  [95, 401, 320, 419]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.parameter.values.Iz"
-	  Port {
-	    PortNumber		    1
-	    Name		    "Izz"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
 	}
 	Block {
 	  BlockType		  Constant
@@ -1722,82 +1741,24 @@ Model {
 	  Position		  [225, 106, 405, 124]
 	  BackgroundColor	  "yellow"
 	  ShowName		  off
-	  Value			  "pin.lad"
+	  Value			  "pin.LAD"
 	}
 	Block {
-	  BlockType		  Constant
-	  Name			  "Constant5"
-	  SID			  "1713"
-	  Position		  [95, 301, 320, 319]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.parameter.values.csv"
-	  Port {
-	    PortNumber		    1
-	    Name		    "csv"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant6"
-	  SID			  "1714"
-	  Position		  [95, 321, 320, 339]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.parameter.values.csh"
-	  Port {
-	    PortNumber		    1
-	    Name		    "csh"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant7"
-	  SID			  "1715"
-	  Position		  [95, 341, 320, 359]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.parameter.values.lv"
-	  Port {
-	    PortNumber		    1
-	    Name		    "lv"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant8"
-	  SID			  "1716"
-	  Position		  [95, 361, 320, 379]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.parameter.values.lh"
-	  Port {
-	    PortNumber		    1
-	    Name		    "lh"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant9"
-	  SID			  "1717"
-	  Position		  [95, 381, 320, 399]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.parameter.values.m"
-	  Port {
-	    PortNumber		    1
-	    Name		    "m"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
+	  BlockType		  Reference
+	  Name			  "Single Track Model [Parameter]"
+	  SID			  "1746"
+	  Ports			  [0, 1]
+	  Position		  [145, 45, 305, 65]
+	  ZOrder		  -19
+	  LibraryVersion	  "1.822"
+	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model [Parameter]"
+	  SourceType		  "Linear Single Track Model"
+	  cs_front		  "pin.VehicleModel.parameter.csv"
+	  cs_rear		  "pin.VehicleModel.parameter.csh"
+	  l_front		  "pin.VehicleModel.parameter.lv"
+	  l_rear		  "pin.VehicleModel.parameter.lh"
+	  m			  "pin.VehicleModel.parameter.m"
+	  Izz			  "pin.VehicleModel.parameter.Iz"
 	}
 	Block {
 	  BlockType		  Reference
@@ -1806,8 +1767,8 @@ Model {
 	  Ports			  [8, 1]
 	  Position		  [460, 27, 620, 228]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.799"
-	  SourceBlock		  "library/Vehicle Models/Single Track Model//LaneTracking"
+	  LibraryVersion	  "1.822"
+	  SourceBlock		  "library/Vehicle Models/Single Track Model//Lane Tracking"
 	  SourceType		  "SubSystem"
 	}
 	Block {
@@ -1866,57 +1827,9 @@ Model {
 	  DstPort		  8
 	}
 	Line {
-	  Name			  "csv"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant5"
+	  SrcBlock		  "Single Track Model [Parameter]"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator"
-	  DstPort		  1
-	}
-	Line {
-	  Name			  "csh"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant6"
-	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator"
-	  DstPort		  2
-	}
-	Line {
-	  Name			  "lv"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant7"
-	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator"
-	  DstPort		  3
-	}
-	Line {
-	  Name			  "lh"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant8"
-	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator"
-	  DstPort		  4
-	}
-	Line {
-	  Name			  "m"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant9"
-	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator"
-	  DstPort		  5
-	}
-	Line {
-	  Name			  "Izz"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant10"
-	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator"
-	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "Bus\nCreator"
-	  SrcPort		  1
-	  Points		  [35, 0; 0, -295]
+	  Points		  [0, 10]
 	  DstBlock		  "Single Track Model/LaneTracking"
 	  DstPort		  2
 	}
@@ -1989,9 +1902,9 @@ Model {
       DstPort		      2
     }
     Line {
-      SrcBlock		      "LKA-Sensorik"
+      SrcBlock		      "Sensor Model"
       SrcPort		      1
-      Points		      [20, 0]
+      Points		      [45, 0]
       Branch {
 	DstBlock		"Bus\nCreator"
 	DstPort			2
@@ -2053,7 +1966,8 @@ Model {
 	DstPort			1
       }
       Branch {
-	DstBlock		"LKA-Sensorik"
+	Labels			[0, 0]
+	DstBlock		"Sensor Model"
 	DstPort			1
       }
     }

@@ -42,7 +42,7 @@ sysSingleTrackVis_2int = ssMdl_SingleTrack('stvis_2int',paramFile,vx,lad);
 
 %%% load parameter %%%
 % eval(paramFile);
-vehicleParam = loadParameter(paramFile,'about');
+vehicleParam = paramFile2Struct(paramFile);
 
 %% P-Glied: u = kP*yL
 
