@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.799"
+    ComputedModelVersion    "1.801"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 29 10:43:01 2016"
-  RTWModifiedTimeStamp	  402316976
-  ModelVersionFormat	  "1.%<AutoIncrement:799>"
+  LastModifiedDate	  "Wed Dec 07 14:20:36 2016"
+  RTWModifiedTimeStamp	  403020365
+  ModelVersionFormat	  "1.%<AutoIncrement:801>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -774,7 +774,7 @@ Model {
   }
   System {
     Name		    "LKA"
-    Location		    [516, 180, 1661, 707]
+    Location		    [533, 204, 1678, 731]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    265
@@ -788,7 +788,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1118"
+    SIDHighWatermark	    "1124"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -806,41 +806,41 @@ Model {
       Ports		      [1, 6]
       Position		      [910, 220, 915, 330]
       ShowName		      off
-      OutputSignals	      "Sensor.latOff_LAD_Sensor,VehicleState.latOff_LAD_linear,VehicleState.latOff_LAD_nonlinear,S"
-      "ensor.angDev_LAD_Sensor,VehicleState.angDev_LAD_linear,VehicleState.angDev_LAD_nonlinear"
+      OutputSignals	      "Sensor.lateralOff_LAD_Sensor,VehicleState.lateralOff_LAD_linear,VehicleState.lateralOff_LAD"
+      "_nonlinear,Sensor.angularDev_LAD_Sensor,VehicleState.angularDev_LAD_linear,VehicleState.angularDev_LAD_nonlinear"
       Port {
 	PortNumber		1
-	Name			"<latOff_LAD_Sensor>"
+	Name			"<lateralOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		2
-	Name			"<latOff_LAD_linear>"
+	Name			"<lateralOff_LAD_linear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		3
-	Name			"<latOff_LAD_nonlinear>"
+	Name			"<lateralOff_LAD_nonlinear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		4
-	Name			"<angDev_LAD_Sensor>"
+	Name			"<angularDev_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		5
-	Name			"<angDev_LAD_linear>"
+	Name			"<angularDev_LAD_linear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		6
-	Name			"<angDev_LAD_nonlinear>"
+	Name			"<angularDev_LAD_nonlinear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -896,7 +896,7 @@ Model {
       Ports		      [1, 2]
       Position		      [310, 126, 315, 164]
       ShowName		      off
-      OutputSignals	      "curvature_LAD_Sensor,latOff_LAD_Sensor"
+      OutputSignals	      "curvature_LAD_Sensor,lateralOff_LAD_Sensor"
       Port {
 	PortNumber		1
 	Name			"<curvature_LAD_Sensor>"
@@ -905,7 +905,7 @@ Model {
       }
       Port {
 	PortNumber		2
-	Name			"<latOff_LAD_Sensor>"
+	Name			"<lateralOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -949,7 +949,7 @@ Model {
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	"2696"
+	SIDHighWatermark	"2706"
 	Block {
 	  BlockType		  Inport
 	  Name			  "r"
@@ -996,7 +996,7 @@ Model {
 	  Ports			  [5, 1]
 	  Position		  [100, 40, 140, 80]
 	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.822"
+	  LibraryVersion	  "1.828"
 	  SourceBlock		  "library/LKA-Controller/LQR"
 	  SourceType		  "SubSystem"
 	}
@@ -1356,7 +1356,7 @@ Model {
 	  SID			  "1115"
 	  Ports			  [3, 1]
 	  Position		  [190, 20, 365, 80]
-	  LibraryVersion	  "1.822"
+	  LibraryVersion	  "1.828"
 	  SourceBlock		  "library/LKA-Sensorik/Videosensorik"
 	  SourceType		  "SubSystem"
 	}
@@ -1661,7 +1661,7 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [40, 55, 200, 75]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.822"
+	  LibraryVersion	  "1.828"
 	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model [Parameter]"
 	  SourceType		  "Linear Single Track Model"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
@@ -1678,7 +1678,7 @@ Model {
 	  Ports			  [8, 1]
 	  Position		  [265, 15, 430, 290]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.822"
+	  LibraryVersion	  "1.828"
 	  SourceBlock		  "library/Vehicle Models/Single Track Model//Lane Tracking"
 	  SourceType		  "SubSystem"
 	}
@@ -1810,7 +1810,7 @@ Model {
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	"2696"
+	SIDHighWatermark	"2706"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vehicle_Data"
@@ -1826,7 +1826,8 @@ Model {
 	  Position		  [100, 40, 140, 80]
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.822"
+	  NamePlacement		  "alternate"
+	  LibraryVersion	  "1.828"
 	  SourceBlock		  "library/LKA-Sensorik/epsL_exactMdl"
 	  SourceType		  "SubSystem"
 	}
@@ -1873,7 +1874,7 @@ Model {
       Port {
 	PortNumber		1
 	Name			"yL"
-	PropagatedSignals	"latOff_LAD_Sensor"
+	PropagatedSignals	"lateralOff_LAD_Sensor"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1892,7 +1893,7 @@ Model {
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	"2696"
+	SIDHighWatermark	"2706"
 	Block {
 	  BlockType		  Inport
 	  Name			  "Vehicle_Data"
@@ -1908,7 +1909,7 @@ Model {
 	  Position		  [100, 40, 140, 80]
 	  BlockMirror		  on
 	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.822"
+	  LibraryVersion	  "1.828"
 	  SourceBlock		  "library/LKA-Sensorik/yL_Sensor"
 	  SourceType		  "SubSystem"
 	}
@@ -2001,12 +2002,12 @@ Model {
 	  Branch {
 	    Points		    [0, 75]
 	    Branch {
-	      DstBlock		      "select yL"
+	      Points		      [0, 85]
+	      DstBlock		      "select epsL"
 	      DstPort		      1
 	    }
 	    Branch {
-	      Points		      [0, 85]
-	      DstBlock		      "select epsL"
+	      DstBlock		      "select yL"
 	      DstPort		      1
 	    }
 	  }
@@ -2097,7 +2098,7 @@ Model {
       DstPort		      2
     }
     Line {
-      Name		      "<latOff_LAD_Sensor>"
+      Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      1
@@ -2113,7 +2114,7 @@ Model {
       }
     }
     Line {
-      Name		      "<latOff_LAD_linear>"
+      Name		      "<lateralOff_LAD_linear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      2
@@ -2121,7 +2122,7 @@ Model {
       DstPort		      2
     }
     Line {
-      Name		      "<latOff_LAD_nonlinear>"
+      Name		      "<lateralOff_LAD_nonlinear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      3
@@ -2129,7 +2130,7 @@ Model {
       DstPort		      3
     }
     Line {
-      Name		      "<angDev_LAD_Sensor>"
+      Name		      "<angularDev_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      4
@@ -2145,7 +2146,7 @@ Model {
       }
     }
     Line {
-      Name		      "<angDev_LAD_linear>"
+      Name		      "<angularDev_LAD_linear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      5
@@ -2153,7 +2154,7 @@ Model {
       DstPort		      2
     }
     Line {
-      Name		      "<angDev_LAD_nonlinear>"
+      Name		      "<angularDev_LAD_nonlinear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      6
@@ -2189,7 +2190,7 @@ Model {
       }
     }
     Line {
-      Name		      "<latOff_LAD_Sensor>"
+      Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector7"
       SrcPort		      2
