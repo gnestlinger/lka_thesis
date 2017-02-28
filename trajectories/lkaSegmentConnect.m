@@ -111,9 +111,16 @@ classdef lkaSegmentConnect < lkaSegment
     methods
         
         function value = get.length(obj)
-            
-            value = obj.segmentData.s(end);
-            
+%             disp('getting length...')
+            value = obj.segmentData.s;
+			
+			% avoid multiple calls of superclass method for dependent
+			% property 'segmentData' by getting the last element from
+			% buffered data 'value'
+			value = value(end);
+			
+% 			value = obj.segmentDataConnected.s(end);
+%             disp('...done')
         end%fcn
 
     end%GET-Methods
@@ -143,9 +150,14 @@ classdef lkaSegmentConnect < lkaSegment
         
         
         function value = getEndPoint(obj)
-            
-            value = [obj.segmentData.x(end), obj.segmentData.y(end)];
-            
+%             disp('getting endPoint...')
+			sd = obj.segmentData;
+			
+			% avoid multiple calls of superclass method for dependent
+			% property 'segmentData' by getting the last element from
+			% buffered data 'sd'
+            value = [sd.x(end), sd.y(end)];
+%             disp('...done')
         end%fcn
         
             
