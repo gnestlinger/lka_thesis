@@ -15,6 +15,7 @@ classdef lkaSegment
 %	 xyStart	 - Coordinate of segment data starting point.
 %	 xyStop		 - Coordinate of segment data end point.
 %	 segmentData - The segment data.
+%	 length		 - Arc length of the segment.
 %	
 %	LKASEGMENT Methods:
 %	 resample	 - Apply a new value for DELTASET.
@@ -25,7 +26,8 @@ classdef lkaSegment
 %	
 %	--- (just used by subclasses) ---------------------------------------
 %	OBJ = LKASEGMENT(SEGMENTTYPE,DELTASET,XYSTART) sets the segment type
-%	SEGMENTTYPE, the desired 
+%	SEGMENTTYPE, the desired spacing DELTASET between consecutive points of
+%	the segment and the coordinate XYSTART of segment's starting point.
 %	
 %	OBJ = LKASEGMENT(SEGMENTTYPE,[],XYSTART) applies the default value
 %	for DELTASET.
@@ -52,8 +54,7 @@ classdef lkaSegment
     properties (Constant, Hidden, GetAccess = private)
         
         % segmentTypeValid - Valid segment types.
-        %
-        % Cell of strings defining the valid segment types.
+        %	Cell of strings defining the valid segment types.
         %
         segmentTypeValid = {'connected','straight','circle','clothoid'};
         
@@ -63,21 +64,18 @@ classdef lkaSegment
     properties (Constant, Hidden, GetAccess = protected)
         
         % rotMatX - Rotation matrix x-component.
-        %   
         %   The x-component of a vector p = [x;y] is rotated by an angle
         %   phi counter-clockwise by rotMatX(phi)*p.
         %   
         rotMatX = @(phi) [cos(phi) -sin(phi)];
         
         % rotMatY - Rotation matrix y-component.
-        %   
         %   The y-component of a vector p = [x;y] is rotated by an angle
         %   phi counter-clockwise by rotMatY(phi)*p.
         %
         rotMatY = @(phi) [sin(phi) +cos(phi)];
         
 		% rotMat - Rotation matrix in R^2.
-		%
 		%	A vector p = [x;y] is rotated by an angle phi counter-clockwise
 		%	by rotMat(phi)*p.
 		%
@@ -88,10 +86,9 @@ classdef lkaSegment
     
     properties (Constant, Hidden, Abstract)
         
-        % designProperties - User adjustable segment design properties.
-        %
-        %   Cell of of strings defining the user-adjustable design
-        %   properties used for segment design.
+        % designProperties - User adjustable properties for segment design.
+        %   Cell of strings defining the user-adjustable properties used
+        %   for segment design.
         %
         designProperties;
         
@@ -101,13 +98,11 @@ classdef lkaSegment
     properties (SetAccess = private)
         
         % segmentType - The segment type.
-        %
-        %   String indicating the segment type.
+        %   String indicating the type of the segment.
         %
         segmentType; %segment info data
         
         % deltaSet - Desired distance between two consecutive points [m].
-		%
 		%	The desired distance DELTASET between two consecutive points
 		%	can not always be fullfilled exactly (depending on the other
 		%	street segment design parameters) and is therefore treated as
@@ -123,15 +118,12 @@ classdef lkaSegment
     properties (Dependent, SetAccess = private)
         
         % deltaAct - Actual distance between two nearby points [m].
-        %   
-		%	Currently used distance between two nearby segment points. This
-		%	value will in general differ from the desired distance
-		%	DELTASET.
+		%	Currently used distance between two nearby segment points. In
+		%	general, this value differs from the desired distance DELTASET.
 		%	
-        deltaAct; %segment design data
+        deltaAct; %segment info data
         
         % nbrOfPoints - Number of segment-points [-].
-		%	
 		%	This is the minimum and currently used number of segment points
 		%	required, to fullfill DELTAACT < DELTASET.
 		%	
@@ -162,10 +154,12 @@ classdef lkaSegment
     end
     
     
-    properties (Abstract = true)
+    properties (Abstract)
         
-        % length - Length of the segment.
-        %   
+        % length - Arc length of the segment [m].
+		%	Depending on the implementation of the subclass, this property
+		%	is either just for info purpose or can be set by the user.
+		%	
         length; %segment design or info data
         
     end
@@ -325,25 +319,22 @@ classdef lkaSegment
     %%% GET-Methods
     methods
         
-        function value = get.deltaAct(obj)
-            
-%             nbrOfSegments = ceil(obj.length/obj.deltaSet);
-%             value = obj.length/nbrOfSegments;
-            
-            value = obj.length/(obj.nbrOfPoints-1);
-            
-            if (value < 0) || (value > obj.deltaSet)
-                warning('MATLAB:lkaSegment:get:deltaAct',...
-                    'Actual delta has an invalid value!!!')
-            end
-            
-        end%fcn
+		function value = get.deltaAct(obj)
+			
+			value = obj.length/(obj.nbrOfPoints-1);
+			
+			if (value < 0) || (value > obj.deltaSet)
+				warning('MATLAB:lkaSegment:get:deltaAct',...
+					'Actual delta has an invalid value!!!')
+			end%if
+			
+		end%fcn
         
         
         function value = get.nbrOfPoints(obj)
             
             % call abstract method
-            value = getNbrOfPoints(obj);
+            value = getNbrOfPoints_abstract(obj);
             
         end%fcn
         
@@ -351,20 +342,32 @@ classdef lkaSegment
         function value = get.xyStop(obj)
             
             % call abstract method to get xyStop dependent on subclass
-            value = getEndPoint(obj);
+            value = getEndPoint_abstract(obj);
             
         end%fcn
         
         
         function segdat = get.segmentData(obj)
             
-			disp(['*** Calculation started (',obj.segmentType,')'])
+			% show calculation notes only for other segments than
+			% 'connected'
+			if ~strcmp(obj.segmentType,'connected')
+				showCalcNote = true;
+			else
+				showCalcNote = false;
+			end%if
+			
+			if showCalcNote
+				disp(['*** Calculating segment ''',obj.segmentType,''''])
+			end%if
 			
             % call abstract method
-            segdat = getSegmentData(obj);
+            segdat = getSegmentData_abstract(obj);
 			
-			disp('*** Calculation finished!')
-			fprintf('\n')
+			if showCalcNote
+				disp('*** Done :)')
+				fprintf('\n')
+			end%if
             
         end%fcn
         
@@ -463,14 +466,11 @@ classdef lkaSegment
     
     %%% Abstract-Methods
     methods (Abstract, Access = protected)
-        
-        nbr = getNbrOfPoints(obj);
-        
-        endP = getEndPoint(obj)
-        %GETENDPOINT get end point of segment
-        % abstract method to be implemented by subclasses
-        
-        segdat = getSegmentData(obj)
+        % abstract methods to be implemented by subclasses
+		
+        nbr		= getNbrOfPoints_abstract(obj);
+        endP	= getEndPoint_abstract(obj)      
+        segdat	= getSegmentData_abstract(obj)
         
     end%Abstract-Methods
     

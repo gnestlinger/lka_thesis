@@ -103,10 +103,10 @@ classdef lkaSegmentStraight < lkaSegment
     end%SET-Methods
     
     
+	%%% Implementation of abstract methods
     methods (Access = protected)
         
-        %%% get the number of segment points
-        function value = getNbrOfPoints(obj)
+        function value = getNbrOfPoints_abstract(obj)
             
             % calc the number of points of segment to match 'deltaSet'
             value = ceil(obj.length/obj.deltaSet) + 1;
@@ -114,17 +114,16 @@ classdef lkaSegmentStraight < lkaSegment
         end%fcn
         
         
-        %%% get endpoint
-        function value = getEndPoint(obj)
-            
+        function value = getEndPoint_abstract(obj)
+        % get endpoint
+		
             value = obj.xyStart + obj.length*[cos(obj.angle) sin(obj.angle)];
             
         end%fcn
         
         
-        %%% create straight segment based on object data
-        function segdat = getSegmentData(obj)
-            
+        function segdat = getSegmentData_abstract(obj)
+		% create straight segment based on object data
             
             % get dependent property 'xyStop'
             xyStopDEP = obj.xyStop;

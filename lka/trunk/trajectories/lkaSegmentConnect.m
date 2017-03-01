@@ -5,8 +5,8 @@ classdef lkaSegmentConnect < lkaSegment
 %	SEG = LKASEGMENTCONNECT(SEGDAT) stores the segment data SEGDAT object.
 %	----------------------------------------------------------------------
 %	
-%   See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
-%   LKASEGMENTCLOTHOID.
+%	See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
+%	LKASEGMENTCLOTHOID.
 
 % Subject: lka
 % Author: $Author$
@@ -22,7 +22,7 @@ classdef lkaSegmentConnect < lkaSegment
     end
     
     
-    properties(Dependent)
+    properties (Dependent)
         
         length
         
@@ -31,15 +31,14 @@ classdef lkaSegmentConnect < lkaSegment
     
     properties (Hidden, SetAccess = private)
         
-        nbrOfPointsConnected
+        nbrOfPoints_stored
         
     end
     
     
     properties (Hidden, SetAccess = private)
         
-        %%% design data: straight segment
-        segmentDataConnected; % see superclass
+        segmentData_stored;
         
     end
     
@@ -52,9 +51,9 @@ classdef lkaSegmentConnect < lkaSegment
             % call superclass constructor
             obj = obj@lkaSegment('connected',NaN,[0,0]);
             
-            obj.segmentDataConnected = segmentData;
-            obj.nbrOfPointsConnected = length(obj.segmentDataConnected.x);
-            
+            obj.nbrOfPoints_stored	= length(segmentData.x);
+			obj.segmentData_stored	= segmentData;
+			
         end%Constructor
 		
     end%CONSTRUCTOR-methods
@@ -140,16 +139,17 @@ classdef lkaSegmentConnect < lkaSegment
     end%SET-Methods
     
     
+	%%% Implementation of abstract methods
     methods (Access = protected)
         
-        function value = getNbrOfPoints(obj)
-            
-            value = obj.nbrOfPointsConnected;
-            
+        function value = getNbrOfPoints_abstract(obj)
+% 			disp('getting NbrOfPoints...')
+			value = obj.nbrOfPoints_stored;
+% 			disp('...done')
         end%fcn
         
         
-        function value = getEndPoint(obj)
+        function value = getEndPoint_abstract(obj)
 %             disp('getting endPoint...')
 			sd = obj.segmentData;
 			
@@ -161,10 +161,8 @@ classdef lkaSegmentConnect < lkaSegment
         end%fcn
         
             
-        function segdat = getSegmentData(obj)
-            
-            segdat = obj.segmentDataConnected;
-            
+        function segdat = getSegmentData_abstract(obj)
+            segdat = obj.segmentData_stored;
         end%fcn
         
     end%methods
