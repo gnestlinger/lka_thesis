@@ -268,7 +268,7 @@ classdef lkaSegmentClothoid < lkaSegment
 			segdat = rotate(segdat,obj.slopeStart-segdat.phi(1));
 			
 			% shift whole trajectory so [x(1);y(1)] matches xyStart
-			segdat = shift(segdat,[0,0]);
+			segdat = shift(segdat,obj.xyStart);
 			
 			% just for debugging
 % 			plottangent(segdat,[1,length(segdat.x)]);
