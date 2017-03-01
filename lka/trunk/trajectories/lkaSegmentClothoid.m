@@ -25,11 +25,16 @@ classdef lkaSegmentClothoid < lkaSegment
 
 
 
-    properties (Constant, Hidden)
-        
-        % user-adjustable design properties for clothoidal street segment
-        designProperties = {'curvStart','curvStop','slopeStart','A'};
-        
+	properties (Constant, Hidden = false)
+		
+		% designProperties - User adjustable properties.
+		%	Design the street segment LKASEGMENTCLOTHOID by adjusting its
+		%	properties CURVSTART, CURVSTOP, SLOPESTART and A.
+		designProperties = {'curvStart','curvStop','slopeStart','A'};
+		
+	end
+	
+	properties (Constant, Hidden)
         % clothoid relation of curve length as a function of curvature
         sOfCurvature = @(A,curvature) A^2*curvature;
         

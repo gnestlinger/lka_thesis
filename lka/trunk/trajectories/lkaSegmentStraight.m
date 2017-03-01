@@ -18,11 +18,14 @@ classdef lkaSegmentStraight < lkaSegment
 
 
 
-    properties (Constant, Hidden)
-        
-        designProperties = {'length','angle'};
-        
-    end
+	properties (Constant, Hidden = false)
+		
+		% designProperties - User adjustable properties.
+		%	Design the street segment LKASEGMENTSTRAIGHT by adjusting its
+		%	properties LENGTH and ANGLE.
+		designProperties = {'length','angle'};
+		
+	end
     
     
     properties
