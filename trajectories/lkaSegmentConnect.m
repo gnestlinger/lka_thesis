@@ -23,7 +23,7 @@ classdef lkaSegmentConnect < lkaSegment
 		%	properties.
 		designProperties = {};
 		
-	end
+    end
     
     
     properties (Dependent)
@@ -35,17 +35,16 @@ classdef lkaSegmentConnect < lkaSegment
     
     properties (Hidden, SetAccess = private)
         
-        nbrOfPoints_stored
-        
-    end
-    
-    
-    properties (Hidden, SetAccess = private)
-        
+        nbrOfPoints_stored;
         segmentData_stored;
         
-    end
+	end
     
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     %%% CONSTRUCTOR
     methods
@@ -55,8 +54,8 @@ classdef lkaSegmentConnect < lkaSegment
             % call superclass constructor
             obj = obj@lkaSegment('connected',NaN,[0,0]);
             
-            obj.nbrOfPoints_stored	= length(segmentData.x);
-			obj.segmentData_stored	= segmentData;
+            obj.nbrOfPoints_stored = length(segmentData.x);
+			obj.segmentData_stored = segmentData;
 			
         end%Constructor
 		
@@ -69,22 +68,21 @@ classdef lkaSegmentConnect < lkaSegment
         %%% redefine superclass-method
         function obj = shift(obj,point)
         %SHIFT  Shift the street segment.
-        %   For objects of class LKASEGMENTCONNECT, shifting the starting
-        %   point of the street segment is not possible.
-        %
+		%	See also LKASEGMENT/SHIFT.
         
         
             if nargin < 2
                 point = [0,0];
             end%if
-            
-            msg = ['You are trying to shift initial point ',...
-                'from (%.1f,%.1f) to (%.1f,%.1f).\n'];
-            msg = sprintf(msg,obj.xyStart,point);
-            
-            errmsg = ['For objects of class lkaSegmentConnect, ',...
-                'shifting the starting point is not allowed!'];
-            error([msg,errmsg]);
+			
+			% call superlass method to set property xyStart
+			obj = shift@lkaSegment(obj,point);
+			
+			% shift segDat object manually
+			sd = shift(obj.segmentData,point);
+			
+			% recreate LKASEGMENTCONNECT object by calling its constructor
+			obj = lkaSegmentConnect(sd);
             
         end%fcn
         
