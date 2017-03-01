@@ -1,16 +1,16 @@
 classdef lkaSegmentCircle < lkaSegment
 %LKASEGMENTCIRCLE 	Create circular street segment.
 %	
-%   SEG = LKASEGMENTCIRCLE(DELTASET,ANGLESTART,ANGLESTOP,RADIUS) creates a
-%   circular street segment of radius RADIUS>0 starting at the angle
-%   ANGLESTART and finishing at the angle ANGLESTOP
-%    .) clockwise if ANGLESTART > ANGLESTOP with curvature < 0,
+%	SEG = LKASEGMENTCIRCLE(DELTASET,ANGLESTART,ANGLESTOP,RADIUS) creates a
+%	circular street segment of radius RADIUS>0 starting at the angle
+%	ANGLESTART and finishing at the angle ANGLESTOP
+%	 .) clockwise if ANGLESTART > ANGLESTOP with curvature < 0,
 %	 .) counter-clockwise if ANGLESTART < ANGLESTOP with curvature > 0.
 %	
 %	SEG = LKASEGMENTCIRCLE([],ANGLESTART,ANGLESTOP,RADIUS) applies the
 %	default value for DELTASET (see superclass LKASEGMENT).
 % 
-%   See also LKASEGMENT.
+%	See also LKASEGMENT.
 % 
 
 % Subject: lka
@@ -139,10 +139,10 @@ classdef lkaSegmentCircle < lkaSegment
     end%SET-Methods
     
     
+	%%% Implementation of abstract methods
     methods (Access = protected)
         
-        %%% get the number of segment points
-        function value = getNbrOfPoints(obj)
+        function value = getNbrOfPoints_abstract(obj)
             % calc the number of elements of segment to match 'deltaSet'
             
             % the number of required points to match 'deltaSet'
@@ -151,8 +151,7 @@ classdef lkaSegmentCircle < lkaSegment
         end%fcn
         
         
-        %%% get endpoint
-        function value = getEndPoint(obj)
+        function value = getEndPoint_abstract(obj)
             
             value = obj.xyStart + ...
                 obj.radius*[cos(obj.angleStop) sin(obj.angleStop)] - ...
@@ -161,9 +160,8 @@ classdef lkaSegmentCircle < lkaSegment
         end%fcn
         
         
-        %%% create circular segment based on object data
-        function segdat = getSegmentData(obj)
-            
+        function segdat = getSegmentData_abstract(obj)
+        % create circular segment based on object data    
             
 %             % ensure column-vectors
 %             obj.xyStart = lkaSegment.col(obj.xyStart);

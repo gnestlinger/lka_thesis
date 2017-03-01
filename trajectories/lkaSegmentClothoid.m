@@ -30,15 +30,22 @@ classdef lkaSegmentClothoid < lkaSegment
         % user-adjustable design properties for clothoidal street segment
         designProperties = {'curvStart','curvStop','slopeStart','A'};
         
-        % clothoid relation of curve length as function of curvature
+        % clothoid relation of curve length as a function of curvature
         sOfCurvature = @(A,curvature) A^2*curvature;
         
-        % clothoid relation of tangent angle as function of curvature
+        % clothoid relation of tangent angle as a function of curvature
         phiOfCurvature = @(A,curvature) A^2*curvature^2/2;
         % k = s/A^2 and phi = s^2/(2*A^2) -> phi = A^2*k^2/2
         
+		% clothoid relation of tangent angle as a function of length
         phiOfLength = @(A,s) s^2/(2*A^2);
-        
+		
+		% squared root of pi
+		sqrtPi = 1.7724538509055160272981674833411451827975494561223871282;
+		
+		% asymptotic points
+		P_asymptotic = @(A) A*lkaSegmentClothoid.sqrtPi/2*[1;1];
+		
     end
     
     
@@ -66,22 +73,7 @@ classdef lkaSegmentClothoid < lkaSegment
         sStart % length of segment at 'curvStart'
         sStop % length of segment at 'curvStop'
         
-    end
-    
-    
-    properties (Constant, Hidden)
-		
-		% squared root of pi
-		sqrtPi = 1.7724538509055160272981674833411451827975494561223871282;
-		
-		% asymptotic points
-		P_asymptotic = @(A) A*lkaSegmentClothoid.sqrtPi/2*[1;1];
-        
-        % clothoid integrand (parameterized form)
-        intx = @(t) cos(pi.*t.^2./2);
-        inty = @(t) sin(pi.*t.^2./2);
-        
-    end
+	end
     
     
     
@@ -229,7 +221,7 @@ classdef lkaSegmentClothoid < lkaSegment
 	%%% Implementation of abstract methods
     methods (Access = protected)
         
-        function value = getNbrOfPoints(obj)
+        function value = getNbrOfPoints_abstract(obj)
             % calc the number of points of segment to match 'deltaSet'
             
             value = ceil(obj.length/obj.deltaSet) + 1;
@@ -237,14 +229,14 @@ classdef lkaSegmentClothoid < lkaSegment
         end%fcn
         
         
-        function value = getEndPoint(obj)
+        function value = getEndPoint_abstract(obj)
             
             value = 'currently unsupported to get that value';
             
         end%fcn
         
         
-		function segdat = getSegmentData(obj)
+		function segdat = getSegmentData_abstract(obj)
 			
 			% get the sign of clothoid curvature
 			signk = sign(obj.curvStop - obj.curvStart);
@@ -279,9 +271,7 @@ classdef lkaSegmentClothoid < lkaSegment
 			segdat = shift(segdat,[0,0]);
 			
 			% just for debugging
-			if false
-				plottangent(segdat,[1,length(segdat.x)]);
-			end%if
+% 			plottangent(segdat,[1,length(segdat.x)]);
 			
 		end%fcn
         
