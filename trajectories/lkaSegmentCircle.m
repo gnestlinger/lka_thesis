@@ -163,9 +163,6 @@ classdef lkaSegmentCircle < lkaSegment
         function segdat = getSegmentData_abstract(obj)
         % create circular segment based on object data    
             
-%             % ensure column-vectors
-%             obj.xyStart = lkaSegment.col(obj.xyStart);
-            
             % get sign of curvature k !!!!!!! liefert vlt. FALSCHE Ergebnisse
             if obj.angleStop < obj.angleStart; 
                 signk = -1;
@@ -178,34 +175,20 @@ classdef lkaSegmentCircle < lkaSegment
             
             % angle of discrete points on path relative to angleStart
             phi = linspace(obj.angleStart,obj.angleStop,nbrOfPointsDEP)';
+            			
+			% create segDat object
+			segdat = segDat(...
+				obj.radius*cos(phi),...			% x-coordinate
+				obj.radius*sin(phi),...			% y-coordinate
+				obj.radius*abs(phi-phi(1)),...	% circumference = radius*angle
+				signk/obj.radius*ones(nbrOfPointsDEP,1),... % const. curvature
+				phi + pi/2,...	% tangent angle is normal to design angle
+				ones(nbrOfPointsDEP,1),...	% segment type
+				ones(nbrOfPointsDEP,1));	% segment number
             
-            % create circular path
-            x = obj.radius*cos(phi);
-            y = obj.radius*sin(phi);
-            
-%             % shift whole path ([x(1);y(1)] matches xyStart)
-%             xShift = obj.xyStart(1) - x(1);
-%             yShift = obj.xyStart(2) - y(1);
-            
-%             % output arguments x/y
-%             seg.x = x + xShift;
-%             seg.y = y + yShift;
-            
-            % shift whole path ([x(1);y(1)] matches xyStart)
-            x = x - x(1) + obj.xyStart(1);
-            y = y - y(1) + obj.xyStart(2);
-            
-            % output argument s/kappa/type
-%             seg.s = sort(abs((phi-phi(1))*obj.radius),'ascend');
-            s = abs(phi-phi(1))*obj.radius;
-            k = signk/obj.radius*ones(nbrOfPointsDEP,1);
-            phi = phi + pi/2;
-            type = ones(nbrOfPointsDEP,1);
-            nbr = ones(nbrOfPointsDEP,1);
-            
-            % store data in segDat class
-            segdat = segDat(x,y,s,k,phi,type,nbr);
-            
+			% shift segDat object so [x(1);y(1)] matches xyStart
+            segdat = shift(segdat,obj.xyStart);
+			
         end%fcn
         
     end%methods
