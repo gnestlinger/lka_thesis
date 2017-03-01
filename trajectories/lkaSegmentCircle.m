@@ -20,11 +20,14 @@ classdef lkaSegmentCircle < lkaSegment
 
 
 
-    properties (Constant, Hidden)
-        
-        designProperties = {'angleStart','angleStop','radius'};
-        
-    end
+	properties (Constant, Hidden = false)
+		
+		% designProperties - User adjustable properties.
+		%	Design the street segment LKASEGMENTCIRCLE by adjusting its
+		%	properties ANGLESTART, ANGLESTOP and RADIUS.
+		designProperties = {'angleStart','angleStop','radius'};
+		
+	end
     
     
     properties
