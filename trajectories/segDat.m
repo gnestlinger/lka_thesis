@@ -282,7 +282,7 @@ classdef segDat
 		end%fcn
 		
 		
-		function [out,latOff_LAD,epsL,kapL] = laneTracking(obj,xyCG,phi,lad)
+		function [out,latOff_LAD,epsL,kapL] = laneTracking(obj,xyCG_global,phi_global,lad)
 		% laneTracking  Calculate lane tracking pose.
 		%   _______
 		%   Syntax: [out,yL,epsL,kapL] = laneTracking(in,traj,lad)
@@ -301,40 +301,35 @@ classdef segDat
 		% Subject: lka
 			
 			% Methode: Koordinatentransformation
-			% struct g ... globales Koordinatensystem (Index 0 in Funktion doPlot)
-			% struct V ... glob. Koord.system rotiert sodass Fzg. parallel zu x-Achse
-			
-			% Koordinatentransformation: Drehmatrix
-			M = [cos(-phi) -sin(-phi);sin(-phi) cos(-phi)];
 			
 			%%% shift origin to vehicles CG/rotate so vehicle is oriented
 			%%% along x-axis
 			% CG (transformiert)
-			xyCG_CG = [0;0];
+			xyCG_T = [0;0];
 			
 			% Sollbahn (transformiert)
-			sd_CG = shift(obj,-xyCG);
-			sd_CG = rotate(sd_CG,-phi);
+			sd_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
+			sd_T = rotate(sd_T,-phi_global);
 			
 			% Koordinaten des Punkts bei look-ahead distance (transformiert)
-			xyLAD_CG = xyCG_CG + [lad;0];
+			xyLAD_T = xyCG_T + [lad;0];
 			
 			%%% shift origin to point at LAD
-			xyCG_LAD	= [-lad;0];
-			sd_LAD		= shift(sd_CG,[sd_CG.x(1)-lad;sd_CG.y(1)]);
-			xyLAD_LAD	= [0;0];
+			xyCG_T	= xyCG_T - [lad;0];
+			sd_T	= shift(sd_T,[sd_T.x(1);sd_T.y(1)] - [lad;0]);
+			xyLAD_T	= xyLAD_T - [lad;0];
 			
 			
 			%%% get indices of potential elements of desired path
 			% maximaler Abstand zwischen x-Werten der Sollbahn
-			deltaX_max = max(abs(diff(sd_LAD.x)));
+			deltaX_max = max(abs(diff(sd_T.x)));
 			
 			% depending on the shape of the desired path (e.g. closed
 			% path), there might be multiple elements of the desired path
 			% within the range
 			% logical indices where V.path.x is in the range of V.LAD.x
-			logIndx1 = xyLAD_LAD(1) - deltaX_max/2 <= sd_LAD.x;
-			logIndx2 = xyLAD_LAD(1) + deltaX_max/2 >= sd_LAD.x;
+			logIndx1 = xyLAD_T(1) - deltaX_max/2 <= sd_T.x;
+			logIndx2 = xyLAD_T(1) + deltaX_max/2 >= sd_T.x;
 			logIndx = logIndx1 & logIndx2;
 			
 			% explizite Indizes für Elemente aus V.path.x im Bereich von 
@@ -343,13 +338,13 @@ classdef segDat
 			
 			% error if no element of 'logIndx' is true
 			if ~any(logIndx)
-				obj.doPlot(obj,sd_CG,xyCG,xyCG_LAD,phi,lad,indx);
+				obj.doPlot(obj,sd_T,xyCG_global,xyCG_T,phi_global,lad,indx);
 				error('segDat:laneTracking',...
 					['Keine Elemente der Sollbahn im Bereich der',... 
 					' aktuellen Fahrzeugposition gefunden'])
 			end%if
 			
-% 			obj.doPlot(obj,sd_CG,xyCG,xyCG_LAD,phi,lad,indx);
+			obj.doPlot(obj,sd_T,xyCG_global,xyCG_T,phi_global,lad,indx);
 			
 			%%% get lateral offset for potential elements
 			% preallocation of for-loop varriable
@@ -358,22 +353,17 @@ classdef segDat
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
 				for i = 1:length(indx)
 					[indl,indu] = obj.interpIndex(indx(i),1,length(obj.x));
-% 			        yTraj(i) = interp1(V.path.xy(1,indl:indu),V.path.xy(2,indl:indu),...
-% 			            V.LAD.xy(1),'spline');
+					
 					% same result like interp1(..,'spline') but faster
 					latOff_LAD_potential(i) = spline(...
-						sd_LAD.x(indl:indu),...
-						sd_LAD.y(indl:indu),...
-						xyLAD_LAD(1));
+						sd_T.x(indl:indu),...
+						sd_T.y(indl:indu),...
+						xyLAD_T(1));
 				end%for
 			catch exception
 				disp(exception.message);
-				obj.doPlot(obj,sd_CG,xyCG,xyCG_LAD,phi,lad,indx);
+				obj.doPlot(obj,sd_T,xyCG_global,xyCG_T,phi_global,lad,indx);
 			end%try
-			
-			% Querabstand von interpolierten y-Werten der Trajektorie zu
-			% Fahrzeuglaengsachse
-% 			latOff_LAD_potential = latOff_LAD_potential - xyLAD_LAD(2);
 			
 			
 			%%% select one of multiple lateral offsets
@@ -392,23 +382,23 @@ classdef segDat
 			% refresh interpolating-indices according to MININD
 			[indl,indu] = obj.interpIndex(indx(minInd),1,length(obj.x));
 			
-			% Tangentenvektor			
+			% Tangentenvektor
 			tangent = [...
-				sd_LAD.x(indu)-sd_LAD.x(indl);...
-				sd_LAD.y(indu)-sd_LAD.y(indl)];
+				sd_T.x(indu)-sd_T.x(indl);...
+				sd_T.y(indu)-sd_T.y(indl)];
 			
 			% output argument epsL
 			epsL = atan2(tangent(2),tangent(1));
 			% consider replacing with
 			epsL2 = spline(...
-				sd_LAD.x(indl:indu),...
-				sd_LAD.phi(indl:indu),...
-				xyLAD_LAD(1));
+				sd_T.x(indl:indu),...
+				sd_T.phi(indl:indu),...
+				xyLAD_T(1));
 			
 			% output argument rInv: read appropriate element from 'traj.k'
 			% kapL = traj.k(indx(minInd));
 			% interpoliere für glatte Verläufe bei Regelung
-			kapL = spline(sd_LAD.x(indl:indu),sd_LAD.k(indl:indu),xyLAD_LAD(1));
+			kapL = spline(sd_T.x(indl:indu),sd_T.k(indl:indu),xyLAD_T(1));
 			
 			% collect all output arguments (to be used in simulink)
 			out = [latOff_LAD;epsL;kapL];
@@ -896,29 +886,29 @@ classdef segDat
 			
 		end%fcn
 
-		function doPlot(obj,sd_T,xyCG,xyCG_T,psi,lad,indx)
-			
-			x0CG = xyCG(1);
-			y0CG = xyCG(2);
+		function doPlot(sd_global,sd_T,xyCG_global,xyCG_T,psi_global,lad,indx)
 			
 			% Solltrajektorie (global)
-% 			plot(obj.x,obj.y,'o','MarkerSize',3,'MarkerFaceColor','b');
-			h = plottangent(obj,indx);
+			h = plottangent(sd_global,indx);
 			set(h(1),...
 				'LineStyle','none',...
 				'Marker','o',...
 				'MarkerSize',3,...
 				'MarkerFaceColor','b');
 			
-			% Fahrzeug
+			% Fahrzeug (global)
 			hold on
-			plot(x0CG,y0CG,'ob','MarkerSize',7,'MarkerFaceColor','b');
-			Fzglachse = [x0CG+lad*cos(psi); y0CG+lad*sin(psi)];
-			plot([x0CG,Fzglachse(1)],[y0CG,Fzglachse(2)],'b','LineWidth',2)
+			plot(xyCG_global(1),xyCG_global(2),...
+				'ob',...
+				'MarkerSize',7,...
+				'MarkerFaceColor','b');
+			Fzglachse = xyCG_global + lad*[cos(psi_global); sin(psi_global)];
+			plot([xyCG_global(1),Fzglachse(1)],[xyCG_global(2),Fzglachse(2)],...
+				'b',...
+				'LineWidth',2)
 			
 			
 			% Solltrajektorie (transformiert)
-			sd_T = shift(sd_T,[sd_T.x(1)-lad;sd_T.y(1)]);
 			h_V = plottangent(sd_T,indx,'k');
 			set(h_V(1),...
 				'Color','g',...
@@ -929,9 +919,13 @@ classdef segDat
 			
 			% Fahrzeug (transformiert)
 			hold on
-			plot(xyCG_T(1,:),xyCG_T(2,:),'rx','MarkerSize',7,'MarkerFaceColor','r');
-			Fzglachset = [xyCG_T(1,:)+lad; xyCG_T(2,:)];
-			plot([xyCG_T(1),Fzglachset(1)],[xyCG_T(2),Fzglachset(2)],'r','LineWidth',2)
+			plot(xyCG_T(1),xyCG_T(2),...
+				'rx','MarkerSize',7,...
+				'MarkerFaceColor','r');
+			Fzglachse_T = xyCG_T + [lad;0];
+			plot([xyCG_T(1),Fzglachse_T(1)],[xyCG_T(2),Fzglachse_T(2)],...
+				'r',...
+				'LineWidth',2)
 			hold off
 			grid on
 			axis auto
