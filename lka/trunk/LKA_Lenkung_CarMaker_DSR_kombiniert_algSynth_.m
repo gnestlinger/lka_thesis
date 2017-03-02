@@ -91,24 +91,28 @@ pin.Controller.lka = contr.s.AlgSynth;
 % simulation: steering parameter
 stringSimSteer = 'paramFile_SteeringMdl_CarMaker_DSR';
 pin.SteeringModel.parameterFile = stringSimSteer;
-pin.SteeringModel.parameter = loadParameter(stringSimSteer,'about');
+pin.SteeringModel.parameter = paramFile2Struct(stringSimSteer);
 
 % simulation: vehicle parameter
 stringSimVehicle = 'paramFile_SingleTrackMdl_BMW5';
 pin.VehicleModel.parameterFile = stringSimVehicle;
-pin.VehicleModel.parameter = loadParameter(stringSimVehicle,'about');
+pin.VehicleModel.parameter = paramFile2Struct(stringSimVehicle);
 
 % simulation: longitudinal velocity vx [m/s]
 pin.vx = vxC;
 
 % simulation: look-ahead-distance lad [m]
-pin.lad = ladC;
+pin.LAD = ladC;
 
 % load intended trajectory
-[pin.traj,trajErr] = lka_trajectory_08(0,0.05);
+% [pin.traj,trajErr] = lka_trajectory_08(0,0.05);
+pin.traj = ...
+	lkaSegmentStraight(0.05,50,0) + ...
+	lkaSegmentClothoid(0.05,0,0.005,0,400);
+pin.traj_sd = pin.traj.segmentData;
 
 % simulation: interval of integration
-tend = pin.traj.s(end)/pin.vx - 2*pin.lad/pin.vx;
+tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.LAD/pin.vx;
 
 % vehicle model: initial condition
 pin.VehicleModel.initialValue.sy = 0;
@@ -154,13 +158,13 @@ soli.(lbl).simDate = datestr(now);
 
 %% post-processing
 
-sol.(lbl) = lkaPostProcessing(soli.(lbl),pin,[],simoutState,simoutSensor,simoutSteerAngle);
+% sol.(lbl) = lkaPostProcessing(soli.(lbl),pin,[],simoutState,simoutSensor,simoutSteerAngle);
 
 
 %% plot
 
 % figure
-lkaPlot(sol,0,'traj');
+% lkaPlot(sol,0,'traj');
 % lkaPlot(sol,0,'add');
 % lkaPlot(sol,pin.lad,'add');
 % lkaPlot(sol,0);

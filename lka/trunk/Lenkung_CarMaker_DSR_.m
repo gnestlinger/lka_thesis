@@ -67,6 +67,6 @@ Rpol = polvor(P,Tsoll.den{1},spec);
 % simulation: steering parameter
 stringSim = 'paramFile_SteeringMdl_CarMaker_DSR';
 pin.SteeringModel.parameterFile = stringSim;
-pin.SteeringModel.parameter = loadParameter(stringSim,'about');
+pin.SteeringModel.parameter = paramFile2Struct(stringSim);
 
 

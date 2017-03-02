@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.925"
+    ComputedModelVersion    "1.928"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 29 10:40:43 2016"
-  RTWModifiedTimeStamp	  402316132
-  ModelVersionFormat	  "1.%<AutoIncrement:925>"
+  LastModifiedDate	  "Thu Mar 02 11:30:22 2017"
+  RTWModifiedTimeStamp	  410354703
+  ModelVersionFormat	  "1.%<AutoIncrement:928>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -779,7 +779,7 @@ Model {
   }
   System {
     Name		    "test_yL_epsL"
-    Location		    [652, 259, 1704, 926]
+    Location		    [643, 416, 1695, 1083]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    241
@@ -793,7 +793,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1747"
+    SIDHighWatermark	    "1749"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -811,7 +811,7 @@ Model {
       Ports		      [1, 2]
       Position		      [80, 165, 85, 205]
       ShowName		      off
-      OutputSignals	      "curvature_LAD_Sensor,latOff_LAD_Sensor"
+      OutputSignals	      "curvature_LAD_Sensor,lateralOff_LAD_Sensor"
       Port {
 	PortNumber		1
 	Name			"<curvature_LAD_Sensor>"
@@ -820,7 +820,7 @@ Model {
       }
       Port {
 	PortNumber		2
-	Name			"<latOff_LAD_Sensor>"
+	Name			"<lateralOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -832,22 +832,23 @@ Model {
       Ports		      [1, 3]
       Position		      [755, 233, 760, 287]
       ShowName		      off
-      OutputSignals	      "Sensor.latOff_LAD_Sensor,VehicleState.latOff_LAD_linear,VehicleState.latOff_LAD_nonlinear"
+      OutputSignals	      "Sensor.lateralOff_LAD_Sensor,VehicleState.lateralOff_LAD_linear,VehicleState.lateralOff_LAD"
+      "_nonlinear"
       Port {
 	PortNumber		1
-	Name			"<latOff_LAD_Sensor>"
+	Name			"<lateralOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		2
-	Name			"<latOff_LAD_linear>"
+	Name			"<lateralOff_LAD_linear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		3
-	Name			"<latOff_LAD_nonlinear>"
+	Name			"<lateralOff_LAD_nonlinear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -859,7 +860,8 @@ Model {
       Ports		      [1, 4]
       Position		      [450, 439, 455, 521]
       ShowName		      off
-      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,Sensor.curvature_LAD_Sensor,Sensor.latOff_LAD_Sensor"
+      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,Sensor.curvature_LAD_Sensor,Sensor.lateralOff_LAD_Sens"
+      "or"
       Port {
 	PortNumber		1
 	Name			"<vy>"
@@ -880,7 +882,7 @@ Model {
       }
       Port {
 	PortNumber		4
-	Name			"<latOff_LAD_Sensor>"
+	Name			"<lateralOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -894,7 +896,8 @@ Model {
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
-      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,Sensor.latOff_LAD_Sensor,Sensor.angDev_LAD_Sensor"
+      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,Sensor.lateralOff_LAD_Sensor,Sensor.angularDev_LAD_Sen"
+      "sor"
       Port {
 	PortNumber		1
 	Name			"<vy>"
@@ -909,13 +912,13 @@ Model {
       }
       Port {
 	PortNumber		3
-	Name			"<latOff_LAD_Sensor>"
+	Name			"<lateralOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		4
-	Name			"<angDev_LAD_Sensor>"
+	Name			"<angularDev_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -948,22 +951,23 @@ Model {
       Ports		      [1, 3]
       Position		      [755, 345, 760, 395]
       ShowName		      off
-      OutputSignals	      "Sensor.angDev_LAD_Sensor,VehicleState.angDev_LAD_linear,VehicleState.angDev_LAD_nonlinear"
+      OutputSignals	      "Sensor.angularDev_LAD_Sensor,VehicleState.angularDev_LAD_linear,VehicleState.angularDev_LAD"
+      "_nonlinear"
       Port {
 	PortNumber		1
-	Name			"<angDev_LAD_Sensor>"
+	Name			"<angularDev_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		2
-	Name			"<angDev_LAD_linear>"
+	Name			"<angularDev_LAD_linear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
       Port {
 	PortNumber		3
-	Name			"<angDev_LAD_nonlinear>"
+	Name			"<angularDev_LAD_nonlinear>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -994,7 +998,7 @@ Model {
       Position		      [140, 284, 240, 426]
       BlockMirror	      on
       NamePlacement	      "alternate"
-      LibraryVersion	      "1.822"
+      LibraryVersion	      "1.836"
       SourceBlock	      "library/LKA-Controller/LQR_2int"
       SourceType	      "SubSystem"
       Port {
@@ -1101,12 +1105,12 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Lane Tracking nonlinear"
-	  SID			  "1697"
+	  Name			  "Lane Tracking (nonlinear)"
+	  SID			  "1749"
 	  Ports			  [8, 2]
-	  Position		  [350, 25, 545, 220]
-	  LibraryVersion	  "1.822"
-	  SourceBlock		  "library/Vehicle Models/Lane Tracking/Lane Tracking nonlinear"
+	  Position		  [350, 23, 545, 222]
+	  LibraryVersion	  "1.836"
+	  SourceBlock		  "library/Vehicle Models/Lane Tracking/Lane Tracking (nonlinear)"
 	  SourceType		  "SubSystem"
 	}
 	Block {
@@ -1120,42 +1124,42 @@ Model {
 	  BlockType		  Outport
 	  Name			  "angDev_LAD"
 	  SID			  "1726"
-	  Position		  [590, 163, 620, 177]
+	  Position		  [590, 168, 620, 182]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Line {
 	  SrcBlock		  "Constant"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  1
 	}
 	Line {
 	  SrcBlock		  "Constant4"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  4
 	}
 	Line {
 	  SrcBlock		  "Constant2"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  6
 	}
 	Line {
 	  SrcBlock		  "Constant3"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  7
 	}
 	Line {
 	  SrcBlock		  "vy"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  2
 	}
 	Line {
-	  SrcBlock		  "Lane Tracking nonlinear"
+	  SrcBlock		  "Lane Tracking (nonlinear)"
 	  SrcPort		  1
 	  DstBlock		  "latOff_LAD"
 	  DstPort		  1
@@ -1163,17 +1167,17 @@ Model {
 	Line {
 	  SrcBlock		  "yawRate"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  3
 	}
 	Line {
 	  SrcBlock		  "curvature_LAD"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  5
 	}
 	Line {
-	  SrcBlock		  "Lane Tracking nonlinear"
+	  SrcBlock		  "Lane Tracking (nonlinear)"
 	  SrcPort		  2
 	  DstBlock		  "angDev_LAD"
 	  DstPort		  1
@@ -1181,7 +1185,7 @@ Model {
 	Line {
 	  SrcBlock		  "y_LAD_exact"
 	  SrcPort		  1
-	  DstBlock		  "Lane Tracking nonlinear"
+	  DstBlock		  "Lane Tracking (nonlinear)"
 	  DstPort		  8
 	}
 	Annotation {
@@ -1226,7 +1230,7 @@ Model {
       Port {
 	PortNumber		1
 	Name			"epsL"
-	PropagatedSignals	"angDev_LAD_Sensor, angDev_LAD_linear, angDev_LAD_nonlinear"
+	PropagatedSignals	"angularDev_LAD_Sensor, angularDev_LAD_linear, angularDev_LAD_nonlinear"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1243,7 +1247,7 @@ Model {
       Port {
 	PortNumber		1
 	Name			"yL"
-	PropagatedSignals	"latOff_LAD_Sensor, latOff_LAD_linear, latOff_LAD_nonlinear"
+	PropagatedSignals	"lateralOff_LAD_Sensor, lateralOff_LAD_linear, lateralOff_LAD_nonlinear"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1441,7 +1445,7 @@ Model {
 	  SID			  "1728"
 	  Ports			  [3, 1]
 	  Position		  [190, 20, 365, 80]
-	  LibraryVersion	  "1.822"
+	  LibraryVersion	  "1.836"
 	  SourceBlock		  "library/LKA-Sensorik/Videosensorik"
 	  SourceType		  "SubSystem"
 	}
@@ -1745,13 +1749,13 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Single Track Model [Parameter]"
-	  SID			  "1746"
+	  Name			  "Single Track Model (linear)\n[Parameter]"
+	  SID			  "1748"
 	  Ports			  [0, 1]
-	  Position		  [145, 45, 305, 65]
+	  Position		  [75, 55, 235, 75]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.822"
-	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model [Parameter]"
+	  LibraryVersion	  "1.836"
+	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)\n[Parameter]"
 	  SourceType		  "Linear Single Track Model"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
 	  cs_rear		  "pin.VehicleModel.parameter.csh"
@@ -1767,7 +1771,7 @@ Model {
 	  Ports			  [8, 1]
 	  Position		  [460, 27, 620, 228]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.822"
+	  LibraryVersion	  "1.836"
 	  SourceBlock		  "library/Vehicle Models/Single Track Model//Lane Tracking"
 	  SourceType		  "SubSystem"
 	}
@@ -1827,9 +1831,8 @@ Model {
 	  DstPort		  8
 	}
 	Line {
-	  SrcBlock		  "Single Track Model [Parameter]"
+	  SrcBlock		  "Single Track Model (linear)\n[Parameter]"
 	  SrcPort		  1
-	  Points		  [0, 10]
 	  DstBlock		  "Single Track Model/LaneTracking"
 	  DstPort		  2
 	}
@@ -1994,7 +1997,7 @@ Model {
       DstPort		      3
     }
     Line {
-      Name		      "<latOff_LAD_Sensor>"
+      Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [-1, 0]
       SrcBlock		      "Bus\nSelector3"
       SrcPort		      3
@@ -2002,7 +2005,7 @@ Model {
       DstPort		      4
     }
     Line {
-      Name		      "<angDev_LAD_Sensor>"
+      Name		      "<angularDev_LAD_Sensor>"
       Labels		      [-1, 0]
       SrcBlock		      "Bus\nSelector3"
       SrcPort		      4
@@ -2048,7 +2051,7 @@ Model {
       }
     }
     Line {
-      Name		      "<latOff_LAD_Sensor>"
+      Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      1
@@ -2056,7 +2059,7 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<latOff_LAD_linear>"
+      Name		      "<lateralOff_LAD_linear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      2
@@ -2093,7 +2096,7 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<angDev_LAD_Sensor>"
+      Name		      "<angularDev_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector5"
       SrcPort		      1
@@ -2101,7 +2104,7 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<angDev_LAD_linear>"
+      Name		      "<angularDev_LAD_linear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector5"
       SrcPort		      2
@@ -2109,7 +2112,7 @@ Model {
       DstPort		      2
     }
     Line {
-      Name		      "<angDev_LAD_nonlinear>"
+      Name		      "<angularDev_LAD_nonlinear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector5"
       SrcPort		      3
@@ -2125,7 +2128,7 @@ Model {
       }
     }
     Line {
-      Name		      "<latOff_LAD_nonlinear>"
+      Name		      "<lateralOff_LAD_nonlinear>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      3
@@ -2190,7 +2193,7 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<latOff_LAD_Sensor>"
+      Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector2"
       SrcPort		      4
@@ -2206,7 +2209,7 @@ Model {
       DstPort		      2
     }
     Line {
-      Name		      "<latOff_LAD_Sensor>"
+      Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector"
       SrcPort		      2
