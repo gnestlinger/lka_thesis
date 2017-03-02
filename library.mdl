@@ -14,11 +14,11 @@ Library {
   Creator		  "Georg"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Georg"
+  LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Feb 17 19:27:47 2017"
-  RTWModifiedTimeStamp	  409254879
-  ModelVersionFormat	  "1.%<AutoIncrement:836>"
+  LastModifiedDate	  "Thu Mar 02 11:55:23 2017"
+  RTWModifiedTimeStamp	  410356490
+  ModelVersionFormat	  "1.%<AutoIncrement:837>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -812,7 +812,7 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [469, 122, 1887, 981]
+    Location		    [461, 114, 1879, 973]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    319
@@ -7611,8 +7611,8 @@ Library {
 	      Position		      [920, 340, 925, 570]
 	      ZOrder		      -3
 	      ShowName		      off
-	      OutputSignals	      "sy,vy,yawAngle,yawRate,x_global,y_global,s_global,latOff_LAD_linear,angDev_LAD_linear,latO"
-	      "ff_LAD_nonlinear,angDev_LAD_nonlinear"
+	      OutputSignals	      "sy,vy,yawAngle,yawRate,x_global,y_global,s_global,lateralOff_LAD_linear,angularDev_LAD_lin"
+	      "ear,lateralOff_LAD_nonlinear,angularDev_LAD_nonlinear"
 	      Port {
 		PortNumber		1
 		Name			"<sy>"
@@ -7657,25 +7657,25 @@ Library {
 	      }
 	      Port {
 		PortNumber		8
-		Name			"<latOff_LAD_linear>"
+		Name			"<lateralOff_LAD_linear>"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		9
-		Name			"<angDev_LAD_linear>"
+		Name			"<angularDev_LAD_linear>"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		10
-		Name			"<latOff_LAD_nonlinear>"
+		Name			"<lateralOff_LAD_nonlinear>"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
 	      Port {
 		PortNumber		11
-		Name			"<angDev_LAD_nonlinear>"
+		Name			"<angularDev_LAD_nonlinear>"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
 	      }
@@ -7989,7 +7989,7 @@ Library {
 	      DstPort		      7
 	    }
 	    Line {
-	      Name		      "<latOff_LAD_linear>"
+	      Name		      "<lateralOff_LAD_linear>"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      8
@@ -7998,7 +7998,7 @@ Library {
 	      DstPort		      10
 	    }
 	    Line {
-	      Name		      "<angDev_LAD_linear>"
+	      Name		      "<angularDev_LAD_linear>"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      9
@@ -8007,7 +8007,7 @@ Library {
 	      DstPort		      11
 	    }
 	    Line {
-	      Name		      "<latOff_LAD_nonlinear>"
+	      Name		      "<lateralOff_LAD_nonlinear>"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      10
@@ -8016,7 +8016,7 @@ Library {
 	      DstPort		      12
 	    }
 	    Line {
-	      Name		      "<angDev_LAD_nonlinear>"
+	      Name		      "<angularDev_LAD_nonlinear>"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      11
