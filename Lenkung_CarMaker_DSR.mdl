@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.170"
+    ComputedModelVersion    "1.171"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Nov 29 09:05:08 2016"
-  RTWModifiedTimeStamp	  402311091
-  ModelVersionFormat	  "1.%<AutoIncrement:170>"
+  LastModifiedDate	  "Thu Mar 02 11:33:46 2017"
+  RTWModifiedTimeStamp	  410355219
+  ModelVersionFormat	  "1.%<AutoIncrement:171>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -797,7 +797,7 @@ Model {
   }
   System {
     Name		    "Lenkung_CarMaker_DSR"
-    Location		    [840, 238, 1867, 906]
+    Location		    [674, 167, 1701, 835]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    335
@@ -1439,17 +1439,17 @@ Model {
       Ports		      [3, 2]
       Position		      [555, 75, 720, 135]
       ZOrder		      -19
-      LibraryVersion	      "1.817"
+      LibraryVersion	      "1.836"
       SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
       SourceType	      "Steering model parameterization"
-      d_rot		      "pin.SteeringModel.parameter.values.drot"
-      d_rack		      "pin.SteeringModel.parameter.values.drack"
-      i			      "pin.SteeringModel.parameter.values.iHR"
-      I_rot		      "pin.SteeringModel.parameter.values.J"
-      m_left		      "pin.SteeringModel.parameter.values.mL"
-      m_right		      "pin.SteeringModel.parameter.values.mR"
-      m_rack		      "pin.SteeringModel.parameter.values.mr"
-      V			      "pin.SteeringModel.parameter.values.V"
+      d_rot		      "pin.SteeringModel.parameter.drot"
+      d_rack		      "pin.SteeringModel.parameter.drack"
+      i			      "pin.SteeringModel.parameter.iHR"
+      I_rot		      "pin.SteeringModel.parameter.J"
+      m_left		      "pin.SteeringModel.parameter.mL"
+      m_right		      "pin.SteeringModel.parameter.mR"
+      m_rack		      "pin.SteeringModel.parameter.mr"
+      V			      "pin.SteeringModel.parameter.V"
       x0		      "[0;0]"
       Port {
 	PortNumber		1
@@ -1466,17 +1466,17 @@ Model {
       Ports		      [3, 2]
       Position		      [555, 315, 720, 375]
       ZOrder		      -19
-      LibraryVersion	      "1.817"
+      LibraryVersion	      "1.836"
       SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
       SourceType	      "Steering model parameterization"
-      d_rot		      "pin.SteeringModel.parameter.values.drot"
-      d_rack		      "pin.SteeringModel.parameter.values.drack"
-      i			      "pin.SteeringModel.parameter.values.iHR"
-      I_rot		      "pin.SteeringModel.parameter.values.J"
-      m_left		      "pin.SteeringModel.parameter.values.mL"
-      m_right		      "pin.SteeringModel.parameter.values.mR"
-      m_rack		      "pin.SteeringModel.parameter.values.mr"
-      V			      "pin.SteeringModel.parameter.values.V"
+      d_rot		      "pin.SteeringModel.parameter.drot"
+      d_rack		      "pin.SteeringModel.parameter.drack"
+      i			      "pin.SteeringModel.parameter.iHR"
+      I_rot		      "pin.SteeringModel.parameter.J"
+      m_left		      "pin.SteeringModel.parameter.mL"
+      m_right		      "pin.SteeringModel.parameter.mR"
+      m_rack		      "pin.SteeringModel.parameter.mr"
+      V			      "pin.SteeringModel.parameter.V"
       x0		      "[0;0]"
       Port {
 	PortNumber		1
@@ -1493,17 +1493,17 @@ Model {
       Ports		      [3, 2]
       Position		      [545, 540, 710, 600]
       ZOrder		      -19
-      LibraryVersion	      "1.817"
+      LibraryVersion	      "1.836"
       SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
       SourceType	      "Steering model parameterization"
-      d_rot		      "pin.SteeringModel.parameter.values.drot"
-      d_rack		      "pin.SteeringModel.parameter.values.drack"
-      i			      "pin.SteeringModel.parameter.values.iHR"
-      I_rot		      "pin.SteeringModel.parameter.values.J"
-      m_left		      "pin.SteeringModel.parameter.values.mL"
-      m_right		      "pin.SteeringModel.parameter.values.mR"
-      m_rack		      "pin.SteeringModel.parameter.values.mr"
-      V			      "pin.SteeringModel.parameter.values.V"
+      d_rot		      "pin.SteeringModel.parameter.drot"
+      d_rack		      "pin.SteeringModel.parameter.drack"
+      i			      "pin.SteeringModel.parameter.iHR"
+      I_rot		      "pin.SteeringModel.parameter.J"
+      m_left		      "pin.SteeringModel.parameter.mL"
+      m_right		      "pin.SteeringModel.parameter.mR"
+      m_rack		      "pin.SteeringModel.parameter.mr"
+      V			      "pin.SteeringModel.parameter.V"
       x0		      "[0;0]"
       Port {
 	PortNumber		1

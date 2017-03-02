@@ -99,24 +99,28 @@ pin.Controller.lka = contr.t.LQR_DSR;
 % simulation: steering parameter
 stringSim = 'paramFile_SteeringMdl_CarMaker_DSR';
 pin.SteeringModel.parameterFile = stringSim;
-pin.SteeringModel.parameter = loadParameter(stringSim,'about');
+pin.SteeringModel.parameter = paramFile2Struct(stringSim);
 
 % simulation: vehicle parameter
 stringSim = 'paramFile_SingleTrackMdl_BMW5';
 pin.VehicleModel.parameterFile = stringSim;
-pin.VehicleModel.parameter = loadParameter(stringSim,'about');
+pin.VehicleModel.parameter = paramFile2Struct(stringSim);
 
 % simulation: longitudinal velocity vx [m/s]
 pin.vx = vxC;
 
 % simulation: look-ahead-distance lad [m]
-pin.lad = ladC;
+pin.LAD = ladC;
 
 % load intended trajectory
-[pin.traj,trajErr] = lka_trajectory_08(0,0.05);
+% [pin.traj,trajErr] = lka_trajectory_08(0,0.05);
+pin.traj = ...
+	lkaSegmentStraight(0.05,50,0) + ...
+	lkaSegmentClothoid(0.05,0,0.005,0,400);
+pin.traj_sd = pin.traj.segmentData;
 
 % simulation: interval of integration
-tend = pin.traj.s(end)/pin.vx - 2*pin.lad/pin.vx;
+tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.lad/pin.vx;
 
 % vehicle model: initial condition
 pin.VehicleModel.initialValue.sy = 0;
