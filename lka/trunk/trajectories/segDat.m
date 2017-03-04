@@ -352,7 +352,7 @@ classdef segDat
 			try
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
 				for i = 1:length(indx)
-					[indl,indu] = obj.interpIndex(indx(i),1,length(obj.x));
+					[indl,indu] = obj.interpIndex(indx(i),[1,length(obj.x)],1);
 					
 					% same result like interp1(..,'spline') but faster
 					latOff_LAD_potential(i) = spline(...
@@ -380,7 +380,7 @@ classdef segDat
 			latOff_LAD = latOff_LAD_potential(minInd);
 			
 			% refresh interpolating-indices according to MININD
-			[indl,indu] = obj.interpIndex(indx(minInd),1,length(obj.x));
+			[indl,indu] = obj.interpIndex(indx(minInd),[1,length(obj.x)],1);
 			
 			% Tangentenvektor
 			tangent = [...
@@ -868,21 +868,79 @@ classdef segDat
 		end%fcn
 		
 		
-		function [indl,indu] = interpIndex(ind,indMin,indMax)
+		function [indl,indu] = interpIndex(ind,indMinMax,m)
 		% return the indices used to interpolate, basically ind-1 and ind+1
 		% but do some error checking (if-blocks)
-			
-			% lower interpolating-index
-			indl = ind-1; 
-			if indl < indMin; 
-				indl = indl+1; 
+		
+
+			%%% handle input arguments
+			% check size and ensure column orientation
+			if  ~isvector(ind)
+				error('Size of ind must be vector!');
+			else
+				ind = ind(:);
 			end%if
 			
-			% upper interpolating-index
-			indu = ind+1; 
-			if indu > indMax; 
-				indu = indu-1; 
+			% check size
+			if any(size(indMinMax) ~= [1 2])
+				error('Size of indMinMax must be 1-by-2!');
+			else
+				indMin = indMinMax(1);
+				indMax = indMinMax(2);
 			end%if
+			
+			% apply default value if undefined
+			if nargin < 3
+				m = 1;
+			elseif m < 1 % check value
+				error('Value of m must be > 0!');
+			end%if
+			
+			
+			%%% check input arguments plausibility
+			if any(ind<indMin | ind>indMax)
+				error('laneTracking:interpIndex:IndexOutOfRange',...
+					'One or more indexes out of range [%i,%i].',indMin,indMax);
+			end%if
+			if indMax-indMin < 2*m
+				error('laneTracking:interpIndex:IntervalExtOutOfRange',...
+					'Interval extension %i does not fit into given range [%i,%i].',...
+					2*m,indMin,indMax);
+			end%if
+			
+			
+			%%%
+% 			% lower interpolating-index
+% 			indl = ind-1; 
+% 			if indl < indMin; 
+% 				indl = indl+1; 
+% 			end%if
+% 			
+% 			% upper interpolating-index
+% 			indu = ind+1; 
+% 			if indu > indMax; 
+% 				indu = indu-1; 
+% 			end%if
+			
+			
+			indl = ind-m;
+			indu = ind+m;
+			indLU = [indl,indu];
+			
+			% lower index of intervals out of range?
+			if any(indl < indMin)				
+				indLU(indl<indMin,:) = indLU(indl<indMin,:) - ...
+					repmat(abs(indl(indl<indMin,:)),1,2) + indMin;
+			end%if
+			
+			% upper index of intervals out of range?
+			if any(indu > indMax)
+				indLU(indu>indMax,:) = indLU(indu>indMax,:) - ...
+					repmat(abs(indu(indu>indMax,:)),1,2) + indMax;
+			end%if
+			
+			indl = indLU(:,1);
+			indu = indLU(:,2);
 			
 		end%fcn
 
