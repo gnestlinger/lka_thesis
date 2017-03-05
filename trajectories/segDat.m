@@ -936,17 +936,21 @@ classdef segDat
 			indu = ind+m;
 			indLU = [indl,indu];
 			
-			% lower index of intervals out of range?
-			if any(indl < indMin)				
-				indLU(indl<indMin,:) = indLU(indl<indMin,:) - ...
-					repmat(abs(indl(indl<indMin,:)),1,2) + indMin;
-			end%if
+% 			% lower index of intervals out of range?
+% 			if any(indl < indMin)				
+% 				indLU(indl<indMin,:) = indLU(indl<indMin,:) - ...
+% 					repmat(abs(indl(indl<indMin,:)),1,2) + indMin;
+% 			end%if
+% 			
+% 			% upper index of intervals out of range?
+% 			if any(indu > indMax)
+% 				indLU(indu>indMax,:) = indLU(indu>indMax,:) - ...
+% 					repmat(abs(indu(indu>indMax,:)),1,2) + indMax;
+% 			end%if
 			
-			% upper index of intervals out of range?
-			if any(indu > indMax)
-				indLU(indu>indMax,:) = indLU(indu>indMax,:) - ...
-					repmat(abs(indu(indu>indMax,:)),1,2) + indMax;
-			end%if
+			indLU = indLU + ...
+				repmat(max(zeros(size(ind)),indMinMax(:,1)-indl),1,2) + ...
+				repmat(min(zeros(size(ind)),indMinMax(:,2)-indu),1,2);
 			
 			indl = indLU(:,1);
 			indu = indLU(:,2);
