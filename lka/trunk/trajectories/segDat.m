@@ -352,7 +352,7 @@ classdef segDat
 			try
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
 				for i = 1:length(indx)
-					[indl,indu] = obj.interpIndex(indx(i),[1,length(obj.x)],1);
+					[indl,indu] = obj.interpIndexRange(indx(i),[1,length(obj.x)],1);
 					
 					% same result like interp1(..,'spline') but faster
 					latOff_LAD_potential(i) = spline(...
@@ -380,7 +380,7 @@ classdef segDat
 			latOff_LAD = latOff_LAD_potential(minInd);
 			
 			% refresh interpolating-indices according to MININD
-			[indl,indu] = obj.interpIndex(indx(minInd),[1,length(obj.x)],1);
+			[indl,indu] = obj.interpIndexRange(indx(minInd),[1,length(obj.x)],1);
 			
 			% Tangentenvektor
 			tangent = [...
@@ -868,30 +868,39 @@ classdef segDat
 		end%fcn
 		
 		
-		function [indl,indu] = interpIndex(ind,indMinMax,m)
-		% return the indices used to interpolate, basically ind-1 and ind+1
-		% but do some error checking (if-blocks)
+		function [indl,indu,ind] = interpIndexRange(ind,indMinMax,m)
+		%INTERPINDEXRANGE	Index range for interpolation.
+		%	[INDL,INDU] = INTERPINDEXRANGE(IND,INDMINMAX,M) returns the
+		%	lower and upper indices INDL and INDU within index boundaries
+		%	[INDMINMAX(1) INDMINMAX(2)] using an index difference M for
+		%	givenen indices IND.
+		%	
+		%	Indices INDL/INDU define range of interpolation, basically
+		%	IND-M and IND+M but ensure INDL>INDMINMAX(1) and
+		%	INDU<INDMINMAX(2).
 		
 
 			%%% handle input arguments
-			% check size and ensure column orientation
-			if  ~isvector(ind)
-				error('Size of ind must be vector!');
+			% input IND
+			if  ~isvector(ind) % check size
+				error('Size of IND must be vector!');
 			else
-				ind = ind(:);
+				ind = ind(:); % ensure column orientation
 			end%if
 			
-			% check size
-			if any(size(indMinMax) ~= [1 2])
-				error('Size of indMinMax must be 1-by-2!');
+			% input INDMINMAX
+			if any(size(indMinMax) ~= [1 2]) % check size
+				error('Size of INDMINMAX must be 1-by-2!');
 			else
 				indMin = indMinMax(1);
 				indMax = indMinMax(2);
 			end%if
 			
-			% apply default value if undefined
-			if nargin < 3
+			% input M
+			if nargin < 3 % apply default value if undefined
 				m = 1;
+			elseif ~isscalar(m) % check isze
+				error('Size of M must be scalar!');
 			elseif m < 1 % check value
 				error('Value of m must be > 0!');
 			end%if
@@ -899,12 +908,12 @@ classdef segDat
 			
 			%%% check input arguments plausibility
 			if any(ind<indMin | ind>indMax)
-				error('laneTracking:interpIndex:IndexOutOfRange',...
+				error('laneTracking:interpIndexRange:IndexOutOfBounds',...
 					'One or more indexes out of range [%i,%i].',indMin,indMax);
 			end%if
 			if indMax-indMin < 2*m
-				error('laneTracking:interpIndex:IntervalExtOutOfRange',...
-					'Interval extension %i does not fit into given range [%i,%i].',...
+				error('laneTracking:interpIndexRange:IntervalExtOutOfRange',...
+					'Index difference M=%i does not fit into given range [%i,%i].',...
 					2*m,indMin,indMax);
 			end%if
 			
