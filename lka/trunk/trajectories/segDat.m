@@ -22,14 +22,18 @@ classdef segDat
 %	 NBR	- Street segment number of connected segments.
 %	
 %	SEGDAT Methods:
+%	 - DESIGN
 %	 changeSignOfCurvature - Change street segments curvature sign.
 %	 plus	- Connect street segments using '+'.
 %	 reverseDirection - Reverse street segment direction.
 %	 rotate - Rotate street segment.
 %	 shift	- Shift street segment.
-%	 plot	- Plot the street segment.
-%	 plotdiff - Plot the street segment with specific appearance.
-%	 plottangent - Plot the street segment and specified tangents.
+%	 - ANALYSIS
+%	 plot		 - Plot street segments.
+%	 plotdiff	 - Plot street segments with specific appearance.
+%	 plottangent - Plot street segments and specified tangents.
+%	 - MISC
+%	 laneTracking - Get the lane tracking pose.
 %	 
 %	
 %	See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
@@ -282,22 +286,22 @@ classdef segDat
 		end%fcn
 		
 		
-		function [out,latOff_LAD,epsL,kapL] = laneTracking(obj,xyCG_global,phi_global,lad)
+		function [out,latOff_LAD,angDev_LAD,curv_LAD] = ...
+				laneTracking(obj,xyCG_global,yawAngle_global,lad)
 		% laneTracking  Calculate lane tracking pose.
-		%   _______
-		%   Syntax: [out,yL,epsL,kapL] = laneTracking(in,traj,lad)
-		%   ________________
-		%   Input arguments:
-		%   in ..... vector of global vehicle position and orientation
-		%   traj ... structure of intended trajectory
-		%   lad .... look-ahead distance [m]
-		%   ________________
-		%   Output arguments:
-		%   out .... [yL;epsL;kapL;]
-		%   yL ..... Querversatz in der Entfernung lad vor dem Fahrzeug [m]
-		%   epsL ... Relativwinkel in der Entfernung lad vor dem Fahrzeug [rad]
-		%   kapL ... Sollbahnkrümmung in der Entfernung lad vor dem Fahrzeug [1/m]
-		% 
+		%	
+		%	[~,LATOFF_LAD,ANGDEV_LAD,CURV_LAD] =
+		%	laneTracking(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,lad) calculates
+		%	the lateral offset LATOFF_LAD, the angular deviation ANGDEV_LAD
+		%	and the curvature CURV_LAD at the look-ahead distance LAD in
+		%	front of the vehicles center of gravity XYCG_GLOBAL along its
+		%	longitudinal axis oriented with the angle YAWANGLE_GLOBAL with
+		%	respect to the street segment OBJ.
+		%	
+		%	OUT = laneTracking(...) is the syntax to be used from simulink,
+		%	where OUT = [LATOFF_LAD;ANGDEV_LAD;CURV_LAD].
+		%	
+		
 		% Subject: lka
 			
 			% Methode: Koordinatentransformation
@@ -308,61 +312,61 @@ classdef segDat
 			xyCG_T = [0;0];
 			
 			% Sollbahn (transformiert)
-			sd_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
-			sd_T = rotate(sd_T,-phi_global);
+			obj_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
+			obj_T = rotate(obj_T,-yawAngle_global);
 			
 			% Koordinaten des Punkts bei look-ahead distance (transformiert)
 			xyLAD_T = xyCG_T + [lad;0];
 			
-			%%% shift origin to point at LAD
-			xyCG_T	= xyCG_T - [lad;0];
-			sd_T	= shift(sd_T,[sd_T.x(1);sd_T.y(1)] - [lad;0]);
-			xyLAD_T	= xyLAD_T - [lad;0];
+% 			%%% shift origin to point at LAD
+% 			xyCG_T	= xyCG_T - [lad;0];
+% 			obj_T	= shift(obj_T,[obj_T.x(1);obj_T.y(1)] - [lad;0]);
+% 			xyLAD_T	= xyLAD_T - [lad;0];
 			
 			
 			%%% get indices of potential elements of desired path
 			% maximaler Abstand zwischen x-Werten der Sollbahn
-			deltaX_max = max(abs(diff(sd_T.x)));
+			deltaX_max = max(abs(diff(obj_T.x)));
 			
 			% depending on the shape of the desired path (e.g. closed
 			% path), there might be multiple elements of the desired path
 			% within the range
 			% logical indices where V.path.x is in the range of V.LAD.x
-			logIndx1 = xyLAD_T(1) - deltaX_max/2 <= sd_T.x;
-			logIndx2 = xyLAD_T(1) + deltaX_max/2 >= sd_T.x;
+			logIndx1 = xyLAD_T(1) - deltaX_max/2 <= obj_T.x;
+			logIndx2 = xyLAD_T(1) + deltaX_max/2 >= obj_T.x;
 			logIndx = logIndx1 & logIndx2;
 			
 			% explizite Indizes für Elemente aus V.path.x im Bereich von 
 			% V.LAD.x - deltax/2 < V.path.x < V.LAD.x + deltax/2
-			indx = find(logIndx); % indx = traj.ind(logIndx);
+			numIndx = find(logIndx); % indx = traj.ind(logIndx);
 			
 			% error if no element of 'logIndx' is true
 			if ~any(logIndx)
-				obj.doPlot(obj,sd_T,xyCG_global,xyCG_T,phi_global,lad,indx);
+				obj.doPlot(obj,obj_T,xyCG_global,xyCG_T,yawAngle_global,lad,numIndx);
 				error('segDat:laneTracking',...
 					['Keine Elemente der Sollbahn im Bereich der',... 
 					' aktuellen Fahrzeugposition gefunden'])
 			end%if
 			
-			obj.doPlot(obj,sd_T,xyCG_global,xyCG_T,phi_global,lad,indx);
+% 			obj.doPlot(obj,obj_T,xyCG_global,xyCG_T,yawAngle_global,lad,numIndx);
 			
 			%%% get lateral offset for potential elements
 			% preallocation of for-loop varriable
-			latOff_LAD_potential = zeros(length(indx),1);
+			latOff_LAD_potential = zeros(length(numIndx),1);
 			try
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
-				for i = 1:length(indx)
-					[indl,indu] = obj.interpIndexRange(indx(i),[1,length(obj.x)],1);
+				for i = 1:length(numIndx)
+					[indl,indu] = obj.interpIndexRange(numIndx(i),[1,length(obj.x)],1);
 					
 					% same result like interp1(..,'spline') but faster
 					latOff_LAD_potential(i) = spline(...
-						sd_T.x(indl:indu),...
-						sd_T.y(indl:indu),...
+						obj_T.x(indl:indu),...
+						obj_T.y(indl:indu),...
 						xyLAD_T(1));
 				end%for
 			catch exception
 				disp(exception.message);
-				obj.doPlot(obj,sd_T,xyCG_global,xyCG_T,phi_global,lad,indx);
+				obj.doPlot(obj,obj_T,xyCG_global,xyCG_T,yawAngle_global,lad,numIndx);
 			end%try
 			
 			
@@ -370,38 +374,39 @@ classdef segDat
 			% wähle "wahrscheinlichsten" (betragsmäßig kleinsten) Wert aus,
 			% falls > 1 y-Wert zu einem x-Wert existiert (zb. bei
 			% geschlossener Solltrajektorie)
-			if length(indx) < 2
+			if length(numIndx) < 2
 				minInd = 1;
 			else
 				[~,minInd] = min(abs(latOff_LAD_potential));
 			end%if
 			
-			% output argument yL
+			% output argument LATOFF_LAD
 			latOff_LAD = latOff_LAD_potential(minInd);
 			
 			% refresh interpolating-indices according to MININD
-			[indl,indu] = obj.interpIndexRange(indx(minInd),[1,length(obj.x)],1);
+			[indl,indu] = obj.interpIndexRange(numIndx(minInd),[1,length(obj.x)],1);
 			
+			
+			% output argument DEVANG_LAD
 			% Tangentenvektor
 			tangent = [...
-				sd_T.x(indu)-sd_T.x(indl);...
-				sd_T.y(indu)-sd_T.y(indl)];
-			
-			% output argument epsL
-			epsL = atan2(tangent(2),tangent(1));
+				obj_T.x(indu)-obj_T.x(indl);...
+				obj_T.y(indu)-obj_T.y(indl)];
+			angDev_LAD = atan2(tangent(2),tangent(1));
 			% consider replacing with
-			epsL2 = spline(...
-				sd_T.x(indl:indu),...
-				sd_T.phi(indl:indu),...
+			angDev_LAD2 = spline(...
+				obj_T.x(indl:indu),...
+				obj_T.phi(indl:indu),...
 				xyLAD_T(1));
 			
-			% output argument rInv: read appropriate element from 'traj.k'
-			% kapL = traj.k(indx(minInd));
-			% interpoliere für glatte Verläufe bei Regelung
-			kapL = spline(sd_T.x(indl:indu),sd_T.k(indl:indu),xyLAD_T(1));
+			% output argument CURV_LAD
+			curv_LAD = spline(...
+				obj_T.x(indl:indu),...
+				obj_T.k(indl:indu),...
+				xyLAD_T(1));
 			
 			% collect all output arguments (to be used in simulink)
-			out = [latOff_LAD;epsL;kapL];
+			out = [latOff_LAD;angDev_LAD;curv_LAD];
 			
 		end%fcn
 		
