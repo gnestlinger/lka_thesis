@@ -303,7 +303,7 @@ classdef segDat
 		%	
 		
 		% Subject: lka
-			
+		
 			% Methode: Koordinatentransformation
 			
 			%%% shift origin to vehicles CG/rotate so vehicle is oriented
@@ -351,12 +351,17 @@ classdef segDat
 % 			obj.doPlot(obj,obj_T,xyCG_global,xyCG_T,yawAngle_global,lad,numIndx);
 			
 			%%% get lateral offset for potential elements
-			% preallocation of for-loop varriable
+			% interpolation index-range: values>1 mainly increase the
+			% calculation time, lateral offset and angular deviation are
+			% rarely affected.
+			m = 1;
+			
+			% preallocation of for-loop variable
 			latOff_LAD_potential = zeros(length(numIndx),1);
 			try
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
 				for i = 1:length(numIndx)
-					[indl,indu] = obj.interpIndexRange(numIndx(i),[1,length(obj.x)],1);
+					[indl,indu] = obj.interpIndexRange(numIndx(i),[1,length(obj.x)],m);
 					
 					% same result like interp1(..,'spline') but faster
 					latOff_LAD_potential(i) = spline(...
@@ -384,17 +389,18 @@ classdef segDat
 			latOff_LAD = latOff_LAD_potential(minInd);
 			
 			% refresh interpolating-indices according to MININD
-			[indl,indu] = obj.interpIndexRange(numIndx(minInd),[1,length(obj.x)],1);
+			[indl,indu] = obj.interpIndexRange(numIndx(minInd),[1,length(obj.x)],m);
 			
 			
-			% output argument DEVANG_LAD
+			% output argument DEVANG_LAD: spline-interpolation results in a
+			% much smoother error (difference of lane tracking model and
+			% this value) than atan of slope given by neighbor indexes.
 			% Tangentenvektor
-			tangent = [...
-				obj_T.x(indu)-obj_T.x(indl);...
-				obj_T.y(indu)-obj_T.y(indl)];
-			angDev_LAD = atan2(tangent(2),tangent(1));
-			% consider replacing with
-			angDev_LAD2 = spline(...
+% 			tangent = [...
+% 				obj_T.x(indu)-obj_T.x(indl);...
+% 				obj_T.y(indu)-obj_T.y(indl)];
+% 			angDev_LAD = atan2(tangent(2),tangent(1));
+			angDev_LAD = spline(...
 				obj_T.x(indl:indu),...
 				obj_T.phi(indl:indu),...
 				xyLAD_T(1));
