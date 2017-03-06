@@ -250,7 +250,7 @@ classdef lkaSegmentClothoid < lkaSegment
 			nbrOfPointsDEP = obj.nbrOfPoints;
 			
 			% pre-calculation
-			s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)'*signk;
+			s = linspace(obj.sStart,obj.sStop,nbrOfPointsDEP)*signk;
 			
 			% numerical integration of clothoid coordinates
 			[x,y] = lkaSegmentClothoid.clothoid_numInt(s,obj.A);
@@ -312,8 +312,8 @@ classdef lkaSegmentClothoid < lkaSegment
 			elseif abs(sum(sign(diff(s)))) ~= length(s)-1
 				error('Input argument S must be strictly monotonically decreasing/increasing!');
 			else
-				% ensure column vector orientation
-				s = s(:);
+				% ensure row vector orientation
+				s = s(:)';
 			end%if
 			
 			if A <= 0
@@ -342,8 +342,8 @@ classdef lkaSegmentClothoid < lkaSegment
 			nbrOfPoints = length(s);
 			
 			% pre-allocation
-			x(nbrOfPoints,1) = 0;
-			y(nbrOfPoints,1) = 0;
+			x(1,nbrOfPoints) = 0;
+			y(1,nbrOfPoints) = 0;
 			
 			% num. integration
 			x(1) = clothX(A,0,s(1));
