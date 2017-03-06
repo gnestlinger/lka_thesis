@@ -177,17 +177,17 @@ classdef lkaSegmentCircle < lkaSegment
             nbrOfPointsDEP = obj.nbrOfPoints;
             
             % angle of discrete points on path relative to angleStart
-            phi = linspace(obj.angleStart,obj.angleStop,nbrOfPointsDEP)';
+            phi = linspace(obj.angleStart,obj.angleStop,nbrOfPointsDEP);
             			
 			% create segDat object
 			segdat = segDat(...
 				obj.radius*cos(phi),...			% x-coordinate
 				obj.radius*sin(phi),...			% y-coordinate
 				obj.radius*abs(phi-phi(1)),...	% circumference = radius*angle
-				signk/obj.radius*ones(nbrOfPointsDEP,1),... % const. curvature
+				signk/obj.radius*ones(1,nbrOfPointsDEP),... % const. curvature
 				phi + pi/2,...	% tangent angle is normal to design angle
-				ones(nbrOfPointsDEP,1),...	% segment type
-				ones(nbrOfPointsDEP,1));	% segment number
+				1,...	% segment type
+				1);	% segment number
             
 			% shift segDat object so [x(1);y(1)] matches xyStart
             segdat = shift(segdat,obj.xyStart);

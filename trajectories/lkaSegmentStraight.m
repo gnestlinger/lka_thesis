@@ -135,16 +135,16 @@ classdef lkaSegmentStraight < lkaSegment
             nbrOfPointsDEP = obj.nbrOfPoints;
             
             % the segment data
-            x = linspace(obj.xyStart(1),xyStopDEP(1),nbrOfPointsDEP)';
-            y = linspace(obj.xyStart(2),xyStopDEP(2),nbrOfPointsDEP)';
+            x = linspace(obj.xyStart(1),xyStopDEP(1),nbrOfPointsDEP);
+            y = linspace(obj.xyStart(2),xyStopDEP(2),nbrOfPointsDEP);
             s = sqrt((x-obj.xyStart(1)).^2 + (y-obj.xyStart(2)).^2);
-            k = zeros(nbrOfPointsDEP,1);
-            phi = obj.angle*ones(nbrOfPointsDEP,1);
-            type = zeros(nbrOfPointsDEP,1);
-            nbr = ones(nbrOfPointsDEP,1);
+            k = zeros(1,nbrOfPointsDEP);
+            phi = obj.angle*ones(1,nbrOfPointsDEP);
+%             type = zeros(1,nbrOfPointsDEP);
+%             nbr = ones(1,nbrOfPointsDEP);
             
             % store data in segDat class
-            segdat = segDat(x,y,s,k,phi,type,nbr);
+            segdat = segDat(x,y,s,k,phi,0,1);
             
         end%fcn
         
