@@ -113,7 +113,7 @@ set_param(mdlName,'MaxStep','auto')
 
 % sim
 tic
-sim('test_yL_epsL');
+sim(mdlName);
 toc
 
 % get lka-controller-string used in simulation
@@ -176,7 +176,7 @@ set(p(1),'LineWidth',2)
 set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
 set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
 grid on
-title('y_L')
+title('lateral offset @ LAD')
 
 % epsL
 subplot(2,1,2);
@@ -188,7 +188,7 @@ set(p(1),'LineWidth',2)
 set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
 set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
 grid on
-title('eps_L')
+title('angular offset @ LAD')
 
 legend('Sensor','lineares Modell','exaktes Modell')
 
