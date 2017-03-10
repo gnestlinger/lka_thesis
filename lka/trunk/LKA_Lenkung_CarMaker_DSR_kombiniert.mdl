@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.199"
+    ComputedModelVersion    "1.202"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Mar 10 10:57:54 2017"
-  RTWModifiedTimeStamp	  411044175
-  ModelVersionFormat	  "1.%<AutoIncrement:199>"
+  LastModifiedDate	  "Fri Mar 10 12:35:34 2017"
+  RTWModifiedTimeStamp	  411049738
+  ModelVersionFormat	  "1.%<AutoIncrement:202>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -805,7 +805,7 @@ Model {
   }
   System {
     Name		    "LKA_Lenkung_CarMaker_DSR_kombiniert"
-    Location		    [721, 167, 1956, 881]
+    Location		    [541, 185, 1776, 899]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    312
@@ -819,7 +819,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "743"
+    SIDHighWatermark	    "746"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -977,7 +977,7 @@ Model {
       Name		      "Bus\nSelector7"
       SID		      "742"
       Ports		      [1, 3]
-      Position		      [520, 176, 525, 234]
+      Position		      [510, 176, 515, 234]
       ShowName		      off
       OutputSignals	      "x_global,y_global,yawAngle"
       Port {
@@ -1015,114 +1015,6 @@ Model {
       NamePlacement	      "alternate"
       ShowName		      off
       Value		      "0"
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "LKA-Sensorik"
-      SID		      "591"
-      Ports		      [3, 1]
-      Position		      [605, 176, 685, 234]
-      BackgroundColor	      "darkGreen"
-      AttributesFormatString  "%<BlockChoice>"
-      BlockChoice	      "Videosensorik"
-      TemplateBlock	      "library/LKA-Sensorik/LKA-Sensorik"
-      MemberBlocks	      "Videosensorik"
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      Port {
-	PortNumber		1
-	Name			"Vehicle_Video_Sensor"
-	PropagatedSignals	"Sensor"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-      System {
-	Name			"LKA-Sensorik"
-	Location		[148, 182, 646, 482]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	SIDHighWatermark	"2716"
-	Block {
-	  BlockType		  Inport
-	  Name			  "x_global"
-	  SID			  "591::2713"
-	  Position		  [20, 40, 40, 60]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "y_global"
-	  SID			  "591::2714"
-	  Position		  [20, 80, 40, 100]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "yawAngle"
-	  SID			  "591::2715"
-	  Position		  [20, 120, 40, 140]
-	  Port			  "3"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Videosensorik"
-	  SID			  "591::354"
-	  Ports			  [3, 1]
-	  Position		  [100, 40, 140, 80]
-	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.837"
-	  SourceBlock		  "library/LKA-Sensorik/Videosensorik"
-	  SourceType		  "SubSystem"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "Sensor"
-	  SID			  "591::2716"
-	  Position		  [200, 40, 220, 60]
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "x_global"
-	  SrcPort		  1
-	  DstBlock		  "Videosensorik"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "y_global"
-	  SrcPort		  1
-	  DstBlock		  "Videosensorik"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "yawAngle"
-	  SrcPort		  1
-	  DstBlock		  "Videosensorik"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "Videosensorik"
-	  SrcPort		  1
-	  DstBlock		  "Sensor"
-	  DstPort		  1
-	}
-      }
     }
     Block {
       BlockType		      SubSystem
@@ -1369,6 +1261,23 @@ Model {
     }
     Block {
       BlockType		      Reference
+      Name		      "Lane Tracking Sensor"
+      SID		      "746"
+      Ports		      [3, 1]
+      Position		      [590, 173, 720, 237]
+      LibraryVersion	      "1.842"
+      SourceBlock	      "library/Lane Tracking/Lane Tracking Sensor"
+      SourceType	      "SubSystem"
+      Port {
+	PortNumber		1
+	Name			"Vehicle_Video_Sensor"
+	PropagatedSignals	"Sensor"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Block {
+      BlockType		      Reference
       Name		      "Manual Switch"
       SID		      "664"
       Ports		      [2, 1]
@@ -1526,6 +1435,16 @@ Model {
 	axes2			"%<SignalLabel>"
 	axes3			"%<SignalLabel>"
       }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
       ShowLegends	      off
       TimeRange		      "20"
       YMin		      "-5.5e-008~0.01711~-1.666e-008"
@@ -1549,6 +1468,16 @@ Model {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
       ShowLegends	      off
       YMin		      "-5e-005"
       YMax		      "0.0011"
@@ -1563,16 +1492,27 @@ Model {
       Ports		      [1]
       Position		      [1020, 389, 1050, 421]
       Floating		      off
-      Location		      [378, 195, 1219, 781]
+      Location		      [292, 279, 1133, 865]
       Open		      off
       NumInputPorts	      "1"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
-      ShowLegends	      off
-      YMin		      "0"
-      YMax		      "0.035"
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
+      ShowLegends	      on
+      LegendLocations	      "0.76549     0.85357     0.19342    0.073805"
+      YMin		      "-1.75"
+      YMax		      "0.25"
       SaveName		      "ScopeData3"
       DataFormat	      "StructureWithTime"
       LimitDataPoints	      off
@@ -1591,6 +1531,16 @@ Model {
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
+      }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
       YMin		      "0.00625"
@@ -1614,9 +1564,19 @@ Model {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
       }
+      List {
+	ListType		ScopeGraphics
+	FigureColor		"[0.5 0.5 0.5]"
+	AxesColor		"[0 0 0]"
+	AxesTickColor		"[1 1 1]"
+	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
+	LineStyles		"-|-|-|-|-|-"
+	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
+	MarkerStyles		"none|none|none|none|none|none"
+      }
       ShowLegends	      off
-      YMin		      "0.005"
-      YMax		      "0.005"
+      YMin		      "0.00475"
+      YMax		      "0.00525"
       SaveName		      "ScopeData6"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
@@ -2046,7 +2006,7 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [210, 60, 370, 80]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.837"
+	  LibraryVersion	  "1.842"
 	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)\n[Parameter]"
 	  SourceType		  "Linear Single Track Model"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
@@ -2063,8 +2023,8 @@ Model {
 	  Ports			  [11, 1]
 	  Position		  [585, 29, 755, 351]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.837"
-	  SourceBlock		  "library/Vehicle Models/Single Track Model//Lane Tracking//Steering Model"
+	  LibraryVersion	  "1.842"
+	  SourceBlock		  "library/Vehicle Models ext./Single Track Model//Lane Tracking//Steering Model"
 	  SourceType		  "SubSystem"
 	  Port {
 	    PortNumber		    1
@@ -2342,9 +2302,9 @@ Model {
     }
     Line {
       Name		      "Vehicle_Video_Sensor"
-      SrcBlock		      "LKA-Sensorik"
+      SrcBlock		      "Lane Tracking Sensor"
       SrcPort		      1
-      Points		      [45, 0]
+      Points		      [10, 0]
       Branch {
 	Labels			[1, 0]
 	DstBlock		"Bus\nCreator"
@@ -2579,7 +2539,7 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector7"
       SrcPort		      1
-      DstBlock		      "LKA-Sensorik"
+      DstBlock		      "Lane Tracking Sensor"
       DstPort		      1
     }
     Line {
@@ -2587,7 +2547,7 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector7"
       SrcPort		      2
-      DstBlock		      "LKA-Sensorik"
+      DstBlock		      "Lane Tracking Sensor"
       DstPort		      2
     }
     Line {
@@ -2595,7 +2555,7 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector7"
       SrcPort		      3
-      DstBlock		      "LKA-Sensorik"
+      DstBlock		      "Lane Tracking Sensor"
       DstPort		      3
     }
     Annotation {
