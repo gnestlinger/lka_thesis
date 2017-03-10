@@ -38,7 +38,8 @@ V.CG.x = M(1,:)*[in(1); in(2)];
 V.CG.y = M(2,:)*[in(1); in(2)];
 
 % Solltrajektorie (transformiert)
-trajt = [traj.x, traj.y];
+%  trajt = [traj.x, traj.y];
+trajt = [traj.x', traj.y'];
 V.traj.x = M(1,:)*trajt';
 V.traj.y = M(2,:)*trajt';
 
