@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.198"
+    ComputedModelVersion    "1.199"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 02 11:57:51 2017"
-  RTWModifiedTimeStamp	  410356289
-  ModelVersionFormat	  "1.%<AutoIncrement:198>"
+  LastModifiedDate	  "Fri Mar 10 10:57:54 2017"
+  RTWModifiedTimeStamp	  411044175
+  ModelVersionFormat	  "1.%<AutoIncrement:199>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -1056,18 +1056,18 @@ Model {
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	"2966"
+	SIDHighWatermark	"2716"
 	Block {
 	  BlockType		  Inport
 	  Name			  "x_global"
-	  SID			  "591::2963"
+	  SID			  "591::2713"
 	  Position		  [20, 40, 40, 60]
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
 	  Name			  "y_global"
-	  SID			  "591::2964"
+	  SID			  "591::2714"
 	  Position		  [20, 80, 40, 100]
 	  Port			  "2"
 	  IconDisplay		  "Port number"
@@ -1075,7 +1075,7 @@ Model {
 	Block {
 	  BlockType		  Inport
 	  Name			  "yawAngle"
-	  SID			  "591::2965"
+	  SID			  "591::2715"
 	  Position		  [20, 120, 40, 140]
 	  Port			  "3"
 	  IconDisplay		  "Port number"
@@ -1094,7 +1094,7 @@ Model {
 	Block {
 	  BlockType		  Outport
 	  Name			  "Sensor"
-	  SID			  "591::2966"
+	  SID			  "591::2716"
 	  Position		  [200, 40, 220, 60]
 	  IconDisplay		  "Port number"
 	}
@@ -1805,7 +1805,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Vehicle Model"
-	Location		[1017, 173, 2252, 887]
+	Location		[452, 243, 1687, 957]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
@@ -1884,7 +1884,7 @@ Model {
 	  Position		  [480, 152, 525, 168]
 	  ZOrder		  -5
 	  ShowName		  off
-	  Value			  "pin.lad"
+	  Value			  "pin.LAD"
 	}
 	Block {
 	  BlockType		  Constant

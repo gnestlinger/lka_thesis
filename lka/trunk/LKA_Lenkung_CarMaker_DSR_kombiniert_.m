@@ -120,7 +120,7 @@ pin.traj = ...
 pin.traj_sd = pin.traj.segmentData;
 
 % simulation: interval of integration
-tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.lad/pin.vx;
+tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.LAD/pin.vx;
 
 % vehicle model: initial condition
 pin.VehicleModel.initialValue.sy = 0;
@@ -166,13 +166,13 @@ soli.(lbl).simDate = datestr(now);
 
 %% post-processing
 
-sol.(lbl) = lkaPostProcessing(soli.(lbl),pin,[],simoutState,simoutSensor,simoutSteerAngle);
+% sol.(lbl) = lkaPostProcessing(soli.(lbl),pin,[],simoutState,simoutSensor,simoutSteerAngle);
 
 
 %% plot
 
 % figure
-lkaPlot(sol,0,'traj');
+% lkaPlot(sol,0,'traj');
 % lkaPlot(sol,0,'add');
 % lkaPlot(sol,pin.lad,'add');
 % lkaPlot(sol,0);
