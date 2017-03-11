@@ -411,8 +411,8 @@ classdef segDat
 			latOff_LAD	=  ones(size(lad))*inf;
 			minInd		= zeros(size(lad));
 			for i = 1:length(latOff_LAD_potential)
-				latOff_underTest = abs(latOff_LAD_potential(i));
-				if latOff_underTest < latOff_LAD(indRow(i))
+				latOff_underTest = latOff_LAD_potential(i);
+				if abs(latOff_underTest) < abs(latOff_LAD(indRow(i)))
 					latOff_LAD(indRow(i)) = latOff_underTest;
 					minInd(indRow(i)) = indCol(i);
 				end%if
