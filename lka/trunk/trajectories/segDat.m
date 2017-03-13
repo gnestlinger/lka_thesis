@@ -965,45 +965,21 @@ classdef segDat
 			end%if
 			
 			
-			%%%
-% 			% lower interpolating-index
-% 			indl = ind-1; 
-% 			if indl < indMin; 
-% 				indl = indl+1; 
-% 			end%if
-% 			
-% 			% upper interpolating-index
-% 			indu = ind+1; 
-% 			if indu > indMax; 
-% 				indu = indu-1; 
-% 			end%if
-			
-			
+			%%% calculate interpolating indexes
+			% lower/upper interpolating-index unbounded
 			indl = ind-m;
 			indu = ind+m;
-			indLU = [indl,indu];
 			
-% 			% lower index of intervals out of range?
-% 			if any(indl < indMin)				
-% 				indLU(indl<indMin,:) = indLU(indl<indMin,:) - ...
-% 					repmat(abs(indl(indl<indMin,:)),1,2) + indMin;
-% 			end%if
-% 			
-% 			% upper index of intervals out of range?
-% 			if any(indu > indMax)
-% 				indLU(indu>indMax,:) = indLU(indu>indMax,:) - ...
-% 					repmat(abs(indu(indu>indMax,:)),1,2) + indMax;
-% 			end%if
-			
-			indLU = indLU + ...
-				repmat(max(zeros(size(ind)),indMinMax(:,1)-indl),1,2) + ...
-				repmat(min(zeros(size(ind)),indMinMax(:,2)-indu),1,2);
-			
+			% bounded to INDMINMAX
+			indLU = bsxfun(@plus,[indl,indu],...
+				max(zeros(size(ind)),indMinMax(:,1)-indl) + ...
+				min(zeros(size(ind)),indMinMax(:,2)-indu));
 			indl = indLU(:,1);
 			indu = indLU(:,2);
 			
 		end%fcn
-
+		
+		
 		function doPlot(sd_global,sd_T,xyCG_global,xyCG_T,psi_global,lad,indx)
 			
 			% Solltrajektorie (global)
