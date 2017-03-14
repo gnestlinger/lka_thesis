@@ -1,170 +1,211 @@
-function [out,yL,epsL,kapL] = lkaLaneTracking(in,traj,lad)
-% lkaLaneTracking  Berechnung von yL, epsL, kapL
-%   _______
-%   Syntax: [out,yL,epsL,kapL] = lkaLaneTracking(in,traj,lad)
-%   ________________
-%   Input arguments:
-%   in ..... vector of global vehicle position and orientation
-%   traj ... structure of intended trajectory
-%   lad .... look-ahead distance [m]
-%   ________________
-%   Output arguments:
-%   out .... [yL;epsL;kapL;]
-%   yL ..... Querversatz in der Entfernung lad vor dem Fahrzeug [m]
-%   epsL ... Relativwinkel in der Entfernung lad vor dem Fahrzeug [rad]
-%   kapL ... Sollbahnkrümmung in der Entfernung lad vor dem Fahrzeug [1/m]
-% 
+function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
+		lkaLaneTracking(obj,xyCG_global,yawAngle_global,LAD)
+% laneTracking  Calculate lane tracking pose.
+%	
+%	[~,LATOFF_LAD,ANGDEV_LAD,CURV_LAD] =
+%	laneTracking(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,lad) calculates
+%	the lateral offset LATOFF_LAD, the angular deviation ANGDEV_LAD
+%	and the curvature CURV_LAD at the look-ahead distance LAD in
+%	front of the vehicles center of gravity XYCG_GLOBAL along its
+%	longitudinal axis oriented with the angle YAWANGLE_GLOBAL with
+%	respect to the street segment OBJ.
+%	
+%	OUT = laneTracking(...) is the syntax to be used from simulink,
+%	where OUT = [LATOFF_LAD;ANGDEV_LAD;CURV_LAD].
+%	
+
 % Subject: lka
-% Author: georgnoname
-% Date: 26.09.2012 - 30.04.2013
+% $Author: georgne $
+% $LastChangedDate: 2017-03-14 16:33:03 +0100 (Di, 14 MÃ¤r 2017) $
+% $Revision: 124 $
 
-% Methode: Koordinatentransformation
-% struct g ... globales Koordinatensystem (Index 0 in Funktion doPlot)
-% struct V ... glob. Koord.system rotiert sodass Fzg. parallel zu x-Achse
+	% Methode: Koordinatentransformation
 
-% globale Fzg.position (CG) und Orientierung
-% g.CG.x = in(1);
-% g.CG.y = in(2);
-% g.psi = in(3);
+	% ensure row format
+	LAD = LAD(:)';
 
-% Trajektorie (global)
-% g.traj = traj;
+	%%% shift origin to vehicles CG/rotate so vehicle is oriented
+	%%% along x-axis
+	% CG (transformiert)
+	xyCG_T = [0;0]; % xyCG_global - xyCG_global
 
-% Koordinatentransformation: Drehmatrix mit in(3) = psi
-M = [cos(-in(3)) -sin(-in(3));sin(-in(3)) cos(-in(3))];
+	% Sollbahn (transformiert)
+% 	obj_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
+	P = [obj.x(1);obj.y(1)] - xyCG_global;
+	obj_T.x = obj.x - obj.x(1) + P(1);
+	obj_T.y	= obj.y - obj.y(1) + P(2);
+	obj_T.s	= obj.s;
+	obj_T.k = obj.k;
+	obj_T.phi = obj.phi;
+	obj_T.type = obj.type;
+	
+% 	obj_T = rotate(obj_T,-yawAngle_global);
+	rotMat = [...
+		cos(-yawAngle_global) -sin(-yawAngle_global);...
+		sin(-yawAngle_global) +cos(-yawAngle_global)];
+	
+	% much faster than rotMat*[obj.x;obj.y]
+	xy_new = [obj_T.x' obj_T.y']*rotMat';
+	obj_T.x = xy_new(:,1)';
+	obj_T.y = xy_new(:,2)';
+	obj_T.s = obj_T.s;
+	obj_T.k = obj_T.k;
+	obj_T.phi = obj_T.phi-yawAngle_global;
+	obj_T.type = obj_T.type;
 
-% CG (transformiert)
-V.CG.x = M(1,:)*[in(1); in(2)];
-V.CG.y = M(2,:)*[in(1); in(2)];
+	% Koordinaten des Punkts bei look-ahead distance (transformiert)
+% 	xyLAD_T = xyCG_T + [lad;0];
+	xyLAD_T = [xyCG_T(1) + LAD; xyCG_T(2)+zeros(size(LAD))];
+	
 
-% Solltrajektorie (transformiert)
-%  trajt = [traj.x, traj.y];
-trajt = [traj.x', traj.y'];
-V.traj.x = M(1,:)*trajt';
-V.traj.y = M(2,:)*trajt';
+	%%% get indices of potential elements of desired path
+	% maximaler Abstand zwischen x-Werten der Sollbahn
+	deltaX_max = max(abs(diff(obj_T.x)));
 
-% Koordinaten des Punkts at look-ahead distance (transformiert)
-V.L.x = V.CG.x + lad;
-V.L.y = V.CG.y;
+	% Depending on the shape of the desired path (e.g. closed
+	% path), there might be multiple elements of the desired path
+	% whose x-coordinates are within the range of LAD +-
+	% DELTAX_MAX/2.
+	% 
+	% Get logical indices where OBJ_T.X is in the range of LADs
+	% x-coordinate
+	%  rows: LAD 
+	%  columns: street segments x-coordinate
+	logIndx1 = bsxfun(@le,xyLAD_T(1,:)' - deltaX_max/2,obj_T.x);
+	logIndx2 = bsxfun(@ge,xyLAD_T(1,:)' + deltaX_max/2,obj_T.x);
+	logIndx = logIndx1 & logIndx2;
 
-% maximaler Abstand zwischen x-Werten
-deltax = max(abs(diff(V.traj.x)));
+	% error if no element of LOGINDX is true
+	if ~any(any(logIndx))
+		plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,[],obj_T,xyCG_T);
+		error('segDat:laneTracking',...
+			['Keine Elemente der Sollbahn im Bereich der',... 
+			' aktuellen Fahrzeugposition gefunden'])
+	end%if
 
-% binärwertige Indizes für Elemente aus 'V.traj.x' im Bereich von 'V.L.x'
-logIndx1 = V.L.x - deltax/2 <= V.traj.x;
-logIndx2 = V.L.x + deltax/2 >= V.traj.x;
-logIndx = logIndx1 & logIndx2;
+	% Numerical indices according to LOGINDX: NUMINDROW points to
+	% the according LAD, NUMINDCOL points to the according
+	% x-coordinate (see LOGINDX calculation above)
+	[numIndRow,numIndCol] = find(logIndx);
 
-% error if no element of 'logIndx' is logical 1
-if ~any(logIndx)
-    doPlot(in,traj,lad,V,M);
-    error(['visionSystem.m: Keine Elemente der Sollbahn im Bereich der',... 
-        ' aktuellen Fahrzeugposition gefunden'])
-end%if
+% 	plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 
-% explizite Indizes für Elemente aus 'V.traj.x' im Bereich von 
-% V.L.x - deltax/2 < V.traj.x < V.L.x + deltax/2
-indx = find(logIndx); % indx = traj.ind(logIndx);
 
-% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
-yTraj = zeros(length(indx),1);
-try
-    for i = 1:length(indx)
-        [indl,indu] = interpIndex(indx(i),1,length(traj.x));
-%         yTraj(i) = interp1(V.traj.x(indl:indu),V.traj.y(indl:indu),...
-%             V.L.x,'spline');
-        % same result like interp1(..,'spline') but faster
-        yTraj(i) = spline(V.traj.x(indl:indu),V.traj.y(indl:indu),V.L.x);
-    end%for
-catch exception
-    disp(exception.message);
-    doPlot(in,traj,lad,V,M);
-    hold on
-    plot([V.L.x - deltax/2,V.L.x - deltax/2],[V.L.y-10,V.L.y+30],'-k');
-    plot([V.L.x + deltax/2,V.L.x + deltax/2],[V.L.y-10,V.L.y+30],'-k');
-end%try
+	%%% get lateral offset for potential elements
+	% interpolation index-range: m>1 mainly increase the
+	% calculation time, lateral offset and angular deviation are
+	% rarely affected.
+	m = 1;
+	[indl,indu] = interpIndexRange(numIndCol,[1,length(obj.x)],m);
 
-% Querabstand von interpolierten y-Werten der Trajektorie zu
-% Fahrzeuglaengsachse
-yL = yTraj - V.CG.y;
+	% preallocation of for-loop variable
+	lanePose_LAD_candidates = zeros(3,length(numIndCol));
+	try
+		% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
+		for i = 1:length(numIndCol)
+			% same result like interp1(..,'spline') but faster
+			lanePose_LAD_candidates(:,i) = spline(...
+				obj_T.x(indl(i):indu(i)),...
+				[obj_T.y(indl(i):indu(i));...
+				 obj_T.phi(indl(i):indu(i));...
+				 obj_T.k(indl(i):indu(i))],...
+				xyLAD_T(1,numIndRow(i)));
+		end%for
+	catch exception
+		plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
+		error(exception.message);
+	end%try
+	latOff_LAD_candidates = lanePose_LAD_candidates(1,:);
+	angDev_LAD_candidates = lanePose_LAD_candidates(2,:);
+	curvat_LAD_candidates = lanePose_LAD_candidates(3,:);
 
-% wähle "wahrscheinlichsten" (betragsmäßig kleinsten) Wert aus, falls > 1
-% y-Wert zu einem x-Wert existiert (zb. bei geschlossener Solltrajektorie)
-if length(indx) < 2
-    minInd = 1;
-else
-    [~,minInd] = min(abs(yL));
-end%if
 
-% output argument yL
-yL = yTraj(minInd) - V.CG.y;
+	%%% select one of multiple lateral offsets per LAD-value
+	% get most possible value per LAD-value
+	latOff_LAD	= zeros(size(LAD));
+	angDev_LAD	= zeros(size(LAD));
+	curvat_LAD	= zeros(size(LAD));
+	isValid_LAD = false(size(LAD));
+	for i = 1:length(latOff_LAD_candidates)
+		angDev_underTest = angDev_LAD_candidates(i);
+		curvat_underTest = curvat_LAD_candidates(i);
+		latOff_underTest = latOff_LAD_candidates(i);
+		if abs(latOff_underTest) < abs(latOff_LAD(numIndRow(i))) || ~isValid_LAD(numIndRow(i))
+			latOff_LAD(numIndRow(i))	= latOff_underTest;
+			angDev_LAD(numIndRow(i))	= angDev_underTest;
+			curvat_LAD(numIndRow(i))	= curvat_underTest;
+			isValid_LAD(numIndRow(i))	= true;
+		end%if
 
-% refresh interpolating-indices
-[indl,indu] = interpIndex(indx(minInd),1,length(traj.x));
+	end%for
 
-% Tangentenvektor
-tangent = [V.traj.x(indu)-V.traj.x(indl); V.traj.y(indu)-V.traj.y(indl)];
 
-% output argument epsL
-epsL = atan2(tangent(2),tangent(1));
-
-% output argument rInv: read appropriate element from 'traj.k'
-% kapL = traj.k(indx(minInd));
-% interpoliere für glatte Verläufe bei Regelung
-kapL = spline(V.traj.x(indl:indu),traj.k(indl:indu),V.L.x);
-
-% collect all output arguments (to be used in simulink)
-out = [yL;epsL;kapL];
+	% collect all output arguments (to be used in simulink)
+	out = [LAD;isValid_LAD;latOff_LAD;angDev_LAD;curvat_LAD];
 
 end%fcn
 
 
-
-function [indl,indu] = interpIndex(ind,indMin,indMax)
-% return the indices used to interpolate, basically ind-1 and ind+1 but do
-% some error checking (if-blocks)
-
-% lower interpolating-index
-indl = ind-1; 
-if indl < indMin; 
-    indl = indl+1; 
-end%if
-
-% upper interpolating-index
-indu = ind+1; 
-if indu > indMax; 
-    indu = indu-1; 
-end%if
-
-end%fcn
+function [indl,indu,ind] = interpIndexRange(ind,indMinMax,m)
+%INTERPINDEXRANGE	Index range for interpolation.
+%	[INDL,INDU] = INTERPINDEXRANGE(IND,INDMINMAX,M) returns the
+%	lower and upper indices INDL and INDU within index boundaries
+%	[INDMINMAX(1) INDMINMAX(2)] using an index difference M for
+%	givenen indices IND.
+%	
+%	Indices INDL/INDU define range of interpolation, basically
+%	IND-M and IND+M but ensure INDL>INDMINMAX(1) and
+%	INDU<INDMINMAX(2).
 
 
+	%%% handle input arguments
+	% input IND
+	if  ~isvector(ind) % check size
+		error('Size of IND must be vector!');
+	else
+		ind = ind(:); % ensure column orientation
+	end%if
 
-function doPlot(in,traj,lad,V,M)
+	% input INDMINMAX
+	if any(size(indMinMax) ~= [1 2]) % check size
+		error('Size of INDMINMAX must be 1-by-2!');
+	else
+		indMin = indMinMax(1);
+		indMax = indMinMax(2);
+	end%if
 
-x0CG = in(1);
-y0CG = in(2);
-psi = in(3);
+	% input M
+	if nargin < 3 % apply default value if undefined
+		m = 1;
+	elseif ~isscalar(m) % check isze
+		error('Size of M must be scalar!');
+	elseif m < 1 % check value
+		error('Value of m must be > 0!');
+	end%if
 
-% Solltrajektorie (global)
-plot(traj.x,traj.y,'o','MarkerSize',3,'MarkerFaceColor','b'); 
-hold on
 
-% Fahrzeug
-plot(x0CG,y0CG,'ob','MarkerSize',10,'MarkerFaceColor','b');
-Fzglachse = [x0CG+lad*cos(psi); y0CG+lad*sin(psi)];
-plot([x0CG,Fzglachse(1)],[y0CG,Fzglachse(2)],'b','LineWidth',2)
+	%%% check input arguments plausibility
+	if any(ind<indMin | ind>indMax)
+		error('laneTracking:interpIndexRange:IndexOutOfBounds',...
+			'One or more indexes out of range [%i,%i].',indMin,indMax);
+	end%if
+	if indMax-indMin < 2*m
+		error('laneTracking:interpIndexRange:IntervalExtOutOfRange',...
+			'Index difference M=%i does not fit into given range [%i,%i].',...
+			2*m,indMin,indMax);
+	end%if
 
-% Solltrajektorie (transformiert)
-plot(V.traj.x,V.traj.y,'ro','MarkerSize',3,'MarkerFaceColor','r');
 
-% Fahrzeug (transformiert)
-plot(V.CG.x,V.CG.y,'or','MarkerSize',10,'MarkerFaceColor','r');
-Fzglachset = M*Fzglachse;
-plot([V.CG.x,Fzglachset(1)],[V.CG.y,Fzglachset(2)],'r','LineWidth',2)
+	%%% calculate interpolating indexes
+	% lower/upper interpolating-index unbounded
+	indl = ind-m;
+	indu = ind+m;
 
-hold off
-grid on
-axis equal
+	% bounded to INDMINMAX
+	indLU = bsxfun(@plus,[indl,indu],...
+		max(zeros(size(ind)),indMinMax(:,1)-indl) + ...
+		min(zeros(size(ind)),indMinMax(:,2)-indu));
+	indl = indLU(:,1);
+	indu = indLU(:,2);
 
 end%fcn
