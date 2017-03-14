@@ -363,7 +363,7 @@ classdef segDat
 			% x-coordinate (see LOGINDX calculation above)
 			[numIndRow,numIndCol] = find(logIndx);
 			
-% 			plotLaneTracking(obj,xyCG_global,yawAngle_global,lad,indCol,obj_T,xyCG_T);
+% 			plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 			
 			
 			%%% get lateral offset for potential elements
@@ -385,8 +385,8 @@ classdef segDat
 						xyLAD_T(1,numIndRow(i)));
 				end%for
 			catch exception
-				disp(exception.message);
 				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
+				error(exception.message);
 			end%try
 			
 			
@@ -411,7 +411,7 @@ classdef segDat
 				% path
 				[indl,indu] = obj.interpIndexRange(optInd_LAD,[1,length(obj.x)],m);
 			catch exception
-				disp(exception.message);
+				error(exception.message);
 			end%try
 			
 			angDev_LAD	= zeros(size(LAD));
