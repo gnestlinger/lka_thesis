@@ -339,7 +339,7 @@ classdef segDat
 			
 			% Depending on the shape of the desired path (e.g. closed
 			% path), there might be multiple elements of the desired path
-			% whose x-ccordinates are within the range of LAD +-
+			% whose x-coordinates are within the range of LAD +-
 			% DELTAX_MAX/2.
 			% 
 			% Get logical indices where OBJ_T.X is in the range of LADs
@@ -350,18 +350,18 @@ classdef segDat
 			logIndx2 = bsxfun(@ge,xyLAD_T(1,:)' + deltaX_max/2,obj_T.x);
 			logIndx = logIndx1 & logIndx2;
 			
-			% Numerical indices according to LOGINDX: NUMINDROW points to
-			% the according LAD, NUMINDCOL points to the according
-			% x-coordinate (see LOGINDX calculation above)
-			[numIndRow,numIndCol] = find(logIndx);
-			
 			% error if no element of LOGINDX is true
 			if ~any(any(logIndx))
-				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
+				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,[],obj_T,xyCG_T);
 				error('segDat:laneTracking',...
 					['Keine Elemente der Sollbahn im Bereich der',... 
 					' aktuellen Fahrzeugposition gefunden'])
 			end%if
+			
+			% Numerical indices according to LOGINDX: NUMINDROW points to
+			% the according LAD, NUMINDCOL points to the according
+			% x-coordinate (see LOGINDX calculation above)
+			[numIndRow,numIndCol] = find(logIndx);
 			
 % 			plotLaneTracking(obj,xyCG_global,yawAngle_global,lad,indCol,obj_T,xyCG_T);
 			
@@ -612,8 +612,8 @@ classdef segDat
 		
 		
 			% check dimension of input ind
-			if ~isvector(ind)
-				error('Input argument IND has to be of size 1xN or Nx1.');
+			if ~isvector(ind) && ~isempty(ind)
+				error('Input argument IND has to be of size 0xN or Nx0.');
 			end%if
 			
 			% apply plot options if unspecified
