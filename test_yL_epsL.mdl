@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.929"
+    ComputedModelVersion    "1.930"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -25,11 +25,11 @@ Model {
   Creator		  "Georg"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "georgnestlinger"
+  LastModifiedBy	  "Georg"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Mar 10 12:45:01 2017"
-  RTWModifiedTimeStamp	  411050693
-  ModelVersionFormat	  "1.%<AutoIncrement:929>"
+  LastModifiedDate	  "Tue Mar 14 18:05:29 2017"
+  RTWModifiedTimeStamp	  411415527
+  ModelVersionFormat	  "1.%<AutoIncrement:930>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -307,7 +307,7 @@ Model {
 	  SimStateInterfaceChecksumMismatchMsg "warning"
 	  SimStateOlderReleaseMsg "error"
 	  InitInArrayFormatMsg	  "warning"
-	  StrictBusMsg		  "Warning"
+	  StrictBusMsg		  "ErrorLevel1"
 	  BusNameAdapt		  "WarnAndRepair"
 	  NonBusSignalsTreatedAsBus "none"
 	  LoggingUnavailableSignals "error"
@@ -587,8 +587,8 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      CurrentDlgPage	      "Solver"
-      ConfigPrmDlgPosition     [ 61, 89, 1269, 829 ] 
+      CurrentDlgPage	      "Diagnostics/Connectivity"
+      ConfigPrmDlgPosition     [ 221, 14, 1461, 843 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -766,20 +766,10 @@ Model {
       SaturateOnIntegerOverflow	on
       SampleTime	      "-1"
     }
-    Block {
-      BlockType		      ToWorkspace
-      VariableName	      "simulink_output"
-      MaxDataPoints	      "1000"
-      Decimation	      "1"
-      SampleTime	      "0"
-      SaveFormat	      "Array"
-      FixptAsFi		      off
-      NumInputs		      "1"
-    }
   }
   System {
     Name		    "test_yL_epsL"
-    Location		    [632, 195, 1684, 862]
+    Location		    [485, 198, 1537, 865]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    241
@@ -793,7 +783,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1749"
+    SIDHighWatermark	    "1751"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -832,8 +822,8 @@ Model {
       Ports		      [1, 3]
       Position		      [755, 233, 760, 287]
       ShowName		      off
-      OutputSignals	      "Sensor.lateralOff_LAD_Sensor,VehicleState.lateralOff_LAD_linear,VehicleState.lateralOff_LAD"
-      "_nonlinear"
+      OutputSignals	      "LaneSensor.lateralOff_LAD_Sensor,VehicleState.lateralOff_LAD_linear,VehicleState.lateralOff"
+      "_LAD_nonlinear"
       Port {
 	PortNumber		1
 	Name			"<lateralOff_LAD_Sensor>"
@@ -860,8 +850,8 @@ Model {
       Ports		      [1, 4]
       Position		      [450, 439, 455, 521]
       ShowName		      off
-      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,Sensor.curvature_LAD_Sensor,Sensor.lateralOff_LAD_Sens"
-      "or"
+      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,LaneSensor.curvature_LAD_Sensor,LaneSensor.lateralOff_"
+      "LAD_Sensor"
       Port {
 	PortNumber		1
 	Name			"<vy>"
@@ -896,8 +886,8 @@ Model {
       BlockMirror	      on
       NamePlacement	      "alternate"
       ShowName		      off
-      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,Sensor.lateralOff_LAD_Sensor,Sensor.angularDev_LAD_Sen"
-      "sor"
+      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,LaneSensor.lateralOff_LAD_Sensor,LaneSensor.angularDev"
+      "_LAD_Sensor"
       Port {
 	PortNumber		1
 	Name			"<vy>"
@@ -951,8 +941,8 @@ Model {
       Ports		      [1, 3]
       Position		      [755, 345, 760, 395]
       ShowName		      off
-      OutputSignals	      "Sensor.angularDev_LAD_Sensor,VehicleState.angularDev_LAD_linear,VehicleState.angularDev_LAD"
-      "_nonlinear"
+      OutputSignals	      "LaneSensor.angularDev_LAD_Sensor,VehicleState.angularDev_LAD_linear,VehicleState.angularDev"
+      "_LAD_nonlinear"
       Port {
 	PortNumber		1
 	Name			"<angularDev_LAD_Sensor>"
@@ -998,7 +988,7 @@ Model {
       Position		      [140, 284, 240, 426]
       BlockMirror	      on
       NamePlacement	      "alternate"
-      LibraryVersion	      "1.843"
+      LibraryVersion	      "1.850"
       SourceBlock	      "library/LKA-Controller/LQR_2int"
       SourceType	      "SubSystem"
       Port {
@@ -1109,7 +1099,7 @@ Model {
 	  SID			  "1749"
 	  Ports			  [8, 2]
 	  Position		  [350, 23, 545, 222]
-	  LibraryVersion	  "1.843"
+	  LibraryVersion	  "1.849"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Model (nonlinear)"
 	  SourceType		  "SubSystem"
 	}
@@ -1230,7 +1220,6 @@ Model {
       Port {
 	PortNumber		1
 	Name			"epsL"
-	PropagatedSignals	"angularDev_LAD_Sensor, angularDev_LAD_linear, angularDev_LAD_nonlinear"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1247,7 +1236,6 @@ Model {
       Port {
 	PortNumber		1
 	Name			"yL"
-	PropagatedSignals	"lateralOff_LAD_Sensor, lateralOff_LAD_linear, lateralOff_LAD_nonlinear"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -1445,7 +1433,7 @@ Model {
 	  SID			  "1728"
 	  Ports			  [3, 1]
 	  Position		  [190, 20, 365, 80]
-	  LibraryVersion	  "1.843"
+	  LibraryVersion	  "1.849"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	}
@@ -1495,146 +1483,14 @@ Model {
       }
     }
     Block {
-      BlockType		      SubSystem
-      Name		      "Simout1"
-      SID		      "1073"
-      Ports		      [2]
-      Position		      [890, 39, 985, 81]
-      LibraryVersion	      "1.762"
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"Simout1"
-	Location		[531, 346, 1456, 819]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Vehicle_Data"
-	  SID			  "1074"
-	  Position		  [105, 133, 135, 147]
-	  BackgroundColor	  "yellow"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Control_Input"
-	  SID			  "1075"
-	  Position		  [105, 208, 135, 222]
-	  BackgroundColor	  "yellow"
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  BusSelector
-	  Name			  "Bus\nSelector"
-	  SID			  "1076"
-	  Ports			  [1, 1]
-	  Position		  [365, 96, 370, 134]
-	  ShowName		  off
-	  OutputSignals		  "VehicleState"
-	  OutputAsBus		  on
-	}
-	Block {
-	  BlockType		  BusSelector
-	  Name			  "Bus\nSelector1"
-	  SID			  "1077"
-	  Ports			  [1, 1]
-	  Position		  [365, 146, 370, 184]
-	  ShowName		  off
-	  OutputSignals		  "Sensor"
-	  OutputAsBus		  on
-	}
-	Block {
-	  BlockType		  ToWorkspace
-	  Name			  "To Workspace"
-	  SID			  "1078"
-	  Ports			  [1]
-	  Position		  [580, 100, 720, 130]
-	  BackgroundColor	  "gray"
-	  ShowName		  off
-	  VariableName		  "simoutState"
-	  MaxDataPoints		  "inf"
-	  SampleTime		  "-1"
-	  SaveFormat		  "Structure With Time"
-	}
-	Block {
-	  BlockType		  ToWorkspace
-	  Name			  "To Workspace1"
-	  SID			  "1079"
-	  Ports			  [1]
-	  Position		  [580, 150, 720, 180]
-	  BackgroundColor	  "gray"
-	  ShowName		  off
-	  VariableName		  "simoutSensor"
-	  MaxDataPoints		  "inf"
-	  SampleTime		  "-1"
-	  SaveFormat		  "Structure With Time"
-	}
-	Block {
-	  BlockType		  ToWorkspace
-	  Name			  "To Workspace2"
-	  SID			  "1080"
-	  Ports			  [1]
-	  Position		  [580, 200, 720, 230]
-	  BackgroundColor	  "gray"
-	  ShowName		  off
-	  VariableName		  "simoutSteerAngle"
-	  MaxDataPoints		  "inf"
-	  SampleTime		  "-1"
-	  SaveFormat		  "Structure With Time"
-	}
-	Line {
-	  SrcBlock		  "Vehicle_Data"
-	  SrcPort		  1
-	  Points		  [115, 0]
-	  Branch {
-	    Points		    [0, 25]
-	    DstBlock		    "Bus\nSelector1"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Labels		    [2, 0]
-	    Points		    [0, -25]
-	    DstBlock		    "Bus\nSelector"
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  SrcBlock		  "Control_Input"
-	  SrcPort		  1
-	  DstBlock		  "To Workspace2"
-	  DstPort		  1
-	}
-	Line {
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector"
-	  SrcPort		  1
-	  DstBlock		  "To Workspace"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Bus\nSelector1"
-	  SrcPort		  1
-	  DstBlock		  "To Workspace1"
-	  DstPort		  1
-	}
-      }
+      BlockType		      Reference
+      Name		      "Simout"
+      SID		      "1751"
+      Ports		      [3]
+      Position		      [925, 19, 1010, 81]
+      LibraryVersion	      "1.850"
+      SourceBlock	      "library/Misc/Simout"
+      SourceType	      "SubSystem"
     }
     Block {
       BlockType		      Sum
@@ -1754,7 +1610,7 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [75, 55, 235, 75]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.843"
+	  LibraryVersion	  "1.849"
 	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)\n[Parameter]"
 	  SourceType		  "Linear Single Track Model"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
@@ -1771,7 +1627,7 @@ Model {
 	  Ports			  [8, 1]
 	  Position		  [460, 27, 620, 228]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.843"
+	  LibraryVersion	  "1.849"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model//Lane Tracking"
 	  SourceType		  "SubSystem"
 	}
@@ -1907,15 +1763,23 @@ Model {
     Line {
       SrcBlock		      "Sensor Model"
       SrcPort		      1
-      Points		      [45, 0]
+      Points		      [20, 0]
       Branch {
-	DstBlock		"Bus\nCreator"
-	DstPort			2
+	Points			[25, 0]
+	Branch {
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  2
+	}
+	Branch {
+	  Points		  [0, 60; -540, 0]
+	  DstBlock		  "Bus\nSelector"
+	  DstPort		  1
+	}
       }
       Branch {
-	Points			[0, 60; -540, 0]
-	DstBlock		"Bus\nSelector"
-	DstPort			1
+	Points			[0, -125]
+	DstBlock		"Simout"
+	DstPort			2
       }
     }
     Line {
@@ -1953,25 +1817,28 @@ Model {
 	  }
 	}
       }
-      Branch {
-	Points			[0, -90]
-	DstBlock		"Simout1"
-	DstPort			1
-      }
     }
     Line {
       SrcBlock		      "Vehicle Model"
       SrcPort		      1
       Points		      [5, 0]
       Branch {
-	Points			[0, -65; 235, 0]
-	DstBlock		"Bus\nCreator"
-	DstPort			1
-      }
-      Branch {
 	Labels			[0, 0]
 	DstBlock		"Sensor Model"
 	DstPort			1
+      }
+      Branch {
+	Points			[0, -65]
+	Branch {
+	  Points		  [235, 0]
+	  DstBlock		  "Bus\nCreator"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, -80]
+	  DstBlock		  "Simout"
+	  DstPort		  1
+	}
       }
     }
     Line {
@@ -2035,13 +1902,13 @@ Model {
       Branch {
 	Points			[0, -85]
 	Branch {
-	  DstBlock		  "Simout1"
-	  DstPort		  2
-	}
-	Branch {
 	  Points		  [0, -30]
 	  DstBlock		  "Radians\nto Degrees"
 	  DstPort		  1
+	}
+	Branch {
+	  DstBlock		  "Simout"
+	  DstPort		  3
 	}
       }
       Branch {

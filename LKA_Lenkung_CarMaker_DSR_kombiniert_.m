@@ -8,7 +8,7 @@
 % Date: 11.02.2013 - 03.05.2013
 
 clc
-clear all
+clear
 % close all
 
 % run init file
