@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Georg"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 14 18:05:04 2017"
-  RTWModifiedTimeStamp	  411414477
-  ModelVersionFormat	  "1.%<AutoIncrement:850>"
+  LastModifiedDate	  "Tue Mar 14 20:36:48 2017"
+  RTWModifiedTimeStamp	  411420939
+  ModelVersionFormat	  "1.%<AutoIncrement:855>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -847,7 +847,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3185"
+    SIDHighWatermark	    "3289"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -4538,7 +4538,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "SWTorque [Nm]"
 	      SID		      "2408"
-	      Position		      [25, 28, 55, 42]
+	      Position		      [25, 18, 55, 32]
 	      BackgroundColor	      "yellow"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
@@ -4550,7 +4550,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "F_left [N]"
 	      SID		      "2409"
-	      Position		      [25, 58, 55, 72]
+	      Position		      [25, 48, 55, 62]
 	      BackgroundColor	      "yellow"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -4563,7 +4563,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "F_right [N]"
 	      SID		      "2410"
-	      Position		      [25, 88, 55, 102]
+	      Position		      [25, 78, 55, 92]
 	      BackgroundColor	      "yellow"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
@@ -4576,7 +4576,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "d_rot [Nm*s/rad]"
 	      SID		      "2411"
-	      Position		      [25, 133, 55, 147]
+	      Position		      [25, 123, 55, 137]
 	      BackgroundColor	      "yellow"
 	      Port		      "4"
 	      IconDisplay	      "Port number"
@@ -4589,7 +4589,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "d_rack [N*s/m]"
 	      SID		      "2412"
-	      Position		      [25, 163, 55, 177]
+	      Position		      [25, 153, 55, 167]
 	      BackgroundColor	      "yellow"
 	      Port		      "5"
 	      IconDisplay	      "Port number"
@@ -4602,7 +4602,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "i [rad/m]"
 	      SID		      "2413"
-	      Position		      [25, 193, 55, 207]
+	      Position		      [25, 183, 55, 197]
 	      BackgroundColor	      "yellow"
 	      Port		      "6"
 	      IconDisplay	      "Port number"
@@ -4615,7 +4615,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "I_rot [kg*m²]"
 	      SID		      "2414"
-	      Position		      [25, 263, 55, 277]
+	      Position		      [25, 253, 55, 267]
 	      BackgroundColor	      "yellow"
 	      Port		      "7"
 	      IconDisplay	      "Port number"
@@ -4628,7 +4628,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "m_left [kg]"
 	      SID		      "2415"
-	      Position		      [25, 293, 55, 307]
+	      Position		      [25, 283, 55, 297]
 	      BackgroundColor	      "yellow"
 	      Port		      "8"
 	      IconDisplay	      "Port number"
@@ -4641,7 +4641,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "m_right [kg]"
 	      SID		      "2416"
-	      Position		      [25, 323, 55, 337]
+	      Position		      [25, 313, 55, 327]
 	      BackgroundColor	      "yellow"
 	      Port		      "9"
 	      IconDisplay	      "Port number"
@@ -4654,7 +4654,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "m_rack [kg]"
 	      SID		      "2417"
-	      Position		      [25, 353, 55, 367]
+	      Position		      [25, 343, 55, 357]
 	      BackgroundColor	      "yellow"
 	      Port		      "10"
 	      IconDisplay	      "Port number"
@@ -4667,7 +4667,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "V [-]"
 	      SID		      "2418"
-	      Position		      [25, 408, 55, 422]
+	      Position		      [25, 398, 55, 412]
 	      BackgroundColor	      "yellow"
 	      Port		      "11"
 	      IconDisplay	      "Port number"
@@ -4676,7 +4676,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "SWAngle(0) [rad]"
 	      SID		      "2419"
-	      Position		      [550, 378, 580, 392]
+	      Position		      [550, 368, 580, 382]
 	      BackgroundColor	      "yellow"
 	      Port		      "12"
 	      IconDisplay	      "Port number"
@@ -4689,7 +4689,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "SWRate(0) [rad/s]"
 	      SID		      "2420"
-	      Position		      [550, 413, 580, 427]
+	      Position		      [550, 403, 580, 417]
 	      BackgroundColor	      "yellow"
 	      Port		      "13"
 	      IconDisplay	      "Port number"
@@ -4702,7 +4702,7 @@ Library {
 	      BlockType		      Constant
 	      Name		      "Constant3"
 	      SID		      "2421"
-	      Position		      [395, 271, 440, 289]
+	      Position		      [395, 261, 440, 279]
 	      ZOrder		      -4
 	      ShowName		      off
 	      Value		      "0"
@@ -4711,7 +4711,7 @@ Library {
 	      BlockType		      Constant
 	      Name		      "Constant4"
 	      SID		      "2422"
-	      Position		      [560, 311, 600, 329]
+	      Position		      [560, 301, 600, 319]
 	      ZOrder		      -4
 	      ShowName		      off
 	      Value		      "[0;0]"
@@ -4720,7 +4720,7 @@ Library {
 	      BlockType		      Constant
 	      Name		      "Constant5"
 	      SID		      "2423"
-	      Position		      [395, 321, 440, 339]
+	      Position		      [395, 311, 440, 329]
 	      ZOrder		      -4
 	      ShowName		      off
 	      Value		      "0"
@@ -4729,7 +4729,7 @@ Library {
 	      BlockType		      Constant
 	      Name		      "Constant6"
 	      SID		      "2424"
-	      Position		      [395, 371, 440, 389]
+	      Position		      [395, 361, 440, 379]
 	      ZOrder		      -4
 	      ShowName		      off
 	      Value		      "0"
@@ -4739,7 +4739,7 @@ Library {
 	      Name		      "Demux"
 	      SID		      "2425"
 	      Ports		      [1, 2]
-	      Position		      [805, 206, 810, 264]
+	      Position		      [805, 196, 810, 254]
 	      ZOrder		      -6
 	      ShowName		      off
 	      Outputs		      "2"
@@ -4761,7 +4761,7 @@ Library {
 	      BlockType		      Gain
 	      Name		      "Gain"
 	      SID		      "2426"
-	      Position		      [405, 385, 435, 415]
+	      Position		      [405, 375, 435, 405]
 	      ZOrder		      -8
 	      ShowName		      off
 	      Gain		      "-1"
@@ -4774,7 +4774,7 @@ Library {
 	      Name		      "Mux"
 	      SID		      "2427"
 	      Ports		      [3, 1]
-	      Position		      [355, 19, 360, 111]
+	      Position		      [355, 12, 360, 98]
 	      ZOrder		      -12
 	      ShowName		      off
 	      Inputs		      "3"
@@ -4785,7 +4785,7 @@ Library {
 	      Name		      "Mux1"
 	      SID		      "2428"
 	      Ports		      [2, 1]
-	      Position		      [465, 271, 470, 309]
+	      Position		      [465, 261, 470, 299]
 	      ZOrder		      -12
 	      ShowName		      off
 	      Inputs		      "2"
@@ -4796,7 +4796,7 @@ Library {
 	      Name		      "Mux2"
 	      SID		      "2429"
 	      Ports		      [2, 1]
-	      Position		      [465, 156, 470, 194]
+	      Position		      [465, 146, 470, 184]
 	      ZOrder		      -12
 	      ShowName		      off
 	      Inputs		      "2"
@@ -4807,7 +4807,7 @@ Library {
 	      Name		      "Mux3"
 	      SID		      "2430"
 	      Ports		      [2, 1]
-	      Position		      [465, 321, 470, 359]
+	      Position		      [465, 311, 470, 349]
 	      ZOrder		      -12
 	      ShowName		      off
 	      Inputs		      "2"
@@ -4818,7 +4818,7 @@ Library {
 	      Name		      "Mux4"
 	      SID		      "2431"
 	      Ports		      [2, 1]
-	      Position		      [465, 371, 470, 409]
+	      Position		      [465, 361, 470, 399]
 	      ZOrder		      -12
 	      ShowName		      off
 	      Inputs		      "2"
@@ -4829,7 +4829,7 @@ Library {
 	      Name		      "Mux5"
 	      SID		      "2432"
 	      Ports		      [2, 1]
-	      Position		      [625, 368, 630, 437]
+	      Position		      [625, 358, 630, 427]
 	      ZOrder		      -12
 	      ShowName		      off
 	      Inputs		      "2"
@@ -4840,7 +4840,7 @@ Library {
 	      Name		      "Sys: A*x + B*u"
 	      SID		      "2433"
 	      Ports		      [5, 1]
-	      Position		      [655, 16, 755, 454]
+	      Position		      [655, 12, 755, 438]
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
 	      RTWSystemCode	      "Auto"
@@ -5051,7 +5051,7 @@ Library {
 	      Name		      "Vector\nConcatenate1"
 	      SID		      "2444"
 	      Ports		      [3, 1]
-	      Position		      [500, 266, 505, 414]
+	      Position		      [500, 256, 505, 404]
 	      ZOrder		      -19
 	      ShowName		      off
 	      NumInputs		      "3"
@@ -5063,7 +5063,7 @@ Library {
 	      Name		      "Vector\nConcatenate2"
 	      SID		      "2445"
 	      Ports		      [2, 1]
-	      Position		      [500, 101, 505, 199]
+	      Position		      [500, 91, 505, 189]
 	      ZOrder		      -19
 	      ShowName		      off
 	      Mode		      "Multidimensional array"
@@ -5073,7 +5073,7 @@ Library {
 	      BlockType		      Constant
 	      Name		      "a(1,2)"
 	      SID		      "2446"
-	      Position		      [395, 151, 440, 169]
+	      Position		      [395, 141, 440, 159]
 	      ZOrder		      -4
 	    }
 	    Block {
@@ -5081,7 +5081,7 @@ Library {
 	      Name		      "a(2,2)"
 	      SID		      "2447"
 	      Ports		      [4, 1]
-	      Position		      [305, 126, 360, 244]
+	      Position		      [305, 116, 360, 234]
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
 	      RTWSystemCode	      "Auto"
@@ -5266,7 +5266,7 @@ Library {
 	      BlockType		      Constant
 	      Name		      "a(:,1)"
 	      SID		      "2458"
-	      Position		      [395, 116, 440, 134]
+	      Position		      [395, 106, 440, 124]
 	      ZOrder		      -4
 	      Value		      "[0;0]"
 	    }
@@ -5275,7 +5275,7 @@ Library {
 	      Name		      "b(2,1)"
 	      SID		      "2459"
 	      Ports		      [3, 1]
-	      Position		      [305, 270, 360, 330]
+	      Position		      [305, 260, 360, 320]
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
 	      RTWSystemCode	      "Auto"
@@ -5392,7 +5392,7 @@ Library {
 	      Name		      "b(2,2)"
 	      SID		      "2466"
 	      Ports		      [2, 1]
-	      Position		      [305, 370, 360, 430]
+	      Position		      [305, 360, 360, 420]
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
 	      RTWSystemCode	      "Auto"
@@ -5478,7 +5478,7 @@ Library {
 	      Name		      "xi"
 	      SID		      "2471"
 	      Ports		      [5, 1]
-	      Position		      [130, 227, 215, 373]
+	      Position		      [130, 217, 215, 363]
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
 	      RTWSystemCode	      "Auto"
@@ -5645,7 +5645,7 @@ Library {
 	      BlockType		      Outport
 	      Name		      "SWAngle [rad]"
 	      SID		      "2481"
-	      Position		      [895, 213, 925, 227]
+	      Position		      [895, 203, 925, 217]
 	      BackgroundColor	      "gray"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
@@ -5657,7 +5657,7 @@ Library {
 	      BlockType		      Outport
 	      Name		      "SWRate [rad/s]"
 	      SID		      "2482"
-	      Position		      [895, 243, 925, 257]
+	      Position		      [895, 233, 925, 247]
 	      BackgroundColor	      "gray"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -6103,7 +6103,7 @@ Library {
 	      SID		      "2497"
 	      Ports		      [13, 2]
 	      Position		      [225, 14, 390, 336]
-	      LibraryVersion	      "1.839"
+	      LibraryVersion	      "1.852"
 	      SourceBlock	      "library/Steering Models/Steering Model (CarMaker DSR)"
 	      SourceType	      "SubSystem"
 	    }
@@ -8896,217 +8896,6 @@ Library {
 	    }
 	    Block {
 	      BlockType		      SubSystem
-	      Name		      "Single Track Model (linear)\n[Parameter]"
-	      SID		      "2669"
-	      Ports		      [0, 1]
-	      Position		      [15, 359, 175, 381]
-	      ZOrder		      -19
-	      MinAlgLoopOccurrences   off
-	      PropExecContextOutsideSubsystem off
-	      RTWSystemCode	      "Auto"
-	      FunctionWithSeparateData off
-	      Opaque		      off
-	      RequestExecContextInheritance off
-	      MaskHideContents	      off
-	      MaskType		      "Linear Single Track Model"
-	      MaskDescription	      "Specify parameters for the linear single track model."
-	      MaskPromptString	      "Cornering stiffness front [N/rad]|Cornering stiffness rear [N/rad]|Distance COG - front"
-	      " axle [m]|Distance COG - rear axle [m]|Vehicle mass [kg]|Moment of inertia of yaw axis [kg*m²]"
-	      MaskStyleString	      "edit,edit,edit,edit,edit,edit"
-	      MaskVariables	      "cs_front=@1;cs_rear=@2;l_front=@3;l_rear=@4;m=@5;Izz=@6;"
-	      MaskTunableValueString  "off,off,off,off,off,off"
-	      MaskCallbackString      "|||||"
-	      MaskEnableString	      "on,on,on,on,on,on"
-	      MaskVisibilityString    "on,on,on,on,on,on"
-	      MaskToolTipString	      "on,on,on,on,on,on"
-	      MaskIconFrame	      on
-	      MaskIconOpaque	      on
-	      MaskIconRotate	      "none"
-	      MaskPortRotate	      "default"
-	      MaskIconUnits	      "autoscale"
-	      MaskValueString	      "0|0|0|0|0|0"
-	      System {
-		Name			"Single Track Model (linear)\n[Parameter]"
-		Location		[426, 102, 1844, 961]
-		Open			off
-		ModelBrowserVisibility	on
-		ModelBrowserWidth	200
-		ScreenColor		"white"
-		PaperOrientation	"landscape"
-		PaperPositionMode	"auto"
-		PaperType		"A4"
-		PaperUnits		"centimeters"
-		TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-		TiledPageScale		1
-		ShowPageBoundaries	off
-		ZoomFactor		"100"
-		Block {
-		  BlockType		  BusCreator
-		  Name			  "Bus\nCreator"
-		  SID			  "2692"
-		  Ports			  [6, 1]
-		  Position		  [200, 16, 205, 169]
-		  ZOrder		  -2
-		  ShowName		  off
-		  Inputs		  "6"
-		  DisplayOption		  "bar"
-		}
-		Block {
-		  BlockType		  Constant
-		  Name			  "Constant"
-		  SID			  "2671"
-		  Position		  [15, 22, 90, 38]
-		  ZOrder		  -5
-		  ShowName		  off
-		  Value			  "cs_front"
-		  Port {
-		    PortNumber		    1
-		    Name		    "cs_front"
-		    RTWStorageClass	    "Auto"
-		    DataLoggingNameMode	    "SignalName"
-		  }
-		}
-		Block {
-		  BlockType		  Constant
-		  Name			  "Constant1"
-		  SID			  "2694"
-		  Position		  [15, 47, 90, 63]
-		  ZOrder		  -5
-		  ShowName		  off
-		  Value			  "cs_rear"
-		  Port {
-		    PortNumber		    1
-		    Name		    "cs_rear"
-		    RTWStorageClass	    "Auto"
-		    DataLoggingNameMode	    "SignalName"
-		  }
-		}
-		Block {
-		  BlockType		  Constant
-		  Name			  "Constant2"
-		  SID			  "2674"
-		  Position		  [15, 72, 90, 88]
-		  ZOrder		  -5
-		  ShowName		  off
-		  Value			  "l_front"
-		  Port {
-		    PortNumber		    1
-		    Name		    "l_front"
-		    RTWStorageClass	    "Auto"
-		    DataLoggingNameMode	    "SignalName"
-		  }
-		}
-		Block {
-		  BlockType		  Constant
-		  Name			  "Constant3"
-		  SID			  "2695"
-		  Position		  [15, 97, 90, 113]
-		  ZOrder		  -5
-		  ShowName		  off
-		  Value			  "l_rear"
-		  Port {
-		    PortNumber		    1
-		    Name		    "l_rear"
-		    RTWStorageClass	    "Auto"
-		    DataLoggingNameMode	    "SignalName"
-		  }
-		}
-		Block {
-		  BlockType		  Constant
-		  Name			  "Constant4"
-		  SID			  "2675"
-		  Position		  [15, 122, 90, 138]
-		  ZOrder		  -5
-		  ShowName		  off
-		  Value			  "m"
-		  Port {
-		    PortNumber		    1
-		    Name		    "m"
-		    RTWStorageClass	    "Auto"
-		    DataLoggingNameMode	    "SignalName"
-		  }
-		}
-		Block {
-		  BlockType		  Constant
-		  Name			  "Constant5"
-		  SID			  "2676"
-		  Position		  [15, 147, 90, 163]
-		  ZOrder		  -5
-		  ShowName		  off
-		  Value			  "Izz"
-		  Port {
-		    PortNumber		    1
-		    Name		    "Izz"
-		    RTWStorageClass	    "Auto"
-		    DataLoggingNameMode	    "SignalName"
-		  }
-		}
-		Block {
-		  BlockType		  Outport
-		  Name			  "Vehicle Parameter"
-		  SID			  "2693"
-		  Position		  [300, 88, 330, 102]
-		  BackgroundColor	  "gray"
-		  IconDisplay		  "Port number"
-		}
-		Line {
-		  SrcBlock		  "Bus\nCreator"
-		  SrcPort		  1
-		  DstBlock		  "Vehicle Parameter"
-		  DstPort		  1
-		}
-		Line {
-		  Name			  "cs_front"
-		  Labels		  [0, 0]
-		  SrcBlock		  "Constant"
-		  SrcPort		  1
-		  DstBlock		  "Bus\nCreator"
-		  DstPort		  1
-		}
-		Line {
-		  Name			  "cs_rear"
-		  Labels		  [0, 0]
-		  SrcBlock		  "Constant1"
-		  SrcPort		  1
-		  DstBlock		  "Bus\nCreator"
-		  DstPort		  2
-		}
-		Line {
-		  Name			  "l_front"
-		  Labels		  [0, 0]
-		  SrcBlock		  "Constant2"
-		  SrcPort		  1
-		  DstBlock		  "Bus\nCreator"
-		  DstPort		  3
-		}
-		Line {
-		  Name			  "l_rear"
-		  Labels		  [0, 0]
-		  SrcBlock		  "Constant3"
-		  SrcPort		  1
-		  DstBlock		  "Bus\nCreator"
-		  DstPort		  4
-		}
-		Line {
-		  Name			  "m"
-		  Labels		  [0, 0]
-		  SrcBlock		  "Constant4"
-		  SrcPort		  1
-		  DstBlock		  "Bus\nCreator"
-		  DstPort		  5
-		}
-		Line {
-		  Name			  "Izz"
-		  Labels		  [0, 0]
-		  SrcBlock		  "Constant5"
-		  SrcPort		  1
-		  DstBlock		  "Bus\nCreator"
-		  DstPort		  6
-		}
-	      }
-	    }
-	    Block {
-	      BlockType		      SubSystem
 	      Name		      "Single Track Model (linear)\n[masked]"
 	      SID		      "2376"
 	      Ports		      [1, 7]
@@ -9292,7 +9081,7 @@ Library {
 		  SID			  "2567"
 		  Ports			  [15, 7]
 		  Position		  [290, 16, 450, 324]
-		  LibraryVersion	  "1.849"
+		  LibraryVersion	  "1.852"
 		  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)"
 		  SourceType		  "SubSystem"
 		}
@@ -9527,7 +9316,7 @@ Library {
       Name		      "Vehicle Models ext."
       SID		      "2972"
       Ports		      []
-      Position		      [98, 214, 196, 256]
+      Position		      [100, 214, 195, 256]
       BlockMirror	      on
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
@@ -9553,10 +9342,593 @@ Library {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  SubSystem
+	  Name			  "Single Track Model (linear)\n[Initial Values; masked]"
+	  SID			  "3219"
+	  Ports			  [0, 1]
+	  Position		  [15, 339, 175, 361]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskType		  "Linear Single Track Model Inital Values"
+	  MaskDescription	  "Specify initial values for the linear single track model."
+	  MaskPromptString	  "sy|vy|yawAngle|yawRate|x_global|y_global|s_global"
+	  MaskStyleString	  "edit,edit,edit,edit,edit,edit,edit"
+	  MaskVariables		  "sy=@1;vy=@2;yawAngle=@3;yawRate=@4;x_global=@5;y_global=@6;s_global=@7;"
+	  MaskTunableValueString  "off,off,off,off,off,off,off"
+	  MaskCallbackString	  "||||||"
+	  MaskEnableString	  "on,on,on,on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on,on,on,on"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "0|0|0|0|0|0|0"
+	  System {
+	    Name		    "Single Track Model (linear)\n[Initial Values; masked]"
+	    Location		    [508, 458, 988, 720]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant10"
+	      SID		      "3210"
+	      Position		      [15, 166, 195, 184]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "y_global"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant12"
+	      SID		      "3211"
+	      Position		      [15, 196, 195, 214]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "s_global"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant5"
+	      SID		      "3212"
+	      Position		      [15, 16, 195, 34]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "sy"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant6"
+	      SID		      "3213"
+	      Position		      [15, 46, 195, 64]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "vy"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant7"
+	      SID		      "3214"
+	      Position		      [15, 76, 195, 94]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "yawAngle"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant8"
+	      SID		      "3215"
+	      Position		      [15, 106, 195, 124]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "yawRate"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant9"
+	      SID		      "3216"
+	      Position		      [15, 136, 195, 154]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "x_global"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      SID		      "3217"
+	      Ports		      [7, 1]
+	      Position		      [250, 12, 255, 218]
+	      ZOrder		      -12
+	      ShowName		      off
+	      Inputs		      "7"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Vhcl_InitValues"
+	      SID		      "3220"
+	      Position		      [370, 108, 400, 122]
+	      ZOrder		      -2
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Vhcl_InitValues"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant5"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant6"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Constant7"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Constant8"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Constant9"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Constant10"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "Constant12"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      7
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Single Track Model (linear)\n[Initial Values]"
+	  SID			  "3189"
+	  Ports			  [7, 1]
+	  Position		  [15, 166, 175, 304]
+	  ZOrder		  -19
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Single Track Model (linear)\n[Initial Values]"
+	    Location		    [433, 403, 931, 703]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "sy(0) [m]"
+	      SID		      "3192"
+	      Position		      [30, 18, 60, 32]
+	      BackgroundColor	      "yellow"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "vy(0) [m/s]"
+	      SID		      "3193"
+	      Position		      [30, 48, 60, 62]
+	      BackgroundColor	      "yellow"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "yawAngle(0) [rad]"
+	      SID		      "3194"
+	      Position		      [30, 78, 60, 92]
+	      BackgroundColor	      "yellow"
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "yawRate(0) [rad/s]"
+	      SID		      "3195"
+	      Position		      [30, 108, 60, 122]
+	      BackgroundColor	      "yellow"
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "x_global(0) [m]"
+	      SID		      "3196"
+	      Position		      [30, 138, 60, 152]
+	      BackgroundColor	      "yellow"
+	      Port		      "5"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "y_global(0) [m]"
+	      SID		      "3197"
+	      Position		      [30, 168, 60, 182]
+	      BackgroundColor	      "yellow"
+	      Port		      "6"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "s_global(0) [m]"
+	      SID		      "3198"
+	      Position		      [30, 198, 60, 212]
+	      BackgroundColor	      "yellow"
+	      Port		      "7"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      SID		      "3208"
+	      Ports		      [7, 1]
+	      Position		      [250, 12, 255, 218]
+	      ZOrder		      -12
+	      ShowName		      off
+	      Inputs		      "7"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Vhcl_InitValues"
+	      SID		      "3191"
+	      Position		      [370, 108, 400, 122]
+	      ZOrder		      -2
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Vhcl_InitValues"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "sy(0) [m]"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "yawRate(0) [rad/s]"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "x_global(0) [m]"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "y_global(0) [m]"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "s_global(0) [m]"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "vy(0) [m/s]"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "yawAngle(0) [rad]"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Single Track Model (linear)\n[Parameter; masked]"
+	  SID			  "3186"
+	  Ports			  [0, 1]
+	  Position		  [15, 49, 175, 71]
+	  ZOrder		  -19
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskType		  "Linear Single Track Model Parameter"
+	  MaskDescription	  "Specify parameters for the linear single track model."
+	  MaskPromptString	  "Cornering stiffness front [N/rad]|Cornering stiffness rear [N/rad]|Distance COG - front axle [m"
+	  "]|Distance COG - rear axle [m]|Vehicle mass [kg]|Moment of inertia of yaw axis [kg*m²]"
+	  MaskStyleString	  "edit,edit,edit,edit,edit,edit"
+	  MaskVariables		  "cs_front=@1;cs_rear=@2;l_front=@3;l_rear=@4;m=@5;Izz=@6;"
+	  MaskTunableValueString  "off,off,off,off,off,off"
+	  MaskCallbackString	  "|||||"
+	  MaskEnableString	  "on,on,on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on,on,on"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "0|0|0|0|0|0"
+	  System {
+	    Name		    "Single Track Model (linear)\n[Parameter; masked]"
+	    Location		    [438, 118, 1856, 977]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      BusCreator
+	      Name		      "Bus\nCreator"
+	      SID		      "3199"
+	      Ports		      [6, 1]
+	      Position		      [250, 14, 255, 186]
+	      ZOrder		      -2
+	      ShowName		      off
+	      Inputs		      "6"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant"
+	      SID		      "3200"
+	      Position		      [15, 16, 90, 34]
+	      ZOrder		      -5
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "cs_front"
+	      Port {
+		PortNumber		1
+		Name			"cs_front"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant1"
+	      SID		      "3201"
+	      Position		      [15, 46, 90, 64]
+	      ZOrder		      -5
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "cs_rear"
+	      Port {
+		PortNumber		1
+		Name			"cs_rear"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant2"
+	      SID		      "3202"
+	      Position		      [15, 76, 90, 94]
+	      ZOrder		      -5
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "l_front"
+	      Port {
+		PortNumber		1
+		Name			"l_front"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant3"
+	      SID		      "3203"
+	      Position		      [15, 106, 90, 124]
+	      ZOrder		      -5
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "l_rear"
+	      Port {
+		PortNumber		1
+		Name			"l_rear"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant4"
+	      SID		      "3204"
+	      Position		      [15, 136, 90, 154]
+	      ZOrder		      -5
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "m"
+	      Port {
+		PortNumber		1
+		Name			"m"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant5"
+	      SID		      "3205"
+	      Position		      [15, 166, 90, 184]
+	      ZOrder		      -5
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "Izz"
+	      Port {
+		PortNumber		1
+		Name			"Izz"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Vhcl_Parameter"
+	      SID		      "3206"
+	      Position		      [370, 93, 400, 107]
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      Name		      "Izz"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant5"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      6
+	    }
+	    Line {
+	      Name		      "m"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant4"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      5
+	    }
+	    Line {
+	      Name		      "l_rear"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant3"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      4
+	    }
+	    Line {
+	      Name		      "l_front"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant2"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      3
+	    }
+	    Line {
+	      Name		      "cs_rear"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant1"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      2
+	    }
+	    Line {
+	      Name		      "cs_front"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nCreator"
+	      SrcPort		      1
+	      DstBlock		      "Vhcl_Parameter"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
 	  Name			  "Single Track Model/Lane Tracking"
 	  SID			  "3066"
-	  Ports			  [8, 1]
-	  Position		  [25, 22, 185, 223]
+	  Ports			  [9, 1]
+	  Position		  [275, 24, 435, 246]
 	  BackgroundColor	  "lightBlue"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -9590,7 +9962,7 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "Vehicle Parameter"
+	      Name		      "Vhcl_Parameter"
 	      SID		      "3069"
 	      Position		      [35, 93, 65, 107]
 	      BackgroundColor	      "yellow"
@@ -9649,6 +10021,15 @@ Library {
 	      Position		      [35, 778, 65, 792]
 	      BackgroundColor	      "yellow"
 	      Port		      "8"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Vhcl_InitValues"
+	      SID		      "3188"
+	      Position		      [35, 243, 65, 257]
+	      BackgroundColor	      "yellow"
+	      Port		      "9"
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -9714,67 +10095,15 @@ Library {
 	      }
 	    }
 	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant1"
-	      SID		      "3078"
-	      Position		      [110, 202, 185, 218]
-	      ZOrder		      -5
+	      BlockType		      Demux
+	      Name		      "Demux"
+	      SID		      "3209"
+	      Ports		      [1, 7]
+	      Position		      [120, 184, 125, 316]
+	      ZOrder		      -6
 	      ShowName		      off
-	      Value		      "0"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant2"
-	      SID		      "3079"
-	      Position		      [110, 222, 185, 238]
-	      ZOrder		      -5
-	      ShowName		      off
-	      Value		      "0"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant3"
-	      SID		      "3080"
-	      Position		      [110, 182, 185, 198]
-	      ZOrder		      -5
-	      ShowName		      off
-	      Value		      "0"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant4"
-	      SID		      "3081"
-	      Position		      [110, 262, 185, 278]
-	      ZOrder		      -5
-	      ShowName		      off
-	      Value		      "0"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant5"
-	      SID		      "3082"
-	      Position		      [110, 282, 185, 298]
-	      ZOrder		      -5
-	      ShowName		      off
-	      Value		      "0"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant6"
-	      SID		      "3083"
-	      Position		      [110, 242, 185, 258]
-	      ZOrder		      -5
-	      ShowName		      off
-	      Value		      "0"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant7"
-	      SID		      "3084"
-	      Position		      [110, 302, 185, 318]
-	      ZOrder		      -5
-	      ShowName		      off
-	      Value		      "0"
+	      Outputs		      "7"
+	      DisplayOption	      "bar"
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -9782,7 +10111,7 @@ Library {
 	      SID		      "3085"
 	      Ports		      [7, 2]
 	      Position		      [585, 323, 770, 537]
-	      LibraryVersion	      "1.849"
+	      LibraryVersion	      "1.852"
 	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (linear)"
 	      SourceType	      "SubSystem"
 	    }
@@ -9792,7 +10121,7 @@ Library {
 	      SID		      "3086"
 	      Ports		      [8, 2]
 	      Position		      [585, 560, 770, 800]
-	      LibraryVersion	      "1.849"
+	      LibraryVersion	      "1.852"
 	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (nonlinear)"
 	      SourceType	      "SubSystem"
 	    }
@@ -9802,7 +10131,7 @@ Library {
 	      SID		      "3087"
 	      Ports		      [15, 7]
 	      Position		      [215, 16, 375, 324]
-	      LibraryVersion	      "1.849"
+	      LibraryVersion	      "1.852"
 	      SourceBlock	      "library/Vehicle Models/Single Track Models/Single Track Model (linear)"
 	      SourceType	      "SubSystem"
 	    }
@@ -9983,7 +10312,7 @@ Library {
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "Vehicle Parameter"
+	      SrcBlock		      "Vhcl_Parameter"
 	      SrcPort		      1
 	      DstBlock		      "Bus\nSelector1"
 	      DstPort		      1
@@ -10077,44 +10406,50 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Constant1"
+	      SrcBlock		      "Vhcl_InitValues"
 	      SrcPort		      1
-	      DstBlock		      "Single Track Model (linear)"
-	      DstPort		      10
+	      DstBlock		      "Demux"
+	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "Constant3"
+	      SrcBlock		      "Demux"
 	      SrcPort		      1
 	      DstBlock		      "Single Track Model (linear)"
 	      DstPort		      9
 	    }
 	    Line {
-	      SrcBlock		      "Constant2"
-	      SrcPort		      1
+	      SrcBlock		      "Demux"
+	      SrcPort		      2
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      10
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      3
 	      DstBlock		      "Single Track Model (linear)"
 	      DstPort		      11
 	    }
 	    Line {
-	      SrcBlock		      "Constant6"
-	      SrcPort		      1
+	      SrcBlock		      "Demux"
+	      SrcPort		      4
 	      DstBlock		      "Single Track Model (linear)"
 	      DstPort		      12
 	    }
 	    Line {
-	      SrcBlock		      "Constant4"
-	      SrcPort		      1
+	      SrcBlock		      "Demux"
+	      SrcPort		      5
 	      DstBlock		      "Single Track Model (linear)"
 	      DstPort		      13
 	    }
 	    Line {
-	      SrcBlock		      "Constant5"
-	      SrcPort		      1
+	      SrcBlock		      "Demux"
+	      SrcPort		      6
 	      DstBlock		      "Single Track Model (linear)"
 	      DstPort		      14
 	    }
 	    Line {
-	      SrcBlock		      "Constant7"
-	      SrcPort		      1
+	      SrcBlock		      "Demux"
+	      SrcPort		      7
 	      DstBlock		      "Single Track Model (linear)"
 	      DstPort		      15
 	    }
@@ -10124,8 +10459,8 @@ Library {
 	  BlockType		  SubSystem
 	  Name			  "Single Track Model/Lane Tracking/Steering Model"
 	  SID			  "3067"
-	  Ports			  [11, 1]
-	  Position		  [455, 24, 620, 306]
+	  Ports			  [12, 1]
+	  Position		  [535, 24, 695, 321]
 	  BackgroundColor	  "lightBlue"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -10159,7 +10494,7 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "Vehicle Parameter"
+	      Name		      "Vhcl_Parameter"
 	      SID		      "3090"
 	      Position		      [35, 373, 65, 387]
 	      BackgroundColor	      "yellow"
@@ -10168,7 +10503,7 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "SteerMdl Parameter"
+	      Name		      "SteerMdl_Parameter"
 	      SID		      "3091"
 	      Position		      [35, 183, 65, 197]
 	      BackgroundColor	      "yellow"
@@ -10248,6 +10583,15 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
+	      BlockType		      Inport
+	      Name		      "Vhcl_InitValues"
+	      SID		      "3221"
+	      Position		      [35, 583, 65, 597]
+	      BackgroundColor	      "yellow"
+	      Port		      "12"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
 	      BlockType		      BusCreator
 	      Name		      "Bus\nCreator1"
 	      SID		      "3100"
@@ -10284,7 +10628,7 @@ Library {
 	      Name		      "Bus\nSelector1"
 	      SID		      "3102"
 	      Ports		      [1, 11]
-	      Position		      [920, 340, 925, 570]
+	      Position		      [920, 355, 925, 585]
 	      ZOrder		      -3
 	      ShowName		      off
 	      OutputSignals	      "sy,vy,yawAngle,yawRate,x_global,y_global,s_global,lateralOff_LAD_linear,angularDev_LAD_lin"
@@ -10449,10 +10793,10 @@ Library {
 	      BlockType		      Reference
 	      Name		      "Single Track Model/Lane Tracking"
 	      SID		      "3107"
-	      Ports		      [8, 1]
-	      Position		      [715, 340, 875, 570]
+	      Ports		      [9, 1]
+	      Position		      [715, 340, 875, 600]
 	      BackgroundColor	      "lightBlue"
-	      LibraryVersion	      "1.842"
+	      LibraryVersion	      "1.854"
 	      SourceBlock	      "library/Vehicle Models ext./Single Track Model//Lane Tracking"
 	      SourceType	      "SubSystem"
 	    }
@@ -10462,7 +10806,7 @@ Library {
 	      SID		      "3108"
 	      Ports		      [13, 2]
 	      Position		      [275, 14, 440, 336]
-	      LibraryVersion	      "1.842"
+	      LibraryVersion	      "1.854"
 	      SourceBlock	      "library/Steering Models/Steering Model (CarMaker DSR)"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -10525,7 +10869,7 @@ Library {
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "Vehicle Parameter"
+	      SrcBlock		      "Vhcl_Parameter"
 	      SrcPort		      1
 	      DstBlock		      "Single Track Model/Lane Tracking"
 	      DstPort		      2
@@ -10563,7 +10907,7 @@ Library {
 	      DstPort		      5
 	    }
 	    Line {
-	      SrcBlock		      "SteerMdl Parameter"
+	      SrcBlock		      "SteerMdl_Parameter"
 	      SrcPort		      1
 	      Points		      [40, 0]
 	      Branch {
@@ -10606,7 +10950,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      1
-	      Points		      [120, 0; 0, -300]
+	      Points		      [120, 0; 0, -315]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      1
 	    }
@@ -10615,7 +10959,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      2
-	      Points		      [130, 0; 0, -295]
+	      Points		      [130, 0; 0, -310]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      2
 	    }
@@ -10624,7 +10968,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      3
-	      Points		      [140, 0; 0, -290]
+	      Points		      [140, 0; 0, -305]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      3
 	    }
@@ -10633,7 +10977,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      4
-	      Points		      [150, 0; 0, -285]
+	      Points		      [150, 0; 0, -300]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      4
 	    }
@@ -10642,7 +10986,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      5
-	      Points		      [160, 0; 0, -280]
+	      Points		      [160, 0; 0, -295]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      5
 	    }
@@ -10651,7 +10995,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      6
-	      Points		      [170, 0; 0, -275]
+	      Points		      [170, 0; 0, -290]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      6
 	    }
@@ -10660,7 +11004,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      7
-	      Points		      [180, 0; 0, -270]
+	      Points		      [180, 0; 0, -285]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      7
 	    }
@@ -10669,7 +11013,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      8
-	      Points		      [190, 0; 0, -215]
+	      Points		      [190, 0; 0, -230]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      10
 	    }
@@ -10678,7 +11022,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      9
-	      Points		      [200, 0; 0, -210]
+	      Points		      [200, 0; 0, -225]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      11
 	    }
@@ -10687,7 +11031,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      10
-	      Points		      [210, 0; 0, -205]
+	      Points		      [210, 0; 0, -220]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      12
 	    }
@@ -10696,7 +11040,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      11
-	      Points		      [220, 0; 0, -200]
+	      Points		      [220, 0; 0, -215]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      13
 	    }
@@ -10788,7 +11132,314 @@ Library {
 	      DstBlock		      "Steering Model: CM DSR"
 	      DstPort		      13
 	    }
+	    Line {
+	      SrcBlock		      "Vhcl_InitValues"
+	      SrcPort		      1
+	      DstBlock		      "Single Track Model/Lane Tracking"
+	      DstPort		      9
+	    }
 	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	  SID			  "3244"
+	  Ports			  [0, 1]
+	  Position		  [15, 394, 175, 416]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskType		  "Steering Model Parameter: Dynamic Steer Ratio"
+	  MaskDescription	  "Specify parameters for the CarMaker steering model Dynamic Steer Ratio (DSR)."
+	  MaskPromptString	  "Damping coefficient of rotating parts [Nm*s/rad]|Damping coefficient of steering rack [Ns/m]|St"
+	  "eering gear ratio steering wheel angle/rack travel [rad/m]|Steering inertia of all rotating parts [kg*m²]|Left whee"
+	  "l suspension mass [kg]|Right wheel suspension mass [kg]|Steering rack mass [kg]|Amplification of the steering torqu"
+	  "e [-]|Ratio steering wheel angle/front wheel angle [-]"
+	  MaskStyleString	  "edit,edit,edit,edit,edit,edit,edit,edit,edit"
+	  MaskVariables		  "d_rot=@1;d_rack=@2;i_HR=@3;I_rot=@4;m_left=@5;m_right=@6;m_rack=@7;V=@8;alpha=@9;"
+	  MaskTunableValueString  "off,off,off,off,off,off,off,off,off"
+	  MaskCallbackString	  "||||||||"
+	  MaskEnableString	  "on,on,on,on,on,on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on,on,on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on,on,on,on,on,on"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "0|0|0|0|0|0|0|0|0"
+	  System {
+	    Name		    "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	    Location		    [438, 118, 1856, 977]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      BusCreator
+	      Name		      "Bus\nCreator2"
+	      SID		      "3255"
+	      Ports		      [9, 1]
+	      Position		      [250, 17, 255, 273]
+	      ZOrder		      -2
+	      ShowName		      off
+	      Inputs		      "9"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant1"
+	      SID		      "3275"
+	      Position		      [15, 76, 90, 94]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "i_HR"
+	      Port {
+		PortNumber		1
+		Name			"i_HR"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant11"
+	      SID		      "3276"
+	      Position		      [15, 16, 90, 34]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "d_rot"
+	      Port {
+		PortNumber		1
+		Name			"d_rot"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant13"
+	      SID		      "3277"
+	      Position		      [15, 166, 90, 184]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "m_right"
+	      Port {
+		PortNumber		1
+		Name			"m_right"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant14"
+	      SID		      "3278"
+	      Position		      [15, 136, 90, 154]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "m_left"
+	      Port {
+		PortNumber		1
+		Name			"m_left"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant15"
+	      SID		      "3279"
+	      Position		      [15, 106, 90, 124]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "I_rot"
+	      Port {
+		PortNumber		1
+		Name			"I_rot"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant16"
+	      SID		      "3280"
+	      Position		      [15, 196, 90, 214]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "m_rack"
+	      Port {
+		PortNumber		1
+		Name			"m_rack"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant17"
+	      SID		      "3281"
+	      Position		      [15, 226, 90, 244]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "V"
+	      Port {
+		PortNumber		1
+		Name			"V"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant18"
+	      SID		      "3282"
+	      Position		      [15, 256, 90, 274]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "alpha"
+	      Port {
+		PortNumber		1
+		Name			"alpha"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant4"
+	      SID		      "3283"
+	      Position		      [15, 46, 90, 64]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "d_rack"
+	      Port {
+		PortNumber		1
+		Name			"d_rack"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "SteerMdl_Parameter"
+	      SID		      "3253"
+	      Position		      [370, 138, 400, 152]
+	      ZOrder		      -2
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      Name		      "d_rot"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant11"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      1
+	    }
+	    Line {
+	      Name		      "d_rack"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant4"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      2
+	    }
+	    Line {
+	      Name		      "i_HR"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant1"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      3
+	    }
+	    Line {
+	      Name		      "I_rot"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant15"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      4
+	    }
+	    Line {
+	      Name		      "m_left"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant14"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      5
+	    }
+	    Line {
+	      Name		      "m_right"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant13"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      6
+	    }
+	    Line {
+	      Name		      "m_rack"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant16"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      7
+	    }
+	    Line {
+	      Name		      "V"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant17"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      8
+	    }
+	    Line {
+	      Name		      "alpha"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Constant18"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator2"
+	      DstPort		      9
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nCreator2"
+	      SrcPort		      1
+	      DstBlock		      "SteerMdl_Parameter"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)\n[Parameter; masked]"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model/Lane Tracking"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model/Lane Tracking"
+	  DstPort		  9
+	}
+	Line {
+	  SrcBlock		  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	  SrcPort		  1
+	  Points		  [305, 0; 0, -320]
+	  DstBlock		  "Single Track Model/Lane Tracking/Steering Model"
+	  DstPort		  3
 	}
       }
     }

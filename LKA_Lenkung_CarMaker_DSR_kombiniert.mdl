@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.211"
+    ComputedModelVersion    "1.214"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Georg"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 14 18:08:52 2017"
-  RTWModifiedTimeStamp	  411415676
-  ModelVersionFormat	  "1.%<AutoIncrement:211>"
+  LastModifiedDate	  "Tue Mar 14 20:32:17 2017"
+  RTWModifiedTimeStamp	  411424265
+  ModelVersionFormat	  "1.%<AutoIncrement:214>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -795,7 +795,7 @@ Model {
   }
   System {
     Name		    "LKA_Lenkung_CarMaker_DSR_kombiniert"
-    Location		    [559, 168, 1794, 882]
+    Location		    [432, 172, 1667, 886]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    312
@@ -809,7 +809,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "758"
+    SIDHighWatermark	    "767"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -1290,7 +1290,7 @@ Model {
 	  SID			  "754"
 	  Ports			  [3, 1]
 	  Position		  [190, 20, 370, 130]
-	  LibraryVersion	  "1.850"
+	  LibraryVersion	  "1.855"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	}
@@ -1489,7 +1489,7 @@ Model {
       Position		      [1020, 247, 1050, 283]
       ShowName		      off
       Floating		      off
-      Location		      [77, 73, 1456, 821]
+      Location		      [1, 52, 1921, 1033]
       Open		      off
       NumInputPorts	      "3"
       List {
@@ -1650,7 +1650,7 @@ Model {
       SID		      "758"
       Ports		      [3]
       Position		      [995, 104, 1080, 166]
-      LibraryVersion	      "1.850"
+      LibraryVersion	      "1.855"
       SourceBlock	      "library/Misc/Simout"
       SourceType	      "SubSystem"
     }
@@ -1712,6 +1712,7 @@ Model {
 	  Name			  "SWTorque"
 	  SID			  "697"
 	  Position		  [35, 33, 65, 47]
+	  BackgroundColor	  "yellow"
 	  IconDisplay		  "Port number"
 	}
 	Block {
@@ -1719,6 +1720,7 @@ Model {
 	  Name			  "curvature_LAD"
 	  SID			  "701"
 	  Position		  [35, 183, 65, 197]
+	  BackgroundColor	  "yellow"
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
@@ -1727,6 +1729,7 @@ Model {
 	  Name			  "F_left"
 	  SID			  "703"
 	  Position		  [35, 213, 65, 227]
+	  BackgroundColor	  "yellow"
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
@@ -1735,6 +1738,7 @@ Model {
 	  Name			  "F_right"
 	  SID			  "705"
 	  Position		  [35, 243, 65, 257]
+	  BackgroundColor	  "yellow"
 	  Port			  "4"
 	  IconDisplay		  "Port number"
 	}
@@ -1743,26 +1747,17 @@ Model {
 	  Name			  "y_LAD_exact"
 	  SID			  "708"
 	  Position		  [35, 333, 65, 347]
+	  BackgroundColor	  "yellow"
 	  Port			  "5"
 	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  BusCreator
-	  Name			  "Bus\nCreator1"
-	  SID			  "729"
-	  Ports			  [9, 1]
-	  Position		  [365, 407, 370, 573]
-	  ZOrder		  -2
-	  ShowName		  off
-	  Inputs		  "9"
-	  DisplayOption		  "bar"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant"
 	  SID			  "709"
-	  Position		  [480, 122, 525, 138]
+	  Position		  [515, 122, 560, 138]
 	  ZOrder		  -5
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.vx"
 	}
@@ -1770,137 +1765,37 @@ Model {
 	  BlockType		  Constant
 	  Name			  "Constant1"
 	  SID			  "710"
-	  Position		  [480, 152, 525, 168]
+	  Position		  [515, 152, 560, 168]
 	  ZOrder		  -5
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.LAD"
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "Constant11"
-	  SID			  "720"
-	  Position		  [45, 401, 270, 419]
-	  BackgroundColor	  "yellow"
+	  Name			  "Constant10"
+	  SID			  "760"
+	  Position		  [100, 456, 280, 474]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.drot"
-	  Port {
-	    PortNumber		    1
-	    Name		    "d_rot"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
+	  Value			  "pin.VehicleModel.initialValue.y_g"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant12"
-	  SID			  "722"
-	  Position		  [45, 441, 270, 459]
-	  BackgroundColor	  "yellow"
+	  SID			  "761"
+	  Position		  [100, 476, 280, 494]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.iHR"
-	  Port {
-	    PortNumber		    1
-	    Name		    "i_HR"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant13"
-	  SID			  "724"
-	  Position		  [45, 501, 270, 519]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.mR"
-	  Port {
-	    PortNumber		    1
-	    Name		    "m_right"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant14"
-	  SID			  "725"
-	  Position		  [45, 481, 270, 499]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.mL"
-	  Port {
-	    PortNumber		    1
-	    Name		    "m_left"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant15"
-	  SID			  "726"
-	  Position		  [45, 461, 270, 479]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.J"
-	  Port {
-	    PortNumber		    1
-	    Name		    "I_rot"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant16"
-	  SID			  "727"
-	  Position		  [45, 521, 270, 539]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.mr"
-	  Port {
-	    PortNumber		    1
-	    Name		    "m_rack"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant17"
-	  SID			  "728"
-	  Position		  [45, 541, 270, 559]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.V"
-	  Port {
-	    PortNumber		    1
-	    Name		    "V"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant18"
-	  SID			  "735"
-	  Position		  [45, 561, 270, 579]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.alph"
-	  Port {
-	    PortNumber		    1
-	    Name		    "alpha"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
+	  Value			  "pin.VehicleModel.initialValue.s_g"
 	}
 	Block {
 	  BlockType		  Constant
 	  Name			  "Constant2"
 	  SID			  "711"
-	  Position		  [395, 271, 570, 289]
+	  Position		  [105, 271, 280, 289]
 	  ZOrder		  -5
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.VehicleModel.initialValue.yL"
 	}
@@ -1908,36 +1803,78 @@ Model {
 	  BlockType		  Constant
 	  Name			  "Constant3"
 	  SID			  "712"
-	  Position		  [395, 301, 570, 319]
+	  Position		  [105, 301, 280, 319]
 	  ZOrder		  -5
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.VehicleModel.initialValue.epsL"
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "Constant4"
-	  SID			  "721"
-	  Position		  [45, 421, 270, 439]
-	  BackgroundColor	  "yellow"
+	  Name			  "Constant5"
+	  SID			  "762"
+	  Position		  [100, 356, 280, 374]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
-	  Value			  "pin.SteeringModel.parameter.drack"
-	  Port {
-	    PortNumber		    1
-	    Name		    "d_rack"
-	    RTWStorageClass	    "Auto"
-	    DataLoggingNameMode	    "SignalName"
-	  }
+	  Value			  "pin.VehicleModel.initialValue.sy"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant6"
+	  SID			  "763"
+	  Position		  [100, 376, 280, 394]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.vy"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant7"
+	  SID			  "764"
+	  Position		  [100, 396, 280, 414]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.psi"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant8"
+	  SID			  "765"
+	  Position		  [100, 416, 280, 434]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.psiDot"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant9"
+	  SID			  "766"
+	  Position		  [100, 436, 280, 454]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.x_g"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Single Track Model (linear)\n[Initial Values]"
+	  SID			  "767"
+	  Ports			  [7, 1]
+	  Position		  [330, 356, 490, 494]
+	  ZOrder		  -19
+	  LibraryVersion	  "1.855"
+	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Initial Values]"
+	  SourceType		  "SubSystem"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "Single Track Model (linear) \n[Parameter]"
 	  SID			  "736"
 	  Ports			  [0, 1]
-	  Position		  [210, 60, 370, 80]
+	  Position		  [330, 60, 490, 80]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.850"
-	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)\n[Parameter]"
-	  SourceType		  "Linear Single Track Model"
+	  LibraryVersion	  "1.855"
+	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
+	  SourceType		  "Linear Single Track Model Parameter"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
 	  cs_rear		  "pin.VehicleModel.parameter.csh"
 	  l_front		  "pin.VehicleModel.parameter.lv"
@@ -1949,10 +1886,10 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Single Track Model/LaneTracking/Steering Model"
 	  SID			  "695"
-	  Ports			  [11, 1]
-	  Position		  [585, 29, 755, 351]
+	  Ports			  [12, 1]
+	  Position		  [605, 30, 775, 380]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.850"
+	  LibraryVersion	  "1.855"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model//Lane Tracking//Steering Model"
 	  SourceType		  "SubSystem"
 	  Port {
@@ -1964,10 +1901,30 @@ Model {
 	  }
 	}
 	Block {
+	  BlockType		  Reference
+	  Name			  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	  SID			  "759"
+	  Ports			  [0, 1]
+	  Position		  [330, 114, 490, 136]
+	  LibraryVersion	  "1.855"
+	  SourceBlock		  "library/Vehicle Models ext./Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	  SourceType		  "Steering Model Parameter: Dynamic Steer Ratio"
+	  d_rot			  "pin.SteeringModel.parameter.drot"
+	  d_rack		  "pin.SteeringModel.parameter.drack"
+	  i_HR			  "pin.SteeringModel.parameter.iHR"
+	  I_rot			  "pin.SteeringModel.parameter.J"
+	  m_left		  "pin.SteeringModel.parameter.mL"
+	  m_right		  "pin.SteeringModel.parameter.mR"
+	  m_rack		  "pin.SteeringModel.parameter.mr"
+	  V			  "pin.SteeringModel.parameter.V"
+	  alpha			  "pin.SteeringModel.parameter.alph"
+	}
+	Block {
 	  BlockType		  Outport
 	  Name			  "VehicleState"
 	  SID			  "702"
-	  Position		  [870, 183, 900, 197]
+	  Position		  [870, 198, 900, 212]
+	  BackgroundColor	  "gray"
 	  IconDisplay		  "Port number"
 	}
 	Line {
@@ -1977,9 +1934,9 @@ Model {
 	  DstPort		  6
 	}
 	Line {
-	  SrcBlock		  "Bus\nCreator1"
+	  SrcBlock		  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
 	  SrcPort		  1
-	  Points		  [15, 0; 0, -390]
+	  Points		  [0, -25]
 	  DstBlock		  "Single Track Model/LaneTracking/Steering Model"
 	  DstPort		  3
 	}
@@ -2045,76 +2002,53 @@ Model {
 	  DstPort		  2
 	}
 	Line {
-	  Name			  "d_rot"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant11"
+	  SrcBlock		  "Constant5"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  DstPort		  1
 	}
 	Line {
-	  Name			  "d_rack"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant4"
+	  SrcBlock		  "Constant6"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  DstPort		  2
 	}
 	Line {
-	  Name			  "i_HR"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant12"
+	  SrcBlock		  "Constant7"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  DstPort		  3
 	}
 	Line {
-	  Name			  "I_rot"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant15"
+	  SrcBlock		  "Constant8"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  DstPort		  4
 	}
 	Line {
-	  Name			  "m_left"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant14"
+	  SrcBlock		  "Constant9"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  DstPort		  5
 	}
 	Line {
-	  Name			  "m_right"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant13"
+	  SrcBlock		  "Constant10"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  DstPort		  6
 	}
 	Line {
-	  Name			  "m_rack"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant16"
+	  SrcBlock		  "Constant12"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  DstPort		  7
 	}
 	Line {
-	  Name			  "V"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant17"
+	  SrcBlock		  "Single Track Model (linear)\n[Initial Values]"
 	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
-	  DstPort		  8
-	}
-	Line {
-	  Name			  "alpha"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Constant18"
-	  SrcPort		  1
-	  DstBlock		  "Bus\nCreator1"
-	  DstPort		  9
+	  Points		  [45, 0; 0, -55]
+	  DstBlock		  "Single Track Model/LaneTracking/Steering Model"
+	  DstPort		  12
 	}
       }
     }
