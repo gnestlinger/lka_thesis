@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.930"
+    ComputedModelVersion    "1.937"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Georg"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 14 18:05:29 2017"
-  RTWModifiedTimeStamp	  411415527
-  ModelVersionFormat	  "1.%<AutoIncrement:930>"
+  LastModifiedDate	  "Tue Mar 14 20:32:36 2017"
+  RTWModifiedTimeStamp	  411424353
+  ModelVersionFormat	  "1.%<AutoIncrement:937>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -769,7 +769,7 @@ Model {
   }
   System {
     Name		    "test_yL_epsL"
-    Location		    [485, 198, 1537, 865]
+    Location		    [621, 284, 1673, 951]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    241
@@ -783,7 +783,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1751"
+    SIDHighWatermark	    "1763"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -801,7 +801,7 @@ Model {
       Ports		      [1, 2]
       Position		      [80, 165, 85, 205]
       ShowName		      off
-      OutputSignals	      "curvature_LAD_Sensor,lateralOff_LAD_Sensor"
+      OutputSignals	      "LaneSensor.curvature_LAD_Sensor,LaneSensor.lateralOff_LAD_Sensor"
       Port {
 	PortNumber		1
 	Name			"<curvature_LAD_Sensor>"
@@ -839,40 +839,6 @@ Model {
       Port {
 	PortNumber		3
 	Name			"<lateralOff_LAD_nonlinear>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector2"
-      SID		      "1534"
-      Ports		      [1, 4]
-      Position		      [450, 439, 455, 521]
-      ShowName		      off
-      OutputSignals	      "VehicleState.vy,VehicleState.yawRate,LaneSensor.curvature_LAD_Sensor,LaneSensor.lateralOff_"
-      "LAD_Sensor"
-      Port {
-	PortNumber		1
-	Name			"<vy>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-      Port {
-	PortNumber		2
-	Name			"<yawRate>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-      Port {
-	PortNumber		3
-	Name			"<curvature_LAD_Sensor>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-      Port {
-	PortNumber		4
-	Name			"<lateralOff_LAD_Sensor>"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
       }
@@ -988,7 +954,7 @@ Model {
       Position		      [140, 284, 240, 426]
       BlockMirror	      on
       NamePlacement	      "alternate"
-      LibraryVersion	      "1.850"
+      LibraryVersion	      "1.855"
       SourceBlock	      "library/LKA-Controller/LQR_2int"
       SourceType	      "SubSystem"
       Port {
@@ -996,192 +962,6 @@ Model {
 	Name			"u"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "Lane Tracking"
-      SID		      "1721"
-      Ports		      [4, 2]
-      Position		      [590, 437, 720, 523]
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"Lane Tracking"
-	Location		[970, 523, 1540, 770]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "vy"
-	  SID			  "1722"
-	  Position		  [250, 53, 280, 67]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "yawRate"
-	  SID			  "1724"
-	  Position		  [250, 78, 280, 92]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "curvature_LAD"
-	  SID			  "1725"
-	  Position		  [250, 128, 280, 142]
-	  Port			  "3"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "y_LAD_exact"
-	  SID			  "1727"
-	  Position		  [255, 203, 285, 217]
-	  Port			  "4"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant"
-	  SID			  "1535"
-	  Position		  [25, 26, 205, 44]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.vx"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant2"
-	  SID			  "1687"
-	  Position		  [25, 151, 205, 169]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.initialValue.yL "
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant3"
-	  SID			  "1688"
-	  Position		  [25, 176, 205, 194]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.VehicleModel.initialValue.epsL"
-	}
-	Block {
-	  BlockType		  Constant
-	  Name			  "Constant4"
-	  SID			  "1689"
-	  Position		  [25, 101, 205, 119]
-	  BackgroundColor	  "yellow"
-	  ShowName		  off
-	  Value			  "pin.LAD"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Lane Tracking (nonlinear)"
-	  SID			  "1749"
-	  Ports			  [8, 2]
-	  Position		  [350, 23, 545, 222]
-	  LibraryVersion	  "1.849"
-	  SourceBlock		  "library/Lane Tracking/Lane Tracking Model (nonlinear)"
-	  SourceType		  "SubSystem"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "latOff_LAD"
-	  SID			  "1723"
-	  Position		  [590, 68, 620, 82]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "angDev_LAD"
-	  SID			  "1726"
-	  Position		  [590, 168, 620, 182]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "Constant4"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  4
-	}
-	Line {
-	  SrcBlock		  "Constant2"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "Constant3"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  7
-	}
-	Line {
-	  SrcBlock		  "vy"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Lane Tracking (nonlinear)"
-	  SrcPort		  1
-	  DstBlock		  "latOff_LAD"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "yawRate"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "curvature_LAD"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  5
-	}
-	Line {
-	  SrcBlock		  "Lane Tracking (nonlinear)"
-	  SrcPort		  2
-	  DstBlock		  "angDev_LAD"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "y_LAD_exact"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking (nonlinear)"
-	  DstPort		  8
-	}
-	Annotation {
-	  SID			  "1686"
-	  Position		  [145, 107]
-	}
       }
     }
     Block {
@@ -1259,7 +1039,7 @@ Model {
       Position		      [1010, 489, 1040, 521]
       ZOrder		      -3
       Floating		      off
-      Location		      [356, 457, 1249, 857]
+      Location		      [695, 224, 1588, 624]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -1277,37 +1057,6 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      off
-      DataFormat	      "StructureWithTime"
-      SampleTime	      "0"
-    }
-    Block {
-      BlockType		      Scope
-      Name		      "Scope1"
-      SID		      "1685"
-      Ports		      [1]
-      Position		      [955, 354, 985, 386]
-      ZOrder		      -3
-      ShowName		      off
-      Floating		      off
-      Location		      [502, 277, 991, 773]
-      Open		      off
-      NumInputPorts	      "1"
-      List {
-	ListType		AxesTitles
-	axes1			"%<SignalLabel>"
-      }
-      List {
-	ListType		ScopeGraphics
-	FigureColor		"[0.5 0.5 0.5]"
-	AxesColor		"[0 0 0]"
-	AxesTickColor		"[1 1 1]"
-	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
-	LineStyles		"-|-|-|-|-|-"
-	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
-	MarkerStyles		"none|none|none|none|none|none"
-      }
-      ShowLegends	      off
-      SaveName		      "ScopeData2"
       DataFormat	      "StructureWithTime"
       SampleTime	      "0"
     }
@@ -1319,7 +1068,7 @@ Model {
       Position		      [1010, 439, 1040, 471]
       ZOrder		      -3
       Floating		      off
-      Location		      [188, 319, 1340, 629]
+      Location		      [312, 343, 1464, 653]
       Open		      off
       NumInputPorts	      "1"
       List {
@@ -1429,11 +1178,11 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Videosensorik"
+	  Name			  "Lane Tracking Sensor"
 	  SID			  "1728"
 	  Ports			  [3, 1]
 	  Position		  [190, 20, 365, 80]
-	  LibraryVersion	  "1.849"
+	  LibraryVersion	  "1.852"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	}
@@ -1445,7 +1194,7 @@ Model {
 	  IconDisplay		  "Port number"
 	}
 	Line {
-	  SrcBlock		  "Videosensorik"
+	  SrcBlock		  "Lane Tracking Sensor"
 	  SrcPort		  1
 	  DstBlock		  "Sensor"
 	  DstPort		  1
@@ -1461,7 +1210,7 @@ Model {
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
 	  SrcPort		  1
-	  DstBlock		  "Videosensorik"
+	  DstBlock		  "Lane Tracking Sensor"
 	  DstPort		  1
 	}
 	Line {
@@ -1469,7 +1218,7 @@ Model {
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
 	  SrcPort		  2
-	  DstBlock		  "Videosensorik"
+	  DstBlock		  "Lane Tracking Sensor"
 	  DstPort		  2
 	}
 	Line {
@@ -1477,7 +1226,7 @@ Model {
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
 	  SrcPort		  3
-	  DstBlock		  "Videosensorik"
+	  DstBlock		  "Lane Tracking Sensor"
 	  DstPort		  3
 	}
       }
@@ -1488,7 +1237,7 @@ Model {
       SID		      "1751"
       Ports		      [3]
       Position		      [925, 19, 1010, 81]
-      LibraryVersion	      "1.850"
+      LibraryVersion	      "1.855"
       SourceBlock	      "library/Misc/Simout"
       SourceType	      "SubSystem"
     }
@@ -1549,6 +1298,7 @@ Model {
 	  Name			  "steerAngle [rad]"
 	  SID			  "1700"
 	  Position		  [35, 33, 65, 47]
+	  BackgroundColor	  "yellow"
 	  IconDisplay		  "Port number"
 	}
 	Block {
@@ -1556,6 +1306,7 @@ Model {
 	  Name			  "curvature_LAD [1/m]"
 	  SID			  "1705"
 	  Position		  [35, 133, 65, 147]
+	  BackgroundColor	  "yellow"
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
@@ -1564,6 +1315,7 @@ Model {
 	  Name			  "y_LAD_exact [m]"
 	  SID			  "1708"
 	  Position		  [35, 208, 65, 222]
+	  BackgroundColor	  "yellow"
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
@@ -1571,17 +1323,35 @@ Model {
 	  BlockType		  Constant
 	  Name			  "Constant1"
 	  SID			  "1711"
-	  Position		  [225, 81, 405, 99]
-	  BackgroundColor	  "yellow"
+	  Position		  [105, 81, 285, 99]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.vx"
 	}
 	Block {
 	  BlockType		  Constant
+	  Name			  "Constant10"
+	  SID			  "1759"
+	  Position		  [105, 326, 285, 344]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.y_g"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant12"
+	  SID			  "1761"
+	  Position		  [105, 346, 285, 364]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.s_g"
+	}
+	Block {
+	  BlockType		  Constant
 	  Name			  "Constant2"
 	  SID			  "1709"
-	  Position		  [225, 156, 405, 174]
-	  BackgroundColor	  "yellow"
+	  Position		  [105, 156, 285, 174]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.VehicleModel.initialValue.yL "
 	}
@@ -1589,8 +1359,8 @@ Model {
 	  BlockType		  Constant
 	  Name			  "Constant3"
 	  SID			  "1710"
-	  Position		  [225, 181, 405, 199]
-	  BackgroundColor	  "yellow"
+	  Position		  [105, 181, 285, 199]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.VehicleModel.initialValue.epsL"
 	}
@@ -1598,21 +1368,77 @@ Model {
 	  BlockType		  Constant
 	  Name			  "Constant4"
 	  SID			  "1712"
-	  Position		  [225, 106, 405, 124]
-	  BackgroundColor	  "yellow"
+	  Position		  [105, 106, 285, 124]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.LAD"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant5"
+	  SID			  "1754"
+	  Position		  [105, 226, 285, 244]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.sy"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant6"
+	  SID			  "1755"
+	  Position		  [105, 246, 285, 264]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.vy"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant7"
+	  SID			  "1756"
+	  Position		  [105, 266, 285, 284]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.psi"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant8"
+	  SID			  "1757"
+	  Position		  [105, 286, 285, 304]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.psiDot"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant9"
+	  SID			  "1758"
+	  Position		  [105, 306, 285, 324]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.x_g"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Single Track Model (linear)\n[Initial Values]"
+	  SID			  "1753"
+	  Ports			  [7, 1]
+	  Position		  [330, 226, 490, 364]
+	  ZOrder		  -19
+	  LibraryVersion	  "1.855"
+	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Initial Values]"
+	  SourceType		  "SubSystem"
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "Single Track Model (linear)\n[Parameter]"
 	  SID			  "1748"
 	  Ports			  [0, 1]
-	  Position		  [75, 55, 235, 75]
+	  Position		  [330, 55, 490, 75]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.849"
-	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)\n[Parameter]"
-	  SourceType		  "Linear Single Track Model"
+	  LibraryVersion	  "1.855"
+	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
+	  SourceType		  "Linear Single Track Model Parameter"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
 	  cs_rear		  "pin.VehicleModel.parameter.csh"
 	  l_front		  "pin.VehicleModel.parameter.lv"
@@ -1624,10 +1450,10 @@ Model {
 	  BlockType		  Reference
 	  Name			  "Single Track Model/LaneTracking"
 	  SID			  "1698"
-	  Ports			  [8, 1]
-	  Position		  [460, 27, 620, 228]
+	  Ports			  [9, 1]
+	  Position		  [530, 30, 690, 250]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.849"
+	  LibraryVersion	  "1.855"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model//Lane Tracking"
 	  SourceType		  "SubSystem"
 	}
@@ -1635,7 +1461,8 @@ Model {
 	  BlockType		  Outport
 	  Name			  "VehicleState"
 	  SID			  "1704"
-	  Position		  [725, 123, 755, 137]
+	  Position		  [770, 133, 800, 147]
+	  BackgroundColor	  "gray"
 	  IconDisplay		  "Port number"
 	}
 	Line {
@@ -1692,6 +1519,55 @@ Model {
 	  DstBlock		  "Single Track Model/LaneTracking"
 	  DstPort		  2
 	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -55]
+	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstPort		  9
+	}
+	Line {
+	  SrcBlock		  "Constant5"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant6"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Constant7"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Constant8"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Constant9"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Constant10"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Constant12"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)\n[Initial Values]"
+	  DstPort		  7
+	}
       }
     }
     Block {
@@ -1713,16 +1589,17 @@ Model {
       BlockType		      Scope
       Name		      "yL"
       SID		      "1667"
-      Ports		      [1]
-      Position		      [955, 244, 985, 276]
+      Ports		      [2]
+      Position		      [955, 251, 985, 284]
       ShowName		      off
       Floating		      off
-      Location		      [351, 208, 1449, 794]
+      Location		      [39, 225, 1137, 811]
       Open		      off
-      NumInputPorts	      "1"
+      NumInputPorts	      "2"
       List {
 	ListType		AxesTitles
 	axes1			"%<SignalLabel>"
+	axes2			"%<SignalLabel>"
       }
       List {
 	ListType		ScopeGraphics
@@ -1734,10 +1611,11 @@ Model {
 	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
 	MarkerStyles		"none|none|none|none|none|none"
       }
-      ShowLegends	      off
+      ShowLegends	      on
+      LegendLocations	      "0.86549     0.85469     0.08986     0.12637\n0.84675     0.38325     0.10716     0.12637"
       TimeRange		      "28"
-      YMin		      "-0.325"
-      YMax		      "0"
+      YMin		      "-0.325~-5"
+      YMax		      "0~5"
       SaveName		      "ScopeData3"
       DataFormat	      "StructureWithTime"
       LimitDataPoints	      off
@@ -1765,20 +1643,13 @@ Model {
       SrcPort		      1
       Points		      [20, 0]
       Branch {
-	Points			[25, 0]
-	Branch {
-	  DstBlock		  "Bus\nCreator"
-	  DstPort		  2
-	}
-	Branch {
-	  Points		  [0, 60; -540, 0]
-	  DstBlock		  "Bus\nSelector"
-	  DstPort		  1
-	}
-      }
-      Branch {
 	Points			[0, -125]
 	DstBlock		"Simout"
+	DstPort			2
+      }
+      Branch {
+	Points			[25, 0]
+	DstBlock		"Bus\nCreator"
 	DstPort			2
       }
     }
@@ -1791,30 +1662,30 @@ Model {
 	DstPort			1
       }
       Branch {
-	Points			[0, 120]
+	Points			[0, 85]
 	Branch {
-	  DstBlock		  "Bus\nSelector1"
-	  DstPort		  1
-	}
-	Branch {
-	  Points		  [0, 110]
+	  Points		  [0, 35]
 	  Branch {
-	    Points		    [0, 0; -255, 0]
+	    Points		    [0, 110]
+	    Branch {
+	      Points		      [0, 0]
+	      DstBlock		      "Bus\nSelector5"
+	      DstPort		      1
+	    }
 	    Branch {
 	      DstBlock		      "Bus\nSelector3"
 	      DstPort		      1
 	    }
-	    Branch {
-	      Points		      [0, 110]
-	      DstBlock		      "Bus\nSelector2"
-	      DstPort		      1
-	    }
 	  }
 	  Branch {
-	    Points		    [0, 0]
-	    DstBlock		    "Bus\nSelector5"
+	    DstBlock		    "Bus\nSelector1"
 	    DstPort		    1
 	  }
+	}
+	Branch {
+	  Points		  [0, 5; -620, 0]
+	  DstBlock		  "Bus\nSelector"
+	  DstPort		  1
 	}
       }
     }
@@ -1922,8 +1793,16 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      1
-      DstBlock		      "Mux5"
-      DstPort		      1
+      Points		      [130, 0]
+      Branch {
+	DstBlock		"Mux5"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 205]
+	DstBlock		"Subtract"
+	DstPort			1
+      }
     }
     Line {
       Name		      "<lateralOff_LAD_linear>"
@@ -1941,22 +1820,6 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "<yawRate>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector2"
-      SrcPort		      2
-      DstBlock		      "Lane Tracking"
-      DstPort		      2
-    }
-    Line {
-      Name		      "<vy>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector2"
-      SrcPort		      1
-      DstBlock		      "Lane Tracking"
-      DstPort		      1
-    }
-    Line {
       SrcBlock		      "Radians\nto Degrees"
       SrcPort		      1
       DstBlock		      "Scope4"
@@ -1967,8 +1830,16 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector5"
       SrcPort		      1
-      DstBlock		      "Mux1"
-      DstPort		      1
+      Points		      [75, 0]
+      Branch {
+	DstBlock		"Mux1"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 140]
+	DstBlock		"Subtract1"
+	DstPort			1
+      }
     }
     Line {
       Name		      "<angularDev_LAD_linear>"
@@ -1983,15 +1854,15 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector5"
       SrcPort		      3
-      Points		      [120, 0]
+      Points		      [55, 0]
       Branch {
 	DstBlock		"Mux1"
 	DstPort			3
       }
       Branch {
-	Points			[0, 110]
+	Points			[0, 125]
 	DstBlock		"Subtract1"
-	DstPort			1
+	DstPort			2
       }
     }
     Line {
@@ -1999,37 +1870,16 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      3
-      Points		      [130, 0]
+      Points		      [110, 0]
       Branch {
 	DstBlock		"Mux5"
 	DstPort			3
       }
       Branch {
-	Points			[0, 165]
+	Points			[0, 180]
 	DstBlock		"Subtract"
-	DstPort			1
+	DstPort			2
       }
-    }
-    Line {
-      Name		      "<curvature_LAD_Sensor>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector2"
-      SrcPort		      3
-      DstBlock		      "Lane Tracking"
-      DstPort		      3
-    }
-    Line {
-      SrcBlock		      "Lane Tracking"
-      SrcPort		      1
-      DstBlock		      "Subtract"
-      DstPort		      2
-    }
-    Line {
-      SrcBlock		      "Lane Tracking"
-      SrcPort		      2
-      Points		      [190, 0]
-      DstBlock		      "Subtract1"
-      DstPort		      2
     }
     Line {
       SrcBlock		      "Subtract1"
@@ -2042,8 +1892,9 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Mux1"
       SrcPort		      1
-      DstBlock		      "Scope1"
-      DstPort		      1
+      Points		      [15, 0]
+      DstBlock		      "yL"
+      DstPort		      2
     }
     Line {
       Name		      "yL"
@@ -2058,14 +1909,6 @@ Model {
       SrcPort		      1
       DstBlock		      "Scope2"
       DstPort		      1
-    }
-    Line {
-      Name		      "<lateralOff_LAD_Sensor>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector2"
-      SrcPort		      4
-      DstBlock		      "Lane Tracking"
-      DstPort		      4
     }
     Line {
       Name		      "<curvature_LAD_Sensor>"
