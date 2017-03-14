@@ -287,25 +287,27 @@ classdef segDat
 		end%fcn
 		
 		
-		function [out,latOff_LAD,angDev_LAD,curv_LAD] = ...
+		function [out,latOff_LAD,angDev_LAD,curvat_LAD,isValid_LAD] = ...
 				laneTracking(obj,xyCG_global,yawAngle_global,LAD)
 		% laneTracking  Calculate lane tracking pose.
 		%	
-		%	[~,LATOFF_LAD,ANGDEV_LAD,CURV_LAD] =
+		%	[~,LATOFF_LAD,ANGDEV_LAD,CURVAT_LAD,ISVALID_LAD] =
 		%	laneTracking(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,LAD) calculates
 		%	the lateral offset LATOFF_LAD, the angular deviation ANGDEV_LAD
-		%	and the curvature CURV_LAD at the look-ahead distance LAD in
+		%	and the curvature CURVAT_LAD at the look-ahead distances LAD in
 		%	front of the vehicles center of gravity XYCG_GLOBAL along its
-		%	longitudinal axis oriented with the angle YAWANGLE_GLOBAL with
-		%	respect to the street segment OBJ.
+		%	longitudinal axis oriented with the angle YAWANGLE_GLOBAL and
+		%	with respect to the street segment OBJ. The logical vector
+		%	ISVALID_LAD indicates if the corresponding entry of all other
+		%	output arguments is valid (true) or not (false).
 		%	
 		%	OUT = laneTracking(...) is the syntax to be used from simulink,
-		%	where OUT = [LAD;LATOFF_LAD;ANGDEV_LAD;CURV_LAD].
+		%	where OUT = [LAD;ISVALID_LAD;LATOFF_LAD;ANGDEV_LAD;CURVAT_LAD].
 		%	
-		%	The output argument size for dimension two matches the length
-		%	of input argument LAD, moreover the i-th column of every output
-		%	argument corresponds to the i-th element of look-ahead distance
-		%	LAD.
+		%	The number of columns of all output arguments matches the
+		%	length of input argument LAD, moreover the i-th column of any
+		%	output argument corresponds to the i-th element of look-ahead
+		%	distance LAD.
 		
 		% Subject: lka
 			
@@ -374,68 +376,49 @@ classdef segDat
 			[indl,indu] = obj.interpIndexRange(numIndCol,[1,length(obj.x)],m);
 			
 			% preallocation of for-loop variable
-			latOff_LAD_candidates = zeros(length(numIndCol),1);
+			lanePose_LAD_candidates = zeros(3,length(numIndCol));
 			try
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
-				for i = 1:length(latOff_LAD_candidates)
+				for i = 1:length(numIndCol)
 					% same result like interp1(..,'spline') but faster
-					latOff_LAD_candidates(i) = spline(...
+					lanePose_LAD_candidates(:,i) = spline(...
 						obj_T.x(indl(i):indu(i)),...
-						obj_T.y(indl(i):indu(i)),...
+						[obj_T.y(indl(i):indu(i));...
+						 obj_T.phi(indl(i):indu(i));...
+						 obj_T.k(indl(i):indu(i))],...
 						xyLAD_T(1,numIndRow(i)));
 				end%for
 			catch exception
 				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 				error(exception.message);
 			end%try
+			latOff_LAD_candidates = lanePose_LAD_candidates(1,:);
+			angDev_LAD_candidates = lanePose_LAD_candidates(2,:);
+			curvat_LAD_candidates = lanePose_LAD_candidates(3,:);
 			
 			
-			%%% select one of multiple lateral offsets
+			%%% select one of multiple lateral offsets per LAD-value
 			% get most possible value per LAD-value
-			latOff_LAD	=  ones(size(LAD))*inf;
-			optInd_LAD	= zeros(size(LAD));
+			latOff_LAD	= zeros(size(LAD));
+			angDev_LAD	= zeros(size(LAD));
+			curvat_LAD	= zeros(size(LAD));
+			isValid_LAD = false(size(LAD));
 			for i = 1:length(latOff_LAD_candidates)
-				
+				angDev_underTest = angDev_LAD_candidates(i);
+				curvat_underTest = curvat_LAD_candidates(i);
 				latOff_underTest = latOff_LAD_candidates(i);
-				if abs(latOff_underTest) < abs(latOff_LAD(numIndRow(i)))
-					latOff_LAD(numIndRow(i)) = latOff_underTest;
-					optInd_LAD(numIndRow(i)) = numIndCol(i);
+				if abs(latOff_underTest) < abs(latOff_LAD(numIndRow(i))) || ~isValid_LAD(numIndRow(i))
+					latOff_LAD(numIndRow(i))	= latOff_underTest;
+					angDev_LAD(numIndRow(i))	= angDev_underTest;
+					curvat_LAD(numIndRow(i))	= curvat_underTest;
+					isValid_LAD(numIndRow(i))	= true;
 				end%if
 				
 			end%for
 			
 			
-			% refresh interpolating-indices according to OPTIND_LAD
-			try
-				% OPTIND_LAD might contain zeros if LAD exceeds desired
-				% path
-				[indl,indu] = obj.interpIndexRange(optInd_LAD,[1,length(obj.x)],m);
-			catch exception
-				error(exception.message);
-			end%try
-			
-			angDev_LAD	= zeros(size(LAD));
-			curv_LAD	= zeros(size(LAD));
-			for i = 1:length(optInd_LAD)
-				% output argument DEVANG_LAD: spline-interpolation results
-				% in a much smoother error (difference of lane tracking
-				% model and this value) than atan of slope given by
-				% neighbor indexes.
-				angDev_LAD(i) = spline(...
-					obj_T.x(indl(i):indu(i)),...
-					obj_T.phi(indl(i):indu(i)),...
-					xyLAD_T(1,i));
-				
-				% output argument CURV_LAD
-				curv_LAD(i) = spline(...
-					obj_T.x(indl(i):indu(i)),...
-					obj_T.k(indl(i):indu(i)),...
-					xyLAD_T(1,i));
-				
-			end%for
-			
 			% collect all output arguments (to be used in simulink)
-			out = [LAD;latOff_LAD;angDev_LAD;curv_LAD];
+			out = [LAD;isValid_LAD;latOff_LAD;angDev_LAD;curvat_LAD];
 			
 		end%fcn
 		
