@@ -315,17 +315,17 @@ classdef segDat
 			LAD = LAD(:)';
 			
 			%%% shift origin to vehicles CG/rotate so vehicle is oriented
-			%%% along x-axis
-			% CG (transformiert)
+			%%% along global x-axis
+			% CG (transformed)
 			xyCG_T = [0;0]; % xyCG_global - xyCG_global
 			
 			% Sollbahn (transformiert)
 			obj_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
-			obj_T = rotate(obj_T,-yawAngle_global);
+			obj_T = rotate(obj_T, -yawAngle_global);
 			
 			% Koordinaten des Punkts bei look-ahead distance (transformiert)
-% 			xyLAD_T = xyCG_T + [lad;0];
 			xyLAD_T = [xyCG_T(1) + LAD; xyCG_T(2)+zeros(size(LAD))];
+			
 			
 % 			%%% shift origin to point at LAD
 % 			xyCG_T	= xyCG_T - [lad;0];
@@ -337,33 +337,27 @@ classdef segDat
 			% maximaler Abstand zwischen x-Werten der Sollbahn
 			deltaX_max = max(abs(diff(obj_T.x)));
 			
-			% depending on the shape of the desired path (e.g. closed
+			% Depending on the shape of the desired path (e.g. closed
 			% path), there might be multiple elements of the desired path
-			% within the range
-			% logical indices where V.path.x is in the range of V.LAD.x
-% 			logIndx1 = xyLAD_T(1) - deltaX_max/2 <= obj_T.x;
-% 			logIndx2 = xyLAD_T(1) + deltaX_max/2 >= obj_T.x;
-			% rows: LAD
-			% columns: street segments x-coordinate
-			logIndx1 = bsxfun(@le,...
-				xyLAD_T(1,:)' - deltaX_max/2,...
-				obj_T.x);
-			logIndx2 = bsxfun(@ge,...
-				xyLAD_T(1,:)' + deltaX_max/2,...
-				obj_T.x);
+			% whose x-ccordinates are within the range of LAD +-
+			% DELTAX_MAX/2.
+			% 
+			% Get logical indices where OBJ_T.X is in the range of LADs
+			% x-coordinate
+			%  rows: LAD 
+			%  columns: street segments x-coordinate
+			logIndx1 = bsxfun(@le,xyLAD_T(1,:)' - deltaX_max/2,obj_T.x);
+			logIndx2 = bsxfun(@ge,xyLAD_T(1,:)' + deltaX_max/2,obj_T.x);
 			logIndx = logIndx1 & logIndx2;
 			
-			% explizite Indizes für Elemente aus V.path.x im Bereich von 
-			% V.LAD.x - deltax/2 < V.path.x < V.LAD.x + deltax/2
-% 			numIndx = find(logIndx); % indx = traj.ind(logIndx);
-			% INDROW denotes the according LAD, INDCOL denotes the
-			% according x-coordinate (see LOGINDX calculation
-			% above)
-			[indRow,indCol] = find(logIndx);
+			% Numerical indices according to LOGINDX: NUMINDROW points to
+			% the according LAD, NUMINDCOL points to the according
+			% x-coordinate (see LOGINDX calculation above)
+			[numIndRow,numIndCol] = find(logIndx);
 			
-			% error if no element of 'logIndx' is true
+			% error if no element of LOGINDX is true
 			if ~any(any(logIndx))
-				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,indCol,obj_T,xyCG_T);
+				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 				error('segDat:laneTracking',...
 					['Keine Elemente der Sollbahn im Bereich der',... 
 					' aktuellen Fahrzeugposition gefunden'])
@@ -371,70 +365,62 @@ classdef segDat
 			
 % 			plotLaneTracking(obj,xyCG_global,yawAngle_global,lad,indCol,obj_T,xyCG_T);
 			
+			
 			%%% get lateral offset for potential elements
-			% interpolation index-range: values>1 mainly increase the
+			% interpolation index-range: m>1 mainly increase the
 			% calculation time, lateral offset and angular deviation are
 			% rarely affected.
 			m = 1;
-			[indl,indu] = obj.interpIndexRange(indCol,[1,length(obj.x)],m);
+			[indl,indu] = obj.interpIndexRange(numIndCol,[1,length(obj.x)],m);
 			
 			% preallocation of for-loop variable
-			latOff_LAD_potential = zeros(length(indCol),1);
+			latOff_LAD_candidates = zeros(length(numIndCol),1);
 			try
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
-				for i = 1:length(latOff_LAD_potential)					
+				for i = 1:length(latOff_LAD_candidates)
 					% same result like interp1(..,'spline') but faster
-					latOff_LAD_potential(i) = spline(...
+					latOff_LAD_candidates(i) = spline(...
 						obj_T.x(indl(i):indu(i)),...
 						obj_T.y(indl(i):indu(i)),...
-						xyLAD_T(1,indRow(i)));
+						xyLAD_T(1,numIndRow(i)));
 				end%for
 			catch exception
 				disp(exception.message);
-				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,indCol,obj_T,xyCG_T);
+				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 			end%try
 			
 			
 			%%% select one of multiple lateral offsets
-			% wähle "wahrscheinlichsten" (betragsmäßig kleinsten) Wert aus,
-			% falls > 1 y-Wert zu einem x-Wert existiert (zb. bei
-			% geschlossener Solltrajektorie)
-% 			if length(numIndx) < 2
-% 				minInd = 1;
-% 			else
-% 				[~,minInd] = min(abs(latOff_LAD_potential));
-% 			end%if
-% 			
-% 			% output argument LATOFF_LAD
-% 			latOff_LAD = latOff_LAD_potential(minInd);
-			
 			% get most possible value per LAD-value
 			latOff_LAD	=  ones(size(LAD))*inf;
-			minInd		= zeros(size(LAD));
-			for i = 1:length(latOff_LAD_potential)
-				latOff_underTest = latOff_LAD_potential(i);
-				if abs(latOff_underTest) < abs(latOff_LAD(indRow(i)))
-					latOff_LAD(indRow(i)) = latOff_underTest;
-					minInd(indRow(i)) = indCol(i);
+			optInd_LAD	= zeros(size(LAD));
+			for i = 1:length(latOff_LAD_candidates)
+				
+				latOff_underTest = latOff_LAD_candidates(i);
+				if abs(latOff_underTest) < abs(latOff_LAD(numIndRow(i)))
+					latOff_LAD(numIndRow(i)) = latOff_underTest;
+					optInd_LAD(numIndRow(i)) = numIndCol(i);
 				end%if
+				
 			end%for
 			
 			
-			
-			% refresh interpolating-indices according to MININD
-			[indl,indu] = obj.interpIndexRange(minInd,[1,length(obj.x)],m);
+			% refresh interpolating-indices according to OPTIND_LAD
+			try
+				% OPTIND_LAD might contain zeros if LAD exceeds desired
+				% path
+				[indl,indu] = obj.interpIndexRange(optInd_LAD,[1,length(obj.x)],m);
+			catch exception
+				disp(exception.message);
+			end%try
 			
 			angDev_LAD	= zeros(size(LAD));
 			curv_LAD	= zeros(size(LAD));
-			for i = 1:length(minInd)
-				% output argument DEVANG_LAD: spline-interpolation results in a
-				% much smoother error (difference of lane tracking model and
-				% this value) than atan of slope given by neighbor indexes.
-				% Tangentenvektor
-	% 			tangent = [...
-	% 				obj_T.x(indu)-obj_T.x(indl);...
-	% 				obj_T.y(indu)-obj_T.y(indl)];
-	% 			angDev_LAD = atan2(tangent(2),tangent(1));
+			for i = 1:length(optInd_LAD)
+				% output argument DEVANG_LAD: spline-interpolation results
+				% in a much smoother error (difference of lane tracking
+				% model and this value) than atan of slope given by
+				% neighbor indexes.
 				angDev_LAD(i) = spline(...
 					obj_T.x(indl(i):indu(i)),...
 					obj_T.phi(indl(i):indu(i)),...
