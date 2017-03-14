@@ -288,11 +288,11 @@ classdef segDat
 		
 		
 		function [out,latOff_LAD,angDev_LAD,curv_LAD] = ...
-				laneTracking(obj,xyCG_global,yawAngle_global,lad)
+				laneTracking(obj,xyCG_global,yawAngle_global,LAD)
 		% laneTracking  Calculate lane tracking pose.
 		%	
 		%	[~,LATOFF_LAD,ANGDEV_LAD,CURV_LAD] =
-		%	laneTracking(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,lad) calculates
+		%	laneTracking(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,LAD) calculates
 		%	the lateral offset LATOFF_LAD, the angular deviation ANGDEV_LAD
 		%	and the curvature CURV_LAD at the look-ahead distance LAD in
 		%	front of the vehicles center of gravity XYCG_GLOBAL along its
@@ -300,15 +300,19 @@ classdef segDat
 		%	respect to the street segment OBJ.
 		%	
 		%	OUT = laneTracking(...) is the syntax to be used from simulink,
-		%	where OUT = [LATOFF_LAD;ANGDEV_LAD;CURV_LAD].
+		%	where OUT = [LAD;LATOFF_LAD;ANGDEV_LAD;CURV_LAD].
 		%	
+		%	The output argument size for dimension two matches the length
+		%	of input argument LAD, moreover the i-th column of every output
+		%	argument corresponds to the i-th element of look-ahead distance
+		%	LAD.
 		
 		% Subject: lka
 			
 			% Methode: Koordinatentransformation
 			
 			% ensure row format
-			lad = lad(:)';
+			LAD = LAD(:)';
 			
 			%%% shift origin to vehicles CG/rotate so vehicle is oriented
 			%%% along x-axis
@@ -321,7 +325,7 @@ classdef segDat
 			
 			% Koordinaten des Punkts bei look-ahead distance (transformiert)
 % 			xyLAD_T = xyCG_T + [lad;0];
-			xyLAD_T = [xyCG_T(1) + lad; xyCG_T(2)+zeros(size(lad))];
+			xyLAD_T = [xyCG_T(1) + LAD; xyCG_T(2)+zeros(size(LAD))];
 			
 % 			%%% shift origin to point at LAD
 % 			xyCG_T	= xyCG_T - [lad;0];
@@ -359,14 +363,12 @@ classdef segDat
 			
 			% error if no element of 'logIndx' is true
 			if ~any(any(logIndx))
-% 				obj.doPlot(obj,obj_T,xyCG_global,xyCG_T,yawAngle_global,lad,numIndx);
-				plotLaneTracking(obj,xyCG_global,yawAngle_global,lad,indCol,obj_T,xyCG_T);
+				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,indCol,obj_T,xyCG_T);
 				error('segDat:laneTracking',...
 					['Keine Elemente der Sollbahn im Bereich der',... 
 					' aktuellen Fahrzeugposition gefunden'])
 			end%if
 			
-% 			obj.doPlot(obj,obj_T,xyCG_global,xyCG_T,yawAngle_global,lad,numIndx);
 % 			plotLaneTracking(obj,xyCG_global,yawAngle_global,lad,indCol,obj_T,xyCG_T);
 			
 			%%% get lateral offset for potential elements
@@ -374,23 +376,22 @@ classdef segDat
 			% calculation time, lateral offset and angular deviation are
 			% rarely affected.
 			m = 1;
+			[indl,indu] = obj.interpIndexRange(indCol,[1,length(obj.x)],m);
 			
 			% preallocation of for-loop variable
 			latOff_LAD_potential = zeros(length(indCol),1);
 			try
 				% Inter- bzw. Extrapoliere y-Werte der transf. Solltrajektorie
-				for i = 1:length(latOff_LAD_potential)
-					[indl,indu] = obj.interpIndexRange(indCol(i),[1,length(obj.x)],m);
-					
+				for i = 1:length(latOff_LAD_potential)					
 					% same result like interp1(..,'spline') but faster
 					latOff_LAD_potential(i) = spline(...
-						obj_T.x(indl:indu),...
-						obj_T.y(indl:indu),...
+						obj_T.x(indl(i):indu(i)),...
+						obj_T.y(indl(i):indu(i)),...
 						xyLAD_T(1,indRow(i)));
 				end%for
 			catch exception
 				disp(exception.message);
-				plotLaneTracking(obj,xyCG_global,yawAngle_global,lad,indCol,obj_T,xyCG_T);
+				plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,indCol,obj_T,xyCG_T);
 			end%try
 			
 			
@@ -408,8 +409,8 @@ classdef segDat
 % 			latOff_LAD = latOff_LAD_potential(minInd);
 			
 			% get most possible value per LAD-value
-			latOff_LAD	=  ones(size(lad))*inf;
-			minInd		= zeros(size(lad));
+			latOff_LAD	=  ones(size(LAD))*inf;
+			minInd		= zeros(size(LAD));
 			for i = 1:length(latOff_LAD_potential)
 				latOff_underTest = latOff_LAD_potential(i);
 				if abs(latOff_underTest) < abs(latOff_LAD(indRow(i)))
@@ -417,15 +418,15 @@ classdef segDat
 					minInd(indRow(i)) = indCol(i);
 				end%if
 			end%for
-						
 			
 			
-			angDev_LAD	= zeros(size(lad));
-			curv_LAD	= zeros(size(lad));
+			
+			% refresh interpolating-indices according to MININD
+			[indl,indu] = obj.interpIndexRange(minInd,[1,length(obj.x)],m);
+			
+			angDev_LAD	= zeros(size(LAD));
+			curv_LAD	= zeros(size(LAD));
 			for i = 1:length(minInd)
-				% refresh interpolating-indices according to MININD
-				[indl,indu] = obj.interpIndexRange(minInd(i),[1,length(obj.x)],m);
-			
 				% output argument DEVANG_LAD: spline-interpolation results in a
 				% much smoother error (difference of lane tracking model and
 				% this value) than atan of slope given by neighbor indexes.
@@ -435,20 +436,20 @@ classdef segDat
 	% 				obj_T.y(indu)-obj_T.y(indl)];
 	% 			angDev_LAD = atan2(tangent(2),tangent(1));
 				angDev_LAD(i) = spline(...
-					obj_T.x(indl:indu),...
-					obj_T.phi(indl:indu),...
+					obj_T.x(indl(i):indu(i)),...
+					obj_T.phi(indl(i):indu(i)),...
 					xyLAD_T(1,i));
-
+				
 				% output argument CURV_LAD
 				curv_LAD(i) = spline(...
-					obj_T.x(indl:indu),...
-					obj_T.k(indl:indu),...
+					obj_T.x(indl(i):indu(i)),...
+					obj_T.k(indl(i):indu(i)),...
 					xyLAD_T(1,i));
-			
+				
 			end%for
 			
 			% collect all output arguments (to be used in simulink)
-			out = [latOff_LAD;angDev_LAD;curv_LAD];
+			out = [LAD;latOff_LAD;angDev_LAD;curv_LAD];
 			
 		end%fcn
 		
