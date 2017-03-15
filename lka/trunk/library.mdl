@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 15 07:28:32 2017"
-  RTWModifiedTimeStamp	  411463486
-  ModelVersionFormat	  "1.%<AutoIncrement:856>"
+  LastModifiedDate	  "Wed Mar 15 09:40:58 2017"
+  RTWModifiedTimeStamp	  411471655
+  ModelVersionFormat	  "1.%<AutoIncrement:859>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -655,6 +655,13 @@ Library {
       BusSelectionMode	      off
     }
     Block {
+      BlockType		      Display
+      Format		      "short"
+      Decimation	      "10"
+      Floating		      off
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      Fcn
       Expr		      "sin(u[1])"
       SampleTime	      "-1"
@@ -771,6 +778,20 @@ Library {
       SampleTime	      "-1"
     }
     Block {
+      BlockType		      S-Function
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+      SFunctionDeploymentMode off
+    }
+    Block {
+      BlockType		      Selector
+      NumberOfDimensions      "1"
+      IndexMode		      "One-based"
+      InputPortWidth	      "-1"
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      SubSystem
       ShowPortLabels	      "FromPortIcon"
       Permissions	      "ReadWrite"
@@ -833,7 +854,7 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [381, 100, 1799, 959]
+    Location		    [394, 110, 1812, 969]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    319
@@ -847,7 +868,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3301"
+    SIDHighWatermark	    "3347"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -3014,7 +3035,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"Lane Tracking"
-	Location		[438, 118, 1856, 977]
+	Location		[394, 110, 1812, 969]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
@@ -3915,9 +3936,9 @@ Library {
 	  BlockType		  SubSystem
 	  Name			  "Lane Tracking Sensor"
 	  SID			  "340"
-	  Ports			  [3, 1]
+	  Ports			  [4, 1]
 	  Position		  [695, 24, 875, 136]
-	  LibraryVersion	  "*1.847"
+	  LibraryVersion	  "*1.857"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -3927,16 +3948,16 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Lane Tracking Sensor"
-	    Location		    [559, 168, 1794, 882]
+	    Location		    [484, 173, 1536, 820]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
 	    ScreenColor		    "white"
 	    PaperOrientation	    "landscape"
 	    PaperPositionMode	    "auto"
-	    PaperType		    "usletter"
-	    PaperUnits		    "inches"
-	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
 	    ZoomFactor		    "100"
@@ -3944,9 +3965,13 @@ Library {
 	      BlockType		      Inport
 	      Name		      "x_global [m]"
 	      SID		      "874"
-	      Position		      [20, 73, 50, 87]
+	      Position		      [20, 23, 50, 37]
 	      BackgroundColor	      "yellow"
 	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
 	      Port {
 		PortNumber		1
 		PropagatedSignals	"x_global"
@@ -3959,10 +3984,14 @@ Library {
 	      BlockType		      Inport
 	      Name		      "y_global [m]"
 	      SID		      "2618"
-	      Position		      [20, 103, 50, 117]
+	      Position		      [20, 53, 50, 67]
 	      BackgroundColor	      "yellow"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
 	      Port {
 		PortNumber		1
 		PropagatedSignals	"y_global"
@@ -3975,10 +4004,14 @@ Library {
 	      BlockType		      Inport
 	      Name		      "yawAngle [rad]"
 	      SID		      "2619"
-	      Position		      [20, 133, 50, 147]
+	      Position		      [20, 83, 50, 97]
 	      BackgroundColor	      "yellow"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
 	      Port {
 		PortNumber		1
 		PropagatedSignals	"yawAngle"
@@ -3988,10 +4021,23 @@ Library {
 	      }
 	    }
 	    Block {
+	      BlockType		      Inport
+	      Name		      "LAD [m]"
+	      SID		      "3336"
+	      Position		      [20, 113, 50, 127]
+	      BackgroundColor	      "yellow"
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
 	      BlockType		      DataTypeConversion
 	      Name		      "Data Type Conversion"
 	      SID		      "3167"
-	      Position		      [385, 70, 450, 90]
+	      Position		      [405, 80, 455, 100]
 	      ZOrder		      -7
 	      ShowName		      off
 	      OutDataTypeStr	      "boolean"
@@ -3999,21 +4045,69 @@ Library {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
-	      BlockType		      Demux
-	      Name		      "Demux"
-	      SID		      "877"
-	      Ports		      [1, 5]
-	      Position		      [360, 31, 365, 189]
+	      BlockType		      Display
+	      Name		      "Display1"
+	      SID		      "3330"
+	      Ports		      [1]
+	      Position		      [505, 468, 845, 492]
+	      ZOrder		      -1
 	      ShowName		      off
-	      Outputs		      "5"
-	      DisplayOption	      "bar"
+	      Decimation	      "1"
+	      Lockdown		      off
+	    }
+	    Block {
+	      BlockType		      Display
+	      Name		      "Display2"
+	      SID		      "3335"
+	      Ports		      [1]
+	      Position		      [505, 493, 845, 517]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Decimation	      "1"
+	      Lockdown		      off
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn"
+	      SID		      "3337"
+	      Position		      [615, 25, 655, 45]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Expr		      "u(1)"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn1"
+	      SID		      "3344"
+	      Position		      [615, 135, 655, 155]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Expr		      "u(1)"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn2"
+	      SID		      "3345"
+	      Position		      [615, 190, 655, 210]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Expr		      "u(1)"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn3"
+	      SID		      "3346"
+	      Position		      [615, 245, 655, 265]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Expr		      "u(1)"
 	    }
 	    Block {
 	      BlockType		      SubSystem
 	      Name		      "Interface Lane Sensor"
 	      SID		      "3135"
-	      Ports		      [5, 1]
-	      Position		      [535, 38, 700, 182]
+	      Ports		      [8, 1]
+	      Position		      [785, 13, 930, 442]
 	      LibraryVersion	      "*1.847"
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
@@ -4030,16 +4124,16 @@ Library {
 	      }
 	      System {
 		Name			"Interface Lane Sensor"
-		Location		[438, 118, 1856, 977]
+		Location		[375, 166, 1591, 927]
 		Open			off
 		ModelBrowserVisibility	on
 		ModelBrowserWidth	200
 		ScreenColor		"white"
 		PaperOrientation	"landscape"
 		PaperPositionMode	"auto"
-		PaperType		"usletter"
-		PaperUnits		"inches"
-		TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
@@ -4047,7 +4141,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "LAD [m]"
 		  SID			  "3136"
-		  Position		  [40, 23, 70, 37]
+		  Position		  [50, 23, 80, 37]
 		  BackgroundColor	  "yellow"
 		  IconDisplay		  "Port number"
 		  OutDataTypeStr	  "double"
@@ -4064,7 +4158,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "isValid_LAD [-]"
 		  SID			  "3137"
-		  Position		  [40, 53, 70, 67]
+		  Position		  [50, 58, 80, 72]
 		  BackgroundColor	  "yellow"
 		  Port			  "2"
 		  IconDisplay		  "Port number"
@@ -4072,7 +4166,7 @@ Library {
 		  VarSizeSig		  "No"
 		  Port {
 		    PortNumber		    1
-		    Name		    "isValid_LAD"
+		    Name		    "isValid_LAD_Sensor"
 		    RTWStorageClass	    "Auto"
 		    DataLoggingNameMode	    "SignalName"
 		  }
@@ -4081,7 +4175,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "lateralOff_LAD [m]"
 		  SID			  "3147"
-		  Position		  [40, 83, 70, 97]
+		  Position		  [50, 93, 80, 107]
 		  BackgroundColor	  "yellow"
 		  Port			  "3"
 		  IconDisplay		  "Port number"
@@ -4099,7 +4193,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "angularDev_LAD [rad]"
 		  SID			  "3148"
-		  Position		  [40, 113, 70, 127]
+		  Position		  [50, 128, 80, 142]
 		  BackgroundColor	  "yellow"
 		  Port			  "4"
 		  IconDisplay		  "Port number"
@@ -4117,7 +4211,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "roadCurv_LAD [1/m]"
 		  SID			  "3149"
-		  Position		  [40, 143, 70, 157]
+		  Position		  [50, 163, 80, 177]
 		  BackgroundColor	  "yellow"
 		  Port			  "5"
 		  IconDisplay		  "Port number"
@@ -4132,24 +4226,105 @@ Library {
 		  }
 		}
 		Block {
+		  BlockType		  Inport
+		  Name			  "polyCoeff_latOff_LAD [m]"
+		  SID			  "3323"
+		  Position		  [50, 198, 80, 212]
+		  BackgroundColor	  "yellow"
+		  Port			  "6"
+		  IconDisplay		  "Port number"
+		  OutDataTypeStr	  "double"
+		  VarSizeSig		  "No"
+		  SignalType		  "real"
+		  Port {
+		    PortNumber		    1
+		    Name		    "poly_lateralOff_LAD_Sensor"
+		    PropagatedSignals	    "poly_lateralOff_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "polyCoeff_angDev_LAD [rad]"
+		  SID			  "3324"
+		  Position		  [50, 233, 80, 247]
+		  BackgroundColor	  "yellow"
+		  Port			  "7"
+		  IconDisplay		  "Port number"
+		  OutDataTypeStr	  "double"
+		  VarSizeSig		  "No"
+		  SignalType		  "real"
+		  Port {
+		    PortNumber		    1
+		    Name		    "poly_angularDev_LAD_Sensor"
+		    PropagatedSignals	    "poly_angularDev_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "polyCoeff_roadCurv_LAD [1/m]"
+		  SID			  "3325"
+		  Position		  [50, 268, 80, 282]
+		  BackgroundColor	  "yellow"
+		  Port			  "8"
+		  IconDisplay		  "Port number"
+		  OutDataTypeStr	  "double"
+		  VarSizeSig		  "No"
+		  SignalType		  "real"
+		  Port {
+		    PortNumber		    1
+		    Name		    "poly_roadCurvat_LAD_Sensor"
+		    PropagatedSignals	    "poly_roadCurvat_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
 		  BlockType		  BusCreator
 		  Name			  "Bus\nCreator"
 		  SID			  "3150"
-		  Ports			  [5, 1]
-		  Position		  [250, 13, 255, 167]
+		  Ports			  [8, 1]
+		  Position		  [330, 18, 335, 287]
 		  ZOrder		  -2
 		  ShowName		  off
-		  Inputs		  "5"
+		  Inputs		  "8"
 		  DisplayOption		  "bar"
 		}
 		Block {
 		  BlockType		  Outport
 		  Name			  "LaneSensor"
 		  SID			  "3151"
-		  Position		  [320, 83, 350, 97]
+		  Position		  [400, 148, 430, 162]
 		  ZOrder		  -9
 		  BackgroundColor	  "gray"
 		  IconDisplay		  "Port number"
+		}
+		Line {
+		  Name			  "poly_roadCurvat_LAD_Sensor"
+		  Labels		  [0, 0]
+		  SrcBlock		  "polyCoeff_roadCurv_LAD [1/m]"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  8
+		}
+		Line {
+		  Name			  "poly_angularDev_LAD_Sensor"
+		  Labels		  [0, 0]
+		  SrcBlock		  "polyCoeff_angDev_LAD [rad]"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  7
+		}
+		Line {
+		  Name			  "poly_lateralOff_LAD_Sensor"
+		  Labels		  [0, 0]
+		  SrcBlock		  "polyCoeff_latOff_LAD [m]"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  6
 		}
 		Line {
 		  Name			  "LAD_Sensor"
@@ -4160,7 +4335,7 @@ Library {
 		  DstPort		  1
 		}
 		Line {
-		  Name			  "isValid_LAD"
+		  Name			  "isValid_LAD_Sensor"
 		  Labels		  [0, 0]
 		  SrcBlock		  "isValid_LAD [-]"
 		  SrcPort		  1
@@ -4197,47 +4372,543 @@ Library {
 		  DstBlock		  "LaneSensor"
 		  DstPort		  1
 		}
+		Annotation {
+		  SID			  "3342"
+		  Name			  "Define bus signal names here!"
+		  Position		  [132, 342]
+		  BackgroundColor	  "[1.000000, 0.501961, 0.501961]"
+		  FontName		  "Consolas"
+		  FontSize		  12
+		}
 	      }
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "LAD for \npoly-fitting"
+	      SID		      "3328"
+	      Position		      [15, 143, 65, 157]
+	      ZOrder		      -5
+	      Value		      "[0 20]"
 	    }
 	    Block {
 	      BlockType		      MATLABFcn
 	      Name		      "MATLAB Fcn"
 	      SID		      "878"
 	      Ports		      [1, 1]
-	      Position		      [250, 95, 320, 125]
-	      MATLABFcn		      "lkaLaneTracking(pin.traj_sd,u(1:2),u(3),pin.LAD)"
+	      Position		      [170, 20, 240, 50]
+	      MATLABFcn		      "lkaLaneTracking(pin.traj_sd,u(1:2),u(3),u(4:end))"
 	      Output1D		      off
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "MATLAB Function"
+	      SID		      "3306"
+	      Ports		      [5, 3]
+	      Position		      [505, 280, 720, 450]
+	      ZOrder		      -4
+	      LibraryVersion	      "1.32"
+	      ErrorFcn		      "Stateflow.Translate.translate"
+	      PermitHierarchicalResolution "ExplicitOnly"
+	      TreatAsAtomicUnit	      on
+	      MinAlgLoopOccurrences   off
+	      PropExecContextOutsideSubsystem off
+	      RTWSystemCode	      "Auto"
+	      FunctionWithSeparateData off
+	      Opaque		      off
+	      RequestExecContextInheritance off
+	      MaskHideContents	      off
+	      SFBlockType	      "MATLAB Function"
+	      MaskType		      "Stateflow"
+	      MaskDescription	      "Embedded MATLAB block"
+	      MaskSelfModifiable      on
+	      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('p"
+	      "rivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'polyFitLaneSensor']);"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      off
+	      MaskIconRotate	      "none"
+	      MaskPortRotate	      "default"
+	      MaskIconUnits	      "normalized"
+	      System {
+		Name			"MATLAB Function"
+		Location		[257, 457, 812, 717]
+		Open			off
+		ModelBrowserVisibility	on
+		ModelBrowserWidth	200
+		ScreenColor		"white"
+		PaperOrientation	"landscape"
+		PaperPositionMode	"auto"
+		PaperType		"A4"
+		PaperUnits		"centimeters"
+		TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+		TiledPageScale		1
+		ShowPageBoundaries	off
+		ZoomFactor		"100"
+		SIDHighWatermark	"37"
+		Block {
+		  BlockType		  Inport
+		  Name			  "LAD"
+		  SID			  "3306::30"
+		  Position		  [20, 101, 40, 119]
+		  ZOrder		  16
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "isValid_LAD"
+		  SID			  "3306::31"
+		  Position		  [20, 136, 40, 154]
+		  ZOrder		  17
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "lateralOff_LAD"
+		  SID			  "3306::32"
+		  Position		  [20, 171, 40, 189]
+		  ZOrder		  18
+		  Port			  "3"
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "angularDev_LAD"
+		  SID			  "3306::33"
+		  Position		  [20, 206, 40, 224]
+		  ZOrder		  19
+		  Port			  "4"
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Inport
+		  Name			  "roadCurvat_LAD"
+		  SID			  "3306::34"
+		  Position		  [20, 246, 40, 264]
+		  ZOrder		  20
+		  Port			  "5"
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Demux
+		  Name			  " Demux "
+		  SID			  "3306::2"
+		  Ports			  [1, 1]
+		  Position		  [270, 220, 320, 260]
+		  ZOrder		  33
+		  Outputs		  "1"
+		}
+		Block {
+		  BlockType		  S-Function
+		  Name			  " SFunction "
+		  SID			  "3306::1"
+		  Tag			  "Stateflow S-Function library 2"
+		  Ports			  [5, 4]
+		  Position		  [180, 100, 230, 220]
+		  ZOrder		  32
+		  FunctionName		  "sf_sfun"
+		  PortCounts		  "[5 4]"
+		  EnableBusSupport	  off
+		  Port {
+		    PortNumber		    2
+		    Name		    "poly_lateralOff_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		  Port {
+		    PortNumber		    3
+		    Name		    "poly_angularDev_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		  Port {
+		    PortNumber		    4
+		    Name		    "poly_roadCurvat_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
+		  BlockType		  Terminator
+		  Name			  " Terminator "
+		  SID			  "3306::4"
+		  Position		  [460, 231, 480, 249]
+		  ZOrder		  35
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "poly_lateralOff_LAD"
+		  SID			  "3306::35"
+		  Position		  [460, 101, 480, 119]
+		  ZOrder		  21
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "poly_angularDev_LAD"
+		  SID			  "3306::36"
+		  Position		  [460, 136, 480, 154]
+		  ZOrder		  22
+		  Port			  "2"
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "poly_roadCurvat_LAD"
+		  SID			  "3306::37"
+		  Position		  [460, 171, 480, 189]
+		  ZOrder		  23
+		  Port			  "3"
+		  IconDisplay		  "Port number"
+		}
+		Line {
+		  SrcBlock		  "LAD"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  "isValid_LAD"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  2
+		}
+		Line {
+		  SrcBlock		  "lateralOff_LAD"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  3
+		}
+		Line {
+		  SrcBlock		  "angularDev_LAD"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  4
+		}
+		Line {
+		  SrcBlock		  "roadCurvat_LAD"
+		  SrcPort		  1
+		  DstBlock		  " SFunction "
+		  DstPort		  5
+		}
+		Line {
+		  Name			  "poly_lateralOff_LAD"
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  2
+		  DstBlock		  "poly_lateralOff_LAD"
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "poly_angularDev_LAD"
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  3
+		  DstBlock		  "poly_angularDev_LAD"
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "poly_roadCurvat_LAD"
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  4
+		  DstBlock		  "poly_roadCurvat_LAD"
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  " Demux "
+		  SrcPort		  1
+		  DstBlock		  " Terminator "
+		  DstPort		  1
+		}
+		Line {
+		  SrcBlock		  " SFunction "
+		  SrcPort		  1
+		  DstBlock		  " Demux "
+		  DstPort		  1
+		}
+	      }
 	    }
 	    Block {
 	      BlockType		      Mux
 	      Name		      "Mux3"
 	      SID		      "879"
-	      Ports		      [3, 1]
-	      Position		      [185, 68, 190, 152]
+	      Ports		      [5, 1]
+	      Position		      [115, 17, 120, 163]
 	      ShowName		      off
-	      Inputs		      "3"
+	      Inputs		      "5"
 	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Selector"
+	      SID		      "3343"
+	      Ports		      [1, 1]
+	      Position		      [615, 71, 655, 109]
+	      ZOrder		      -17
+	      NumberOfDimensions      "2"
+	      InputPortWidth	      "1"
+	      IndexOptions	      "Index vector (dialog),Index vector (dialog)"
+	      Indices		      "1,1"
+	      OutputSizes	      "1,1"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Selector1"
+	      SID		      "3307"
+	      Ports		      [1, 1]
+	      Position		      [305, 16, 345, 54]
+	      ZOrder		      -17
+	      NumberOfDimensions      "2"
+	      InputPortWidth	      "3"
+	      IndexOptions	      "Index vector (dialog),Select all"
+	      Indices		      "1,1"
+	      OutputSizes	      "1,3"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Selector2"
+	      SID		      "3308"
+	      Ports		      [1, 1]
+	      Position		      [305, 71, 345, 109]
+	      ZOrder		      -17
+	      NumberOfDimensions      "2"
+	      InputPortWidth	      "3"
+	      IndexOptions	      "Index vector (dialog),Select all"
+	      Indices		      "2,1"
+	      OutputSizes	      "1,3"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Selector3"
+	      SID		      "3309"
+	      Ports		      [1, 1]
+	      Position		      [305, 126, 345, 164]
+	      ZOrder		      -17
+	      NumberOfDimensions      "2"
+	      InputPortWidth	      "3"
+	      IndexOptions	      "Index vector (dialog),Select all"
+	      Indices		      "3,1"
+	      OutputSizes	      "1,3"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Selector4"
+	      SID		      "3310"
+	      Ports		      [1, 1]
+	      Position		      [305, 181, 345, 219]
+	      ZOrder		      -17
+	      NumberOfDimensions      "2"
+	      InputPortWidth	      "3"
+	      IndexOptions	      "Index vector (dialog),Select all"
+	      Indices		      "4,1"
+	      OutputSizes	      "1,3"
+	    }
+	    Block {
+	      BlockType		      Selector
+	      Name		      "Selector5"
+	      SID		      "3312"
+	      Ports		      [1, 1]
+	      Position		      [305, 236, 345, 274]
+	      ZOrder		      -17
+	      NumberOfDimensions      "2"
+	      InputPortWidth	      "3"
+	      IndexOptions	      "Index vector (dialog),Select all"
+	      Indices		      "5,1"
+	      OutputSizes	      "1,3"
 	    }
 	    Block {
 	      BlockType		      Outport
 	      Name		      "LaneSensor"
 	      SID		      "3169"
-	      Position		      [830, 103, 860, 117]
+	      Position		      [1005, 223, 1035, 237]
 	      ZOrder		      -9
 	      BackgroundColor	      "gray"
 	      IconDisplay	      "Port number"
 	    }
 	    Line {
-	      SrcBlock		      "Data Type Conversion"
+	      SrcBlock		      "Fcn3"
+	      SrcPort		      1
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Fcn2"
+	      SrcPort		      1
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Fcn1"
+	      SrcPort		      1
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Selector"
 	      SrcPort		      1
 	      DstBlock		      "Interface Lane Sensor"
 	      DstPort		      2
 	    }
 	    Line {
+	      SrcBlock		      "Fcn"
+	      SrcPort		      1
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "LAD [m]"
+	      SrcPort		      1
+	      DstBlock		      "Mux3"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "LAD for \npoly-fitting"
+	      SrcPort		      1
+	      DstBlock		      "Mux3"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "MATLAB Function"
+	      SrcPort		      3
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      8
+	    }
+	    Line {
+	      SrcBlock		      "MATLAB Function"
+	      SrcPort		      2
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "MATLAB Function"
+	      SrcPort		      1
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "Data Type Conversion"
+	      SrcPort		      1
+	      Points		      [5, 0]
+	      Branch {
+		Points			[0, 240]
+		Branch {
+		  Points		  [0, 175]
+		  DstBlock		  "Display2"
+		  DstPort		  1
+		}
+		Branch {
+		  DstBlock		  "MATLAB Function"
+		  DstPort		  2
+		}
+	      }
+	      Branch {
+		DstBlock		"Selector"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Selector5"
+	      SrcPort		      1
+	      Points		      [70, 0]
+	      Branch {
+		DstBlock		"Fcn3"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 180]
+		DstBlock		"MATLAB Function"
+		DstPort			5
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Selector4"
+	      SrcPort		      1
+	      Points		      [85, 0]
+	      Branch {
+		DstBlock		"Fcn2"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 200]
+		DstBlock		"MATLAB Function"
+		DstPort			4
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Selector3"
+	      SrcPort		      1
+	      Points		      [100, 0]
+	      Branch {
+		DstBlock		"Fcn1"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 220]
+		DstBlock		"MATLAB Function"
+		DstPort			3
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Selector2"
+	      SrcPort		      1
+	      DstBlock		      "Data Type Conversion"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Selector1"
+	      SrcPort		      1
+	      Points		      [130, 0]
+	      Branch {
+		Points			[0, 260]
+		Branch {
+		  Points		  [0, 185]
+		  DstBlock		  "Display1"
+		  DstPort		  1
+		}
+		Branch {
+		  DstBlock		  "MATLAB Function"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		DstBlock		"Fcn"
+		DstPort			1
+	      }
+	    }
+	    Line {
 	      SrcBlock		      "MATLAB Fcn"
 	      SrcPort		      1
-	      DstBlock		      "Demux"
-	      DstPort		      1
+	      Points		      [20, 0]
+	      Branch {
+		DstBlock		"Selector1"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 55]
+		Branch {
+		  DstBlock		  "Selector2"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 55]
+		  Branch {
+		    DstBlock		    "Selector3"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, 55]
+		    Branch {
+		    Points		    [0, 55]
+		    DstBlock		    "Selector5"
+		    DstPort		    1
+		    }
+		    Branch {
+		    DstBlock		    "Selector4"
+		    DstPort		    1
+		    }
+		  }
+		}
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "x_global [m]"
@@ -4248,6 +4919,7 @@ Library {
 	    Line {
 	      SrcBlock		      "Mux3"
 	      SrcPort		      1
+	      Points		      [15, 0; 0, -55]
 	      DstBlock		      "MATLAB Fcn"
 	      DstPort		      1
 	    }
@@ -4264,46 +4936,12 @@ Library {
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      4
-	      DstBlock		      "Interface Lane Sensor"
-	      DstPort		      4
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      5
-	      DstBlock		      "Interface Lane Sensor"
-	      DstPort		      5
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      2
-	      DstBlock		      "Data Type Conversion"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      1
-	      DstBlock		      "Interface Lane Sensor"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Demux"
-	      SrcPort		      3
-	      DstBlock		      "Interface Lane Sensor"
-	      DstPort		      3
-	    }
-	    Line {
 	      Name		      "LaneSensor"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Interface Lane Sensor"
 	      SrcPort		      1
 	      DstBlock		      "LaneSensor"
 	      DstPort		      1
-	    }
-	    Annotation {
-	      SID		      "3168"
-	      Position		      [261, 105]
 	    }
 	  }
 	}
@@ -11651,5 +12289,289 @@ Library {
 	}
       }
     }
+  }
+}
+# Finite State Machines
+#
+#    Stateflow Version 7.6 (R2011b) dated Jan 26 2012, 02:07:42
+#
+#
+
+
+Stateflow {
+  machine {
+    id			    1
+    name		    "library"
+    created		    "15-Mar-2017 09:25:19"
+    isLibrary		    1
+    firstTarget		    15
+    sfVersion		    76014001.00040001
+  }
+  chart {
+    id			    2
+    name		    "Lane Tracking/Lane Tracking Sensor/MATLAB Function"
+    windowPosition	    [424.836 335.534 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1920 1080 1.611111111111111]
+    treeNode		    [0 3 0 0]
+    firstTransition	    5
+    firstJunction	    4
+    viewObj		    2
+    machine		    1
+    ssIdHighWaterMark	    19
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    6
+    chartFileNumber	    2
+    disableImplicitCasting  1
+    eml {
+      name		      "polyFitLaneSensor"
+    }
+  }
+  state {
+    id			    3
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    2
+    treeNode		    [2 0 0 0]
+    superState		    SUBCHART
+    subviewer		    2
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [...\n poly_lateralOff_LAD,...\n poly_angularDev_LAD,...\n poly_roadCurvat_LAD] = polyFi"
+      "tLaneSensor(...\n LAD,...\n isValid_LAD,...\n lateralOff_LAD,...\n angularDev_LAD,...\n roadCurvat_LAD)\n%#codeg"
+      "en\n\n\n%%% number of valid measurements specify maximum degree of polynomial\nnp_max = sum(isValid_LAD) - 1;\n\n"
+      "if any(~isValid_LAD)\n	1;\nend%if\n\n%%% init outputs\n% choose polynomial degree/fixed output length\nnp = 3;\n"
+      "poly_lateralOff_LAD	= zeros(1,np+1);\npoly_angularDev_LAD	= zeros(1,np+1);\npoly_roadCurvat_LAD	= zeros(1,np+1);"
+      "\n\n%%% fit polynomial coefficients\nn = min(np,np_max);\npoly_latOff	= polyfit(LAD(isValid_LAD),lateralOff_LAD("
+      "isValid_LAD),n);\npoly_angDev	= polyfit(LAD(isValid_LAD),angularDev_LAD(isValid_LAD),n);\npoly_rdCurv	= polyfit("
+      "LAD(isValid_LAD),roadCurvat_LAD(isValid_LAD),n);\n\n%%% add coefficients to output\npoly_lateralOff_LAD(np-n+1:n"
+      "p+1) = poly_latOff;\npoly_angularDev_LAD(np-n+1:np+1) = poly_angDev;\npoly_roadCurvat_LAD(np-n+1:np+1) = poly_rd"
+      "Curv;\n\nend%fcn\n\n"
+      editorLayout	      "100 M4x1[10 5 700 500]"
+    }
+  }
+  junction {
+    id			    4
+    position		    [23.5747 49.5747 7]
+    chart		    2
+    linkNode		    [2 0 0]
+    subviewer		    2
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    5
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      4
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    2
+    linkNode		    [2 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    2
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    6
+    ssIdNumber		    12
+    name		    "LAD"
+    linkNode		    [2 0 7]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    7
+    ssIdNumber		    13
+    name		    "isValid_LAD"
+    linkNode		    [2 6 8]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    8
+    ssIdNumber		    14
+    name		    "lateralOff_LAD"
+    linkNode		    [2 7 9]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    9
+    ssIdNumber		    15
+    name		    "angularDev_LAD"
+    linkNode		    [2 8 10]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    10
+    ssIdNumber		    16
+    name		    "roadCurvat_LAD"
+    linkNode		    [2 9 11]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    11
+    ssIdNumber		    17
+    name		    "poly_lateralOff_LAD"
+    linkNode		    [2 10 12]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    12
+    ssIdNumber		    18
+    name		    "poly_angularDev_LAD"
+    linkNode		    [2 11 13]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    13
+    ssIdNumber		    19
+    name		    "poly_roadCurvat_LAD"
+    linkNode		    [2 12 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    14
+    name		    "Lane Tracking/Lane Tracking Sensor/MATLAB Function"
+    machine		    1
+    chart		    2
+  }
+  target {
+    id			    15
+    name		    "sfun"
+    description		    "Default Simulink S-Function Target."
+    machine		    1
+    linkNode		    [1 0 0]
   }
 }
