@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.215"
+    ComputedModelVersion    "1.219"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 15 07:26:03 2017"
-  RTWModifiedTimeStamp	  411463559
-  ModelVersionFormat	  "1.%<AutoIncrement:215>"
+  LastModifiedDate	  "Wed Mar 15 09:55:37 2017"
+  RTWModifiedTimeStamp	  411472517
+  ModelVersionFormat	  "1.%<AutoIncrement:219>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -809,7 +809,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "767"
+    SIDHighWatermark	    "770"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
@@ -1254,7 +1254,7 @@ Model {
 	  BlockType		  Inport
 	  Name			  "In1"
 	  SID			  "750"
-	  Position		  [25, 68, 55, 82]
+	  Position		  [25, 58, 55, 72]
 	  IconDisplay		  "Port number"
 	}
 	Block {
@@ -1262,7 +1262,7 @@ Model {
 	  Name			  "Bus\nSelector7"
 	  SID			  "742"
 	  Ports			  [1, 3]
-	  Position		  [100, 20, 105, 130]
+	  Position		  [100, 29, 105, 101]
 	  ShowName		  off
 	  OutputSignals		  "x_global,y_global,yawAngle"
 	  Port {
@@ -1285,12 +1285,22 @@ Model {
 	  }
 	}
 	Block {
+	  BlockType		  Constant
+	  Name			  "Constant4"
+	  SID			  "770"
+	  Position		  [100, 106, 145, 124]
+	  ZOrder		  -5
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.LAD"
+	}
+	Block {
 	  BlockType		  Reference
 	  Name			  "Lane Tracking Sensor"
 	  SID			  "754"
-	  Ports			  [3, 1]
-	  Position		  [190, 20, 370, 130]
-	  LibraryVersion	  "1.855"
+	  Ports			  [4, 1]
+	  Position		  [270, 22, 450, 133]
+	  LibraryVersion	  "1.860"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	}
@@ -1298,7 +1308,7 @@ Model {
 	  BlockType		  Outport
 	  Name			  "Out1"
 	  SID			  "748"
-	  Position		  [670, 68, 700, 82]
+	  Position		  [625, 73, 655, 87]
 	  IconDisplay		  "Port number"
 	}
 	Line {
@@ -1336,6 +1346,12 @@ Model {
 	  SrcPort		  1
 	  DstBlock		  "Out1"
 	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant4"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Sensor"
+	  DstPort		  4
 	}
       }
     }
@@ -1489,7 +1505,7 @@ Model {
       Position		      [1020, 247, 1050, 283]
       ShowName		      off
       Floating		      off
-      Location		      [1, 52, 1921, 1033]
+      Location		      [10, 61, 952, 1024]
       Open		      off
       NumInputPorts	      "3"
       List {
@@ -1510,8 +1526,8 @@ Model {
       }
       ShowLegends	      off
       TimeRange		      "20"
-      YMin		      "-5.5e-008~0.01711~-1.666e-008"
-      YMax		      "5e-009~0.017145~-1.6565e-008"
+      YMin		      "-3e-06~0.01~0.00019555"
+      YMax		      "1e-06~0.023~0.000195775"
       SaveName		      "ScopeData1"
       DataFormat	      "StructureWithTime"
       LimitDataPoints	      off
@@ -1650,7 +1666,7 @@ Model {
       SID		      "758"
       Ports		      [3]
       Position		      [995, 104, 1080, 166]
-      LibraryVersion	      "1.856"
+      LibraryVersion	      "1.860"
       SourceBlock	      "library/Misc/Simout"
       SourceType	      "SubSystem"
     }
@@ -1861,18 +1877,18 @@ Model {
 	  Ports			  [7, 1]
 	  Position		  [330, 356, 490, 494]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.856"
+	  LibraryVersion	  "1.860"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Initial Values; Interface]"
 	  SourceType		  "SubSystem"
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Single Track Model (linear) \n[Parameter]"
+	  Name			  "Single Track Model (linear)\n[Parameter; masked]"
 	  SID			  "736"
 	  Ports			  [0, 1]
 	  Position		  [330, 60, 490, 80]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.856"
+	  LibraryVersion	  "1.860"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
 	  SourceType		  "Linear Single Track Model Parameter"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
@@ -1889,7 +1905,7 @@ Model {
 	  Ports			  [12, 1]
 	  Position		  [605, 30, 775, 380]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.856"
+	  LibraryVersion	  "1.860"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model//Lane Tracking//Steering Model"
 	  SourceType		  "SubSystem"
 	  Port {
@@ -1902,12 +1918,12 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	  Name			  "Steering Model (CarMaker DSR)\n[Parameter; masked]"
 	  SID			  "759"
 	  Ports			  [0, 1]
 	  Position		  [330, 114, 490, 136]
-	  LibraryVersion	  "1.856"
-	  SourceBlock		  "library/Vehicle Models ext./Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	  LibraryVersion	  "1.860"
+	  SourceBlock		  "library/Vehicle Models ext./Steering Model (CarMaker DSR)\n[Parameter; masked]"
 	  SourceType		  "Steering Model Parameter: Dynamic Steer Ratio"
 	  d_rot			  "pin.SteeringModel.parameter.drot"
 	  d_rack		  "pin.SteeringModel.parameter.drack"
@@ -1934,7 +1950,7 @@ Model {
 	  DstPort		  6
 	}
 	Line {
-	  SrcBlock		  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
+	  SrcBlock		  "Steering Model (CarMaker DSR)\n[Parameter; masked]"
 	  SrcPort		  1
 	  Points		  [0, -25]
 	  DstBlock		  "Single Track Model/LaneTracking/Steering Model"
@@ -1996,7 +2012,7 @@ Model {
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "Single Track Model (linear) \n[Parameter]"
+	  SrcBlock		  "Single Track Model (linear)\n[Parameter; masked]"
 	  SrcPort		  1
 	  DstBlock		  "Single Track Model/LaneTracking/Steering Model"
 	  DstPort		  2
@@ -2406,5 +2422,29 @@ Model {
       SID		      "692"
       Position		      [1028, 316]
     }
+  }
+}
+# Finite State Machines
+#
+#    Stateflow Version 7.6 (R2011b) dated Jan 26 2012, 02:07:42
+#
+#
+
+
+Stateflow {
+  machine {
+    id			    1
+    name		    "LKA_Lenkung_CarMaker_DSR_kombiniert"
+    created		    "15-Mar-2017 09:48:41"
+    isLibrary		    0
+    firstTarget		    2
+    sfVersion		    76014001.00040001
+  }
+  target {
+    id			    2
+    name		    "sfun"
+    description		    "Default Simulink S-Function Target."
+    machine		    1
+    linkNode		    [1 0 0]
   }
 }
