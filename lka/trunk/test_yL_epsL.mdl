@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.937"
+    ComputedModelVersion    "1.939"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -25,11 +25,11 @@ Model {
   Creator		  "Georg"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Georg"
+  LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 14 20:32:36 2017"
-  RTWModifiedTimeStamp	  411424353
-  ModelVersionFormat	  "1.%<AutoIncrement:937>"
+  LastModifiedDate	  "Wed Mar 15 07:26:48 2017"
+  RTWModifiedTimeStamp	  411463546
+  ModelVersionFormat	  "1.%<AutoIncrement:939>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -954,7 +954,7 @@ Model {
       Position		      [140, 284, 240, 426]
       BlockMirror	      on
       NamePlacement	      "alternate"
-      LibraryVersion	      "1.855"
+      LibraryVersion	      "1.856"
       SourceBlock	      "library/LKA-Controller/LQR_2int"
       SourceType	      "SubSystem"
       Port {
@@ -1182,7 +1182,7 @@ Model {
 	  SID			  "1728"
 	  Ports			  [3, 1]
 	  Position		  [190, 20, 365, 80]
-	  LibraryVersion	  "1.852"
+	  LibraryVersion	  "1.856"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	}
@@ -1237,7 +1237,7 @@ Model {
       SID		      "1751"
       Ports		      [3]
       Position		      [925, 19, 1010, 81]
-      LibraryVersion	      "1.855"
+      LibraryVersion	      "1.856"
       SourceBlock	      "library/Misc/Simout"
       SourceType	      "SubSystem"
     }
@@ -1425,8 +1425,8 @@ Model {
 	  Ports			  [7, 1]
 	  Position		  [330, 226, 490, 364]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.855"
-	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Initial Values]"
+	  LibraryVersion	  "1.856"
+	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Initial Values; Interface]"
 	  SourceType		  "SubSystem"
 	}
 	Block {
@@ -1436,7 +1436,7 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [330, 55, 490, 75]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.855"
+	  LibraryVersion	  "1.856"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
 	  SourceType		  "Linear Single Track Model Parameter"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
@@ -1453,7 +1453,7 @@ Model {
 	  Ports			  [9, 1]
 	  Position		  [530, 30, 690, 250]
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.855"
+	  LibraryVersion	  "1.856"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model//Lane Tracking"
 	  SourceType		  "SubSystem"
 	}
@@ -1612,7 +1612,7 @@ Model {
 	MarkerStyles		"none|none|none|none|none|none"
       }
       ShowLegends	      on
-      LegendLocations	      "0.86549     0.85469     0.08986     0.12637\n0.84675     0.38325     0.10716     0.12637"
+      LegendLocations	      "0.86549     0.85469    0.085307      0.1059\n0.84675     0.38325    0.099879      0.1059"
       TimeRange		      "28"
       YMin		      "-0.325~-5"
       YMax		      "0~5"

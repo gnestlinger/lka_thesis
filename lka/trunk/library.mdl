@@ -14,11 +14,11 @@ Library {
   Creator		  "Georg"
   UpdateHistory		  "UpdateHistoryNever"
   ModifiedByFormat	  "%<Auto>"
-  LastModifiedBy	  "Georg"
+  LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Tue Mar 14 20:36:48 2017"
-  RTWModifiedTimeStamp	  411420939
-  ModelVersionFormat	  "1.%<AutoIncrement:855>"
+  LastModifiedDate	  "Wed Mar 15 07:28:32 2017"
+  RTWModifiedTimeStamp	  411463486
+  ModelVersionFormat	  "1.%<AutoIncrement:856>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -833,7 +833,7 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [438, 118, 1856, 977]
+    Location		    [381, 100, 1799, 959]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    319
@@ -847,7 +847,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3289"
+    SIDHighWatermark	    "3301"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -9330,7 +9330,7 @@ Library {
 	Location		[461, 114, 1845, 973]
 	Open			off
 	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
+	ModelBrowserWidth	380
 	ScreenColor		"white"
 	PaperOrientation	"landscape"
 	PaperPositionMode	"auto"
@@ -9342,187 +9342,10 @@ Library {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  SubSystem
-	  Name			  "Single Track Model (linear)\n[Initial Values; masked]"
-	  SID			  "3219"
-	  Ports			  [0, 1]
-	  Position		  [15, 339, 175, 361]
-	  MinAlgLoopOccurrences	  off
-	  PropExecContextOutsideSubsystem off
-	  RTWSystemCode		  "Auto"
-	  FunctionWithSeparateData off
-	  Opaque		  off
-	  RequestExecContextInheritance	off
-	  MaskHideContents	  off
-	  MaskType		  "Linear Single Track Model Inital Values"
-	  MaskDescription	  "Specify initial values for the linear single track model."
-	  MaskPromptString	  "sy|vy|yawAngle|yawRate|x_global|y_global|s_global"
-	  MaskStyleString	  "edit,edit,edit,edit,edit,edit,edit"
-	  MaskVariables		  "sy=@1;vy=@2;yawAngle=@3;yawRate=@4;x_global=@5;y_global=@6;s_global=@7;"
-	  MaskTunableValueString  "off,off,off,off,off,off,off"
-	  MaskCallbackString	  "||||||"
-	  MaskEnableString	  "on,on,on,on,on,on,on"
-	  MaskVisibilityString	  "on,on,on,on,on,on,on"
-	  MaskToolTipString	  "on,on,on,on,on,on,on"
-	  MaskIconFrame		  on
-	  MaskIconOpaque	  on
-	  MaskIconRotate	  "none"
-	  MaskPortRotate	  "default"
-	  MaskIconUnits		  "autoscale"
-	  MaskValueString	  "0|0|0|0|0|0|0"
-	  System {
-	    Name		    "Single Track Model (linear)\n[Initial Values; masked]"
-	    Location		    [508, 458, 988, 720]
-	    Open		    off
-	    ModelBrowserVisibility  on
-	    ModelBrowserWidth	    200
-	    ScreenColor		    "white"
-	    PaperOrientation	    "landscape"
-	    PaperPositionMode	    "auto"
-	    PaperType		    "usletter"
-	    PaperUnits		    "inches"
-	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
-	    TiledPageScale	    1
-	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant10"
-	      SID		      "3210"
-	      Position		      [15, 166, 195, 184]
-	      BackgroundColor	      "orange"
-	      ShowName		      off
-	      Value		      "y_global"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant12"
-	      SID		      "3211"
-	      Position		      [15, 196, 195, 214]
-	      BackgroundColor	      "orange"
-	      ShowName		      off
-	      Value		      "s_global"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant5"
-	      SID		      "3212"
-	      Position		      [15, 16, 195, 34]
-	      BackgroundColor	      "orange"
-	      ShowName		      off
-	      Value		      "sy"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant6"
-	      SID		      "3213"
-	      Position		      [15, 46, 195, 64]
-	      BackgroundColor	      "orange"
-	      ShowName		      off
-	      Value		      "vy"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant7"
-	      SID		      "3214"
-	      Position		      [15, 76, 195, 94]
-	      BackgroundColor	      "orange"
-	      ShowName		      off
-	      Value		      "yawAngle"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant8"
-	      SID		      "3215"
-	      Position		      [15, 106, 195, 124]
-	      BackgroundColor	      "orange"
-	      ShowName		      off
-	      Value		      "yawRate"
-	    }
-	    Block {
-	      BlockType		      Constant
-	      Name		      "Constant9"
-	      SID		      "3216"
-	      Position		      [15, 136, 195, 154]
-	      BackgroundColor	      "orange"
-	      ShowName		      off
-	      Value		      "x_global"
-	    }
-	    Block {
-	      BlockType		      Mux
-	      Name		      "Mux"
-	      SID		      "3217"
-	      Ports		      [7, 1]
-	      Position		      [250, 12, 255, 218]
-	      ZOrder		      -12
-	      ShowName		      off
-	      Inputs		      "7"
-	      DisplayOption	      "bar"
-	    }
-	    Block {
-	      BlockType		      Outport
-	      Name		      "Vhcl_InitValues"
-	      SID		      "3220"
-	      Position		      [370, 108, 400, 122]
-	      ZOrder		      -2
-	      BackgroundColor	      "gray"
-	      IconDisplay	      "Port number"
-	    }
-	    Line {
-	      SrcBlock		      "Mux"
-	      SrcPort		      1
-	      DstBlock		      "Vhcl_InitValues"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Constant5"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      1
-	    }
-	    Line {
-	      SrcBlock		      "Constant6"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      2
-	    }
-	    Line {
-	      SrcBlock		      "Constant7"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      3
-	    }
-	    Line {
-	      SrcBlock		      "Constant8"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      4
-	    }
-	    Line {
-	      SrcBlock		      "Constant9"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      5
-	    }
-	    Line {
-	      SrcBlock		      "Constant10"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      6
-	    }
-	    Line {
-	      SrcBlock		      "Constant12"
-	      SrcPort		      1
-	      DstBlock		      "Mux"
-	      DstPort		      7
-	    }
-	  }
-	}
-	Block {
-	  BlockType		  SubSystem
-	  Name			  "Single Track Model (linear)\n[Initial Values]"
+	  Name			  "Single Track Model (linear)\n[Initial Values; Interface]"
 	  SID			  "3189"
 	  Ports			  [7, 1]
-	  Position		  [15, 166, 175, 304]
+	  Position		  [15, 301, 175, 439]
 	  ZOrder		  -19
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -9532,7 +9355,7 @@ Library {
 	  RequestExecContextInheritance	off
 	  MaskHideContents	  off
 	  System {
-	    Name		    "Single Track Model (linear)\n[Initial Values]"
+	    Name		    "Single Track Model (linear)\n[Initial Values; Interface]"
 	    Location		    [433, 403, 931, 703]
 	    Open		    off
 	    ModelBrowserVisibility  on
@@ -9708,10 +9531,408 @@ Library {
 	}
 	Block {
 	  BlockType		  SubSystem
+	  Name			  "Single Track Model (linear)\n[Initial Values; masked]"
+	  SID			  "3219"
+	  Ports			  [0, 1]
+	  Position		  [15, 249, 175, 271]
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  MaskType		  "Linear Single Track Model Inital Values"
+	  MaskDescription	  "Specify initial values for the linear single track model."
+	  MaskPromptString	  "sy|vy|yawAngle|yawRate|x_global|y_global|s_global"
+	  MaskStyleString	  "edit,edit,edit,edit,edit,edit,edit"
+	  MaskVariables		  "sy=@1;vy=@2;yawAngle=@3;yawRate=@4;x_global=@5;y_global=@6;s_global=@7;"
+	  MaskTunableValueString  "off,off,off,off,off,off,off"
+	  MaskCallbackString	  "||||||"
+	  MaskEnableString	  "on,on,on,on,on,on,on"
+	  MaskVisibilityString	  "on,on,on,on,on,on,on"
+	  MaskToolTipString	  "on,on,on,on,on,on,on"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "0|0|0|0|0|0|0"
+	  System {
+	    Name		    "Single Track Model (linear)\n[Initial Values; masked]"
+	    Location		    [508, 458, 988, 720]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant10"
+	      SID		      "3210"
+	      Position		      [15, 166, 195, 184]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "y_global"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant12"
+	      SID		      "3211"
+	      Position		      [15, 196, 195, 214]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "s_global"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant5"
+	      SID		      "3212"
+	      Position		      [15, 16, 195, 34]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "sy"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant6"
+	      SID		      "3213"
+	      Position		      [15, 46, 195, 64]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "vy"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant7"
+	      SID		      "3214"
+	      Position		      [15, 76, 195, 94]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "yawAngle"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant8"
+	      SID		      "3215"
+	      Position		      [15, 106, 195, 124]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "yawRate"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant9"
+	      SID		      "3216"
+	      Position		      [15, 136, 195, 154]
+	      BackgroundColor	      "orange"
+	      ShowName		      off
+	      Value		      "x_global"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      SID		      "3217"
+	      Ports		      [7, 1]
+	      Position		      [250, 12, 255, 218]
+	      ZOrder		      -12
+	      ShowName		      off
+	      Inputs		      "7"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Vhcl_InitValues"
+	      SID		      "3220"
+	      Position		      [370, 108, 400, 122]
+	      ZOrder		      -2
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Vhcl_InitValues"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant5"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant6"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Constant7"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Constant8"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Constant9"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Constant10"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "Constant12"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      7
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Single Track Model (linear)\n[Parameter; Interface]"
+	  SID			  "3290"
+	  Ports			  [6, 1]
+	  Position		  [15, 95, 175, 215]
+	  ZOrder		  -19
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Single Track Model (linear)\n[Parameter; Interface]"
+	    Location		    [438, 358, 1856, 1217]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "cs_front [N/rad]"
+	      SID		      "3291"
+	      Position		      [20, 23, 50, 37]
+	      BackgroundColor	      "yellow"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	      Port {
+		PortNumber		1
+		Name			"cs_front"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "cs_rear [N/rad]"
+	      SID		      "3292"
+	      Position		      [20, 53, 50, 67]
+	      BackgroundColor	      "yellow"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	      Port {
+		PortNumber		1
+		Name			"cs_rear"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "l_front [m]"
+	      SID		      "3293"
+	      Position		      [20, 83, 50, 97]
+	      BackgroundColor	      "yellow"
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	      OutMin		      "0"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	      Port {
+		PortNumber		1
+		Name			"l_front"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "l_rear [m]"
+	      SID		      "3294"
+	      Position		      [20, 113, 50, 127]
+	      BackgroundColor	      "yellow"
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	      OutMin		      "0"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	      Port {
+		PortNumber		1
+		Name			"l_rear"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "m [kg]"
+	      SID		      "3295"
+	      Position		      [20, 143, 50, 157]
+	      BackgroundColor	      "yellow"
+	      Port		      "5"
+	      IconDisplay	      "Port number"
+	      OutMin		      "0"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	      Port {
+		PortNumber		1
+		Name			"m"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Izz [kg*m²]"
+	      SID		      "3296"
+	      Position		      [20, 173, 50, 187]
+	      BackgroundColor	      "yellow"
+	      Port		      "6"
+	      IconDisplay	      "Port number"
+	      OutMin		      "0"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	      Port {
+		PortNumber		1
+		Name			"Izz"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      BusCreator
+	      Name		      "Bus\nCreator"
+	      SID		      "3297"
+	      Ports		      [6, 1]
+	      Position		      [200, 15, 205, 195]
+	      ZOrder		      -2
+	      ShowName		      off
+	      Inputs		      "6"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Vhcl_Parameter"
+	      SID		      "3298"
+	      Position		      [255, 98, 285, 112]
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      Name		      "Izz"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Izz [kg*m²]"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      6
+	    }
+	    Line {
+	      Name		      "m"
+	      Labels		      [0, 0]
+	      SrcBlock		      "m [kg]"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      5
+	    }
+	    Line {
+	      Name		      "l_rear"
+	      Labels		      [0, 0]
+	      SrcBlock		      "l_rear [m]"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      4
+	    }
+	    Line {
+	      Name		      "l_front"
+	      Labels		      [0, 0]
+	      SrcBlock		      "l_front [m]"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      3
+	    }
+	    Line {
+	      Name		      "cs_rear"
+	      Labels		      [0, 0]
+	      SrcBlock		      "cs_rear [N/rad]"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      2
+	    }
+	    Line {
+	      Name		      "cs_front"
+	      Labels		      [0, 0]
+	      SrcBlock		      "cs_front [N/rad]"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nCreator"
+	      SrcPort		      1
+	      DstBlock		      "Vhcl_Parameter"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
 	  Name			  "Single Track Model (linear)\n[Parameter; masked]"
 	  SID			  "3186"
 	  Ports			  [0, 1]
-	  Position		  [15, 49, 175, 71]
+	  Position		  [15, 39, 175, 61]
 	  ZOrder		  -19
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -9928,7 +10149,7 @@ Library {
 	  Name			  "Single Track Model/Lane Tracking"
 	  SID			  "3066"
 	  Ports			  [9, 1]
-	  Position		  [275, 24, 435, 246]
+	  Position		  [275, 14, 435, 236]
 	  BackgroundColor	  "lightBlue"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -10460,7 +10681,7 @@ Library {
 	  Name			  "Single Track Model/Lane Tracking/Steering Model"
 	  SID			  "3067"
 	  Ports			  [12, 1]
-	  Position		  [535, 24, 695, 321]
+	  Position		  [535, 14, 695, 311]
 	  BackgroundColor	  "lightBlue"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -11145,7 +11366,7 @@ Library {
 	  Name			  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
 	  SID			  "3244"
 	  Ports			  [0, 1]
-	  Position		  [15, 394, 175, 416]
+	  Position		  [15, 469, 175, 491]
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -11427,19 +11648,6 @@ Library {
 	  SrcPort		  1
 	  DstBlock		  "Single Track Model/Lane Tracking"
 	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "Single Track Model (linear)\n[Initial Values]"
-	  SrcPort		  1
-	  DstBlock		  "Single Track Model/Lane Tracking"
-	  DstPort		  9
-	}
-	Line {
-	  SrcBlock		  "Steering Model (CarMaker DSR)\n[Initial Values; masked]"
-	  SrcPort		  1
-	  Points		  [305, 0; 0, -320]
-	  DstBlock		  "Single Track Model/Lane Tracking/Steering Model"
-	  DstPort		  3
 	}
       }
     }
