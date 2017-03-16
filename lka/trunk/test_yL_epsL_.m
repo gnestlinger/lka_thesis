@@ -128,38 +128,8 @@ sol.simDate = datestr(now);
 % input parameter
 sol.simIn = pin;
 
-
-%% post-processing
-
-% time
-sol.simOut.t = simoutState.time;
-
-% Vehicle State
-sol.simOut.vehicleState.sy = simoutState.signals.values(:,1);
-sol.simOut.vehicleState.syDot = simoutState.signals.values(:,2);
-sol.simOut.vehicleState.psi = simoutState.signals.values(:,3);
-sol.simOut.vehicleState.psiDot = simoutState.signals.values(:,4);
-sol.simOut.vehicleState.x_g = simoutState.signals.values(:,5);
-sol.simOut.vehicleState.y_g = simoutState.signals.values(:,6);
-sol.simOut.vehicleState.s_g = simoutState.signals.values(:,7);
-sol.simOut.vehicleState.yL_linMdl = simoutState.signals.values(:,8);
-sol.simOut.vehicleState.epsL_linMdl = simoutState.signals.values(:,9);
-sol.simOut.vehicleState.yL_exactMdl = simoutState.signals.values(:,10);
-sol.simOut.vehicleState.epsL_exactMdl = simoutState.signals.values(:,11);
-
-% steering wheel function handle
-sol.simIn.controlInp.steeringAngle.fh = delta;
-sol.simIn.controlInp.steeringAngle.tend = sol.simOut.t(end);
-
-% Vehicle Video Sensor
-sol.simOut.lkaSensor.yL = simoutSensor.signals.values(:,1);
-sol.simOut.lkaSensor.epsL = simoutSensor.signals.values(:,2);
-sol.simOut.lkaSensor.kapL = simoutSensor.signals.values(:,3);
-
-% steering wheel input
-sol.simOut.controlInp.steeringAngle = simoutSteerAngle.signals.values;
-
-sol.simPost = calc_relPos(sol,0);
+% assign simulink to workspace output
+sol.simOut = simout;
 
 
 %% plot
@@ -168,10 +138,10 @@ figure;
 
 % yL
 subplot(2,1,1);
-p = plot(sol.simOut.t,[...
-    sol.simOut.lkaSensor.yL,...
-    sol.simOut.vehicleState.yL_linMdl,...
-    sol.simOut.vehicleState.yL_exactMdl]);
+p = plot(sol.simOut.Control.Time,[...
+    sol.simOut.LaneSensor.lateralOff_LAD_Sensor.Data(:),...
+    sol.simOut.LaneTracking.lateralOff_LAD_linear.Data,...
+    sol.simOut.LaneTracking.lateralOff_LAD_nonlinear.Data]);
 set(p(1),'LineWidth',2)
 set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
 set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
@@ -180,10 +150,10 @@ title('lateral offset @ LAD')
 
 % epsL
 subplot(2,1,2);
-p = plot(sol.simOut.t,[...
-    sol.simOut.lkaSensor.epsL,...
-    sol.simOut.vehicleState.epsL_linMdl,...
-    sol.simOut.vehicleState.epsL_exactMdl]);
+p = plot(sol.simOut.Control.Time,[...
+    sol.simOut.LaneSensor.angularDev_LAD_Sensor.Data(:),...
+    sol.simOut.LaneTracking.angularDev_LAD_linear.Data,...
+    sol.simOut.LaneTracking.angularDev_LAD_nonlinear.Data]);
 set(p(1),'LineWidth',2)
 set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
 set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
