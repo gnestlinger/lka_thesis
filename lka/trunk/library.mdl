@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 16 08:40:51 2017"
-  RTWModifiedTimeStamp	  411554447
-  ModelVersionFormat	  "1.%<AutoIncrement:863>"
+  LastModifiedDate	  "Thu Mar 16 14:53:12 2017"
+  RTWModifiedTimeStamp	  411576781
+  ModelVersionFormat	  "1.%<AutoIncrement:864>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -868,7 +868,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3364"
+    SIDHighWatermark	    "3367"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -4279,7 +4279,7 @@ Library {
 	  SID			  "340"
 	  Ports			  [4, 1]
 	  Position		  [25, 267, 220, 368]
-	  LibraryVersion	  "*1.857"
+	  LibraryVersion	  "*1.863"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -4289,7 +4289,7 @@ Library {
 	  MaskHideContents	  off
 	  System {
 	    Name		    "Lane Tracking Sensor"
-	    Location		    [484, 173, 1536, 820]
+	    Location		    [453, 264, 1629, 951]
 	    Open		    off
 	    ModelBrowserVisibility  on
 	    ModelBrowserWidth	    200
@@ -4390,7 +4390,7 @@ Library {
 	      Name		      "Display1"
 	      SID		      "3330"
 	      Ports		      [1]
-	      Position		      [505, 468, 845, 492]
+	      Position		      [505, 533, 845, 557]
 	      ZOrder		      -1
 	      ShowName		      off
 	      Decimation	      "1"
@@ -4401,7 +4401,7 @@ Library {
 	      Name		      "Display2"
 	      SID		      "3335"
 	      Ports		      [1]
-	      Position		      [505, 493, 845, 517]
+	      Position		      [505, 558, 845, 582]
 	      ZOrder		      -1
 	      ShowName		      off
 	      Decimation	      "1"
@@ -4447,8 +4447,8 @@ Library {
 	      BlockType		      SubSystem
 	      Name		      "Interface Lane Sensor"
 	      SID		      "3135"
-	      Ports		      [8, 1]
-	      Position		      [785, 13, 930, 442]
+	      Ports		      [9, 1]
+	      Position		      [785, 13, 925, 497]
 	      LibraryVersion	      "*1.847"
 	      MinAlgLoopOccurrences   off
 	      PropExecContextOutsideSubsystem off
@@ -4465,7 +4465,7 @@ Library {
 	      }
 	      System {
 		Name			"Interface Lane Sensor"
-		Location		[375, 166, 1591, 927]
+		Location		[453, 264, 1629, 951]
 		Open			off
 		ModelBrowserVisibility	on
 		ModelBrowserWidth	200
@@ -4477,12 +4477,12 @@ Library {
 		TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 		TiledPageScale		1
 		ShowPageBoundaries	off
-		ZoomFactor		"100"
+		ZoomFactor		"178"
 		Block {
 		  BlockType		  Inport
 		  Name			  "LAD [m]"
 		  SID			  "3136"
-		  Position		  [50, 23, 80, 37]
+		  Position		  [60, 23, 90, 37]
 		  BackgroundColor	  "yellow"
 		  IconDisplay		  "Port number"
 		  OutDataTypeStr	  "double"
@@ -4499,7 +4499,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "isValid_LAD [-]"
 		  SID			  "3137"
-		  Position		  [50, 58, 80, 72]
+		  Position		  [60, 58, 90, 72]
 		  BackgroundColor	  "yellow"
 		  Port			  "2"
 		  IconDisplay		  "Port number"
@@ -4516,7 +4516,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "lateralOff_LAD [m]"
 		  SID			  "3147"
-		  Position		  [50, 93, 80, 107]
+		  Position		  [60, 93, 90, 107]
 		  BackgroundColor	  "yellow"
 		  Port			  "3"
 		  IconDisplay		  "Port number"
@@ -4534,7 +4534,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "angularDev_LAD [rad]"
 		  SID			  "3148"
-		  Position		  [50, 128, 80, 142]
+		  Position		  [60, 128, 90, 142]
 		  BackgroundColor	  "yellow"
 		  Port			  "4"
 		  IconDisplay		  "Port number"
@@ -4552,7 +4552,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "roadCurv_LAD [1/m]"
 		  SID			  "3149"
-		  Position		  [50, 163, 80, 177]
+		  Position		  [60, 163, 90, 177]
 		  BackgroundColor	  "yellow"
 		  Port			  "5"
 		  IconDisplay		  "Port number"
@@ -4568,9 +4568,9 @@ Library {
 		}
 		Block {
 		  BlockType		  Inport
-		  Name			  "polyCoeff_latOff_LAD [m]"
+		  Name			  "poly_lateralOff_LAD [m]"
 		  SID			  "3323"
-		  Position		  [50, 198, 80, 212]
+		  Position		  [60, 198, 90, 212]
 		  BackgroundColor	  "yellow"
 		  Port			  "6"
 		  IconDisplay		  "Port number"
@@ -4587,9 +4587,9 @@ Library {
 		}
 		Block {
 		  BlockType		  Inport
-		  Name			  "polyCoeff_angDev_LAD [rad]"
+		  Name			  "poly_angularDev_LAD [rad]"
 		  SID			  "3324"
-		  Position		  [50, 233, 80, 247]
+		  Position		  [60, 233, 90, 247]
 		  BackgroundColor	  "yellow"
 		  Port			  "7"
 		  IconDisplay		  "Port number"
@@ -4606,9 +4606,9 @@ Library {
 		}
 		Block {
 		  BlockType		  Inport
-		  Name			  "polyCoeff_roadCurv_LAD [1/m]"
+		  Name			  "poly_roadCurvat_LAD [1/m]"
 		  SID			  "3325"
-		  Position		  [50, 268, 80, 282]
+		  Position		  [60, 268, 90, 282]
 		  BackgroundColor	  "yellow"
 		  Port			  "8"
 		  IconDisplay		  "Port number"
@@ -4624,29 +4624,57 @@ Library {
 		  }
 		}
 		Block {
+		  BlockType		  Inport
+		  Name			  "poly_domain_LAD [1/m]"
+		  SID			  "3365"
+		  Position		  [60, 303, 90, 317]
+		  BackgroundColor	  "yellow"
+		  Port			  "9"
+		  IconDisplay		  "Port number"
+		  OutDataTypeStr	  "double"
+		  PortDimensions	  "[2,1]"
+		  VarSizeSig		  "No"
+		  SignalType		  "real"
+		  Port {
+		    PortNumber		    1
+		    Name		    "poly_domain_LAD_Sensor"
+		    PropagatedSignals	    "poly_domain_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
+		}
+		Block {
 		  BlockType		  BusCreator
 		  Name			  "Bus\nCreator"
 		  SID			  "3150"
-		  Ports			  [8, 1]
-		  Position		  [330, 18, 335, 287]
+		  Ports			  [9, 1]
+		  Position		  [330, 18, 335, 322]
 		  ZOrder		  -2
 		  ShowName		  off
-		  Inputs		  "8"
+		  Inputs		  "9"
 		  DisplayOption		  "bar"
 		}
 		Block {
 		  BlockType		  Outport
 		  Name			  "LaneSensor"
 		  SID			  "3151"
-		  Position		  [400, 148, 430, 162]
+		  Position		  [400, 163, 430, 177]
 		  ZOrder		  -9
 		  BackgroundColor	  "gray"
 		  IconDisplay		  "Port number"
 		}
 		Line {
+		  Name			  "poly_domain_LAD_Sensor"
+		  Labels		  [0, 0]
+		  SrcBlock		  "poly_domain_LAD [1/m]"
+		  SrcPort		  1
+		  DstBlock		  "Bus\nCreator"
+		  DstPort		  9
+		}
+		Line {
 		  Name			  "poly_roadCurvat_LAD_Sensor"
 		  Labels		  [0, 0]
-		  SrcBlock		  "polyCoeff_roadCurv_LAD [1/m]"
+		  SrcBlock		  "poly_roadCurvat_LAD [1/m]"
 		  SrcPort		  1
 		  DstBlock		  "Bus\nCreator"
 		  DstPort		  8
@@ -4654,7 +4682,7 @@ Library {
 		Line {
 		  Name			  "poly_angularDev_LAD_Sensor"
 		  Labels		  [0, 0]
-		  SrcBlock		  "polyCoeff_angDev_LAD [rad]"
+		  SrcBlock		  "poly_angularDev_LAD [rad]"
 		  SrcPort		  1
 		  DstBlock		  "Bus\nCreator"
 		  DstPort		  7
@@ -4662,7 +4690,7 @@ Library {
 		Line {
 		  Name			  "poly_lateralOff_LAD_Sensor"
 		  Labels		  [0, 0]
-		  SrcBlock		  "polyCoeff_latOff_LAD [m]"
+		  SrcBlock		  "poly_lateralOff_LAD [m]"
 		  SrcPort		  1
 		  DstBlock		  "Bus\nCreator"
 		  DstPort		  6
@@ -4716,7 +4744,7 @@ Library {
 		Annotation {
 		  SID			  "3342"
 		  Name			  "Define bus signal names here!"
-		  Position		  [132, 342]
+		  Position		  [132, 372]
 		  BackgroundColor	  "[1.000000, 0.501961, 0.501961]"
 		  FontName		  "Consolas"
 		  FontSize		  12
@@ -4744,8 +4772,8 @@ Library {
 	      BlockType		      SubSystem
 	      Name		      "MATLAB Function"
 	      SID		      "3306"
-	      Ports		      [5, 3]
-	      Position		      [505, 280, 720, 450]
+	      Ports		      [5, 4]
+	      Position		      [505, 282, 720, 498]
 	      ZOrder		      -4
 	      LibraryVersion	      "1.32"
 	      ErrorFcn		      "Stateflow.Translate.translate"
@@ -4784,7 +4812,7 @@ Library {
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
-		SIDHighWatermark	"37"
+		SIDHighWatermark	"42"
 		Block {
 		  BlockType		  Inport
 		  Name			  "LAD"
@@ -4834,8 +4862,8 @@ Library {
 		  Name			  " Demux "
 		  SID			  "3306::2"
 		  Ports			  [1, 1]
-		  Position		  [270, 220, 320, 260]
-		  ZOrder		  33
+		  Position		  [270, 245, 320, 285]
+		  ZOrder		  42
 		  Outputs		  "1"
 		}
 		Block {
@@ -4843,11 +4871,11 @@ Library {
 		  Name			  " SFunction "
 		  SID			  "3306::1"
 		  Tag			  "Stateflow S-Function library 2"
-		  Ports			  [5, 4]
+		  Ports			  [5, 5]
 		  Position		  [180, 100, 230, 220]
-		  ZOrder		  32
+		  ZOrder		  41
 		  FunctionName		  "sf_sfun"
-		  PortCounts		  "[5 4]"
+		  PortCounts		  "[5 5]"
 		  EnableBusSupport	  off
 		  Port {
 		    PortNumber		    2
@@ -4867,13 +4895,19 @@ Library {
 		    RTWStorageClass	    "Auto"
 		    DataLoggingNameMode	    "SignalName"
 		  }
+		  Port {
+		    PortNumber		    5
+		    Name		    "poly_domain_LAD"
+		    RTWStorageClass	    "Auto"
+		    DataLoggingNameMode	    "SignalName"
+		  }
 		}
 		Block {
 		  BlockType		  Terminator
 		  Name			  " Terminator "
 		  SID			  "3306::4"
-		  Position		  [460, 231, 480, 249]
-		  ZOrder		  35
+		  Position		  [460, 256, 480, 274]
+		  ZOrder		  44
 		}
 		Block {
 		  BlockType		  Outport
@@ -4899,6 +4933,15 @@ Library {
 		  Position		  [460, 171, 480, 189]
 		  ZOrder		  23
 		  Port			  "3"
+		  IconDisplay		  "Port number"
+		}
+		Block {
+		  BlockType		  Outport
+		  Name			  "poly_domain_LAD"
+		  SID			  "3306::42"
+		  Position		  [460, 206, 480, 224]
+		  ZOrder		  40
+		  Port			  "4"
 		  IconDisplay		  "Port number"
 		}
 		Line {
@@ -4953,6 +4996,14 @@ Library {
 		  SrcBlock		  " SFunction "
 		  SrcPort		  4
 		  DstBlock		  "poly_roadCurvat_LAD"
+		  DstPort		  1
+		}
+		Line {
+		  Name			  "poly_domain_LAD"
+		  Labels		  [0, 0]
+		  SrcBlock		  " SFunction "
+		  SrcPort		  5
+		  DstBlock		  "poly_domain_LAD"
 		  DstPort		  1
 		}
 		Line {
@@ -5061,10 +5112,16 @@ Library {
 	      BlockType		      Outport
 	      Name		      "LaneSensor"
 	      SID		      "3169"
-	      Position		      [1005, 223, 1035, 237]
+	      Position		      [1005, 248, 1035, 262]
 	      ZOrder		      -9
 	      BackgroundColor	      "gray"
 	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "MATLAB Function"
+	      SrcPort		      4
+	      DstBlock		      "Interface Lane Sensor"
+	      DstPort		      9
 	    }
 	    Line {
 	      SrcBlock		      "Fcn3"
@@ -5131,9 +5188,9 @@ Library {
 	      SrcPort		      1
 	      Points		      [5, 0]
 	      Branch {
-		Points			[0, 240]
+		Points			[0, 255]
 		Branch {
-		  Points		  [0, 175]
+		  Points		  [0, 225]
 		  DstBlock		  "Display2"
 		  DstPort		  1
 		}
@@ -5156,7 +5213,7 @@ Library {
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, 180]
+		Points			[0, 225]
 		DstBlock		"MATLAB Function"
 		DstPort			5
 	      }
@@ -5170,7 +5227,7 @@ Library {
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, 200]
+		Points			[0, 235]
 		DstBlock		"MATLAB Function"
 		DstPort			4
 	      }
@@ -5184,7 +5241,7 @@ Library {
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, 220]
+		Points			[0, 245]
 		DstBlock		"MATLAB Function"
 		DstPort			3
 	      }
@@ -5200,9 +5257,9 @@ Library {
 	      SrcPort		      1
 	      Points		      [130, 0]
 	      Branch {
-		Points			[0, 260]
+		Points			[0, 265]
 		Branch {
-		  Points		  [0, 185]
+		  Points		  [0, 245]
 		  DstBlock		  "Display1"
 		  DstPort		  1
 		}
@@ -12666,13 +12723,13 @@ Stateflow {
     name		    "library"
     created		    "15-Mar-2017 09:25:19"
     isLibrary		    1
-    firstTarget		    15
+    firstTarget		    16
     sfVersion		    76014001.00040001
   }
   chart {
     id			    2
     name		    "Lane Tracking/Lane Tracking Sensor/MATLAB Function"
-    windowPosition	    [424.836 335.534 200.25 189.75]
+    windowPosition	    [454.836 305.534 200.25 189.75]
     viewLimits		    [0 156.75 0 153.75]
     screen		    [1 1 1920 1080 1.611111111111111]
     treeNode		    [0 3 0 0]
@@ -12680,7 +12737,9 @@ Stateflow {
     firstJunction	    4
     viewObj		    2
     machine		    1
-    ssIdHighWaterMark	    19
+    subviewS {
+    }
+    ssIdHighWaterMark	    20
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
     firstData		    6
@@ -12704,16 +12763,16 @@ Stateflow {
     decomposition	    CLUSTER_STATE
     eml {
       isEML		      1
-      script		      "function [...\n poly_lateralOff_LAD,...\n poly_angularDev_LAD,...\n poly_roadCurvat_LAD] = polyFi"
-      "tLaneSensor(...\n LAD,...\n isValid_LAD,...\n lateralOff_LAD,...\n angularDev_LAD,...\n roadCurvat_LAD)\n%#codeg"
-      "en\n\n\n%%% number of valid measurements specify maximum degree of polynomial\nnp_max = sum(isValid_LAD) - 1;\n\n"
-      "if any(~isValid_LAD)\n	1;\nend%if\n\n%%% init outputs\n% choose polynomial degree/fixed output length\nnp = 3;\n"
-      "poly_lateralOff_LAD	= zeros(1,np+1);\npoly_angularDev_LAD	= zeros(1,np+1);\npoly_roadCurvat_LAD	= zeros(1,np+1);"
-      "\n\n%%% fit polynomial coefficients\nn = min(np,np_max);\npoly_latOff	= polyfit(LAD(isValid_LAD),lateralOff_LAD("
-      "isValid_LAD),n);\npoly_angDev	= polyfit(LAD(isValid_LAD),angularDev_LAD(isValid_LAD),n);\npoly_rdCurv	= polyfit("
-      "LAD(isValid_LAD),roadCurvat_LAD(isValid_LAD),n);\n\n%%% add coefficients to output\npoly_lateralOff_LAD(np-n+1:n"
-      "p+1) = poly_latOff;\npoly_angularDev_LAD(np-n+1:np+1) = poly_angDev;\npoly_roadCurvat_LAD(np-n+1:np+1) = poly_rd"
-      "Curv;\n\nend%fcn\n\n"
+      script		      "function [...\n poly_lateralOff_LAD,...\n poly_angularDev_LAD,...\n poly_roadCurvat_LAD,...\n pol"
+      "y_domain_LAD] = polyFitLaneSensor(...\n LAD,...\n isValid_LAD,...\n lateralOff_LAD,...\n angularDev_LAD,...\n ro"
+      "adCurvat_LAD)\n%#codegen\n\n\n%%% number of valid measurements specify maximum degree of polynomial\nnp_max = su"
+      "m(isValid_LAD) - 1;\n\nif any(~isValid_LAD)\n	1;\nend%if\n\n%%% init outputs\n% choose polynomial degree/fixed o"
+      "utput length\nnp = 3;\npoly_lateralOff_LAD	= zeros(1,np+1);\npoly_angularDev_LAD	= zeros(1,np+1);\npoly_roadCurv"
+      "at_LAD	= zeros(1,np+1);\n\n%%% fit polynomial coefficients\nn = min(np,np_max);\nLAD_valid = LAD(isValid_LAD);\n"
+      "poly_latOff	= polyfit(LAD_valid,lateralOff_LAD(isValid_LAD),n);\npoly_angDev	= polyfit(LAD_valid,angularDev_LAD("
+      "isValid_LAD),n);\npoly_rdCurv	= polyfit(LAD_valid,roadCurvat_LAD(isValid_LAD),n);\n\n%%% add coefficients to out"
+      "put\npoly_lateralOff_LAD(np-n+1:np+1) = poly_latOff;\npoly_angularDev_LAD(np-n+1:np+1) = poly_angDev;\npoly_road"
+      "Curvat_LAD(np-n+1:np+1) = poly_rdCurv;\n\npoly_domain_LAD = [min(LAD_valid);max(LAD_valid)];\n\nend%fcn\n\n"
       editorLayout	      "100 M4x1[10 5 700 500]"
     }
   }
@@ -12905,7 +12964,29 @@ Stateflow {
     id			    13
     ssIdNumber		    19
     name		    "poly_roadCurvat_LAD"
-    linkNode		    [2 12 0]
+    linkNode		    [2 12 14]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    14
+    ssIdNumber		    20
+    name		    "poly_domain_LAD"
+    linkNode		    [2 13 0]
     scope		    OUTPUT_DATA
     machine		    1
     props {
@@ -12924,13 +13005,13 @@ Stateflow {
     dataType		    "Inherit: Same as Simulink"
   }
   instance {
-    id			    14
+    id			    15
     name		    "Lane Tracking/Lane Tracking Sensor/MATLAB Function"
     machine		    1
     chart		    2
   }
   target {
-    id			    15
+    id			    16
     name		    "sfun"
     description		    "Default Simulink S-Function Target."
     machine		    1
