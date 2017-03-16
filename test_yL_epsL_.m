@@ -138,10 +138,15 @@ figure;
 
 % yL
 subplot(2,1,1);
-p = plot(sol.simOut.Control.Time,[...
-    sol.simOut.LaneSensor.lateralOff_LAD_Sensor.Data(:),...
-    sol.simOut.LaneTracking.lateralOff_LAD_linear.Data,...
-    sol.simOut.LaneTracking.lateralOff_LAD_nonlinear.Data]);
+p(1) = plot(sol.simOut.LaneSensor.lateralOff_LAD_Sensor);
+hold all
+p(2) = plot(sol.simOut.LaneTracking.lateralOff_LAD_linear);
+hold all
+p(3) = plot(sol.simOut.LaneTracking.lateralOff_LAD_nonlinear);
+% p = plot(sol.simOut.Control.Time,[...
+%     sol.simOut.LaneSensor.lateralOff_LAD_Sensor.Data(:),...
+%     sol.simOut.LaneTracking.lateralOff_LAD_linear.Data,...
+%     sol.simOut.LaneTracking.lateralOff_LAD_nonlinear.Data]);
 set(p(1),'LineWidth',2)
 set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
 set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
@@ -150,10 +155,11 @@ title('lateral offset @ LAD')
 
 % epsL
 subplot(2,1,2);
-p = plot(sol.simOut.Control.Time,[...
-    sol.simOut.LaneSensor.angularDev_LAD_Sensor.Data(:),...
-    sol.simOut.LaneTracking.angularDev_LAD_linear.Data,...
-    sol.simOut.LaneTracking.angularDev_LAD_nonlinear.Data]);
+p(1) = plot(sol.simOut.LaneSensor.angularDev_LAD_Sensor);
+hold all
+p(2) = plot(sol.simOut.LaneTracking.angularDev_LAD_linear);
+hold all
+p(3) = plot(sol.simOut.LaneTracking.angularDev_LAD_nonlinear);
 set(p(1),'LineWidth',2)
 set(p(2),'Color','g','LineWidth',2,'LineStyle','--')
 set(p(3),'Color','r','LineWidth',2,'LineStyle',':')
