@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Mar 15 09:50:53 2017"
-  RTWModifiedTimeStamp	  411472246
-  ModelVersionFormat	  "1.%<AutoIncrement:860>"
+  LastModifiedDate	  "Thu Mar 16 07:48:20 2017"
+  RTWModifiedTimeStamp	  411551192
+  ModelVersionFormat	  "1.%<AutoIncrement:862>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -868,7 +868,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3347"
+    SIDHighWatermark	    "3363"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -3050,6 +3050,347 @@ Library {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  SubSystem
+	  Name			  "Lane Tracking Model (linear&nonlinear)"
+	  SID			  "3348"
+	  Ports			  [8, 1]
+	  Position		  [625, 13, 820, 212]
+	  ZOrder		  -19
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Lane Tracking Model (linear&nonlinear)"
+	    Location		    [433, 403, 931, 703]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "vx [m/s]"
+	      SID		      "3353"
+	      Position		      [50, 18, 80, 32]
+	      BackgroundColor	      "yellow"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "vy [m/s]"
+	      SID		      "3354"
+	      Position		      [50, 48, 80, 62]
+	      BackgroundColor	      "yellow"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "yawRate [rad/s]"
+	      SID		      "3355"
+	      Position		      [50, 78, 80, 92]
+	      BackgroundColor	      "yellow"
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "LAD [m]"
+	      SID		      "3356"
+	      Position		      [50, 108, 80, 122]
+	      BackgroundColor	      "yellow"
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "curvature_LAD [1/m]"
+	      SID		      "3357"
+	      Position		      [50, 138, 80, 152]
+	      BackgroundColor	      "yellow"
+	      Port		      "5"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "lateralOff_LAD(0) [m]"
+	      SID		      "3358"
+	      Position		      [50, 168, 80, 182]
+	      BackgroundColor	      "yellow"
+	      Port		      "6"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "angularDev_LAD(0) [rad]"
+	      SID		      "3359"
+	      Position		      [50, 198, 80, 212]
+	      BackgroundColor	      "yellow"
+	      Port		      "7"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "lateralOff_LAD_exact [m]"
+	      SID		      "3360"
+	      Position		      [50, 413, 80, 427]
+	      BackgroundColor	      "yellow"
+	      Port		      "8"
+	      IconDisplay	      "Port number"
+	      OutDataTypeStr	      "double"
+	      PortDimensions	      "1"
+	      VarSizeSig	      "No"
+	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      BusCreator
+	      Name		      "Bus\nCreator"
+	      SID		      "3362"
+	      Ports		      [4, 1]
+	      Position		      [680, 14, 685, 431]
+	      ZOrder		      -2
+	      ShowName		      off
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Lane Tracking Model (linear)"
+	      SID		      "3351"
+	      Ports		      [7, 2]
+	      Position		      [335, 12, 530, 218]
+	      LibraryVersion	      "1.860"
+	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (linear)"
+	      SourceType	      "SubSystem"
+	      Port {
+		PortNumber		1
+		PropagatedSignals	"lateralOff_LAD_linear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		2
+		PropagatedSignals	"angularDev_LAD_linear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Lane Tracking Model (nonlinear)"
+	      SID		      "3361"
+	      Ports		      [8, 2]
+	      Position		      [335, 233, 530, 432]
+	      LibraryVersion	      "1.860"
+	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (nonlinear)"
+	      SourceType	      "SubSystem"
+	      Port {
+		PortNumber		1
+		PropagatedSignals	"lateralOff_LAD_nonlinear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		2
+		PropagatedSignals	"angularDev_LAD_nonlinear"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "LaneTracking"
+	      SID		      "3363"
+	      Position		      [760, 218, 790, 232]
+	      ZOrder		      -9
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "vx [m/s]"
+	      SrcPort		      1
+	      Points		      [215, 0]
+	      Branch {
+		DstBlock		"Lane Tracking Model (linear)"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 220]
+		DstBlock		"Lane Tracking Model (nonlinear)"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "vy [m/s]"
+	      SrcPort		      1
+	      Points		      [200, 0]
+	      Branch {
+		DstBlock		"Lane Tracking Model (linear)"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 215]
+		DstBlock		"Lane Tracking Model (nonlinear)"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "yawRate [rad/s]"
+	      SrcPort		      1
+	      Points		      [185, 0]
+	      Branch {
+		DstBlock		"Lane Tracking Model (linear)"
+		DstPort			3
+	      }
+	      Branch {
+		Points			[0, 210]
+		DstBlock		"Lane Tracking Model (nonlinear)"
+		DstPort			3
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "LAD [m]"
+	      SrcPort		      1
+	      Points		      [170, 0]
+	      Branch {
+		DstBlock		"Lane Tracking Model (linear)"
+		DstPort			4
+	      }
+	      Branch {
+		Points			[0, 205]
+		DstBlock		"Lane Tracking Model (nonlinear)"
+		DstPort			4
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "curvature_LAD [1/m]"
+	      SrcPort		      1
+	      Points		      [155, 0]
+	      Branch {
+		DstBlock		"Lane Tracking Model (linear)"
+		DstPort			5
+	      }
+	      Branch {
+		Points			[0, 200]
+		DstBlock		"Lane Tracking Model (nonlinear)"
+		DstPort			5
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "lateralOff_LAD(0) [m]"
+	      SrcPort		      1
+	      Points		      [140, 0]
+	      Branch {
+		DstBlock		"Lane Tracking Model (linear)"
+		DstPort			6
+	      }
+	      Branch {
+		Points			[0, 195]
+		DstBlock		"Lane Tracking Model (nonlinear)"
+		DstPort			6
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "angularDev_LAD(0) [rad]"
+	      SrcPort		      1
+	      Points		      [125, 0]
+	      Branch {
+		DstBlock		"Lane Tracking Model (linear)"
+		DstPort			7
+	      }
+	      Branch {
+		Points			[0, 190]
+		DstBlock		"Lane Tracking Model (nonlinear)"
+		DstPort			7
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "lateralOff_LAD_exact [m]"
+	      SrcPort		      1
+	      DstBlock		      "Lane Tracking Model (nonlinear)"
+	      DstPort		      8
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Lane Tracking Model (linear)"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Lane Tracking Model (linear)"
+	      SrcPort		      2
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      2
+	    }
+	    Line {
+	      Labels		      [2, 0]
+	      SrcBlock		      "Lane Tracking Model (nonlinear)"
+	      SrcPort		      1
+	      Points		      [0, -10]
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      3
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Lane Tracking Model (nonlinear)"
+	      SrcPort		      2
+	      Points		      [0, -5]
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nCreator"
+	      SrcPort		      1
+	      DstBlock		      "LaneTracking"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
 	  Name			  "Lane Tracking Model (linear)"
 	  SID			  "1839"
 	  Ports			  [7, 2]
@@ -3937,7 +4278,7 @@ Library {
 	  Name			  "Lane Tracking Sensor"
 	  SID			  "340"
 	  Ports			  [4, 1]
-	  Position		  [695, 24, 875, 136]
+	  Position		  [25, 267, 220, 368]
 	  LibraryVersion	  "*1.857"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -4944,13 +5285,6 @@ Library {
 	      DstPort		      1
 	    }
 	  }
-	}
-	Line {
-	  SrcBlock		  "Lane Tracking Model (nonlinear)"
-	  SrcPort		  1
-	  Points		  [55, 0; 0, 175; -300, 0; 0, -40]
-	  DstBlock		  "Lane Tracking Model (nonlinear)"
-	  DstPort		  8
 	}
       }
     }
@@ -12303,6 +12637,7 @@ Stateflow {
     id			    1
     name		    "library"
     created		    "15-Mar-2017 09:25:19"
+    locked		    1
     isLibrary		    1
     firstTarget		    15
     sfVersion		    76014001.00040001
@@ -12318,6 +12653,7 @@ Stateflow {
     firstJunction	    4
     viewObj		    2
     machine		    1
+    locked		    1
     ssIdHighWaterMark	    19
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
