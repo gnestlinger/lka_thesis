@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 16 14:53:12 2017"
-  RTWModifiedTimeStamp	  411576781
-  ModelVersionFormat	  "1.%<AutoIncrement:864>"
+  LastModifiedDate	  "Thu Mar 16 15:31:07 2017"
+  RTWModifiedTimeStamp	  411579031
+  ModelVersionFormat	  "1.%<AutoIncrement:867>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -868,7 +868,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3367"
+    SIDHighWatermark	    "3387"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -4812,7 +4812,7 @@ Library {
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
-		SIDHighWatermark	"42"
+		SIDHighWatermark	"54"
 		Block {
 		  BlockType		  Inport
 		  Name			  "LAD"
@@ -12074,7 +12074,7 @@ Library {
 	      Ports		      [9, 1]
 	      Position		      [715, 340, 875, 600]
 	      BackgroundColor	      "lightBlue"
-	      LibraryVersion	      "1.854"
+	      LibraryVersion	      "1.866"
 	      SourceBlock	      "library/Vehicle Models ext./Single Track Model//Lane Tracking"
 	      SourceType	      "SubSystem"
 	    }
@@ -12084,7 +12084,7 @@ Library {
 	      SID		      "3108"
 	      Ports		      [13, 2]
 	      Position		      [275, 14, 440, 336]
-	      LibraryVersion	      "1.854"
+	      LibraryVersion	      "1.866"
 	      SourceBlock	      "library/Steering Models/Steering Model (CarMaker DSR)"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -12420,6 +12420,625 @@ Library {
 	}
 	Block {
 	  BlockType		  SubSystem
+	  Name			  "Single Track Model/Steering Model"
+	  SID			  "3368"
+	  Ports			  [7, 1]
+	  Position		  [780, 15, 940, 225]
+	  BackgroundColor	  "lightBlue"
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Single Track Model/Steering Model"
+	    Location		    [497, 147, 1847, 974]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "SWTorque [Nm]"
+	      SID		      "3369"
+	      Position		      [35, 18, 65, 32]
+	      BackgroundColor	      "yellow"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Vhcl_Parameter"
+	      SID		      "3370"
+	      Position		      [35, 413, 65, 427]
+	      BackgroundColor	      "yellow"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "SteerMdl_Parameter"
+	      SID		      "3371"
+	      Position		      [35, 183, 65, 197]
+	      BackgroundColor	      "yellow"
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "vx [m/s]"
+	      SID		      "3372"
+	      Position		      [35, 483, 65, 497]
+	      BackgroundColor	      "yellow"
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "F_left [N]"
+	      SID		      "3373"
+	      Position		      [95, 43, 125, 57]
+	      BackgroundColor	      "yellow"
+	      Port		      "5"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "F_right [N]"
+	      SID		      "3374"
+	      Position		      [35, 68, 65, 82]
+	      BackgroundColor	      "yellow"
+	      Port		      "6"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Vhcl_InitValues"
+	      SID		      "3375"
+	      Position		      [35, 563, 65, 577]
+	      BackgroundColor	      "yellow"
+	      Port		      "7"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      BusCreator
+	      Name		      "Bus\nCreator1"
+	      SID		      "3376"
+	      Ports		      [9, 1]
+	      Position		      [1180, 16, 1185, 344]
+	      ShowName		      off
+	      Inputs		      "9"
+	      DisplayOption	      "bar"
+	      Port {
+		PortNumber		1
+		Name			"VehicleState"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      BusSelector
+	      Name		      "Bus\nSelector"
+	      SID		      "3377"
+	      Ports		      [1, 1]
+	      Position		      [135, 341, 140, 369]
+	      ZOrder		      -3
+	      ShowName		      off
+	      OutputSignals	      "alpha"
+	      Port {
+		PortNumber		1
+		Name			"<alpha>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      BusSelector
+	      Name		      "Bus\nSelector2"
+	      SID		      "3378"
+	      Ports		      [1, 8]
+	      Position		      [135, 90, 140, 285]
+	      ZOrder		      -3
+	      ShowName		      off
+	      OutputSignals	      "d_rot,d_rack,i_HR,I_rot,m_left,m_right,m_rack,V"
+	      Port {
+		PortNumber		1
+		Name			"<d_rot>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		2
+		Name			"<d_rack>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		3
+		Name			"<i_HR>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		4
+		Name			"<I_rot>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		5
+		Name			"<m_left>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		6
+		Name			"<m_right>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		7
+		Name			"<m_rack>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		8
+		Name			"<V>"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      BusSelector
+	      Name		      "Bus\nSelector3"
+	      SID		      "3379"
+	      Ports		      [1, 6]
+	      Position		      [635, 361, 640, 479]
+	      ZOrder		      -3
+	      ShowName		      off
+	      OutputSignals	      "cs_front,cs_rear,l_front,l_rear,m,Izz"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant1"
+	      SID		      "3380"
+	      Position		      [135, 317, 210, 333]
+	      ZOrder		      -5
+	      ShowName		      off
+	      Value		      "0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant3"
+	      SID		      "3381"
+	      Position		      [135, 292, 210, 308]
+	      ZOrder		      -5
+	      ShowName		      off
+	      Value		      "0"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux"
+	      SID		      "3382"
+	      Ports		      [1, 7]
+	      Position		      [635, 504, 640, 636]
+	      ZOrder		      -6
+	      ShowName		      off
+	      Outputs		      "7"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Divide"
+	      SID		      "3383"
+	      Ports		      [2, 1]
+	      Position		      [565, 332, 595, 363]
+	      ZOrder		      -8
+	      Inputs		      "*/"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      RndMeth		      "Floor"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Single Track Model (linear)"
+	      SID		      "3384"
+	      Ports		      [15, 7]
+	      Position		      [740, 336, 900, 644]
+	      LibraryVersion	      "1.866"
+	      SourceBlock	      "library/Vehicle Models/Single Track Models/Single Track Model (linear)"
+	      SourceType	      "SubSystem"
+	      Port {
+		PortNumber		1
+		PropagatedSignals	"sy"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		2
+		PropagatedSignals	"vy"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		3
+		PropagatedSignals	"yawAngle"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		4
+		PropagatedSignals	"yawRate"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		5
+		PropagatedSignals	"x_global"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		6
+		PropagatedSignals	"y_global"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	      Port {
+		PortNumber		7
+		PropagatedSignals	"s_global"
+		ShowPropagatedSignals	"on"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Reference
+	      Name		      "Steering Model (CarMaker DSR)"
+	      SID		      "3387"
+	      Ports		      [13, 2]
+	      Position		      [275, 14, 440, 336]
+	      LibraryVersion	      "1.866"
+	      SourceBlock	      "library/Steering Models/Steering Model (CarMaker DSR)"
+	      SourceType	      "SubSystem"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "VehicleState"
+	      SID		      "3386"
+	      Position		      [1255, 173, 1285, 187]
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "Vhcl_InitValues"
+	      SrcPort		      1
+	      DstBlock		      "Demux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Constant1"
+	      SrcPort		      1
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      13
+	    }
+	    Line {
+	      SrcBlock		      "Constant3"
+	      SrcPort		      1
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      12
+	    }
+	    Line {
+	      Name		      "<V>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      8
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      11
+	    }
+	    Line {
+	      Name		      "<m_rack>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      7
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      10
+	    }
+	    Line {
+	      Name		      "<m_right>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      6
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      9
+	    }
+	    Line {
+	      Name		      "<m_left>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      5
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      8
+	    }
+	    Line {
+	      Name		      "<I_rot>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      4
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      7
+	    }
+	    Line {
+	      Name		      "<i_HR>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      3
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      6
+	    }
+	    Line {
+	      Name		      "<d_rack>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      2
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      5
+	    }
+	    Line {
+	      Name		      "<d_rot>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector2"
+	      SrcPort		      1
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "F_right [N]"
+	      SrcPort		      1
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "F_left [N]"
+	      SrcPort		      1
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      2
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Single Track Model (linear)"
+	      SrcPort		      7
+	      Points		      [135, 0; 0, -375]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      7
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Single Track Model (linear)"
+	      SrcPort		      6
+	      Points		      [125, 0; 0, -365]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      6
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Single Track Model (linear)"
+	      SrcPort		      5
+	      Points		      [115, 0; 0, -355]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      5
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Single Track Model (linear)"
+	      SrcPort		      4
+	      Points		      [105, 0; 0, -345]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      4
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Single Track Model (linear)"
+	      SrcPort		      3
+	      Points		      [95, 0; 0, -335]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      3
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Single Track Model (linear)"
+	      SrcPort		      2
+	      Points		      [85, 0; 0, -325]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      2
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Single Track Model (linear)"
+	      SrcPort		      1
+	      Points		      [75, 0; 0, -315]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [-1, 1]
+	      SrcBlock		      "Steering Model (CarMaker DSR)"
+	      SrcPort		      2
+	      Points		      [0, 50; 720, 0]
+	      DstBlock		      "Bus\nCreator1"
+	      DstPort		      9
+	    }
+	    Line {
+	      SrcBlock		      "Divide"
+	      SrcPort		      1
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "SteerMdl_Parameter"
+	      SrcPort		      1
+	      Points		      [40, 0]
+	      Branch {
+		DstBlock		"Bus\nSelector2"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 165]
+		DstBlock		"Bus\nSelector"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      Name		      "VehicleState"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nCreator1"
+	      SrcPort		      1
+	      DstBlock		      "VehicleState"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "vx [m/s]"
+	      SrcPort		      1
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      8
+	    }
+	    Line {
+	      SrcBlock		      "Vhcl_Parameter"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nSelector3"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Steering Model (CarMaker DSR)"
+	      SrcPort		      1
+	      Points		      [60, 0; 0, 175]
+	      Branch {
+		Points			[0, 70]
+		DstBlock		"Divide"
+		DstPort			1
+	      }
+	      Branch {
+		Labels			[-1, 1]
+		Points			[660, 0]
+		DstBlock		"Bus\nCreator1"
+		DstPort			8
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "SWTorque [Nm]"
+	      SrcPort		      1
+	      DstBlock		      "Steering Model (CarMaker DSR)"
+	      DstPort		      1
+	    }
+	    Line {
+	      Name		      "<alpha>"
+	      Labels		      [0, 0]
+	      SrcBlock		      "Bus\nSelector"
+	      SrcPort		      1
+	      DstBlock		      "Divide"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nSelector3"
+	      SrcPort		      1
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nSelector3"
+	      SrcPort		      2
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nSelector3"
+	      SrcPort		      3
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nSelector3"
+	      SrcPort		      4
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nSelector3"
+	      SrcPort		      5
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "Bus\nSelector3"
+	      SrcPort		      6
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      1
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      9
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      2
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      10
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      3
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      11
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      4
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      12
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      5
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      13
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      6
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      14
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      7
+	      DstBlock		      "Single Track Model (linear)"
+	      DstPort		      15
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
 	  Name			  "Steering Model (CarMaker DSR)\n[Parameter; masked]"
 	  SID			  "3244"
 	  Ports			  [0, 1]
@@ -12737,8 +13356,6 @@ Stateflow {
     firstJunction	    4
     viewObj		    2
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    20
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
