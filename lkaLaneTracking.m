@@ -87,7 +87,7 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	% the according LAD, NUMINDCOL points to the according
 	% x-coordinate (see LOGINDX calculation above)
 	[numIndRow,numIndCol] = find(logIndx);
-
+	
 % 	plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 
 
@@ -97,7 +97,7 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	% rarely affected.
 	m = 1;
 	[indl,indu] = interpIndexRange(numIndCol,[1,length(obj.x)],m);
-
+	
 	% preallocation of for-loop variable
 	lanePose_LAD_candidates = zeros(3,length(numIndCol));
 	try
@@ -118,31 +118,34 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	latOff_LAD_candidates = lanePose_LAD_candidates(1,:);
 	angDev_LAD_candidates = lanePose_LAD_candidates(2,:);
 	curvat_LAD_candidates = lanePose_LAD_candidates(3,:);
-
-
+	
+	
 	%%% select one of multiple lateral offsets per LAD-value
-	% get most possible value per LAD-value
+	% get most possible (by means of smallest) value per LAD-value
 	latOff_LAD	= zeros(size(LAD));
 	angDev_LAD	= zeros(size(LAD));
 	curvat_LAD	= zeros(size(LAD));
 	isValid_LAD = false(size(LAD));
 	for i = 1:length(latOff_LAD_candidates)
+		latOff_underTest = latOff_LAD_candidates(i);
 		angDev_underTest = angDev_LAD_candidates(i);
 		curvat_underTest = curvat_LAD_candidates(i);
-		latOff_underTest = latOff_LAD_candidates(i);
-		if abs(latOff_underTest) < abs(latOff_LAD(numIndRow(i))) || ~isValid_LAD(numIndRow(i))
-			latOff_LAD(numIndRow(i))	= latOff_underTest;
-			angDev_LAD(numIndRow(i))	= angDev_underTest;
-			curvat_LAD(numIndRow(i))	= curvat_underTest;
-			isValid_LAD(numIndRow(i))	= true;
+		LAD_group = numIndRow(i);
+		
+		if abs(latOff_underTest) < abs(latOff_LAD(LAD_group)) || ...
+				~isValid_LAD(LAD_group)
+			latOff_LAD(LAD_group)	= latOff_underTest;
+			angDev_LAD(LAD_group)	= angDev_underTest;
+			curvat_LAD(LAD_group)	= curvat_underTest;
+			isValid_LAD(LAD_group)	= true;
 		end%if
-
+		
 	end%for
-
-
+	
+	
 	% collect all output arguments (to be used in simulink)
 	out = [LAD;isValid_LAD;latOff_LAD;angDev_LAD;curvat_LAD];
-
+	
 end%fcn
 
 
