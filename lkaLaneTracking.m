@@ -1,5 +1,5 @@
 function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
-		lkaLaneTracking(obj,xyCG_global,yawAngle_global,LAD)
+		lkaLaneTracking(obj,xyCG_global,yawAngle_global,LAD,mode)
 % laneTracking  Calculate lane tracking pose.
 %	
 %	[~,LATOFF_LAD,ANGDEV_LAD,CURV_LAD] =
@@ -20,7 +20,10 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 % $Revision: 124 $
 
 	% Methode: Koordinatentransformation
-
+	if nargin <5
+		mode = 0;
+	end%if
+	
 	% ensure row format
 	LAD = LAD(:)';
 
@@ -57,11 +60,11 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 % 	xyLAD_T = xyCG_T + [lad;0];
 	xyLAD_T = [xyCG_T(1) + LAD; xyCG_T(2)+zeros(size(LAD))];
 	
-
+	
 	%%% get indices of potential elements of desired path
 	% maximaler Abstand zwischen x-Werten der Sollbahn
 	deltaX_max = max(abs(diff(obj_T.x)));
-
+	
 	% Depending on the shape of the desired path (e.g. closed
 	% path), there might be multiple elements of the desired path
 	% whose x-coordinates are within the range of LAD +-
@@ -74,7 +77,7 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	logIndx1 = bsxfun(@le,xyLAD_T(1,:)' - deltaX_max/2,obj_T.x);
 	logIndx2 = bsxfun(@ge,xyLAD_T(1,:)' + deltaX_max/2,obj_T.x);
 	logIndx = logIndx1 & logIndx2;
-
+	
 	% error if no element of LOGINDX is true
 	if ~any(any(logIndx))
 		plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,[],obj_T,xyCG_T);
@@ -82,15 +85,53 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 			['Keine Elemente der Sollbahn im Bereich der',... 
 			' aktuellen Fahrzeugposition gefunden'])
 	end%if
-
+	
 	% Numerical indices according to LOGINDX: NUMINDROW points to
 	% the according LAD, NUMINDCOL points to the according
 	% x-coordinate (see LOGINDX calculation above)
 	[numIndRow,numIndCol] = find(logIndx);
 	
-% 	plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
-
-
+	if mode
+		%%% reduce number of potential elements
+		% since there might be multiple elements within LAD +- DELTAX_MAX/2,
+		% get the closest in x-direction per LAD AND per contigous indices
+		
+		% split NUMINDCOL into segments of contigous indices and LAD values
+		splitByLAD = find(diff(numIndRow)>0);
+		splitByInd = find(diff(numIndCol)>1);	
+		splitInd = [0;unique([splitByLAD;splitByInd]);length(numIndRow)];
+		
+		% get index of element closest to LAD, do it for each index-segment
+		% defined by SPLITIND
+		numIndRow_red = zeros(length(splitInd)-1,1);
+		numIndCol_red = zeros(length(splitInd)-1,1);
+		for i = 1:length(splitInd)-1
+			numIndRow_i = numIndRow(splitInd(i)+1:splitInd(i+1));
+			numIndCol_i = numIndCol(splitInd(i)+1:splitInd(i+1));
+			
+			% since we grouped by contigous indices and LAD, NUMINDWOR_I must
+			% not contain different values
+			if ~all(numIndRow_i(1) == numIndRow_i)
+				error('This should not have happened!');
+			end%if
+			
+			%
+			if length(numIndRow_i) > 2
+				[~,winInd] = min(abs(obj_T.x(numIndCol_i) - xyLAD_T(1,numIndRow_i(1))));
+			else
+				winInd = 1;
+			end%if
+			
+			numIndRow_red(i) = numIndRow_i(winInd);
+			numIndCol_red(i) = numIndCol_i(winInd);
+		end%for
+		numIndRow = numIndRow_red;
+		numIndCol = numIndCol_red;
+	end%if
+	
+	plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
+	
+	
 	%%% get lateral offset for potential elements
 	% interpolation index-range: m>1 mainly increase the
 	% calculation time, lateral offset and angular deviation are
