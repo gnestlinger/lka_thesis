@@ -728,7 +728,9 @@ classdef segDat
 				%%% handle input arguments
 				% SD_T
 				if ~isa(sd_T,'segDat')
-					error('Input argument SD_T must be of class SEGDAT!');
+					warning('SEGDAT:plotLaneTracking:class',...
+						'Input argument SD_T must be of class SEGDAT!');
+					return;
 				end%if
 				
 				% XYCG_T
