@@ -447,22 +447,14 @@ classdef segDat
 		
 			% apply plot options if unspecified
 			if isempty(varargin)
-%				plotOpts = {'o','MarkerSize',2,'MarkerFaceColor','blue'};
-				plotOpts = {'-b','LineWidth',2};
-			else
-				plotOpts = varargin;
-			end%if
-			
-			% check for class
-			if ~isa(obj,'segDat')
-				error('OBJ has to be of class ''segDat''!')
+%				varargin = {'o','MarkerSize',2,'MarkerFaceColor','blue'};
+				varargin = {'-b','LineWidth',2};
 			end%if
 			
 			% plot street segment
-			h = plot(obj.x,obj.y,plotOpts{:});
-			hold on; 
-			plot(obj.x(1),obj.y(1),plotOpts{:},'Marker','o');
-			hold off
+			h = plot_raw(obj,varargin{:});
+			
+			% apply plot styles
 			grid on;
 			axis equal;
 			title(getLegendCellString(obj));
@@ -509,7 +501,7 @@ classdef segDat
 			if nargin < 2; fh = @(arg) diff(arg.type); end%if
 			
 			if ~isa(fh,'function_handle')
-				error('class')
+				error('Second input argument must be of class function handle!')
 			end%if
 			
 			
@@ -552,7 +544,7 @@ classdef segDat
 					);
 				
 				hold on
-				h(i) = plot(sd,...
+				h(i) = plot_raw(sd,...
 					'LineStyle','none',...
 					'Color',obj.plotColor{obj.type(indRange(1))+1},...
 					'Marker',plotMarker_{1,i},...
@@ -561,14 +553,18 @@ classdef segDat
 				
 			end%for
 			
-			% override single segment legend with legend of connected OBJ
-			title(getLegendCellString(obj));
-			
 			% unsure about usefulness
 			% line style plotting if no additional ....
 % 			if nargin < 2
 % 				set(h,'LineStyle','-','LineWidth',2,'Marker','none');
 % 			end%if
+			
+			% apply plot styles
+			grid on;
+			axis equal;
+			title(getLegendCellString(obj));
+			ylabel('y [m]');
+			xlabel('x [m]');
 			
 		end%fcn
 		
@@ -669,7 +665,7 @@ classdef segDat
 			
 			% set the axis limtis corresponding to segment data
 			axis([xLimits,yLimits]);
-			
+						
 		end%fcn
 		
 		
@@ -783,6 +779,41 @@ classdef segDat
 	
 	
 	methods (Access = private)
+		
+		function h = plot_raw(obj,varargin)
+		%PLOT_RAW	Basic plot of the street segment.
+		%	PLOT_RAW(OBJ) plots OBJ.y over OBJ.x
+		%	
+		%	PLOT(OBJ,S) additionally applies the line specification
+		%	S.
+		%	
+		%	H = PLOT(...) returns the handle H to lineseries objects.
+		%	
+		%	The line specification S is a character string supported by the
+		%	standard PLOT command. For example
+		%		PLOT(OBJ,'LineWidth',2,'Color',[.6 0 0]) 
+		%	will create a plot with a dark red line width of 2 points.
+		%	
+		%	To be used by public plot methods to avoid multiple calls to
+		%	plot styles like AXIS, TITLE, XLABEL, ...!
+		
+		
+			% check for class
+			if ~isa(obj,'segDat')
+				error('OBJ has to be of class SEGDAT!')
+			end%if
+			
+			% plot street segment
+			h(1) = plot(obj.x,obj.y,varargin{:});
+			
+			% highlight first element as starting position
+			hold on;
+% 			h(2) = plot(obj.x(1),obj.y(1),varargin{:},'Marker','o');
+			plot(obj.x(1),obj.y(1),varargin{:},'Marker','o');
+			hold off
+			
+		end%fcn
+		
 		
 		function cellStr = getLegendCellString(obj)
 			
