@@ -244,9 +244,9 @@ classdef lkaSegment
         function h = plot(obj,varargin)
         %PLOT   Plot the street segment.
         %
-        %   For the documentation see class segDat.
+        %   For the documentation see class SEGDAT.
         %
-        %   See also segDat/PLOT.
+        %   See also SEGDAT/PLOT.
         
         
             h = plot(obj.segmentData,varargin{:});
@@ -270,23 +270,16 @@ classdef lkaSegment
         function h = plotdiff(obj,fh)
         %PLOTDIFF   Plots the street segment with specific appearance.
         % 
-        %   For the documentation see class segDat.
+        %   For the documentation see class SEGDAT.
         %
-        %   See also segDat/PLOTDIFF.
+        %   See also SEGDAT/PLOTDIFF.
         
         
             %%% handle input arguments
+			% call SEGDAT-class method
 			if nargin < 2;
-% 				fh = @(x) diff(x.type);
-				
-				%%% call segDat-class  method
 				h = plotdiff(obj.segmentData);
-			else
-				if ~isa(fh,'function_handle')
-					error('class');
-				end%if
-				
-				%%% call segDat-class  method
+			else			
 				h = plotdiff(obj.segmentData,fh);
 			end%if
         
@@ -296,9 +289,9 @@ classdef lkaSegment
 		function h = plottangent(obj,ind,varargin)
         %PLOTTANGENT    Plot the street segment and specified tangents.
         %
-        %   For the documentation see class segDat.
+        %   For the documentation see class SEGDAT.
         %
-        %   See also segDat/PLOTTANGENT.
+        %   See also SEGDAT/PLOTTANGENT.
         
         
             % apply plot options if unspecified
