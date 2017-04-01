@@ -31,6 +31,7 @@ classdef segDat
 %	 - ANALYSIS
 %	 plot		 - Plot street segments.
 %	 plotdiff	 - Plot street segments with specific appearance.
+%	 plotdiff_	 - Plot street segment property with specific appearance.
 %	 plottangent - Plot street segments and specified tangents.
 %	 - MISC
 %	 laneTracking - Get the lane tracking pose.
@@ -467,16 +468,16 @@ classdef segDat
 		function h = plotdiff(obj,fh)
 		%PLOTDIFF	Plot the street segment with specific appearance.
 		%	PLOTDIFF(OBJ) plots each street segment type of OBJ using the
-		%	according pre-defined type-color.
+		%	according pre-defined type-specific color and marker.
 		%	
 		%	PLOTDIFF(OBJ,FH) similar to PLOTDIFF(OBJ) but marker symbols
 		%	replace the solid plot line and the marker symbols are switched
 		%	periodically at indices specified by the function handle FH.
 		%	Some usefull values of FH might be
-		%		.) @(OBJ) diff(OBJ.type) 
-		%		.) @(OBJ) diff(OBJ.type) | diff(sign(OBJ.k))
-		%		.) @(OBJ) diff(OBJ.nbr)
-		%	where the first one is used by PLOTDIFF(OBJ). You can also
+		%	  (D) @(OBJ) diff(OBJ.type) 
+		%	  (.) @(OBJ) diff(OBJ.type) | diff(sign(OBJ.k))
+		%	  (.) @(OBJ) diff(OBJ.nbr)
+		%	where (D) is used by PLOTDIFF(OBJ). You can also
 		%	specify the indices where marker symbols change manually by
 		%	using something like
 		%		.) @(OBJ) [0 0 1 0 1 0 0 0 1 ...].
@@ -498,7 +499,9 @@ classdef segDat
 		
 		
 			%%% handle input arguments
-			if nargin < 2; fh = @(arg) diff(arg.type); end%if
+			if nargin < 2 || isempty(fh)
+				fh = @(arg) diff(arg.type); 
+			end%if
 			
 			if ~isa(fh,'function_handle')
 				error('Second input argument must be of class function handle!')
@@ -565,6 +568,69 @@ classdef segDat
 			title(getLegendCellString(obj));
 			ylabel('y [m]');
 			xlabel('x [m]');
+			
+		end%fcn
+		
+		
+		function h = plotdiff_(obj,fh,prop)
+		%PLOTDIFF_	Plot street segment property with specific appearance.
+		%	PLOTDIFF_(OBJ,FH,PROP) works similar to PLOTDIFF but plots the
+		%	property PROP.
+		%	
+		%	PROP can take the following values:
+		%	 'k': plots the curvature over curve length
+		%	 'phi': plots the angle over curve length
+		%	 's': plots curve length over normed index
+		%	
+		%	FH can be specified as []. In this case, the default value is
+		%	used.
+		%	
+		%	See also SEGDAT/PLOTDIFF.
+			
+			switch prop
+				case 'k'
+					xx = obj.s;
+					yy = obj.k;
+					xLblString = 's [m]';
+					yLblString = 'curvature [1/m]';
+				
+				case 'phi'
+					xx = obj.s;
+					yy = obj.phi;
+					xLblString = 's [m]';
+					yLblString = 'phi [rad]';
+					
+				case 's'
+					n = length(obj.x);
+					xx = (1:n)/n;
+					yy = obj.s;
+					xLblString = 'index [1/indMax]';
+					yLblString = 's [m]';
+					
+				otherwise
+					error(['Unknown property string. ',...
+						'Type help plotdiff_ for valid property strings.']);
+					
+			end%switch
+			
+			% create SEGDAT object for plotting
+			obj_new = segDat(...
+				xx,...
+				yy,...
+				obj.s,...
+				obj.k,...
+				obj.phi,...
+				obj.type,...
+				obj.nbr);
+			
+			% plot
+			h = plotdiff(obj_new,fh);
+			
+			% apply plot styles
+			axis normal
+			grid on
+			xlabel(xLblString);
+			ylabel(yLblString);
 			
 		end%fcn
 		
@@ -1283,7 +1349,6 @@ classdef segDat
 		
 		function test_plotdiff(sd)
 			
-			close all
 			if nargin < 1
 				a = lkaSegmentStraight([],200,0);
 				b = lkaSegmentClothoid([],0,0.01,a.segmentData.phi(end),200);
@@ -1294,6 +1359,38 @@ classdef segDat
 			end%if
 			
 			plotdiff(sd);
+			
+		end%fcn
+		
+		
+		function test_plotdiff_(sd)
+			
+			if nargin < 1
+				a = lkaSegmentStraight([],200,0);
+				b = lkaSegmentCircle([],-pi/2,pi/2,500);
+				c = lkaSegmentStraight([],200,pi);
+				d = lkaSegmentCircle([],pi/2,3*pi/2,500);
+				sd = a + b + c + d;
+			end%if
+			
+			% x/y
+			subplot(4,1,1)
+			plotdiff(sd);
+			
+			% curve length
+			subplot(4,1,2)
+			plotdiff_(sd.segmentData,[],'s');
+			title('')
+			
+			% curvature
+			subplot(4,1,3)
+			plotdiff_(sd.segmentData,[],'k');
+			title('')
+			
+			% tangent angle
+			subplot(4,1,4)
+			plotdiff_(sd.segmentData,[],'phi');
+			title('')
 			
 		end%fcn
 		
