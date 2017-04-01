@@ -1250,20 +1250,19 @@ classdef segDat
 		end%fcn
 		
 		
-		function test_plotdiff()
+		function test_plotdiff(sd)
 			
 			close all
-			a = lkaSegmentStraight([],200,0);
-			b = lkaSegmentClothoid([],0,0.01,a.segmentData.phi(end),200);
-			c = lkaSegmentCircle([],b.segmentData.phi(end)-pi/2,pi*1/2,300);
-			d = lkaSegmentClothoid([],0.01,0,c.segmentData.phi(end),200);
-			e = lkaSegmentStraight([],200,d.segmentData.phi(end));
+			if nargin < 1
+				a = lkaSegmentStraight([],200,0);
+				b = lkaSegmentClothoid([],0,0.01,a.segmentData.phi(end),200);
+				c = lkaSegmentCircle([],b.segmentData.phi(end)-pi/2,pi*1/2,300);
+				d = lkaSegmentClothoid([],0.01,0,c.segmentData.phi(end),200);
+				e = lkaSegmentStraight([],200,d.segmentData.phi(end));
+				sd = a + b + c + d + e;
+			end%if
 			
-			sd = a + b + c + d + e;
-			
-			tic
 			plotdiff(sd);
-			toc
 			
 		end%fcn
 		
