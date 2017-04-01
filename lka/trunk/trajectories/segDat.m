@@ -442,7 +442,7 @@ classdef segDat
 		%		PLOT(OBJ,'LineWidth',2,'Color',[.6 0 0]) 
 		%	will create a plot with a dark red line width of 2 points.
 		%	
-		%	See also PLOT, segDat/PLOTTANGENT, segDat/PLOTDIFF.
+		%	See also PLOT, SEGDAT/PLOTTANGENT, SEGDAT/PLOTDIFF.
 		
 		
 			% apply plot options if unspecified
@@ -502,7 +502,7 @@ classdef segDat
 		%	marker size. The default marker symbols are 'o' and 'diamond'
 		%	repeated periodically.
 		%	
-		%	See also segDat/PLOT, segDat/TANGENT.
+		%	See also SEGDAT/PLOT, SEGDAT/PLOTTANGENT.
 		
 		
 			%%% handle input arguments
@@ -591,7 +591,7 @@ classdef segDat
 		%	H(1,1) is the street segment-handle, H(i+1,1) and H(i+1,2) the
 		%	marker- and the tangent-handle of IND(i) respectively.
 		%	
-		%	See also segDat/PLOT, segDat/PLOTDIFF.
+		%	See also SEGDAT/PLOT, SEGDAT/PLOTDIFF.
 		
 		
 			% check dimension of input ind
@@ -684,7 +684,7 @@ classdef segDat
 				error('Invalid number of input arguments!');
 			end%if
 			
-			% XYCG_global
+			% XYCG_GLOBAL
 			xyCG_global = xyCG_global(:);
 			if any(size(xyCG_global) ~= [2 1])
 				error('Input argument XYCG_GLOBAL must be a vector of two elements!');
@@ -729,8 +729,18 @@ classdef segDat
 				% SD_T
 				if ~isa(sd_T,'segDat')
 					warning('SEGDAT:plotLaneTracking:class',...
-						'Input argument SD_T must be of class SEGDAT!');
-					return;
+						'Input argument SD_T not of class SEGDAT!');
+% 					return;
+					disp('Try to convert to class SEGDAT...')
+					sd_T = segDat(...
+						sd_T.x,...
+						sd_T.y,...
+						sd_T.s,...
+						sd_T.k,...
+						sd_T.phi,...
+						sd_T.type,...
+						ones(size(sd_T.x)));
+					disp('... done!');
 				end%if
 				
 				% XYCG_T
