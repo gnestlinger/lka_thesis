@@ -602,7 +602,7 @@ classdef segDat
 					
 				case 's'
 					n = length(obj.x);
-					xx = (1:n)/n;
+					xx = (0:n-1)/n;
 					yy = obj.s;
 					xLblString = 'index [1/indMax]';
 					yLblString = 's [m]';
