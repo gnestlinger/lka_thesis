@@ -46,6 +46,9 @@ classdef lkaSegment
 % DEVELOPMENT NOTES:
 %	(1) get rid of property DESIGNPROPERTIES? Keep it, is used by
 %	errorMsg_SetDependent.
+%	
+%	(2) Implement method GETNBROFPINTS_ABSTRACT in supercalls LKASEGMENT
+%	and overload it for sublass LKASEGMENTCONNECT?
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%% PROPERTIES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
