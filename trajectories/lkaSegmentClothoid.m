@@ -34,7 +34,7 @@ classdef lkaSegmentClothoid < lkaSegment
 		
 	end
 	
-	properties (Constant, Hidden)
+	properties (Constant, Hidden = true)
         % clothoid relation of curve length as a function of curvature
         sOfCurvature = @(A,curvature) A^2*curvature;
         
@@ -51,7 +51,7 @@ classdef lkaSegmentClothoid < lkaSegment
 		% asymptotic points
 		P_asymptotic = @(A) A*lkaSegmentClothoid.sqrtPi/2*[1;1];
 		
-    end
+	end%properties
     
     
     properties
@@ -70,7 +70,7 @@ classdef lkaSegmentClothoid < lkaSegment
         %%% info data
         length
         
-    end
+    end%properties
     
     
     properties (Dependent, Hidden, SetAccess = private)
@@ -78,7 +78,7 @@ classdef lkaSegmentClothoid < lkaSegment
         sStart % length of segment at 'curvStart'
         sStop % length of segment at 'curvStop'
         
-	end
+	end%properties
     
     
     
@@ -86,7 +86,7 @@ classdef lkaSegmentClothoid < lkaSegment
     %%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    %%% CONSTRUCTOR & Co
+    %%% CONSTRUCTOR
     methods
         
         function obj = lkaSegmentClothoid(deltaSet,curvStart,curvStop,slopeStart,A)
@@ -259,7 +259,7 @@ classdef lkaSegmentClothoid < lkaSegment
 			segdat = segDat(...
 				x,...					% x coordinate
 				y,...					% y coordinate
-				s,...					% curve length
+				s-s(1),...				% curve length
 				s/obj.A^2,...			% k = s/A^2
 				s.^2/(2*obj.A^2),...	% phi = A^2*k^2/2 = s^2/(2*A^2)
 				2,...					% segment type
@@ -405,5 +405,46 @@ classdef lkaSegmentClothoid < lkaSegment
 		
 	end%methods
 	
+	
+	%%% Test-Methods
+	methods (Static, Hidden)
+		
+		function test_curvatureSettings()
+			
+			% signk = sign(obj.curvStop - obj.curvStart)
+			
+			% signk > 0
+			c1p = lkaSegmentClothoid(2,-0.2,0.2,0,25);
+			
+			% signk < 0
+			c1n = lkaSegmentClothoid(2,0.2,-0.2,0,25);
+			
+			lkaSegmentClothoid.test_curvatureSettings_sub(c1p,1);
+			lkaSegmentClothoid.test_curvatureSettings_sub(c1n,2);
+			
+			
+		end%fcn
+		
+		function test_curvatureSettings_sub(obj,fign)
+			
+			figure(fign)
+			subplot(3,2,[1 3 5])
+			plot(obj);
+			
+			subplot(3,2,2)
+			plotdiff_(obj.segmentData,[],'s');
+			title('')
+			
+			subplot(3,2,4)
+			plotdiff_(obj.segmentData,[],'k');
+			title('')
+			
+			subplot(3,2,6)
+			plotdiff_(obj.segmentData,[],'phi');
+			title('')
+			
+		end%fcn
+		
+	end%methods
 	
 end%classdef
