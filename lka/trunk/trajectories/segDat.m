@@ -587,24 +587,28 @@ classdef segDat
 		%	
 		%	See also SEGDAT/PLOTDIFF.
 			
+			n = length(obj.x);
+			xx = (0:n-1)/n;
+			xLblString = 'index [1/index_{max}]';
+			
 			switch prop
 				case 'k'
-					xx = obj.s;
+% 					xx = obj.s;
 					yy = obj.k;
-					xLblString = 's [m]';
+% 					xLblString = 's [m]';
 					yLblString = 'curvature [1/m]';
 				
 				case 'phi'
-					xx = obj.s;
+% 					xx = obj.s;
 					yy = obj.phi;
-					xLblString = 's [m]';
+% 					xLblString = 's [m]';
 					yLblString = 'phi [rad]';
 					
 				case 's'
-					n = length(obj.x);
-					xx = (0:n-1)/n;
+% 					n = length(obj.x);
+% 					xx = (0:n-1)/n;
 					yy = obj.s;
-					xLblString = 'index [1/indMax]';
+% 					xLblString = 'index [1/indMax]';
 					yLblString = 's [m]';
 					
 				otherwise
