@@ -16,13 +16,13 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 16 15:31:07 2017"
-  RTWModifiedTimeStamp	  411579031
-  ModelVersionFormat	  "1.%<AutoIncrement:867>"
+  LastModifiedDate	  "Thu Apr 13 08:58:26 2017"
+  RTWModifiedTimeStamp	  413974534
+  ModelVersionFormat	  "1.%<AutoIncrement:878>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
-  LibraryLinkDisplay	  "user"
+  LibraryLinkDisplay	  "all"
   WideLines		  off
   ShowLineDimensions	  off
   ShowPortDataTypes	  off
@@ -608,6 +608,11 @@ Library {
   }
   BlockParameterDefaults {
     Block {
+      BlockType		      Assertion
+      StopWhenAssertionFail   on
+      SampleTime	      "-1"
+    }
+    Block {
       BlockType		      BusCreator
       Inputs		      "4"
       DisplayOption	      "none"
@@ -763,6 +768,19 @@ Library {
       InitialOutput	      "[]"
     }
     Block {
+      BlockType		      Probe
+      ProbeWidth	      on
+      ProbeSampleTime	      on
+      ProbeComplexSignal      on
+      ProbeSignalDimensions   off
+      ProbeFramedSignal	      off
+      ProbeWidthDataType      "double"
+      ProbeSampleTimeDataType "double"
+      ProbeComplexityDataType "double"
+      ProbeDimensionsDataType "double"
+      ProbeFrameDataType      "double"
+    }
+    Block {
       BlockType		      Product
       Inputs		      "2"
       Multiplication	      "Element-wise(.*)"
@@ -775,6 +793,14 @@ Library {
       LockScale		      off
       RndMeth		      "Zero"
       SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      RelationalOperator
+      Operator		      ">="
+      InputSameDT	      on
+      OutDataTypeStr	      "Inherit: Logical (see Configuration Parameters: Optimization)"
+      ZeroCross		      on
       SampleTime	      "-1"
     }
     Block {
@@ -854,7 +880,7 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [394, 110, 1812, 969]
+    Location		    [353, 114, 1771, 973]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    319
@@ -868,7 +894,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3387"
+    SIDHighWatermark	    "3438"
     Block {
       BlockType		      SubSystem
       Name		      "LKA-Controller"
@@ -3196,7 +3222,7 @@ Library {
 	      SID		      "3351"
 	      Ports		      [7, 2]
 	      Position		      [335, 12, 530, 218]
-	      LibraryVersion	      "1.860"
+	      LibraryVersion	      "1.873"
 	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (linear)"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -3220,7 +3246,7 @@ Library {
 	      SID		      "3361"
 	      Ports		      [8, 2]
 	      Position		      [335, 233, 530, 432]
-	      LibraryVersion	      "1.860"
+	      LibraryVersion	      "1.873"
 	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (nonlinear)"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -3394,7 +3420,7 @@ Library {
 	  Name			  "Lane Tracking Model (linear)"
 	  SID			  "1839"
 	  Ports			  [7, 2]
-	  Position		  [25, 13, 220, 187]
+	  Position		  [25, 14, 220, 216]
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -3421,7 +3447,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "vx [m/s]"
 	      SID		      "1841"
-	      Position		      [45, 103, 75, 117]
+	      Position		      [65, 103, 95, 117]
 	      BackgroundColor	      "yellow"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
@@ -3433,7 +3459,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "vy [m/s]"
 	      SID		      "1842"
-	      Position		      [45, 13, 75, 27]
+	      Position		      [65, 13, 95, 27]
 	      BackgroundColor	      "yellow"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -3446,7 +3472,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "yawRate [rad/s]"
 	      SID		      "1843"
-	      Position		      [45, 43, 75, 57]
+	      Position		      [65, 43, 95, 57]
 	      BackgroundColor	      "yellow"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
@@ -3457,62 +3483,85 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "LAD [m]"
+	      Name		      "LAD [m] (n-by-1)"
 	      SID		      "1943"
-	      Position		      [45, 73, 75, 87]
+	      Position		      [65, 73, 95, 87]
 	      BackgroundColor	      "yellow"
 	      Port		      "4"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "curvature_LAD [1/m]"
+	      Name		      "roadCurvat_LAD [1/m] (n-by-1)"
 	      SID		      "1844"
-	      Position		      [45, 343, 75, 357]
+	      Position		      [65, 343, 95, 357]
 	      BackgroundColor	      "yellow"
 	      Port		      "5"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "lateralOff_LAD(0) [m]"
+	      Name		      "lateralOff_LAD(0) [m] (n-by-1)"
 	      SID		      "1946"
-	      Position		      [400, 88, 430, 102]
+	      Position		      [685, 88, 715, 102]
 	      BackgroundColor	      "yellow"
 	      Port		      "6"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "angularDev_LAD(0) [rad]"
+	      Name		      "angularDev_LAD(0) [rad] (n-by-1)"
 	      SID		      "1947"
-	      Position		      [400, 318, 430, 332]
+	      Position		      [685, 318, 715, 332]
 	      BackgroundColor	      "yellow"
 	      Port		      "7"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
+	    }
+	    Block {
+	      BlockType		      Assertion
+	      Name		      "Assertion"
+	      SID		      "3424"
+	      Position		      [960, 498, 1020, 532]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Enabled		      on
+	    }
+	    Block {
+	      BlockType		      Assertion
+	      Name		      "Assertion1"
+	      SID		      "3425"
+	      Position		      [960, 538, 1020, 572]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Enabled		      on
+	    }
+	    Block {
+	      BlockType		      Assertion
+	      Name		      "Assertion2"
+	      SID		      "3426"
+	      Position		      [960, 578, 1020, 612]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Enabled		      on
 	    }
 	    Block {
 	      BlockType		      Integrator
 	      Name		      "Integrator1"
 	      SID		      "1849"
 	      Ports		      [2, 1]
-	      Position		      [480, 42, 510, 113]
+	      Position		      [790, 42, 820, 113]
 	      InitialConditionSource  "external"
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
@@ -3527,7 +3576,7 @@ Library {
 	      Name		      "Integrator2"
 	      SID		      "1972"
 	      Ports		      [2, 1]
-	      Position		      [480, 272, 510, 343]
+	      Position		      [790, 272, 820, 343]
 	      InitialConditionSource  "external"
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
@@ -3538,11 +3587,63 @@ Library {
 	      }
 	    }
 	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe"
+	      SID		      "3428"
+	      Ports		      [1, 1]
+	      Position		      [780, 492, 845, 518]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe1"
+	      SID		      "3429"
+	      Ports		      [1, 1]
+	      Position		      [780, 532, 845, 558]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe2"
+	      SID		      "3430"
+	      Ports		      [1, 1]
+	      Position		      [780, 572, 845, 598]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe3"
+	      SID		      "3431"
+	      Ports		      [1, 1]
+	      Position		      [780, 612, 845, 638]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
 	      BlockType		      Product
 	      Name		      "Product1"
 	      SID		      "1970"
 	      Ports		      [2, 1]
-	      Position		      [205, 42, 235, 73]
+	      Position		      [420, 42, 450, 73]
 	      ShowName		      off
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3553,7 +3654,7 @@ Library {
 	      Name		      "Product2"
 	      SID		      "1851"
 	      Ports		      [2, 1]
-	      Position		      [205, 327, 235, 358]
+	      Position		      [420, 327, 450, 358]
 	      ShowName		      off
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3564,18 +3665,54 @@ Library {
 	      Name		      "Product3"
 	      SID		      "1973"
 	      Ports		      [2, 1]
-	      Position		      [205, 102, 235, 133]
+	      Position		      [420, 102, 450, 133]
 	      ShowName		      off
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator"
+	      SID		      "3433"
+	      Ports		      [2, 1]
+	      Position		      [905, 497, 935, 528]
+	      ZOrder		      -18
+	      ShowName		      off
+	      Operator		      "=="
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator1"
+	      SID		      "3434"
+	      Ports		      [2, 1]
+	      Position		      [905, 537, 935, 568]
+	      ZOrder		      -18
+	      ShowName		      off
+	      Operator		      "=="
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator2"
+	      SID		      "3435"
+	      Ports		      [2, 1]
+	      Position		      [905, 577, 935, 608]
+	      ZOrder		      -18
+	      ShowName		      off
+	      Operator		      "=="
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
 	      BlockType		      Sum
 	      Name		      "Sum3"
 	      SID		      "1852"
 	      Ports		      [3, 1]
-	      Position		      [320, 50, 340, 70]
+	      Position		      [520, 50, 540, 70]
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "--+"
@@ -3594,7 +3731,7 @@ Library {
 	      Name		      "Sum4"
 	      SID		      "1853"
 	      Ports		      [2, 1]
-	      Position		      [320, 280, 340, 300]
+	      Position		      [520, 280, 540, 300]
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "|-+"
@@ -3610,47 +3747,53 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Outport
-	      Name		      "lateralOff_LAD [m]"
+	      Name		      "lateralOff_LAD [m] (n-by-1)"
 	      SID		      "1854"
-	      Position		      [665, 73, 695, 87]
+	      Position		      [975, 73, 1005, 87]
 	      BackgroundColor	      "gray"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Block {
 	      BlockType		      Outport
-	      Name		      "angularDev_LAD [rad]"
+	      Name		      "angularDev_LAD [rad] (n-by-1)"
 	      SID		      "1855"
-	      Position		      [665, 303, 695, 317]
+	      Position		      [975, 303, 1005, 317]
 	      BackgroundColor	      "gray"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Line {
-	      SrcBlock		      "curvature_LAD [1/m]"
+	      SrcBlock		      "roadCurvat_LAD [1/m] (n-by-1)"
 	      SrcPort		      1
-	      DstBlock		      "Product2"
-	      DstPort		      2
+	      Points		      [75, 0]
+	      Branch {
+		DstBlock		"Product2"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 275]
+		DstBlock		"Probe3"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      Name		      "lateralOff_LAD_linear"
 	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator1"
 	      SrcPort		      1
-	      DstBlock		      "lateralOff_LAD [m]"
+	      DstBlock		      "lateralOff_LAD [m] (n-by-1)"
 	      DstPort		      1
 	    }
 	    Line {
 	      SrcBlock		      "yawRate [rad/s]"
 	      SrcPort		      1
-	      Points		      [70, 0]
+	      Points		      [130, 0]
 	      Branch {
 		DstBlock		"Product1"
 		DstPort			1
@@ -3664,7 +3807,7 @@ Library {
 	    Line {
 	      SrcBlock		      "vy [m/s]"
 	      SrcPort		      1
-	      Points		      [250, 0]
+	      Points		      [430, 0]
 	      DstBlock		      "Sum3"
 	      DstPort		      1
 	    }
@@ -3675,11 +3818,11 @@ Library {
 	      SrcPort		      1
 	      Points		      [30, 0]
 	      Branch {
-		DstBlock		"angularDev_LAD [rad]"
+		DstBlock		"angularDev_LAD [rad] (n-by-1)"
 		DstPort			1
 	      }
 	      Branch {
-		Points			[0, -125; -355, 0]
+		Points			[0, -125; -450, 0]
 		DstBlock		"Product3"
 		DstPort			2
 	      }
@@ -3687,7 +3830,7 @@ Library {
 	    Line {
 	      SrcBlock		      "Product3"
 	      SrcPort		      1
-	      Points		      [90, 0]
+	      Points		      [75, 0]
 	      DstBlock		      "Sum3"
 	      DstPort		      3
 	    }
@@ -3710,14 +3853,14 @@ Library {
 	    Line {
 	      SrcBlock		      "Product2"
 	      SrcPort		      1
-	      Points		      [90, 0]
+	      Points		      [75, 0]
 	      DstBlock		      "Sum4"
 	      DstPort		      2
 	    }
 	    Line {
 	      SrcBlock		      "vx [m/s]"
 	      SrcPort		      1
-	      Points		      [50, 0]
+	      Points		      [110, 0]
 	      Branch {
 		Points			[0, 225]
 		DstBlock		"Product2"
@@ -3729,11 +3872,19 @@ Library {
 	      }
 	    }
 	    Line {
-	      SrcBlock		      "LAD [m]"
+	      SrcBlock		      "LAD [m] (n-by-1)"
 	      SrcPort		      1
-	      Points		      [110, 0]
-	      DstBlock		      "Product1"
-	      DstPort		      2
+	      Points		      [90, 0]
+	      Branch {
+		Points			[215, 0]
+		DstBlock		"Product1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 505]
+		DstBlock		"Probe2"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Product1"
@@ -3742,15 +3893,89 @@ Library {
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "angularDev_LAD(0) [rad]"
+	      SrcBlock		      "angularDev_LAD(0) [rad] (n-by-1)"
 	      SrcPort		      1
-	      DstBlock		      "Integrator2"
-	      DstPort		      2
+	      Points		      [30, 0]
+	      Branch {
+		DstBlock		"Integrator2"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 220]
+		DstBlock		"Probe1"
+		DstPort			1
+	      }
 	    }
 	    Line {
-	      SrcBlock		      "lateralOff_LAD(0) [m]"
+	      SrcBlock		      "lateralOff_LAD(0) [m] (n-by-1)"
 	      SrcPort		      1
-	      DstBlock		      "Integrator1"
+	      Points		      [45, 0]
+	      Branch {
+		DstBlock		"Integrator1"
+		DstPort			2
+	      }
+	      Branch {
+		DstBlock		"Probe"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Probe"
+	      SrcPort		      1
+	      DstBlock		      "Relational\nOperator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Relational\nOperator"
+	      SrcPort		      1
+	      DstBlock		      "Assertion"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Relational\nOperator1"
+	      SrcPort		      1
+	      DstBlock		      "Assertion1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Relational\nOperator2"
+	      SrcPort		      1
+	      DstBlock		      "Assertion2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Probe1"
+	      SrcPort		      1
+	      Points		      [10, 0]
+	      Branch {
+		DstBlock		"Relational\nOperator1"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -25]
+		DstBlock		"Relational\nOperator"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Probe2"
+	      SrcPort		      1
+	      Points		      [10, 0]
+	      Branch {
+		DstBlock		"Relational\nOperator2"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -25]
+		DstBlock		"Relational\nOperator1"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Probe3"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -25]
+	      DstBlock		      "Relational\nOperator2"
 	      DstPort		      2
 	    }
 	  }
@@ -3760,7 +3985,7 @@ Library {
 	  Name			  "Lane Tracking Model (nonlinear)"
 	  SID			  "1840"
 	  Ports			  [8, 2]
-	  Position		  [325, 13, 520, 212]
+	  Position		  [325, 14, 520, 246]
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
 	  RTWSystemCode		  "Auto"
@@ -3787,7 +4012,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "vx [m/s]"
 	      SID		      "2698"
-	      Position		      [45, 103, 75, 117]
+	      Position		      [65, 103, 95, 117]
 	      BackgroundColor	      "yellow"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
@@ -3805,7 +4030,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "vy [m/s]"
 	      SID		      "2699"
-	      Position		      [45, 13, 75, 27]
+	      Position		      [65, 13, 95, 27]
 	      BackgroundColor	      "yellow"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
@@ -3824,7 +4049,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "yawRate [rad/s]"
 	      SID		      "2700"
-	      Position		      [45, 43, 75, 57]
+	      Position		      [65, 43, 95, 57]
 	      BackgroundColor	      "yellow"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
@@ -3841,14 +4066,13 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "LAD [m]"
+	      Name		      "LAD [m] (n-by-1)"
 	      SID		      "2701"
-	      Position		      [45, 73, 75, 87]
+	      Position		      [65, 73, 95, 87]
 	      BackgroundColor	      "yellow"
 	      Port		      "4"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	      Port {
@@ -3860,14 +4084,13 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "curvature_LAD [1/m]"
+	      Name		      "roadCurvat_LAD [1/m] (n-by-1)"
 	      SID		      "2702"
-	      Position		      [45, 378, 75, 392]
+	      Position		      [65, 378, 95, 392]
 	      BackgroundColor	      "yellow"
 	      Port		      "5"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	      Port {
@@ -3879,40 +4102,37 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "lateralOff_LAD(0) [m]"
+	      Name		      "lateralOff_LAD(0) [m] (n-by-1)"
 	      SID		      "2703"
-	      Position		      [615, 88, 645, 102]
+	      Position		      [685, 88, 715, 102]
 	      BackgroundColor	      "yellow"
 	      Port		      "6"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "angularDev_LAD(0) [rad]"
+	      Name		      "angularDev_LAD(0) [rad] (n-by-1)"
 	      SID		      "2704"
-	      Position		      [615, 318, 645, 332]
+	      Position		      [685, 318, 715, 332]
 	      BackgroundColor	      "yellow"
 	      Port		      "7"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "lateralOff_LAD_exact [m]"
+	      Name		      "lateralOff_LAD_exact [m] (n-by-1)"
 	      SID		      "1863"
-	      Position		      [45, 343, 75, 357]
+	      Position		      [65, 343, 95, 357]
 	      BackgroundColor	      "yellow"
 	      Port		      "8"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
@@ -3921,7 +4141,7 @@ Library {
 	      Name		      "Add"
 	      SID		      "1882"
 	      Ports		      [2, 1]
-	      Position		      [270, 312, 300, 343]
+	      Position		      [350, 312, 380, 343]
 	      ZOrder		      -2
 	      ShowName		      off
 	      Inputs		      "+-"
@@ -3930,11 +4150,47 @@ Library {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      Assertion
+	      Name		      "Assertion"
+	      SID		      "3402"
+	      Position		      [960, 498, 1020, 532]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Enabled		      on
+	    }
+	    Block {
+	      BlockType		      Assertion
+	      Name		      "Assertion1"
+	      SID		      "3407"
+	      Position		      [960, 538, 1020, 572]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Enabled		      on
+	    }
+	    Block {
+	      BlockType		      Assertion
+	      Name		      "Assertion2"
+	      SID		      "3408"
+	      Position		      [960, 578, 1020, 612]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Enabled		      on
+	    }
+	    Block {
+	      BlockType		      Assertion
+	      Name		      "Assertion3"
+	      SID		      "3409"
+	      Position		      [960, 618, 1020, 652]
+	      ZOrder		      -1
+	      ShowName		      off
+	      Enabled		      on
+	    }
+	    Block {
 	      BlockType		      Integrator
 	      Name		      "Integrator1"
 	      SID		      "2106"
 	      Ports		      [2, 1]
-	      Position		      [685, 42, 715, 113]
+	      Position		      [790, 42, 820, 113]
 	      InitialConditionSource  "external"
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
@@ -3949,7 +4205,7 @@ Library {
 	      Name		      "Integrator2"
 	      SID		      "2107"
 	      Ports		      [2, 1]
-	      Position		      [685, 272, 715, 343]
+	      Position		      [790, 272, 820, 343]
 	      InitialConditionSource  "external"
 	      InitialCondition	      "pin.VehicleModel.initialValue.yL"
 	      Port {
@@ -3960,11 +4216,76 @@ Library {
 	      }
 	    }
 	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe"
+	      SID		      "3388"
+	      Ports		      [1, 1]
+	      Position		      [780, 492, 845, 518]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe1"
+	      SID		      "3391"
+	      Ports		      [1, 1]
+	      Position		      [780, 532, 845, 558]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe2"
+	      SID		      "3393"
+	      Ports		      [1, 1]
+	      Position		      [780, 572, 845, 598]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe3"
+	      SID		      "3394"
+	      Ports		      [1, 1]
+	      Position		      [780, 612, 845, 638]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
+	      BlockType		      Probe
+	      Name		      "Probe4"
+	      SID		      "3410"
+	      Ports		      [1, 1]
+	      Position		      [780, 647, 845, 673]
+	      ZOrder		      -9
+	      ShowName		      off
+	      ProbeWidth	      off
+	      ProbeSampleTime	      off
+	      ProbeComplexSignal      off
+	      ProbeSignalDimensions   on
+	    }
+	    Block {
 	      BlockType		      Product
 	      Name		      "Product1"
 	      SID		      "1871"
 	      Ports		      [2, 1]
-	      Position		      [205, 102, 235, 133]
+	      Position		      [420, 102, 450, 133]
 	      ShowName		      off
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3975,7 +4296,7 @@ Library {
 	      Name		      "Product3"
 	      SID		      "1873"
 	      Ports		      [2, 1]
-	      Position		      [205, 42, 235, 73]
+	      Position		      [420, 42, 450, 73]
 	      ShowName		      off
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3986,7 +4307,7 @@ Library {
 	      Name		      "Product6"
 	      SID		      "1883"
 	      Ports		      [2, 1]
-	      Position		      [205, 327, 235, 358]
+	      Position		      [285, 327, 315, 358]
 	      ShowName		      off
 	      InputSameDT	      off
 	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -3997,7 +4318,7 @@ Library {
 	      Name		      "Product7"
 	      SID		      "1884"
 	      Ports		      [3, 1]
-	      Position		      [340, 311, 370, 429]
+	      Position		      [420, 311, 450, 429]
 	      ShowName		      off
 	      Inputs		      "**/"
 	      InputSameDT	      off
@@ -4005,11 +4326,59 @@ Library {
 	      SaturateOnIntegerOverflow	off
 	    }
 	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator"
+	      SID		      "3403"
+	      Ports		      [2, 1]
+	      Position		      [905, 497, 935, 528]
+	      ZOrder		      -18
+	      ShowName		      off
+	      Operator		      "=="
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator1"
+	      SID		      "3404"
+	      Ports		      [2, 1]
+	      Position		      [905, 537, 935, 568]
+	      ZOrder		      -18
+	      ShowName		      off
+	      Operator		      "=="
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator2"
+	      SID		      "3405"
+	      Ports		      [2, 1]
+	      Position		      [905, 577, 935, 608]
+	      ZOrder		      -18
+	      ShowName		      off
+	      Operator		      "=="
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
+	      BlockType		      RelationalOperator
+	      Name		      "Relational\nOperator3"
+	      SID		      "3406"
+	      Ports		      [2, 1]
+	      Position		      [905, 617, 935, 648]
+	      ZOrder		      -18
+	      ShowName		      off
+	      Operator		      "=="
+	      InputSameDT	      off
+	      OutDataTypeStr	      "boolean"
+	    }
+	    Block {
 	      BlockType		      Sum
 	      Name		      "Sum3"
 	      SID		      "1876"
 	      Ports		      [3, 1]
-	      Position		      [320, 50, 340, 70]
+	      Position		      [520, 50, 540, 70]
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "--+"
@@ -4028,7 +4397,7 @@ Library {
 	      Name		      "Sum4"
 	      SID		      "1877"
 	      Ports		      [2, 1]
-	      Position		      [500, 280, 520, 300]
+	      Position		      [520, 280, 540, 300]
 	      ShowName		      off
 	      IconShape		      "round"
 	      Inputs		      "|-+"
@@ -4047,7 +4416,7 @@ Library {
 	      Name		      "Trigonometric\nFunction"
 	      SID		      "1878"
 	      Ports		      [1, 1]
-	      Position		      [205, 170, 235, 200]
+	      Position		      [420, 170, 450, 200]
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
@@ -4058,7 +4427,7 @@ Library {
 	      Name		      "Trigonometric\nFunction1"
 	      SID		      "1879"
 	      Ports		      [1, 1]
-	      Position		      [340, 440, 370, 470]
+	      Position		      [420, 440, 450, 470]
 	      BlockMirror	      on
 	      NamePlacement	      "alternate"
 	      ShowName		      off
@@ -4066,47 +4435,61 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Outport
-	      Name		      "lateralOff_LAD [m]"
+	      Name		      "lateralOff_LAD [m] (n-by-1)"
 	      SID		      "2705"
-	      Position		      [890, 73, 920, 87]
+	      Position		      [975, 73, 1005, 87]
 	      BackgroundColor	      "gray"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Block {
 	      BlockType		      Outport
-	      Name		      "angularDev_LAD [rad]"
+	      Name		      "angularDev_LAD [rad] (n-by-1)"
 	      SID		      "2706"
-	      Position		      [890, 303, 920, 317]
+	      Position		      [975, 303, 1005, 317]
 	      BackgroundColor	      "gray"
 	      Port		      "2"
 	      IconDisplay	      "Port number"
 	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
 	      VarSizeSig	      "No"
 	      SignalType	      "real"
 	    }
 	    Line {
 	      SrcBlock		      "Product7"
 	      SrcPort		      1
-	      Points		      [135, 0]
+	      Points		      [75, 0]
 	      DstBlock		      "Sum4"
 	      DstPort		      2
 	    }
 	    Line {
-	      SrcBlock		      "angularDev_LAD(0) [rad]"
+	      SrcBlock		      "angularDev_LAD(0) [rad] (n-by-1)"
 	      SrcPort		      1
-	      DstBlock		      "Integrator2"
-	      DstPort		      2
+	      Points		      [30, 0]
+	      Branch {
+		DstBlock		"Integrator2"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 220]
+		DstBlock		"Probe1"
+		DstPort			1
+	      }
 	    }
 	    Line {
-	      SrcBlock		      "lateralOff_LAD(0) [m]"
+	      SrcBlock		      "lateralOff_LAD(0) [m] (n-by-1)"
 	      SrcPort		      1
-	      DstBlock		      "Integrator1"
-	      DstPort		      2
+	      Points		      [40, 0]
+	      Branch {
+		DstBlock		"Integrator1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 410]
+		DstBlock		"Probe"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Trigonometric\nFunction1"
@@ -4117,21 +4500,38 @@ Library {
 	    }
 	    Line {
 	      Name		      "kappa_L"
-	      Labels		      [0, 0; -1, 1]
-	      SrcBlock		      "curvature_LAD [1/m]"
+	      Labels		      [0, 0]
+	      SrcBlock		      "roadCurvat_LAD [1/m] (n-by-1)"
 	      SrcPort		      1
-	      Points		      [45, 0; 0, -15]
-	      DstBlock		      "Product7"
-	      DstPort		      2
+	      Points		      [80, 0]
+	      Branch {
+		Labels			[-1, 1]
+		Points			[25, 0; 0, -15]
+		DstBlock		"Product7"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 275]
+		DstBlock		"Probe4"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      Name		      "L"
 	      Labels		      [0, 0]
-	      SrcBlock		      "LAD [m]"
+	      SrcBlock		      "LAD [m] (n-by-1)"
 	      SrcPort		      1
-	      Points		      [110, 0]
-	      DstBlock		      "Product3"
-	      DstPort		      2
+	      Points		      [100, 0]
+	      Branch {
+		Points			[205, 0]
+		DstBlock		"Product3"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 505]
+		DstBlock		"Probe2"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      SrcBlock		      "Trigonometric\nFunction"
@@ -4145,7 +4545,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "vx [m/s]"
 	      SrcPort		      1
-	      Points		      [50, 0]
+	      Points		      [110, 0]
 	      Branch {
 		DstBlock		"Product1"
 		DstPort			1
@@ -4168,7 +4568,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator1"
 	      SrcPort		      1
-	      DstBlock		      "lateralOff_LAD [m]"
+	      DstBlock		      "lateralOff_LAD [m] (n-by-1)"
 	      DstPort		      1
 	    }
 	    Line {
@@ -4176,7 +4576,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "yawRate [rad/s]"
 	      SrcPort		      1
-	      Points		      [70, 0]
+	      Points		      [130, 0]
 	      Branch {
 		DstBlock		"Product3"
 		DstPort			1
@@ -4201,7 +4601,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "vy [m/s]"
 	      SrcPort		      1
-	      Points		      [250, 0]
+	      Points		      [430, 0]
 	      DstBlock		      "Sum3"
 	      DstPort		      1
 	    }
@@ -4210,7 +4610,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator2"
 	      SrcPort		      1
-	      Points		      [120, 0]
+	      Points		      [30, 0]
 	      Branch {
 		Points			[0, 0]
 		Branch {
@@ -4225,14 +4625,14 @@ Library {
 		}
 	      }
 	      Branch {
-		DstBlock		"angularDev_LAD [rad]"
+		DstBlock		"angularDev_LAD [rad] (n-by-1)"
 		DstPort			1
 	      }
 	    }
 	    Line {
 	      SrcBlock		      "Product1"
 	      SrcPort		      1
-	      Points		      [90, 0]
+	      Points		      [75, 0]
 	      DstBlock		      "Sum3"
 	      DstPort		      3
 	    }
@@ -4266,9 +4666,96 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      SrcBlock		      "lateralOff_LAD_exact [m]"
+	      SrcBlock		      "lateralOff_LAD_exact [m] (n-by-1)"
 	      SrcPort		      1
-	      DstBlock		      "Product6"
+	      Points		      [90, 0]
+	      Branch {
+		DstBlock		"Product6"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 275]
+		DstBlock		"Probe3"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Probe"
+	      SrcPort		      1
+	      DstBlock		      "Relational\nOperator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Relational\nOperator"
+	      SrcPort		      1
+	      DstBlock		      "Assertion"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Relational\nOperator1"
+	      SrcPort		      1
+	      DstBlock		      "Assertion1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Relational\nOperator2"
+	      SrcPort		      1
+	      DstBlock		      "Assertion2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Relational\nOperator3"
+	      SrcPort		      1
+	      DstBlock		      "Assertion3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Probe1"
+	      SrcPort		      1
+	      Points		      [10, 0]
+	      Branch {
+		DstBlock		"Relational\nOperator1"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -25]
+		DstBlock		"Relational\nOperator"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Probe2"
+	      SrcPort		      1
+	      Points		      [10, 0]
+	      Branch {
+		DstBlock		"Relational\nOperator2"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -25]
+		DstBlock		"Relational\nOperator1"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Probe3"
+	      SrcPort		      1
+	      Points		      [10, 0]
+	      Branch {
+		DstBlock		"Relational\nOperator3"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -25]
+		DstBlock		"Relational\nOperator2"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Probe4"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -20]
+	      DstBlock		      "Relational\nOperator3"
 	      DstPort		      2
 	    }
 	  }
@@ -4812,7 +5299,7 @@ Library {
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
-		SIDHighWatermark	"54"
+		SIDHighWatermark	"66"
 		Block {
 		  BlockType		  Inport
 		  Name			  "LAD"
