@@ -129,7 +129,7 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 		numIndCol = numIndCol_red;
 	end%if
 	
-	plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
+% 	plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 	
 	
 	%%% get lateral offset for potential elements
