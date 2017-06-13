@@ -1,8 +1,6 @@
-function sys = ssMdl_SingleTrack(sw,paramFile,vx,lad,varargin)
-% ssMdl_SingleTrack     returns single-track-based state-space models
-%   _______
-%   Syntax:
-%   sys = ssMdl_SingleTrack(sw,paramFile,vx,lad,varargin)
+function [sys] = ssMdl_SingleTrack(sw,paramFile,vx,LAD,varargin)
+% SSMDL_SINGLETRACK		returns single-track-based state-space models
+%   sys = ssMdl_SingleTrack(SW,PARAMFILE,VX,LAD,varargin)
 %   ________________
 %   Input arguments:
 %   sw .......... string to choose state space model (st/stvis/. see below)
@@ -60,9 +58,10 @@ function sys = ssMdl_SingleTrack(sw,paramFile,vx,lad,varargin)
 % 
 % Source: see subfunctions
 % 
-% Subject: lka
-% Author: georgnoname
-% Date: 29.11.2012 - 19.03.2013
+% Subject: Diplomarbeit - LKA
+% $Author: georgnestlinger $
+% $LastChangedDate: 2017-05-24 08:16:45 +0200 (Mi, 24 Mai 2017) $
+% $Revision: 132 $
 
 
 % check input arguments
@@ -85,20 +84,20 @@ switch lower(sw)
         sys = singleTrack(paramFile,vx);
         
     case {'stvis'} % Einspurmdl. + lane tracking
-        sys = singleTrack_lt(paramFile,vx,lad);
+        sys = singleTrack_lt(paramFile,vx,LAD);
         
     case {'stvis_2int'} % Einspurmdl. + lane tracking + 2fach int. bzgl. yL
-        sys = singleTrack_lt_yL2int(paramFile,vx,lad);
+        sys = singleTrack_lt_yL2int(paramFile,vx,LAD);
         
     %%% mit Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'stdsr'} % Einspurmdl. + Lenkmodell CarMaker DSR
         sys = singleTrack_DSR(paramFile,vx,varargin{1});
     
     case {'stvisdsr'} % Einspurmdl. + lane tracking + Lenkmdl. CarMaker DSR
-        sys = singleTrack_lt_DSR(paramFile,vx,lad,varargin{1});
+        sys = singleTrack_lt_DSR(paramFile,vx,LAD,varargin{1});
         
     case {'stvisdsr_2int'}
-        sys = singleTrack_lt_DSR_yL2int(paramFile,vx,lad,varargin{1});
+        sys = singleTrack_lt_DSR_yL2int(paramFile,vx,LAD,varargin{1});
     
     %%% otherwise %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
     otherwise
@@ -111,7 +110,7 @@ end%fcn
 
 
 
-function ret = singleTrack(paramFile,vx)
+function [sys] = singleTrack(paramFile,vx)
 % singleTrack     state-space model of single track model
 % 
 %   Syntax:
@@ -130,47 +129,43 @@ function ret = singleTrack(paramFile,vx)
 % Source: A Comparative Study of Vision-Based Lateral Control Strategies 
 % for Autonomous Highway Driving. (* ... additional state)
 % 
-% Author: georgnoname
-% Date: 24.10.2012 - 15.03.2013
 
 
 % load parameter
 eval(paramFile);
 
-% init state space model
-ret = ss([],[],[],[]);
-
 % set state space elements
-% ret.A = ...
-%     [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx;...
-%     (csh*lh-csv*lv)/(Iz*vx), -(csh*lh^2+csv*lv^2)/(Iz*vx)];
-% ret.B = [csv/m; csv*lv/Iz];
-ret.A = [0 1 0 0;...
-    0, -(csh+csv)/(m*vx), 0, (csh*lh-csv*lv)/(m*vx) - vx;...
-    0 0 0 1;...
-    0, (csh*lh-csv*lv)/(Iz*vx), 0, -(csh*lh^2+csv*lv^2)/(Iz*vx)];
-ret.B = [0; csv/m; 0; csv*lv/Iz];
-ret.C = eye(size(ret.A));
-ret.D = 0;
+A = [0 1 0 0;...
+	0, -(csh+csv)/(m*vx), 0, (csh*lh-csv*lv)/(m*vx) - vx;...
+	0 0 0 1;...
+	0, (csh*lh-csv*lv)/(Iz*vx), 0, -(csh*lh^2+csv*lv^2)/(Iz*vx)];
+B = [0; csv/m; 0; csv*lv/Iz];
+C = eye(size(A));
+D = 0;
+
+% create state space model
+sys = ss(A,B,C,D);
 
 % set state/input/output names
-ret.StateName = {'sy','vy','psi','psiDot'};
-ret.Inputname = {'steer angle'};
-% ret.OutputName = {};
-
+sys.StateName = {'sy','vy','yaw angle','yaw rate'};
+sys.StateUnit = {'m','m/s','rad','rad/s'};
+sys.InputName = {'front wheel angle'};
+sys.InputUnit = {'rad'};
+sys.OutputName = sys.StateName;
+sys.OutputUnit = sys.StateUnit;
 
 % info
-ret.userdata.about = 'Einspurmodell';
-ret.userdata.vx.about = 'Längsgeschwindigkeit';
-ret.userdata.vx.value = vx;
-ret.userdata.vx.unit = 'm/s';
+sys.Name = 'Single Track Model (linear)';
+sys.UserData.vx.about = 'longitudinal velocity';
+sys.UserData.vx.value = vx;
+sys.UserData.vx.unit = 'm/s';
 
 end%fcn
 
 
 
-function ret = singleTrack_lt(paramFile,vx,lad)
-% singleTrack_lt    state-space model of single track modell + 
+function sys = singleTrack_lt(paramFile,vx,LAD)
+% singleTrack_lt    state-space model of single track model + 
 % lane tracking
 %   
 %   Syntax:
@@ -190,47 +185,47 @@ function ret = singleTrack_lt(paramFile,vx,lad)
 % Source: A Comparative Study of Vision-Based Lateral Control Strategies 
 % for Autonomous Highway Driving.
 % 
-% Author: georgnoname
-% Date: 24.10.2012 - 15.03.2013
+
 
 
 % load parameter
 eval(paramFile);
 
-% init state space model
-ret = ss([],[],[],[]);
-
 % set state space elements
-ret.A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
+A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
     (csh*lh-csv*lv)/(Iz*vx), -(csh*lh^2+csv*lv^2)/(Iz*vx), 0, 0;    
-    -1, -lad, 0, vx;...
+    -1, -LAD, 0, vx;...
     0, -1, 0, 0];
-ret.B = [csv/m; csv*lv/Iz; 0; 0];
-% ret.C = [0 1 0 0; 0 0 1 0; 0 0 0 1];
-ret.C = [0 0 1 0];
-% ret.C = [0 1 0 0; 0 0 1 0];
-ret.D = 0;
+B = [csv/m; csv*lv/Iz; 0; 0];
+C = eye(size(A));
+D = 0;
+
+% create state space model
+sys = ss(A,B,C,D);
 
 % set state/input/output names
-ret.StateName = {'vy','psiDot','yL','epsL'};
-ret.Inputname = {'steer angle'};
-% ret.OutputName = {};
+sys.StateName = {'vy','yawRate','lateralOff','angularDev'};
+sys.StateUnit = {'m/s','rad/s','m','rad'};
+sys.InputName = {'steer angle'};
+sys.InputUnit = {'rad'};
+sys.OutputName = sys.StateName;
+sys.OutputUnit = sys.StateUnit;
 
 
 % info
-ret.userdata.about = 'Einspurmodell + Relativposition';
-ret.userdata.vx.about = 'Längsgeschwindigkeit';
-ret.userdata.vx.value = vx;
-ret.userdata.vx.unit = 'm/s';
-ret.userdata.lad.about = 'look-ahead distance';
-ret.userdata.lad.value = lad;
-ret.userdata.lad.unit = 'm';
+sys.Name = 'Single Track + Lane Tracking Model';
+sys.UserData.vx.about = 'longitudinal velocity';
+sys.UserData.vx.value = vx;
+sys.UserData.vx.unit = 'm/s';
+sys.UserData.lad.about = 'look-ahead distance';
+sys.UserData.lad.value = LAD;
+sys.UserData.lad.unit = 'm';
 
 end%fcn
 
 
 
-function ret = singleTrack_lt_yL2int(paramFile,vx,lad)
+function sys = singleTrack_lt_yL2int(paramFile,vx,LAD)
 % singleTrack_lt_yL2int     state-space model of single track modell + 
 % lane tracking + internal model of yL
 % 
@@ -256,48 +251,48 @@ function ret = singleTrack_lt_yL2int(paramFile,vx,lad)
 % Source int. Model: Dynamic Controller for Lane Keeping and Obstacle 
 % Avoidance Assistance System.
 % 
-% Author: georgnoname
-% Date: 29.11.2012 - 15.03.2013
 
 
 % load parameter
 eval(paramFile);
 
-% init state space model
-ret = ss([],[],[],[]);
-
 % set state space elements
-ret.A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0,0,0;...
+A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0,0,0;...
     (csh*lh-csv*lv)/(Iz*vx),-(csh*lh^2+csv*lv^2)/(Iz*vx),0,0,0,0;    
-    -1,-lad,0,vx,0,0;...
+    -1,-LAD,0,vx,0,0;...
     0,-1,0,0,0,0;...
     0,0,0,0,0,1;...
     0,0,1,0,0,0];
-ret.B = [csv/m; csv*lv/Iz; 0; 0; 0; 0];
-ret.C = zeros(1,length(ret.A));
-ret.C(3) = 1;
-ret.D = 0;
+B = [csv/m; csv*lv/Iz; 0; 0; 0; 0];
+C = eye(size(A));
+D = 0;
+
+% create state space model
+sys = ss(A,B,C,D);
 
 % set state/input/output names
-ret.StateName = {'vy','psiDot','yL','epsL','IntInt{yL}','Int{yL}'};
-ret.Inputname = {'steer angle'};
-% ret.OutputName = {};
+sys.StateName = {'vy','yawRate','lateralOff','angularDev','IntInt{lateralOff}','Int{lateralOff}'};
+sys.StateUnit = {'m/s','rad/s','m','rad','m*s^2','m*s'};
+sys.InputName = {'steer angle'};
+sys.InputUnit = {'rad'};
+sys.OutputName = sys.StateName;
+sys.OutputUnit = sys.StateUnit;
 
 
 % info
-ret.userdata.about = 'Einspurmodell + Relativposition + 2fach int. bzgl yL';
-ret.userdata.vx.about = 'Längsgeschwindigkeit';
-ret.userdata.vx.value = vx;
-ret.userdata.vx.unit = 'm/s';
-ret.userdata.lad.about = 'look-ahead distance';
-ret.userdata.lad.value = lad;
-ret.userdata.lad.unit = 'm';
+sys.Name = 'Single Track + Lane Tracking + double integral action on lateral offset';
+sys.UserData.vx.about = 'longitudinal velocity';
+sys.UserData.vx.value = vx;
+sys.UserData.vx.unit = 'm/s';
+sys.UserData.lad.about = 'look-ahead distance';
+sys.UserData.lad.value = LAD;
+sys.UserData.lad.unit = 'm';
 
 end%fcn
 
 
 
-function ret = singleTrack_DSR(paramFile,vx,paramFileSteer)
+function sys = singleTrack_DSR(paramFile,vx,paramFileSteer)
 % singleTrack_DSR   state-space model of single track modell + steering
 % model DSR
 % 
@@ -321,8 +316,6 @@ function ret = singleTrack_DSR(paramFile,vx,paramFileSteer)
 % for Autonomous Highway Driving' and CarMaker Manual (see 'Dynamic Steer
 % Ratio').
 % 
-% Author: georgnoname
-% Date: 29.01.2013 - 19.03.2013
 
 
 % check input arguments
@@ -337,7 +330,7 @@ eval(paramFileSteer);
 
 
 % init state space model
-ret = ss([],[],[],[]);
+sys = ss([],[],[],[]);
 
 % set state space elements
 A = [0 1 0 0;...
@@ -346,31 +339,33 @@ A = [0 1 0 0;...
     0, (csh*lh-csv*lv)/(Iz*vx), 0, -(csh*lh^2+csv*lv^2)/(Iz*vx)];
 B = [0; csv/m; 0; csv*lv/Iz];
 
-ret.A = [A,B/alph,[0;0;0;0];...
+sys.A = [A,B/alph,[0;0;0;0];...
     0,0,0,0,0,1;...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack)];
-ret.B = [0; 0; 0; 0; 0; iHR^2*V/xi];
-ret.C = zeros(1,length(ret.A));
-ret.C(3) = 1;
-ret.D = 0;
+sys.B = [0; 0; 0; 0; 0; iHR^2*V/xi];
+sys.C = eye(size(sys.A));
+sys.D = 0;
 
 % set state/input/output names
-ret.StateName = {'sy','vy','psi','psiDot','deltaH','deltaHDot'};
-ret.Inputname = {'sw torque'};
-% ret.OutputName = {};
+sys.StateName = {'sy','vy','yawAngle','yawRate','SWAngle','SWAngleDot'};
+sys.StateUnit = {'m','m/s','rad','rad/s','rad','rad/s'};
+sys.InputName = {'SWTorque'};
+sys.InputUnit = {'Nm'};
+sys.OutputName = sys.StateName;
+sys.OutputUnit = sys.StateUnit;
 
 
 % info
-ret.userdata.about = 'Einspurmodell + Lenkmodell CarMaker DSR';
-ret.userdata.vx.about = 'Längsgeschwindigkeit';
-ret.userdata.vx.value = vx;
-ret.userdata.vx.unit = 'm/s';
+sys.Name = 'Einspurmodell + Lenkmodell CarMaker DSR';
+sys.UserData.vx.about = 'longitudinal velocity';
+sys.UserData.vx.value = vx;
+sys.UserData.vx.unit = 'm/s';
 
 end%fcn
 
 
 
-function ret = singleTrack_lt_DSR(paramFile,vx,lad,paramFileSteer)
+function sys = singleTrack_lt_DSR(paramFile,vx,lad,paramFileSteer)
 % singleTrack_lt_DSR    state-space model of single track modell + lane
 % tracking + steering model DSR
 % 
@@ -395,8 +390,6 @@ function ret = singleTrack_lt_DSR(paramFile,vx,lad,paramFileSteer)
 % for Autonomous Highway Driving' and CarMaker Manual (see 'Dynamic Steer
 % Ratio').
 % 
-% Author: georgnoname
-% Date: 29.01.2013 - 19.03.2013
 
 
 % check input arguments
@@ -410,7 +403,7 @@ eval(paramFile);
 eval(paramFileSteer);
 
 % init state space model
-ret = ss([],[],[],[]);
+sys = ss([],[],[],[]);
 
 % set state space elements
 A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0;...
@@ -419,34 +412,36 @@ A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0;...
     0,-1,0,0];
 B = [csv/m; csv*lv/Iz; 0; 0];
 
-ret.A = [A,B/alph,[0;0;0;0];...
+sys.A = [A,B/alph,[0;0;0;0];...
     0,0,0,0,0,1;...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack)];
-ret.B = [0; 0; 0; 0; 0; iHR^2*V/xi];
-ret.C = zeros(1,length(ret.A));
-ret.C(3) = 1;
-ret.D = 0;
+sys.B = [0; 0; 0; 0; 0; iHR^2*V/xi];
+sys.C = eye(size(sys.A));
+sys.D = 0;
 
 % set state/input/output names
-ret.StateName = {'vy','psiDot','yL','epsL','deltaH','deltaHDot'};
-ret.Inputname = {'sw torque'};
-% ret.OutputName = {};
+sys.StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot'};
+sys.StateUnit = {'m/s','rad/s','m','rad','rad','rad/s'};
+sys.InputName = {'SWTorque'};
+sys.InputUnit = {'Nm'};
+sys.OutputName = sys.StateName;
+sys.OutputUnit = sys.StateUnit;
 
 
 % info
-ret.userdata.about = 'Einspurmdl + Rel.pos. + Lenkmdl CarMaker DSR';
-ret.userdata.vx.about = 'Längsgeschwindigkeit';
-ret.userdata.vx.value = vx;
-ret.userdata.vx.unit = 'm/s';
-ret.userdata.lad.about = 'look-ahead distance';
-ret.userdata.lad.value = lad;
-ret.userdata.lad.unit = 'm';
+sys.Name = 'Einspurmdl + Rel.pos. + Lenkmdl CarMaker DSR';
+sys.UserData.vx.about = 'longitudinal velocity';
+sys.UserData.vx.value = vx;
+sys.UserData.vx.unit = 'm/s';
+sys.UserData.lad.about = 'look-ahead distance';
+sys.UserData.lad.value = lad;
+sys.UserData.lad.unit = 'm';
 
 end%fcn
 
 
 
-function ret = singleTrack_lt_DSR_yL2int(paramFile,vx,lad,paramFileSteer)
+function sys = singleTrack_lt_DSR_yL2int(paramFile,vx,lad,paramFileSteer)
 % singleTrack_lt_DSR_yL2int     state-space model of single track modell + 
 % lane tracking + steering model + internal model of yL
 % 
@@ -475,8 +470,6 @@ function ret = singleTrack_lt_DSR_yL2int(paramFile,vx,lad,paramFileSteer)
 % Source int. Model: 'Dynamic Controller for Lane Keeping and Obstacle 
 % Avoidance Assistance System'.
 % 
-% Author: georgnoname
-% Date: 01.03.2013 - 19.03.2013
 
 
 % check input arguments
@@ -490,7 +483,7 @@ eval(paramFile);
 eval(paramFileSteer);
 
 % init state space model
-ret = ss([],[],[],[]);
+sys = ss([],[],[],[]);
 
 % set state space elements
 A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
@@ -499,30 +492,32 @@ A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
     0 -1 0 0];
 B = [csv/m; csv*lv/Iz; 0; 0];
 
-ret.A = [A,B/alph,[0;0;0;0],zeros(4,2);...
+sys.A = [A,B/alph,[0;0;0;0],zeros(4,2);...
     0 0 0 0 0 1 0 0;...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack),0,0;...
     0 0 0 0 0 0 0 1;...
     0 0 1 0 0 0 0 0];
-ret.B = [0; 0; 0; 0; 0; iHR^2*V/xi; 0; 0];
-ret.C = zeros(1,length(ret.A));
-ret.C(3) = 1;
-ret.D = 0;
+sys.B = [0; 0; 0; 0; 0; iHR^2*V/xi; 0; 0];
+sys.C = eye(size(sys.A));
+sys.D = 0;
 
 % set state/input/output names
-ret.StateName = {'vy','psiDot','yL','epsL','deltaH','deltaHDot',...
-    'IntInt{yL}','Int{yL}'};
-ret.Inputname = {'sw torque'};
-% ret.OutputName = {};
+sys.StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot',...
+    'IntInt{x3}','Int{x3}'};
+sys.StateUnit = {'m/s','rad/s','m','rad','rad','rad/s','m*s^2','m*s'};
+sys.InputName = {'SWTorque'};
+sys.InputUnit = {'Nm'};
+sys.OutputName = sys.StateName;
+sys.OutputUnit = sys.StateUnit;
 
 
 % info
-ret.userdata.about = 'Einspurmdl + Rel.pos. + Lenkmdl CarMaker DSR + 2fach int. bzgl. yL';
-ret.userdata.vx.about = 'Längsgeschwindigkeit';
-ret.userdata.vx.value = vx;
-ret.userdata.vx.unit = 'm/s';
-ret.userdata.lad.about = 'look-ahead distance';
-ret.userdata.lad.value = lad;
-ret.userdata.lad.unit = 'm';
+sys.Name = 'Einspurmdl + Rel.pos. + Lenkmdl CarMaker DSR + 2fach int. bzgl. yL';
+sys.UserData.vx.about = 'longitudinal velocity';
+sys.UserData.vx.value = vx;
+sys.UserData.vx.unit = 'm/s';
+sys.UserData.lad.about = 'look-ahead distance';
+sys.UserData.lad.value = lad;
+sys.UserData.lad.unit = 'm';
 
 end%fcn
