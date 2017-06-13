@@ -155,7 +155,7 @@ sys.OutputName = sys.StateName;
 sys.OutputUnit = sys.StateUnit;
 
 % info
-sys.Name = 'Single Track Model (linear)';
+sys.Name = 'Single Track Model';
 sys.UserData.vx.about = 'longitudinal velocity';
 sys.UserData.vx.value = vx;
 sys.UserData.vx.unit = 'm/s';
@@ -196,7 +196,7 @@ A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
     (csh*lh-csv*lv)/(Iz*vx), -(csh*lh^2+csv*lv^2)/(Iz*vx), 0, 0;    
     -1, -LAD, 0, vx;...
     0, -1, 0, 0];
-B = [csv/m; csv*lv/Iz; 0; 0];
+B = [[csv/m;csv*lv/Iz;0;0], [0;0;0;vx]];
 C = eye(size(A));
 D = 0;
 
@@ -206,8 +206,8 @@ sys = ss(A,B,C,D);
 % set state/input/output names
 sys.StateName = {'vy','yawRate','lateralOff','angularDev'};
 sys.StateUnit = {'m/s','rad/s','m','rad'};
-sys.InputName = {'steer angle'};
-sys.InputUnit = {'rad'};
+sys.InputName = {'steer angle','road curvature at LAD'};
+sys.InputUnit = {'rad','1/m'};
 sys.OutputName = sys.StateName;
 sys.OutputUnit = sys.StateUnit;
 
@@ -263,7 +263,7 @@ A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0,0,0;...
     0,-1,0,0,0,0;...
     0,0,0,0,0,1;...
     0,0,1,0,0,0];
-B = [csv/m; csv*lv/Iz; 0; 0; 0; 0];
+B = [[csv/m;csv*lv/Iz;0;0;0;0], [0;0;0;vx;0;0]];
 C = eye(size(A));
 D = 0;
 
@@ -273,8 +273,8 @@ sys = ss(A,B,C,D);
 % set state/input/output names
 sys.StateName = {'vy','yawRate','lateralOff','angularDev','IntInt{lateralOff}','Int{lateralOff}'};
 sys.StateUnit = {'m/s','rad/s','m','rad','m*s^2','m*s'};
-sys.InputName = {'steer angle'};
-sys.InputUnit = {'rad'};
+sys.InputName = {'steer angle','road curvature at LAD'};
+sys.InputUnit = {'rad','1/m'};
 sys.OutputName = sys.StateName;
 sys.OutputUnit = sys.StateUnit;
 
@@ -415,21 +415,31 @@ B = [csv/m; csv*lv/Iz; 0; 0];
 sys.A = [A,B/alph,[0;0;0;0];...
     0,0,0,0,0,1;...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack)];
-sys.B = [0; 0; 0; 0; 0; iHR^2*V/xi];
+sys.B = [...
+	[0;0;0;0;0;iHR^2*V/xi],...
+	[0;0;0;vx;0;0],...
+	[0;0;0;0;0;iHR/xi],...
+	[0;0;0;0;0;-iHR/xi],...
+	];
 sys.C = eye(size(sys.A));
 sys.D = 0;
 
 % set state/input/output names
 sys.StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot'};
 sys.StateUnit = {'m/s','rad/s','m','rad','rad','rad/s'};
-sys.InputName = {'SWTorque'};
-sys.InputUnit = {'Nm'};
+sys.InputName = {...
+	'SWTorque',...
+	'road curvature at LAD',...
+	'left tie rod force',...
+	'right tie rod force',...
+	};
+sys.InputUnit = {'Nm','1/m','N','N'};
 sys.OutputName = sys.StateName;
 sys.OutputUnit = sys.StateUnit;
 
 
 % info
-sys.Name = 'Einspurmdl + Rel.pos. + Lenkmdl CarMaker DSR';
+sys.Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR';
 sys.UserData.vx.about = 'longitudinal velocity';
 sys.UserData.vx.value = vx;
 sys.UserData.vx.unit = 'm/s';
@@ -497,7 +507,12 @@ sys.A = [A,B/alph,[0;0;0;0],zeros(4,2);...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack),0,0;...
     0 0 0 0 0 0 0 1;...
     0 0 1 0 0 0 0 0];
-sys.B = [0; 0; 0; 0; 0; iHR^2*V/xi; 0; 0];
+sys.B = [...
+	[0;0;0;0;0;iHR^2*V/xi;0;0],...
+	[0;0;0;vx;0;0;0;0],...
+	[0;0;0;0;0;iHR/xi;0;0],...
+	[0;0;0;0;0;-iHR/xi;0;0],...
+	];
 sys.C = eye(size(sys.A));
 sys.D = 0;
 
@@ -505,14 +520,19 @@ sys.D = 0;
 sys.StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot',...
     'IntInt{x3}','Int{x3}'};
 sys.StateUnit = {'m/s','rad/s','m','rad','rad','rad/s','m*s^2','m*s'};
-sys.InputName = {'SWTorque'};
-sys.InputUnit = {'Nm'};
+sys.InputName = {...
+	'SWTorque',...
+	'road curvature at LAD',...
+	'left tie rod force',...
+	'right tie rod force',...
+	};
+sys.InputUnit = {'Nm','1/m','N','N'};
 sys.OutputName = sys.StateName;
 sys.OutputUnit = sys.StateUnit;
 
 
 % info
-sys.Name = 'Einspurmdl + Rel.pos. + Lenkmdl CarMaker DSR + 2fach int. bzgl. yL';
+sys.Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + 2fach int. bzgl. yL';
 sys.UserData.vx.about = 'longitudinal velocity';
 sys.UserData.vx.value = vx;
 sys.UserData.vx.unit = 'm/s';
