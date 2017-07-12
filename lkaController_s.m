@@ -134,7 +134,7 @@ ret.AlgSynth.designParam.tr = tr;
 ret.AlgSynth.designParam.Tsoll = Tsoll;
 
 % controller values
-[R,V] = algsynth(P,Tsoll,[0,0]);
+[R,V] = algsynth(P(3,1),Tsoll,[0,0]);
 ret.AlgSynth.R.tf = R;
 ret.AlgSynth.R.ss = ssNormForm(R,'obs');
 ret.AlgSynth.V.tf = V;

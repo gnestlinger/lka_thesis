@@ -74,7 +74,7 @@ ret.P.u_fh = @(t,x,yL,epsL) (ret.P.k)*yL;
 % liefert gleiches Simulationsergebnis wie EA-ZR mit EW bei [-4,-4] für
 % vx=30m/s und lad=6m
 pneu = [-2.10347+1i*3.80752,-2.10347-1i*3.80752,-4,-4];
-k = acker(sysSingleTrackVis.A,sysSingleTrackVis.b,pneu);
+k = acker(sysSingleTrackVis.A,sysSingleTrackVis.b(:,1),pneu);
 % eig(sysSingleTrackVis.A - sysSingleTrackVis.b*kZR);
 % figure
 % step(ss((sysSingleTrackVis.A-sysSingleTrackVis.b*kZR),sysSingleTrackVis.B,sysSingleTrackVis.C,0));
@@ -99,7 +99,7 @@ ret.ZR.u_fh = @(t,x,yL,epsL) (-ret.ZR.k)*[x(2);x(4);yL;epsL];
 %% Zustandsregler durch EW-Vorgabe (2fach Int. bzgl yL): u = -k'*x
 
 pneu = [-2.10347+1i*3.80752,-2.10347-1i*3.80752,-4,-4,-1,-1];
-k = acker(sysSingleTrackVis_2int.A,sysSingleTrackVis_2int.b,pneu);
+k = acker(sysSingleTrackVis_2int.A,sysSingleTrackVis_2int.b(:,1),pneu);
 
 % quick info
 ret.ZR_2int.label = 'ZR int. Mdl.';
@@ -122,7 +122,7 @@ ret.ZR_2int.u_fh = @(t,x,yL,epsL) (-ret.ZR_2int.k)*[x(2);x(4);yL;epsL;x(8);x(9)]
 
 Q = diag([0 0 1 0]);
 R = 10;
-[k,~,~] = lqr(sysSingleTrackVis,Q,R);
+[k,~,~] = lqr(sysSingleTrackVis(:,1),Q,R);
 
 % quick info
 ret.LQR.label = 'LQR';
@@ -152,7 +152,7 @@ Q = [0 0 0 0 0 0;...
      0 0 0 0 1 0;...
      0 0 0 0 0 1];
 R = 10;
-[k,~,~] = lqr(sysSingleTrackVis_2int,Q,R);
+[k,~,~] = lqr(sysSingleTrackVis_2int(:,1),Q,R);
 
 % quick info
 ret.LQR_2int.label = 'LQR int. Mdl.';
