@@ -3,9 +3,10 @@
 % Associated Simulink-Models: 
 %   .) LKA_Lenkung_CarMaker_DSR_kombiniert.mdl
 % 
-% Subject: lka
-% Author: georgnoname
-% Date: 11.02.2013 - 03.05.2013
+% Subject: LKA
+% $Author$
+% $LastChangedDate$
+% $Revision$
 
 clc
 clear
@@ -36,8 +37,8 @@ sysSingleTrackVisDSR = ...
     ssMdl_SingleTrack('stvisdsr',stringCvehicle,vxC,ladC,stringCsteer);
 sysSingleTrackVisDSR_1int = ss(...
     [[sysSingleTrackVisDSR.a,zeros(6,1)];[0 0 1 0 0 0 0]],...
-    [sysSingleTrackVisDSR.b;0],...
-    [sysSingleTrackVisDSR.c,0],...
+    [sysSingleTrackVisDSR.b(:,1);0],...
+    [sysSingleTrackVisDSR.c(3,:),0],...
     0);
 sysSingleTrackVisDSR_2int = ...
     ssMdl_SingleTrack('stvisdsr_2int',stringCvehicle,vxC,ladC,stringCsteer);
@@ -46,7 +47,7 @@ R = 10;
 
 % 1fach integrierend
 Q0int = diag([0 0 1 0 0 0]);
-[k0int,~,~] = lqr(sysSingleTrackVisDSR,Q0int,R);
+[k0int,~,~] = lqr(sysSingleTrackVisDSR(:,1),Q0int,R);
 
 % 1fach integrierend
 Q1int = diag([0 0 1 0 0 0 1]);
@@ -62,7 +63,7 @@ Q2int = diag([0 0 1 0 0 0 1 1]);
 %      0 0 0 0 0 0 0 0;...
 %      0 0 0 0 0 0 1 0;...
 %      0 0 0 0 0 0 0 1];
-[k2int,~,~] = lqr(sysSingleTrackVisDSR_2int,Q2int,R);
+[k2int,~,~] = lqr(sysSingleTrackVisDSR_2int(:,1),Q2int,R);
 
 % overall design parameter
 contr.t.LQR_DSR.designParam.file.vehicle = stringCvehicle;
