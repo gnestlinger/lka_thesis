@@ -3,10 +3,10 @@
 % Associated Simulink-Models: 
 %   .) LKA_Lenkung_CarMaker_DSR_kombiniert.mdl
 % 
-% Subject: lka
-% Author: georgnoname
-% Date: 01.05.2013
-
+% Subject: LKA
+% $Author$
+% $LastChangedDate$
+% $Revision$
 clc
 clear all
 % close all
@@ -37,6 +37,7 @@ sysSingleTrackVisDSR = ...
 
 % Streckenübertragungsfunktion
 P = tf(sysSingleTrackVisDSR);
+P = P(3,1);
 
 % Wunsch: Überschwingen (Mp) und Anstiegszeit (tr)
 Mp = 1;
