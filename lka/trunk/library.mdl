@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jul 12 15:28:29 2017"
-  RTWModifiedTimeStamp	  421774098
-  ModelVersionFormat	  "1.%<AutoIncrement:879>"
+  LastModifiedDate	  "Wed Jul 12 16:09:05 2017"
+  RTWModifiedTimeStamp	  421776539
+  ModelVersionFormat	  "1.%<AutoIncrement:880>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -880,7 +880,7 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [488, 102, 1906, 961]
+    Location		    [438, 127, 1856, 986]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    319
@@ -5307,7 +5307,7 @@ Library {
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
-		SIDHighWatermark	"78"
+		SIDHighWatermark	"90"
 		Block {
 		  BlockType		  Inport
 		  Name			  "LAD"
@@ -5874,7 +5874,7 @@ Library {
 	  Name			  "Simout"
 	  SID			  "3174"
 	  Ports			  [4]
-	  Position		  [100, 46, 180, 109]
+	  Position		  [100, 46, 170, 124]
 	  LibraryVersion	  "*1.862"
 	  MinAlgLoopOccurrences	  off
 	  PropExecContextOutsideSubsystem off
@@ -5902,7 +5902,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "LaneTracking"
 	      SID		      "3364"
-	      Position		      [40, 183, 70, 197]
+	      Position		      [40, 138, 70, 152]
 	      BackgroundColor	      "yellow"
 	      IconDisplay	      "Port number"
 	      Port {
@@ -5914,7 +5914,7 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "Vhcl"
+	      Name		      "VhclState"
 	      SID		      "3175"
 	      Position		      [40, 33, 70, 47]
 	      BackgroundColor	      "yellow"
@@ -5922,7 +5922,7 @@ Library {
 	      IconDisplay	      "Port number"
 	      Port {
 		PortNumber		1
-		Name			"Vhcl"
+		Name			"VhclState"
 		PropagatedSignals	"VhclState"
 		RTWStorageClass		"Auto"
 		DataLoggingNameMode	"SignalName"
@@ -5932,7 +5932,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "Control_Input"
 	      SID		      "3176"
-	      Position		      [40, 133, 70, 147]
+	      Position		      [40, 103, 70, 117]
 	      BackgroundColor	      "yellow"
 	      Port		      "3"
 	      IconDisplay	      "Port number"
@@ -5947,7 +5947,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "LaneSensor"
 	      SID		      "3183"
-	      Position		      [40, 83, 70, 97]
+	      Position		      [40, 68, 70, 82]
 	      BackgroundColor	      "yellow"
 	      Port		      "4"
 	      IconDisplay	      "Port number"
@@ -5974,7 +5974,7 @@ Library {
 	      Name		      "To Workspace"
 	      SID		      "3179"
 	      Ports		      [1]
-	      Position		      [440, 75, 580, 105]
+	      Position		      [440, 80, 580, 110]
 	      BackgroundColor	      "gray"
 	      ShowName		      off
 	      VariableName	      "simout"
@@ -5987,14 +5987,13 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "LaneTracking"
 	      SrcPort		      1
-	      Points		      [170, 0]
 	      DstBlock		      "Bus\nCreator"
 	      DstPort		      4
 	    }
 	    Line {
-	      Name		      "Vhcl"
+	      Name		      "VhclState"
 	      Labels		      [0, 0]
-	      SrcBlock		      "Vhcl"
+	      SrcBlock		      "VhclState"
 	      SrcPort		      1
 	      DstBlock		      "Bus\nCreator"
 	      DstPort		      1
@@ -6004,7 +6003,6 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "LaneSensor"
 	      SrcPort		      1
-	      Points		      [170, 0]
 	      DstBlock		      "Bus\nCreator"
 	      DstPort		      2
 	    }
@@ -6013,14 +6011,12 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Control_Input"
 	      SrcPort		      1
-	      Points		      [170, 0]
 	      DstBlock		      "Bus\nCreator"
 	      DstPort		      3
 	    }
 	    Line {
 	      SrcBlock		      "Bus\nCreator"
 	      SrcPort		      1
-	      Points		      [0, -5]
 	      DstBlock		      "To Workspace"
 	      DstPort		      1
 	    }
@@ -10880,7 +10876,7 @@ Library {
       System {
 	Name			"Vehicle Models ext."
 	Location		[461, 114, 1845, 973]
-	Open			on
+	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	380
 	ScreenColor		"white"
