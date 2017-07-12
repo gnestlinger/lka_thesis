@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.171"
+    ComputedModelVersion    "1.172"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 02 11:33:46 2017"
-  RTWModifiedTimeStamp	  410355219
-  ModelVersionFormat	  "1.%<AutoIncrement:171>"
+  LastModifiedDate	  "Wed Jul 12 15:45:21 2017"
+  RTWModifiedTimeStamp	  421775009
+  ModelVersionFormat	  "1.%<AutoIncrement:172>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -811,7 +811,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "409"
+    SIDHighWatermark	    "410"
     Block {
       BlockType		      Constant
       Name		      "Constant"
@@ -1439,8 +1439,8 @@ Model {
       Ports		      [3, 2]
       Position		      [555, 75, 720, 135]
       ZOrder		      -19
-      LibraryVersion	      "1.836"
-      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
+      LibraryVersion	      "1.879"
+      SourceBlock	      "library/Steering Models/Steering Model (CarMaker DSR)\n[masked]"
       SourceType	      "Steering model parameterization"
       d_rot		      "pin.SteeringModel.parameter.drot"
       d_rack		      "pin.SteeringModel.parameter.drack"
@@ -1466,8 +1466,8 @@ Model {
       Ports		      [3, 2]
       Position		      [555, 315, 720, 375]
       ZOrder		      -19
-      LibraryVersion	      "1.836"
-      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
+      LibraryVersion	      "1.879"
+      SourceBlock	      "library/Steering Models/Steering Model (CarMaker DSR)\n[masked]"
       SourceType	      "Steering model parameterization"
       d_rot		      "pin.SteeringModel.parameter.drot"
       d_rack		      "pin.SteeringModel.parameter.drack"
@@ -1493,8 +1493,8 @@ Model {
       Ports		      [3, 2]
       Position		      [545, 540, 710, 600]
       ZOrder		      -19
-      LibraryVersion	      "1.836"
-      SourceBlock	      "library/Steering Models/Steering Model: CarMaker DSR [masked]"
+      LibraryVersion	      "1.879"
+      SourceBlock	      "library/Steering Models/Steering Model (CarMaker DSR)\n[masked]"
       SourceType	      "Steering model parameterization"
       d_rot		      "pin.SteeringModel.parameter.drot"
       d_rack		      "pin.SteeringModel.parameter.drack"
@@ -1874,6 +1874,10 @@ Model {
       SrcPort		      2
       DstBlock		      "Terminator2"
       DstPort		      1
+    }
+    Annotation {
+      SID		      "410"
+      Position		      [642, 123]
     }
   }
 }
