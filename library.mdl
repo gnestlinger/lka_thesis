@@ -16,9 +16,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Apr 13 08:58:26 2017"
-  RTWModifiedTimeStamp	  413974534
-  ModelVersionFormat	  "1.%<AutoIncrement:878>"
+  LastModifiedDate	  "Wed Jul 12 15:28:29 2017"
+  RTWModifiedTimeStamp	  421774098
+  ModelVersionFormat	  "1.%<AutoIncrement:879>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -880,7 +880,7 @@ Library {
   }
   System {
     Name		    "library"
-    Location		    [353, 114, 1771, 973]
+    Location		    [488, 102, 1906, 961]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    319
@@ -911,7 +911,7 @@ Library {
       MaskHideContents	      off
       System {
 	Name			"LKA-Controller"
-	Location		[358, 231, 1322, 819]
+	Location		[353, 114, 1771, 973]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	295
@@ -3215,6 +3215,12 @@ Library {
 	      ZOrder		      -2
 	      ShowName		      off
 	      DisplayOption	      "bar"
+	      Port {
+		PortNumber		1
+		Name			"LaneTracking"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
 	    }
 	    Block {
 	      BlockType		      Reference
@@ -3222,7 +3228,7 @@ Library {
 	      SID		      "3351"
 	      Ports		      [7, 2]
 	      Position		      [335, 12, 530, 218]
-	      LibraryVersion	      "1.873"
+	      LibraryVersion	      "1.878"
 	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (linear)"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -3246,7 +3252,7 @@ Library {
 	      SID		      "3361"
 	      Ports		      [8, 2]
 	      Position		      [335, 233, 530, 432]
-	      LibraryVersion	      "1.873"
+	      LibraryVersion	      "1.878"
 	      SourceBlock	      "library/Lane Tracking/Lane Tracking Model (nonlinear)"
 	      SourceType	      "SubSystem"
 	      Port {
@@ -3408,6 +3414,8 @@ Library {
 	      DstPort		      4
 	    }
 	    Line {
+	      Name		      "LaneTracking"
+	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nCreator"
 	      SrcPort		      1
 	      DstBlock		      "LaneTracking"
@@ -5299,7 +5307,7 @@ Library {
 		TiledPageScale		1
 		ShowPageBoundaries	off
 		ZoomFactor		"100"
-		SIDHighWatermark	"66"
+		SIDHighWatermark	"78"
 		Block {
 		  BlockType		  Inport
 		  Name			  "LAD"
@@ -10872,7 +10880,7 @@ Library {
       System {
 	Name			"Vehicle Models ext."
 	Location		[461, 114, 1845, 973]
-	Open			off
+	Open			on
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	380
 	ScreenColor		"white"
