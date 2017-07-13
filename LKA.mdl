@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.803"
+    ComputedModelVersion    "1.821"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -27,9 +27,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Mar 02 11:35:14 2017"
-  RTWModifiedTimeStamp	  410355297
-  ModelVersionFormat	  "1.%<AutoIncrement:803>"
+  LastModifiedDate	  "Thu Jul 13 09:36:52 2017"
+  RTWModifiedTimeStamp	  421839235
+  ModelVersionFormat	  "1.%<AutoIncrement:821>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -654,6 +654,12 @@ Model {
       PreserveConstantTs      off
     }
     Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
       BlockType		      Gain
       Gain		      "1"
       Multiplication	      "Element-wise(K.*u)"
@@ -712,6 +718,13 @@ Model {
       InitialOutput	      "[]"
     }
     Block {
+      BlockType		      S-Function
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+      SFunctionDeploymentMode off
+    }
+    Block {
       BlockType		      Scope
       ModelBased	      off
       TickLabels	      "OneTimeTick"
@@ -762,14 +775,7 @@ Model {
       GeneratePreprocessorConditionals off
     }
     Block {
-      BlockType		      ToWorkspace
-      VariableName	      "simulink_output"
-      MaxDataPoints	      "1000"
-      Decimation	      "1"
-      SampleTime	      "0"
-      SaveFormat	      "Array"
-      FixptAsFi		      off
-      NumInputs		      "1"
+      BlockType		      Terminator
     }
   }
   System {
@@ -788,13 +794,13 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1124"
+    SIDHighWatermark	    "1198"
     Block {
       BlockType		      BusCreator
       Name		      "Bus\nCreator"
-      SID		      "1062"
+      SID		      "1181"
       Ports		      [2, 1]
-      Position		      [820, 106, 825, 144]
+      Position		      [745, 186, 750, 224]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -804,10 +810,11 @@ Model {
       Name		      "Bus\nSelector1"
       SID		      "496"
       Ports		      [1, 6]
-      Position		      [910, 220, 915, 330]
+      Position		      [765, 150, 770, 260]
       ShowName		      off
-      OutputSignals	      "Sensor.lateralOff_LAD_Sensor,VehicleState.lateralOff_LAD_linear,VehicleState.lateralOff_LAD"
-      "_nonlinear,Sensor.angularDev_LAD_Sensor,VehicleState.angularDev_LAD_linear,VehicleState.angularDev_LAD_nonlinear"
+      OutputSignals	      "LaneSensor.lateralOff_LAD_Sensor,LaneTracking.lateralOff_LAD_linear,LaneTracking.lateralOff"
+      "_LAD_nonlinear,LaneSensor.angularDev_LAD_Sensor,LaneTracking.angularDev_LAD_linear,LaneTracking.angularDev_LAD_n"
+      "onlinear"
       Port {
 	PortNumber		1
 	Name			"<lateralOff_LAD_Sensor>"
@@ -847,12 +854,27 @@ Model {
     }
     Block {
       BlockType		      BusSelector
+      Name		      "Bus\nSelector2"
+      SID		      "1198"
+      Ports		      [1, 1]
+      Position		      [115, 230, 120, 270]
+      ShowName		      off
+      OutputSignals	      "lateralOff_LAD_Sensor"
+      Port {
+	PortNumber		1
+	Name			"<lateralOff_LAD_Sensor>"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+    }
+    Block {
+      BlockType		      BusSelector
       Name		      "Bus\nSelector4"
       SID		      "332"
       Ports		      [1, 2]
-      Position		      [910, 15, 915, 55]
+      Position		      [765, 45, 770, 85]
       ShowName		      off
-      OutputSignals	      "VehicleState.x_global,VehicleState.y_global"
+      OutputSignals	      "x_global,y_global"
       Port {
 	PortNumber		1
 	Name			"<x_global>"
@@ -867,60 +889,11 @@ Model {
       }
     }
     Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector5"
-      SID		      "1047"
-      Ports		      [1, 2]
-      Position		      [690, 256, 695, 294]
-      BlockMirror	      on
-      NamePlacement	      "alternate"
-      ShowName		      off
-      OutputSignals	      "VehicleState.vy,VehicleState.yawRate"
-      Port {
-	PortNumber		1
-	Name			"<vy>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-      Port {
-	PortNumber		2
-	Name			"<yawRate>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      BusSelector
-      Name		      "Bus\nSelector7"
-      SID		      "1063"
-      Ports		      [1, 2]
-      Position		      [310, 126, 315, 164]
-      ShowName		      off
-      OutputSignals	      "curvature_LAD_Sensor,lateralOff_LAD_Sensor"
-      Port {
-	PortNumber		1
-	Name			"<curvature_LAD_Sensor>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-      Port {
-	PortNumber		2
-	Name			"<lateralOff_LAD_Sensor>"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
       BlockType		      SubSystem
-      Name		      "LKA-Controller"
-      SID		      "982"
-      Ports		      [5, 1]
-      Position		      [130, 44, 230, 186]
-      BackgroundColor	      "darkGreen"
-      AttributesFormatString  "%<BlockChoice>"
-      BlockChoice	      "LQR"
-      TemplateBlock	      "library/LKA-Controller/LKA-Controller"
-      MemberBlocks	      "AlgSynth,FKL,LQR,LQR_2int,ZR,ZR_2int"
+      Name		      "Controller"
+      SID		      "1151"
+      Ports		      [3, 1]
+      Position		      [285, 34, 410, 96]
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -935,8 +908,8 @@ Model {
 	DataLoggingNameMode	"SignalName"
       }
       System {
-	Name			"LKA-Controller"
-	Location		[148, 182, 646, 482]
+	Name			"Controller"
+	Location		[377, 427, 962, 654]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
@@ -949,99 +922,918 @@ Model {
 	TiledPageScale		1
 	ShowPageBoundaries	off
 	ZoomFactor		"100"
-	SIDHighWatermark	"2979"
 	Block {
 	  BlockType		  Inport
-	  Name			  "r"
-	  SID			  "982::1072"
-	  Position		  [20, 40, 40, 60]
+	  Name			  "LaneSensor"
+	  SID			  "1152"
+	  Position		  [15, 143, 45, 157]
+	  BackgroundColor	  "yellow"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
-	  Name			  "vy"
-	  SID			  "982::1110"
-	  Position		  [20, 120, 40, 140]
+	  Name			  "VhclState"
+	  SID			  "1153"
+	  Position		  [15, 73, 45, 87]
+	  BackgroundColor	  "yellow"
 	  Port			  "2"
 	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Inport
-	  Name			  "psiDot"
-	  SID			  "982::1111"
-	  Position		  [20, 160, 40, 180]
+	  Name			  "r"
+	  SID			  "1182"
+	  Position		  [15, 28, 45, 42]
+	  BackgroundColor	  "yellow"
 	  Port			  "3"
 	  IconDisplay		  "Port number"
 	}
 	Block {
-	  BlockType		  Inport
-	  Name			  "yL"
-	  SID			  "982::1112"
-	  Position		  [20, 200, 40, 220]
-	  Port			  "4"
-	  IconDisplay		  "Port number"
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector"
+	  SID			  "1154"
+	  Ports			  [1, 2]
+	  Position		  [90, 61, 95, 99]
+	  ZOrder		  -3
+	  ShowName		  off
+	  OutputSignals		  "vy,yawRate"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<vy>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    2
+	    Name		    "<yawRate>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
 	}
 	Block {
-	  BlockType		  Inport
-	  Name			  "epsL"
-	  SID			  "982::1113"
-	  Position		  [20, 240, 40, 260]
-	  Port			  "5"
-	  IconDisplay		  "Port number"
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector3"
+	  SID			  "1155"
+	  Ports			  [1, 2]
+	  Position		  [90, 113, 95, 182]
+	  ShowName		  off
+	  OutputSignals		  "poly_lateralOff_LAD_Sensor,poly_angularDev_LAD_Sensor"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<poly_lateralOff_LAD_Sensor>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    2
+	    Name		    "<poly_angularDev_LAD_Sensor>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant4"
+	  SID			  "1157"
+	  Position		  [50, 191, 230, 209]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.LAD"
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "LQR"
-	  SID			  "982::97"
+	  Name			  "LQR_2int"
+	  SID			  "1158"
 	  Ports			  [5, 1]
-	  Position		  [100, 40, 140, 80]
-	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.836"
-	  SourceBlock		  "library/LKA-Controller/LQR"
+	  Position		  [745, 12, 860, 198]
+	  LibraryVersion	  "1.880"
+	  SourceBlock		  "library/LKA-Controller/LQR_2int"
 	  SourceType		  "SubSystem"
+	  Port {
+	    PortNumber		    1
+	    Name		    "u"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "MATLAB Function"
+	  SID			  "1159"
+	  Ports			  [2, 1]
+	  Position		  [325, 120, 420, 155]
+	  ZOrder		  -4
+	  LibraryVersion	  "1.32"
+	  ErrorFcn		  "Stateflow.Translate.translate"
+	  PermitHierarchicalResolution "ExplicitOnly"
+	  TreatAsAtomicUnit	  on
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  SFBlockType		  "MATLAB Function"
+	  MaskType		  "Stateflow"
+	  MaskDescription	  "Embedded MATLAB block"
+	  MaskSelfModifiable	  on
+	  MaskDisplay		  "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('private/"
+	  "eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'polyVal']);"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  off
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "normalized"
+	  System {
+	    Name		    "MATLAB Function"
+	    Location		    [257, 457, 812, 717]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    SIDHighWatermark	    "23"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "p"
+	      SID		      "1159::1"
+	      Position		      [20, 101, 40, 119]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "x"
+	      SID		      "1159::23"
+	      Position		      [20, 136, 40, 154]
+	      ZOrder		      9
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      " Demux "
+	      SID		      "1159::20"
+	      Ports		      [1, 1]
+	      Position		      [270, 160, 320, 200]
+	      ZOrder		      6
+	      Outputs		      "1"
+	    }
+	    Block {
+	      BlockType		      S-Function
+	      Name		      " SFunction "
+	      SID		      "1159::19"
+	      Tag		      "Stateflow S-Function LKA 1"
+	      Ports		      [2, 2]
+	      Position		      [180, 100, 230, 160]
+	      ZOrder		      5
+	      FunctionName	      "sf_sfun"
+	      PortCounts	      "[2 2]"
+	      EnableBusSupport	      on
+	      Port {
+		PortNumber		2
+		Name			"y"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      " Terminator "
+	      SID		      "1159::22"
+	      Position		      [460, 171, 480, 189]
+	      ZOrder		      8
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "y"
+	      SID		      "1159::5"
+	      Position		      [460, 101, 480, 119]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      "p"
+	      SrcPort		      1
+	      DstBlock		      " SFunction "
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "x"
+	      SrcPort		      1
+	      DstBlock		      " SFunction "
+	      DstPort		      2
+	    }
+	    Line {
+	      Name		      "y"
+	      Labels		      [0, 0]
+	      SrcBlock		      " SFunction "
+	      SrcPort		      2
+	      DstBlock		      "y"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      " Demux "
+	      SrcPort		      1
+	      DstBlock		      " Terminator "
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      " SFunction "
+	      SrcPort		      1
+	      DstBlock		      " Demux "
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "MATLAB Function1"
+	  SID			  "1160"
+	  Ports			  [2, 1]
+	  Position		  [485, 155, 580, 190]
+	  ZOrder		  -4
+	  LibraryVersion	  "1.32"
+	  ErrorFcn		  "Stateflow.Translate.translate"
+	  PermitHierarchicalResolution "ExplicitOnly"
+	  TreatAsAtomicUnit	  on
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  SFBlockType		  "MATLAB Function"
+	  MaskType		  "Stateflow"
+	  MaskDescription	  "Embedded MATLAB block"
+	  MaskSelfModifiable	  on
+	  MaskDisplay		  "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('private/"
+	  "eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'polyVal']);"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  off
+	  MaskIconRotate	  "none"
+	  MaskPortRotate	  "default"
+	  MaskIconUnits		  "normalized"
+	  System {
+	    Name		    "MATLAB Function1"
+	    Location		    [257, 457, 812, 717]
+	    Open		    off
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    SIDHighWatermark	    "23"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "p"
+	      SID		      "1160::1"
+	      Position		      [20, 101, 40, 119]
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "x"
+	      SID		      "1160::23"
+	      Position		      [20, 136, 40, 154]
+	      ZOrder		      9
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      " Demux "
+	      SID		      "1160::20"
+	      Ports		      [1, 1]
+	      Position		      [270, 160, 320, 200]
+	      ZOrder		      6
+	      Outputs		      "1"
+	    }
+	    Block {
+	      BlockType		      S-Function
+	      Name		      " SFunction "
+	      SID		      "1160::19"
+	      Tag		      "Stateflow S-Function LKA 3"
+	      Ports		      [2, 2]
+	      Position		      [180, 100, 230, 160]
+	      ZOrder		      5
+	      FunctionName	      "sf_sfun"
+	      PortCounts	      "[2 2]"
+	      EnableBusSupport	      on
+	      Port {
+		PortNumber		2
+		Name			"y"
+		RTWStorageClass		"Auto"
+		DataLoggingNameMode	"SignalName"
+	      }
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      " Terminator "
+	      SID		      "1160::22"
+	      Position		      [460, 171, 480, 189]
+	      ZOrder		      8
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "y"
+	      SID		      "1160::5"
+	      Position		      [460, 101, 480, 119]
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      SrcBlock		      " SFunction "
+	      SrcPort		      1
+	      DstBlock		      " Demux "
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      " Demux "
+	      SrcPort		      1
+	      DstBlock		      " Terminator "
+	      DstPort		      1
+	    }
+	    Line {
+	      Name		      "y"
+	      Labels		      [0, 0]
+	      SrcBlock		      " SFunction "
+	      SrcPort		      2
+	      DstBlock		      "y"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "x"
+	      SrcPort		      1
+	      DstBlock		      " SFunction "
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "p"
+	      SrcPort		      1
+	      DstBlock		      " SFunction "
+	      DstPort		      1
+	    }
+	  }
 	}
 	Block {
 	  BlockType		  Outport
-	  Name			  "delta [rad]"
-	  SID			  "982::1074"
-	  Position		  [200, 40, 220, 60]
+	  Name			  "steerAngle [rad]"
+	  SID			  "1161"
+	  Position		  [960, 98, 990, 112]
+	  BackgroundColor	  "gray"
 	  IconDisplay		  "Port number"
 	}
 	Line {
 	  SrcBlock		  "r"
 	  SrcPort		  1
-	  DstBlock		  "LQR"
+	  DstBlock		  "LQR_2int"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "vy"
+	  SrcBlock		  "MATLAB Function"
 	  SrcPort		  1
-	  DstBlock		  "LQR"
-	  DstPort		  2
-	}
-	Line {
-	  SrcBlock		  "psiDot"
-	  SrcPort		  1
-	  DstBlock		  "LQR"
-	  DstPort		  3
-	}
-	Line {
-	  SrcBlock		  "yL"
-	  SrcPort		  1
-	  DstBlock		  "LQR"
+	  DstBlock		  "LQR_2int"
 	  DstPort		  4
 	}
 	Line {
-	  SrcBlock		  "epsL"
+	  SrcBlock		  "MATLAB Function1"
 	  SrcPort		  1
-	  DstBlock		  "LQR"
+	  DstBlock		  "LQR_2int"
 	  DstPort		  5
 	}
 	Line {
-	  SrcBlock		  "LQR"
+	  SrcBlock		  "Constant4"
 	  SrcPort		  1
-	  DstBlock		  "delta [rad]"
+	  Points		  [55, 0]
+	  Branch {
+	    Points		    [180, 0]
+	    DstBlock		    "MATLAB Function1"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, -55]
+	    DstBlock		    "MATLAB Function"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "LaneSensor"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nSelector3"
 	  DstPort		  1
+	}
+	Line {
+	  Name			  "u"
+	  Labels		  [0, 0]
+	  SrcBlock		  "LQR_2int"
+	  SrcPort		  1
+	  DstBlock		  "steerAngle [rad]"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<poly_lateralOff_LAD_Sensor>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector3"
+	  SrcPort		  1
+	  DstBlock		  "MATLAB Function"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<poly_angularDev_LAD_Sensor>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector3"
+	  SrcPort		  2
+	  DstBlock		  "MATLAB Function1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "VhclState"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nSelector"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<vy>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  1
+	  DstBlock		  "LQR_2int"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "<yawRate>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  2
+	  Points		  [330, 0; 0, 15]
+	  DstBlock		  "LQR_2int"
+	  DstPort		  3
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Lane Sensor"
+      SID		      "1145"
+      Ports		      [1, 1]
+      Position		      [80, 34, 200, 96]
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"Lane Sensor"
+	Location		[972, 379, 1307, 491]
+	Open			off
+	ModelBrowserVisibility	on
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "VhclState"
+	  SID			  "1146"
+	  Position		  [35, 53, 65, 67]
+	  ZOrder		  -1
+	  BackgroundColor	  "yellow"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector"
+	  SID			  "1147"
+	  Ports			  [1, 3]
+	  Position		  [105, 15, 110, 105]
+	  ZOrder		  -3
+	  ShowName		  off
+	  OutputSignals		  "x_global,y_global,yawAngle"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<x_global>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    2
+	    Name		    "<y_global>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "<yawAngle>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant4"
+	  SID			  "1148"
+	  Position		  [50, 111, 230, 129]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.LAD"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Lane Tracking Sensor"
+	  SID			  "1149"
+	  Ports			  [4, 1]
+	  Position		  [275, 19, 455, 131]
+	  LibraryVersion	  "1.880"
+	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
+	  SourceType		  "SubSystem"
+	  Port {
+	    PortNumber		    1
+	    PropagatedSignals	    "LaneSensor"
+	    ShowPropagatedSignals   "on"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "LaneSensor"
+	  SID			  "1150"
+	  Position		  [550, 68, 580, 82]
+	  BackgroundColor	  "gray"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "Lane Tracking Sensor"
+	  SrcPort		  1
+	  DstBlock		  "LaneSensor"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "VhclState"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nSelector"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<x_global>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Sensor"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<y_global>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  2
+	  DstBlock		  "Lane Tracking Sensor"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "<yawAngle>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  3
+	  DstBlock		  "Lane Tracking Sensor"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Constant4"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Sensor"
+	  DstPort		  4
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Lane Tracking"
+      SID		      "1162"
+      Ports		      [2, 1]
+      Position		      [515, 164, 660, 226]
+      ZOrder		      -19
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      Port {
+	PortNumber		1
+	PropagatedSignals	"LaneTracking"
+	ShowPropagatedSignals	"on"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
+      System {
+	Name			"Lane Tracking"
+	Location		[433, 403, 931, 703]
+	Open			off
+	ModelBrowserVisibility	on
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "VhclState"
+	  SID			  "1163"
+	  Position		  [15, 128, 45, 142]
+	  ZOrder		  -1
+	  BackgroundColor	  "yellow"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "LaneSensor"
+	  SID			  "1164"
+	  Position		  [15, 178, 45, 192]
+	  BackgroundColor	  "yellow"
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector"
+	  SID			  "1165"
+	  Ports			  [1, 2]
+	  Position		  [95, 159, 100, 206]
+	  ShowName		  off
+	  OutputSignals		  "LAD_Sensor,curvature_LAD_Sensor"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<LAD_Sensor>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    2
+	    Name		    "<curvature_LAD_Sensor>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector1"
+	  SID			  "1166"
+	  Ports			  [1, 2]
+	  Position		  [95, 109, 100, 156]
+	  ShowName		  off
+	  OutputSignals		  "vy,yawRate"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<vy>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    2
+	    Name		    "<yawRate>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector2"
+	  SID			  "1167"
+	  Ports			  [1, 1]
+	  Position		  [95, 258, 100, 282]
+	  ZOrder		  -3
+	  ShowName		  off
+	  OutputSignals		  "lateralOff_LAD_Sensor"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<lateralOff_LAD_Sensor>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  BusSelector
+	  Name			  "Bus\nSelector3"
+	  SID			  "1168"
+	  Ports			  [1, 1]
+	  Position		  [550, 326, 555, 364]
+	  ZOrder		  -3
+	  BlockMirror		  on
+	  NamePlacement		  "alternate"
+	  ShowName		  off
+	  OutputSignals		  "lateralOff_LAD_nonlinear"
+	  Port {
+	    PortNumber		    1
+	    Name		    "<lateralOff_LAD_nonlinear>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant1"
+	  SID			  "1169"
+	  Position		  [95, 86, 275, 104]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.vx"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant2"
+	  SID			  "1170"
+	  Position		  [95, 211, 275, 229]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.yL "
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant3"
+	  SID			  "1171"
+	  Position		  [95, 236, 275, 254]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.epsL"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Lane Tracking Model (linear/nonlinear)"
+	  SID			  "1174"
+	  Ports			  [8, 1]
+	  Position		  [455, 83, 650, 282]
+	  ZOrder		  -19
+	  LibraryVersion	  "1.880"
+	  SourceBlock		  "library/Lane Tracking/Lane Tracking Model (linear&nonlinear)"
+	  SourceType		  "SubSystem"
+	  Port {
+	    PortNumber		    1
+	    PropagatedSignals	    "LaneTracking"
+	    ShowPropagatedSignals   "on"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Manual Switch"
+	  SID			  "1176"
+	  Ports			  [2, 1]
+	  Position		  [345, 252, 375, 288]
+	  ZOrder		  -13
+	  LibraryVersion	  "1.260"
+	  SourceBlock		  "simulink/Signal\nRouting/Manual Switch"
+	  SourceType		  "Manual Switch"
+	  sw			  "1"
+	  action		  "0"
+	  varsize		  off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "LaneTracking"
+	  SID			  "1178"
+	  Position		  [775, 178, 805, 192]
+	  ZOrder		  -2
+	  BackgroundColor	  "gray"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "LaneSensor"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "Bus\nSelector"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 85]
+	    DstBlock		    "Bus\nSelector2"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Constant2"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "Constant3"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  7
+	}
+	Line {
+	  SrcBlock		  "VhclState"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nSelector1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant1"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "<vy>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector1"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "<yawRate>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector1"
+	  SrcPort		  2
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  3
+	}
+	Line {
+	  Name			  "<LAD_Sensor>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "<curvature_LAD_Sensor>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  2
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  5
+	}
+	Line {
+	  Name			  "<lateralOff_LAD_nonlinear>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector3"
+	  SrcPort		  1
+	  Points		  [-215, 0]
+	  DstBlock		  "Manual Switch"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "<lateralOff_LAD_Sensor>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector2"
+	  SrcPort		  1
+	  Points		  [225, 0]
+	  DstBlock		  "Manual Switch"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Manual Switch"
+	  SrcPort		  1
+	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  DstPort		  8
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "Lane Tracking Model (linear/nonlinear)"
+	  SrcPort		  1
+	  Points		  [55, 0]
+	  Branch {
+	    Points		    [0, 160]
+	    DstBlock		    "Bus\nSelector3"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "LaneTracking"
+	    DstPort		    1
+	  }
 	}
       }
     }
@@ -1050,7 +1842,7 @@ Model {
       Name		      "Manual Switch"
       SID		      "730"
       Ports		      [2, 1]
-      Position		      [80, 37, 110, 73]
+      Position		      [125, 157, 155, 193]
       ShowName		      off
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
@@ -1070,7 +1862,7 @@ Model {
       Name		      "Mux"
       SID		      "843"
       Ports		      [3, 1]
-      Position		      [1040, 217, 1045, 273]
+      Position		      [905, 147, 910, 203]
       ShowName		      off
       Inputs		      "3"
       DisplayOption	      "bar"
@@ -1080,7 +1872,7 @@ Model {
       Name		      "Mux1"
       SID		      "866"
       Ports		      [3, 1]
-      Position		      [1040, 278, 1045, 332]
+      Position		      [905, 208, 910, 262]
       ShowName		      off
       Inputs		      "3"
       DisplayOption	      "bar"
@@ -1096,7 +1888,7 @@ Model {
       Name		      "Mux2"
       SID		      "1073"
       Ports		      [2, 1]
-      Position		      [140, 376, 145, 414]
+      Position		      [180, 206, 185, 244]
       ShowName		      off
       Inputs		      "2"
       DisplayOption	      "bar"
@@ -1106,7 +1898,7 @@ Model {
       Name		      "Ramp"
       SID		      "1072"
       Ports		      [0, 1]
-      Position		      [25, 15, 55, 45]
+      Position		      [70, 135, 100, 165]
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Sources/Ramp"
       SourceType	      "Ramp"
@@ -1120,7 +1912,7 @@ Model {
       Name		      "Scope"
       SID		      "844"
       Ports		      [1]
-      Position		      [1090, 227, 1120, 263]
+      Position		      [955, 157, 985, 193]
       ShowName		      off
       Floating		      off
       Location		      [139, 287, 1267, 909]
@@ -1154,7 +1946,7 @@ Model {
       Name		      "Scope1"
       SID		      "448"
       Ports		      [3]
-      Position		      [1090, 332, 1120, 368]
+      Position		      [955, 262, 985, 298]
       ShowName		      off
       Floating		      off
       Location		      [6, 141, 1036, 847]
@@ -1190,7 +1982,7 @@ Model {
       Name		      "Scope2"
       SID		      "1054"
       Ports		      [1]
-      Position		      [1090, 287, 1120, 323]
+      Position		      [955, 217, 985, 253]
       ShowName		      off
       Floating		      off
       Location		      [126, 200, 1254, 822]
@@ -1223,7 +2015,7 @@ Model {
       Name		      "Scope3"
       SID		      "1066"
       Ports		      [1]
-      Position		      [165, 377, 195, 413]
+      Position		      [205, 207, 235, 243]
       ShowName		      off
       Floating		      off
       Location		      [6, 93, 1134, 715]
@@ -1253,45 +2045,29 @@ Model {
       SampleTime	      "0"
     }
     Block {
-      BlockType		      Scope
-      Name		      "Scope4"
-      SID		      "1068"
-      Ports		      [1]
-      Position		      [465, 12, 495, 48]
-      ShowName		      off
-      Floating		      off
-      Location		      [267, 177, 1395, 799]
-      Open		      off
-      NumInputPorts	      "1"
-      List {
-	ListType		AxesTitles
-	axes1			"%<SignalLabel>"
-      }
-      List {
-	ListType		ScopeGraphics
-	FigureColor		"[0.5 0.5 0.5]"
-	AxesColor		"[0 0 0]"
-	AxesTickColor		"[1 1 1]"
-	LineColors		"[1 1 0;1 0 1;0 1 1;1 0 0;0 1 0;0 0 1]"
-	LineStyles		"-|-|-|-|-|-"
-	LineWidths		"[0.5 0.5 0.5 0.5 0.5 0.5]"
-	MarkerStyles		"none|none|none|none|none|none"
-      }
-      ShowLegends	      off
-      TimeRange		      "13.0347"
-      YMin		      "0.0019"
-      YMax		      "0.0021"
-      SaveName		      "ScopeData4"
-      DataFormat	      "StructureWithTime"
-      LimitDataPoints	      off
+      BlockType		      Reference
+      Name		      "Simout"
+      SID		      "1180"
+      Ports		      [4]
+      Position		      [765, 346, 850, 409]
+      LibraryVersion	      "1.880"
+      SourceBlock	      "library/Misc/Simout"
+      SourceType	      "SubSystem"
+    }
+    Block {
+      BlockType		      Step
+      Name		      "Step"
+      SID		      "1082"
+      Position		      [70, 185, 100, 215]
+      Time		      "10"
       SampleTime	      "0"
     }
     Block {
       BlockType		      SubSystem
-      Name		      "Sensor Model"
-      SID		      "1112"
+      Name		      "Vehicle"
+      SID		      "1130"
       Ports		      [1, 1]
-      Position		      [630, 104, 750, 166]
+      Position		      [515, 34, 660, 96]
       MinAlgLoopOccurrences   off
       PropExecContextOutsideSubsystem off
       RTWSystemCode	      "Auto"
@@ -1299,9 +2075,16 @@ Model {
       Opaque		      off
       RequestExecContextInheritance off
       MaskHideContents	      off
+      Port {
+	PortNumber		1
+	PropagatedSignals	"VhclState"
+	ShowPropagatedSignals	"on"
+	RTWStorageClass		"Auto"
+	DataLoggingNameMode	"SignalName"
+      }
       System {
-	Name			"Sensor Model"
-	Location		[652, 259, 1704, 926]
+	Name			"Vehicle"
+	Location		[453, 264, 1629, 951]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
@@ -1316,354 +2099,166 @@ Model {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  Inport
-	  Name			  "VehicleState"
-	  SID			  "1113"
-	  Position		  [35, 43, 65, 57]
-	  ZOrder		  -1
+	  Name			  "steerAngle [rad]"
+	  SID			  "1131"
+	  Position		  [80, 33, 110, 47]
+	  BackgroundColor	  "yellow"
 	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  BusCreator
+	  Name			  "Bus\nCreator1"
+	  SID			  "1132"
+	  Ports			  [7, 1]
+	  Position		  [640, 26, 645, 334]
+	  ShowName		  off
+	  Inputs		  "7"
+	  DisplayOption		  "bar"
+	  Port {
+	    PortNumber		    1
+	    Name		    "VhclState"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
 	}
 	Block {
 	  BlockType		  BusSelector
 	  Name			  "Bus\nSelector"
-	  SID			  "1114"
-	  Ports			  [1, 3]
-	  Position		  [105, 20, 110, 80]
+	  SID			  "1133"
+	  Ports			  [1, 6]
+	  Position		  [245, 55, 250, 165]
 	  ZOrder		  -3
 	  ShowName		  off
-	  OutputSignals		  "x_global,y_global,yawAngle"
+	  OutputSignals		  "cs_front,cs_rear,l_front,l_rear,m,Izz"
 	  Port {
 	    PortNumber		    1
-	    Name		    "<x_global>"
+	    Name		    "<cs_front>"
 	    RTWStorageClass	    "Auto"
 	    DataLoggingNameMode	    "SignalName"
 	  }
 	  Port {
 	    PortNumber		    2
-	    Name		    "<y_global>"
+	    Name		    "<cs_rear>"
 	    RTWStorageClass	    "Auto"
 	    DataLoggingNameMode	    "SignalName"
 	  }
 	  Port {
 	    PortNumber		    3
-	    Name		    "<yawAngle>"
+	    Name		    "<l_front>"
 	    RTWStorageClass	    "Auto"
 	    DataLoggingNameMode	    "SignalName"
 	  }
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "Videosensorik"
-	  SID			  "1115"
-	  Ports			  [3, 1]
-	  Position		  [190, 20, 365, 80]
-	  LibraryVersion	  "1.836"
-	  SourceBlock		  "library/LKA-Sensorik/Videosensorik"
-	  SourceType		  "SubSystem"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "Sensor"
-	  SID			  "1116"
-	  Position		  [400, 43, 430, 57]
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Videosensorik"
-	  SrcPort		  1
-	  DstBlock		  "Sensor"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "VehicleState"
-	  SrcPort		  1
-	  DstBlock		  "Bus\nSelector"
-	  DstPort		  1
-	}
-	Line {
-	  Name			  "<x_global>"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector"
-	  SrcPort		  1
-	  DstBlock		  "Videosensorik"
-	  DstPort		  1
-	}
-	Line {
-	  Name			  "<y_global>"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector"
-	  SrcPort		  2
-	  DstBlock		  "Videosensorik"
-	  DstPort		  2
-	}
-	Line {
-	  Name			  "<yawAngle>"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector"
-	  SrcPort		  3
-	  DstBlock		  "Videosensorik"
-	  DstPort		  3
-	}
-      }
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "Simout"
-      SID		      "845"
-      Ports		      [2]
-      Position		      [1000, 114, 1095, 156]
-      LibraryVersion	      "1.762"
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"Simout"
-	Location		[534, 251, 1459, 724]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Vehicle_Data"
-	  SID			  "846"
-	  Position		  [105, 133, 135, 147]
-	  BackgroundColor	  "yellow"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "Control_Input"
-	  SID			  "850"
-	  Position		  [105, 208, 135, 222]
-	  BackgroundColor	  "yellow"
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  BusSelector
-	  Name			  "Bus\nSelector"
-	  SID			  "865"
-	  Ports			  [1, 1]
-	  Position		  [365, 96, 370, 134]
-	  ShowName		  off
-	  OutputSignals		  "VehicleState"
 	  Port {
-	    PortNumber		    1
-	    Name		    "<VehicleState>"
+	    PortNumber		    4
+	    Name		    "<l_rear>"
 	    RTWStorageClass	    "Auto"
 	    DataLoggingNameMode	    "SignalName"
 	  }
-	}
-	Block {
-	  BlockType		  BusSelector
-	  Name			  "Bus\nSelector1"
-	  SID			  "863"
-	  Ports			  [1, 1]
-	  Position		  [365, 146, 370, 184]
-	  ShowName		  off
-	  OutputSignals		  "Sensor"
 	  Port {
-	    PortNumber		    1
-	    Name		    "<Sensor>"
+	    PortNumber		    5
+	    Name		    "<m>"
 	    RTWStorageClass	    "Auto"
 	    DataLoggingNameMode	    "SignalName"
 	  }
-	}
-	Block {
-	  BlockType		  ToWorkspace
-	  Name			  "To Workspace"
-	  SID			  "848"
-	  Ports			  [1]
-	  Position		  [580, 100, 720, 130]
-	  BackgroundColor	  "gray"
-	  ShowName		  off
-	  VariableName		  "simoutState"
-	  MaxDataPoints		  "inf"
-	  SampleTime		  "-1"
-	  SaveFormat		  "Structure With Time"
-	}
-	Block {
-	  BlockType		  ToWorkspace
-	  Name			  "To Workspace1"
-	  SID			  "851"
-	  Ports			  [1]
-	  Position		  [580, 150, 720, 180]
-	  BackgroundColor	  "gray"
-	  ShowName		  off
-	  VariableName		  "simoutSensor"
-	  MaxDataPoints		  "inf"
-	  SampleTime		  "-1"
-	  SaveFormat		  "Structure With Time"
-	}
-	Block {
-	  BlockType		  ToWorkspace
-	  Name			  "To Workspace2"
-	  SID			  "852"
-	  Ports			  [1]
-	  Position		  [580, 200, 720, 230]
-	  BackgroundColor	  "gray"
-	  ShowName		  off
-	  VariableName		  "simoutSteerAngle"
-	  MaxDataPoints		  "inf"
-	  SampleTime		  "-1"
-	  SaveFormat		  "Structure With Time"
-	}
-	Line {
-	  SrcBlock		  "Vehicle_Data"
-	  SrcPort		  1
-	  Points		  [115, 0]
-	  Branch {
-	    Points		    [0, 25]
-	    DstBlock		    "Bus\nSelector1"
-	    DstPort		    1
+	  Port {
+	    PortNumber		    6
+	    Name		    "<Izz>"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
 	  }
-	  Branch {
-	    Points		    [0, -25]
-	    DstBlock		    "Bus\nSelector"
-	    DstPort		    1
-	  }
-	}
-	Line {
-	  SrcBlock		  "Control_Input"
-	  SrcPort		  1
-	  DstBlock		  "To Workspace2"
-	  DstPort		  1
-	}
-	Line {
-	  Name			  "<VehicleState>"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector"
-	  SrcPort		  1
-	  DstBlock		  "To Workspace"
-	  DstPort		  1
-	}
-	Line {
-	  Name			  "<Sensor>"
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector1"
-	  SrcPort		  1
-	  DstBlock		  "To Workspace1"
-	  DstPort		  1
-	}
-      }
-    }
-    Block {
-      BlockType		      Step
-      Name		      "Step"
-      SID		      "1082"
-      Position		      [25, 65, 55, 95]
-      Time		      "10"
-      SampleTime	      "0"
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "Vehicle Model"
-      SID		      "1099"
-      Ports		      [3, 1]
-      Position		      [400, 103, 560, 167]
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"Vehicle Model"
-	Location		[516, 180, 1661, 707]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"usletter"
-	PaperUnits		"inches"
-	TiledPaperMargins	[0.500000, 0.500000, 0.500000, 0.500000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	Block {
-	  BlockType		  Inport
-	  Name			  "steerAngle [rad]"
-	  SID			  "1100"
-	  Position		  [40, 23, 70, 37]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "curvature_LAD [1/m]"
-	  SID			  "1102"
-	  Position		  [40, 163, 70, 177]
-	  Port			  "2"
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Inport
-	  Name			  "y_LAD_exact [m]"
-	  SID			  "1103"
-	  Position		  [40, 268, 70, 282]
-	  Port			  "3"
-	  IconDisplay		  "Port number"
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "Constant"
-	  SID			  "1084"
-	  Position		  [40, 101, 210, 119]
-	  BackgroundColor	  "yellow"
+	  Name			  "Constant1"
+	  SID			  "1134"
+	  Position		  [15, 171, 195, 189]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
 	  Value			  "pin.vx"
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "Constant1"
-	  SID			  "1085"
-	  Position		  [40, 126, 210, 144]
-	  BackgroundColor	  "yellow"
+	  Name			  "Constant10"
+	  SID			  "1135"
+	  Position		  [15, 291, 195, 309]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
-	  Value			  "pin.LAD"
+	  Value			  "pin.VehicleModel.initialValue.y_g"
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "Constant2"
-	  SID			  "1086"
-	  Position		  [40, 196, 210, 214]
-	  BackgroundColor	  "yellow"
+	  Name			  "Constant12"
+	  SID			  "1136"
+	  Position		  [15, 311, 195, 329]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
-	  Value			  "pin.VehicleModel.initialValue.yL "
+	  Value			  "pin.VehicleModel.initialValue.s_g"
 	}
 	Block {
 	  BlockType		  Constant
-	  Name			  "Constant3"
-	  SID			  "1087"
-	  Position		  [40, 231, 210, 249]
-	  BackgroundColor	  "yellow"
+	  Name			  "Constant5"
+	  SID			  "1137"
+	  Position		  [15, 191, 195, 209]
+	  BackgroundColor	  "orange"
 	  ShowName		  off
-	  Value			  "pin.VehicleModel.initialValue.epsL"
+	  Value			  "pin.VehicleModel.initialValue.sy"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant6"
+	  SID			  "1138"
+	  Position		  [15, 211, 195, 229]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.vy"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant7"
+	  SID			  "1139"
+	  Position		  [15, 231, 195, 249]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.psi"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant8"
+	  SID			  "1140"
+	  Position		  [15, 251, 195, 269]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.psiDot"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant9"
+	  SID			  "1141"
+	  Position		  [15, 271, 195, 289]
+	  BackgroundColor	  "orange"
+	  ShowName		  off
+	  Value			  "pin.VehicleModel.initialValue.x_g"
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "Single Track Model (linear) \n[Parameter]"
-	  SID			  "1118"
+	  Name			  "Single Track Model (linear)"
+	  SID			  "1142"
+	  Ports			  [15, 7]
+	  Position		  [415, 26, 575, 334]
+	  LibraryVersion	  "1.880"
+	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)"
+	  SourceType		  "SubSystem"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Single Track Model (linear)\n[Parameter]"
+	  SID			  "1143"
 	  Ports			  [0, 1]
-	  Position		  [40, 55, 200, 75]
+	  Position		  [15, 100, 175, 120]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.836"
-	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)\n[Parameter]"
-	  SourceType		  "Linear Single Track Model"
+	  LibraryVersion	  "1.880"
+	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
+	  SourceType		  "Linear Single Track Model Parameter"
 	  cs_front		  "pin.VehicleModel.parameter.csv"
 	  cs_rear		  "pin.VehicleModel.parameter.csh"
 	  l_front		  "pin.VehicleModel.parameter.lv"
@@ -1672,77 +2267,170 @@ Model {
 	  Izz			  "pin.VehicleModel.parameter.Iz"
 	}
 	Block {
-	  BlockType		  Reference
-	  Name			  "Single Track Model/LaneTracking"
-	  SID			  "1083"
-	  Ports			  [8, 1]
-	  Position		  [265, 15, 430, 290]
-	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.836"
-	  SourceBlock		  "library/Vehicle Models/Single Track Model//Lane Tracking"
-	  SourceType		  "SubSystem"
-	}
-	Block {
 	  BlockType		  Outport
-	  Name			  "VehicleState"
-	  SID			  "1101"
-	  Position		  [495, 148, 525, 162]
+	  Name			  "VhclState"
+	  SID			  "1144"
+	  Position		  [770, 173, 800, 187]
+	  BackgroundColor	  "gray"
 	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Constant"
-	  SrcPort		  1
-	  Points		  [0, -10]
-	  DstBlock		  "Single Track Model/LaneTracking"
-	  DstPort		  3
 	}
 	Line {
 	  SrcBlock		  "Constant1"
 	  SrcPort		  1
-	  DstBlock		  "Single Track Model/LaneTracking"
-	  DstPort		  4
-	}
-	Line {
-	  SrcBlock		  "Constant2"
-	  SrcPort		  1
-	  DstBlock		  "Single Track Model/LaneTracking"
-	  DstPort		  6
-	}
-	Line {
-	  SrcBlock		  "Constant3"
-	  SrcPort		  1
-	  DstBlock		  "Single Track Model/LaneTracking"
-	  DstPort		  7
-	}
-	Line {
-	  SrcBlock		  "Single Track Model (linear) \n[Parameter]"
-	  SrcPort		  1
-	  DstBlock		  "Single Track Model/LaneTracking"
-	  DstPort		  2
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  8
 	}
 	Line {
 	  SrcBlock		  "steerAngle [rad]"
 	  SrcPort		  1
-	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstBlock		  "Single Track Model (linear)"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "curvature_LAD [1/m]"
+	  SrcBlock		  "Single Track Model (linear)\n[Parameter]"
 	  SrcPort		  1
-	  DstBlock		  "Single Track Model/LaneTracking"
+	  DstBlock		  "Bus\nSelector"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant5"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  9
+	}
+	Line {
+	  SrcBlock		  "Constant6"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  10
+	}
+	Line {
+	  SrcBlock		  "Constant7"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  11
+	}
+	Line {
+	  SrcBlock		  "Constant8"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  12
+	}
+	Line {
+	  SrcBlock		  "Constant9"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  13
+	}
+	Line {
+	  SrcBlock		  "Constant10"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  14
+	}
+	Line {
+	  SrcBlock		  "Constant12"
+	  SrcPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  15
+	}
+	Line {
+	  Name			  "VhclState"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nCreator1"
+	  SrcPort		  1
+	  DstBlock		  "VhclState"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)"
+	  SrcPort		  1
+	  DstBlock		  "Bus\nCreator1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)"
+	  SrcPort		  2
+	  DstBlock		  "Bus\nCreator1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)"
+	  SrcPort		  3
+	  DstBlock		  "Bus\nCreator1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)"
+	  SrcPort		  4
+	  DstBlock		  "Bus\nCreator1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Single Track Model (linear)"
+	  SrcPort		  5
+	  DstBlock		  "Bus\nCreator1"
 	  DstPort		  5
 	}
 	Line {
-	  SrcBlock		  "y_LAD_exact [m]"
-	  SrcPort		  1
-	  DstBlock		  "Single Track Model/LaneTracking"
-	  DstPort		  8
+	  SrcBlock		  "Single Track Model (linear)"
+	  SrcPort		  6
+	  DstBlock		  "Bus\nCreator1"
+	  DstPort		  6
 	}
 	Line {
-	  SrcBlock		  "Single Track Model/LaneTracking"
+	  SrcBlock		  "Single Track Model (linear)"
+	  SrcPort		  7
+	  DstBlock		  "Bus\nCreator1"
+	  DstPort		  7
+	}
+	Line {
+	  Name			  "<cs_front>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
 	  SrcPort		  1
-	  DstBlock		  "VehicleState"
-	  DstPort		  1
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "<cs_rear>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  2
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  3
+	}
+	Line {
+	  Name			  "<l_front>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  3
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "<l_rear>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  4
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  5
+	}
+	Line {
+	  Name			  "<m>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  5
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  6
+	}
+	Line {
+	  Name			  "<Izz>"
+	  Labels		  [0, 0]
+	  SrcBlock		  "Bus\nSelector"
+	  SrcPort		  6
+	  DstBlock		  "Single Track Model (linear)"
+	  DstPort		  7
 	}
       }
     }
@@ -1751,7 +2439,7 @@ Model {
       Name		      "XY Graph"
       SID		      "974"
       Ports		      [2]
-      Position		      [1065, 15, 1095, 50]
+      Position		      [930, 45, 960, 80]
       LibraryVersion	      "1.260"
       SourceBlock	      "simulink/Sinks/XY Graph"
       SourceType	      "XY scope."
@@ -1765,7 +2453,7 @@ Model {
       BlockType		      Gain
       Name		      "rad2deg "
       SID		      "454"
-      Position		      [910, 345, 940, 375]
+      Position		      [765, 275, 795, 305]
       Gain		      "(180/pi)"
       ParamDataTypeStr	      "Inherit: Inherit via internal rule"
       OutDataTypeStr	      "Inherit: Inherit via internal rule"
@@ -1775,164 +2463,6 @@ Model {
 	Name			"u [deg]"
 	RTWStorageClass		"Auto"
 	DataLoggingNameMode	"SignalName"
-      }
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "select epsL"
-      SID		      "1053"
-      Ports		      [1, 1]
-      Position		      [645, 414, 745, 456]
-      BlockMirror	      on
-      BackgroundColor	      "darkGreen"
-      AttributesFormatString  "%<BlockChoice>"
-      BlockChoice	      "epsL_exactMdl"
-      TemplateBlock	      "library/LKA-Sensorik/select epsL"
-      MemberBlocks	      "epsL_Sensor,epsL_exactMdl,epsL_linMdl"
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      System {
-	Name			"select epsL"
-	Location		[148, 182, 646, 482]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	SIDHighWatermark	"2979"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Vehicle_Data"
-	  SID			  "1053::1553"
-	  Position		  [20, 40, 40, 60]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "epsL_exactMdl"
-	  SID			  "1053::1536"
-	  Ports			  [1, 1]
-	  Position		  [100, 40, 140, 80]
-	  BlockMirror		  on
-	  BackgroundColor	  "darkGreen"
-	  NamePlacement		  "alternate"
-	  LibraryVersion	  "1.836"
-	  SourceBlock		  "library/LKA-Sensorik/epsL_exactMdl"
-	  SourceType		  "SubSystem"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "epsL"
-	  SID			  "1053::1554"
-	  Position		  [200, 40, 220, 60]
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Vehicle_Data"
-	  SrcPort		  1
-	  DstBlock		  "epsL_exactMdl"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "epsL_exactMdl"
-	  SrcPort		  1
-	  DstBlock		  "epsL"
-	  DstPort		  1
-	}
-      }
-    }
-    Block {
-      BlockType		      SubSystem
-      Name		      "select yL"
-      SID		      "1052"
-      Ports		      [1, 1]
-      Position		      [645, 329, 745, 371]
-      BlockMirror	      on
-      BackgroundColor	      "darkGreen"
-      AttributesFormatString  "%<BlockChoice>"
-      BlockChoice	      "yL_Sensor"
-      TemplateBlock	      "library/LKA-Sensorik/select yL"
-      MemberBlocks	      "yL_Sensor,yL_exactMdl,yL_linMdl"
-      MinAlgLoopOccurrences   off
-      PropExecContextOutsideSubsystem off
-      RTWSystemCode	      "Auto"
-      FunctionWithSeparateData off
-      Opaque		      off
-      RequestExecContextInheritance off
-      MaskHideContents	      off
-      Port {
-	PortNumber		1
-	Name			"yL"
-	PropagatedSignals	"lateralOff_LAD_Sensor"
-	RTWStorageClass		"Auto"
-	DataLoggingNameMode	"SignalName"
-      }
-      System {
-	Name			"select yL"
-	Location		[148, 182, 646, 482]
-	Open			off
-	ModelBrowserVisibility	on
-	ModelBrowserWidth	200
-	ScreenColor		"white"
-	PaperOrientation	"landscape"
-	PaperPositionMode	"auto"
-	PaperType		"A4"
-	PaperUnits		"centimeters"
-	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
-	TiledPageScale		1
-	ShowPageBoundaries	off
-	ZoomFactor		"100"
-	SIDHighWatermark	"2979"
-	Block {
-	  BlockType		  Inport
-	  Name			  "Vehicle_Data"
-	  SID			  "1052::1511"
-	  Position		  [20, 40, 40, 60]
-	  IconDisplay		  "Port number"
-	}
-	Block {
-	  BlockType		  Reference
-	  Name			  "yL_Sensor"
-	  SID			  "1052::1577"
-	  Ports			  [1, 1]
-	  Position		  [100, 40, 140, 80]
-	  BlockMirror		  on
-	  BackgroundColor	  "darkGreen"
-	  LibraryVersion	  "1.836"
-	  SourceBlock		  "library/LKA-Sensorik/yL_Sensor"
-	  SourceType		  "SubSystem"
-	}
-	Block {
-	  BlockType		  Outport
-	  Name			  "yL"
-	  SID			  "1052::1531"
-	  Position		  [200, 40, 220, 60]
-	  IconDisplay		  "Port number"
-	}
-	Line {
-	  SrcBlock		  "Vehicle_Data"
-	  SrcPort		  1
-	  DstBlock		  "yL_Sensor"
-	  DstPort		  1
-	}
-	Line {
-	  SrcBlock		  "yL_Sensor"
-	  SrcPort		  1
-	  DstBlock		  "yL"
-	  DstPort		  1
-	}
       }
     }
     Line {
@@ -1948,32 +2478,142 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector4"
       SrcPort		      2
-      Points		      [130, 0]
+      Points		      [140, 0]
       DstBlock		      "XY Graph"
       DstPort		      2
     }
     Line {
       Name		      "u"
       Labels		      [0, 0]
-      SrcBlock		      "LKA-Controller"
+      SrcBlock		      "Controller"
       SrcPort		      1
       Points		      [40, 0]
       Branch {
-	Points			[0, 100; 595, 0]
+	DstBlock		"Vehicle"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 225]
 	Branch {
-	  Points		  [0, -70]
+	  Points		  [0, 95]
 	  DstBlock		  "Simout"
-	  DstPort		  2
+	  DstPort		  3
 	}
 	Branch {
-	  Points		  [0, 145]
 	  DstBlock		  "rad2deg "
 	  DstPort		  1
 	}
       }
+    }
+    Line {
+      SrcBlock		      "Step"
+      SrcPort		      1
+      Points		      [0, -15]
+      DstBlock		      "Manual Switch"
+      DstPort		      2
+    }
+    Line {
+      Name		      "r"
+      SrcBlock		      "Manual Switch"
+      SrcPort		      1
+      Points		      [-5, 0]
       Branch {
-	DstBlock		"Vehicle Model"
+	Labels			[2, 0]
+	Points			[0, 40]
+	DstBlock		"Mux2"
 	DstPort			1
+      }
+      Branch {
+	Labels			[1, 0]
+	Points			[75, 0; 0, -90]
+	DstBlock		"Controller"
+	DstPort			3
+      }
+    }
+    Line {
+      Labels		      [0, 0]
+      SrcBlock		      "Vehicle"
+      SrcPort		      1
+      Points		      [15, 0]
+      Branch {
+	DstBlock		"Bus\nSelector4"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 50; -185, 0]
+	Branch {
+	  Points		  [-225, 0]
+	  Branch {
+	    DstBlock		    "Controller"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [-205, 0]
+	    DstBlock		    "Lane Sensor"
+	    DstPort		    1
+	  }
+	}
+	Branch {
+	  Points		  [0, 65]
+	  Branch {
+	    DstBlock		    "Lane Tracking"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 190]
+	    DstBlock		    "Simout"
+	    DstPort		    2
+	  }
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "Mux2"
+      SrcPort		      1
+      DstBlock		      "Scope3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Ramp"
+      SrcPort		      1
+      Points		      [0, 15]
+      DstBlock		      "Manual Switch"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Lane Sensor"
+      SrcPort		      1
+      Points		      [10, 0; 0, -20; 30, 0]
+      Branch {
+	DstBlock		"Controller"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 165]
+	Branch {
+	  DstBlock		  "Lane Tracking"
+	  DstPort		  2
+	}
+	Branch {
+	  Points		  [0, 95]
+	  Branch {
+	    Points		    [0, 95; 440, 0]
+	    Branch {
+	      DstBlock		      "Simout"
+	      DstPort		      4
+	    }
+	    Branch {
+	      Points		      [0, -185]
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      2
+	    }
+	  }
+	  Branch {
+	    Points		    [-145, 0]
+	    DstBlock		    "Bus\nSelector2"
+	    DstPort		    1
+	  }
+	}
       }
     }
     Line {
@@ -1985,53 +2625,6 @@ Model {
       DstPort		      3
     }
     Line {
-      SrcBlock		      "Bus\nCreator"
-      SrcPort		      1
-      Points		      [15, 0]
-      Branch {
-	DstBlock		"Simout"
-	DstPort			1
-      }
-      Branch {
-	Points			[0, 150]
-	Branch {
-	  Points		  [0, 0]
-	  Branch {
-	    DstBlock		    "Bus\nSelector1"
-	    DstPort		    1
-	  }
-	  Branch {
-	    Points		    [0, 75]
-	    Branch {
-	      Points		      [0, 85]
-	      DstBlock		      "select epsL"
-	      DstPort		      1
-	    }
-	    Branch {
-	      DstBlock		      "select yL"
-	      DstPort		      1
-	    }
-	  }
-	}
-	Branch {
-	  DstBlock		  "Bus\nSelector5"
-	  DstPort		  1
-	}
-      }
-      Branch {
-	Points			[0, -90]
-	DstBlock		"Bus\nSelector4"
-	DstPort			1
-      }
-    }
-    Line {
-      SrcBlock		      "Step"
-      SrcPort		      1
-      Points		      [0, -15]
-      DstBlock		      "Manual Switch"
-      DstPort		      2
-    }
-    Line {
       Name		      "epsL"
       Labels		      [0, 1]
       SrcBlock		      "Mux1"
@@ -2040,70 +2633,17 @@ Model {
       DstPort		      1
     }
     Line {
-      Name		      "r"
-      SrcBlock		      "Manual Switch"
-      SrcPort		      1
-      Points		      [-5, 0]
-      Branch {
-	Labels			[1, 0]
-	DstBlock		"LKA-Controller"
-	DstPort			1
-      }
-      Branch {
-	Labels			[2, 0]
-	Points			[0, 330]
-	DstBlock		"Mux2"
-	DstPort			1
-      }
-    }
-    Line {
       SrcBlock		      "Mux"
       SrcPort		      1
       DstBlock		      "Scope"
       DstPort		      1
     }
     Line {
-      Name		      "<yawRate>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector5"
-      SrcPort		      2
-      Points		      [-615, 0; 0, -170]
-      DstBlock		      "LKA-Controller"
-      DstPort		      3
-    }
-    Line {
-      Name		      "yL"
-      Labels		      [0, 0]
-      SrcBlock		      "select yL"
-      SrcPort		      1
-      Points		      [-590, 0]
-      Branch {
-	Labels			[2, 0]
-	Points			[0, 55]
-	DstBlock		"Mux2"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, -205]
-	DstBlock		"LKA-Controller"
-	DstPort			4
-      }
-    }
-    Line {
-      Name		      "<vy>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector5"
-      SrcPort		      1
-      Points		      [-595, 0; 0, -180]
-      DstBlock		      "LKA-Controller"
-      DstPort		      2
-    }
-    Line {
       Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      1
-      Points		      [70, 0]
+      Points		      [80, 0]
       Branch {
 	DstBlock		"Mux"
 	DstPort			1
@@ -2135,7 +2675,7 @@ Model {
       Labels		      [0, 0]
       SrcBlock		      "Bus\nSelector1"
       SrcPort		      4
-      Points		      [60, 0]
+      Points		      [70, 0]
       Branch {
 	DstBlock		"Mux1"
 	DstPort			1
@@ -2163,76 +2703,34 @@ Model {
       DstPort		      3
     }
     Line {
-      SrcBlock		      "Sensor Model"
+      SrcBlock		      "Bus\nCreator"
       SrcPort		      1
-      Points		      [45, 0]
-      Branch {
-	DstBlock		"Bus\nCreator"
-	DstPort			2
-      }
-      Branch {
-	Points			[0, 65; -505, 0]
-	DstBlock		"Bus\nSelector7"
-	DstPort			1
-      }
+      DstBlock		      "Bus\nSelector1"
+      DstPort		      1
     }
     Line {
-      SrcBlock		      "Vehicle Model"
+      Labels		      [0, 0]
+      SrcBlock		      "Lane Tracking"
       SrcPort		      1
-      Points		      [15, 0]
+      Points		      [60, 0]
       Branch {
-	Points			[0, -65; 220, 0; 0, 45]
 	DstBlock		"Bus\nCreator"
 	DstPort			1
       }
       Branch {
-	DstBlock		"Sensor Model"
+	Points			[0, 160]
+	DstBlock		"Simout"
 	DstPort			1
       }
     }
     Line {
       Name		      "<lateralOff_LAD_Sensor>"
       Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector7"
-      SrcPort		      2
-      DstBlock		      "Vehicle Model"
-      DstPort		      3
-    }
-    Line {
-      Name		      "<curvature_LAD_Sensor>"
-      Labels		      [0, 0]
-      SrcBlock		      "Bus\nSelector7"
+      SrcBlock		      "Bus\nSelector2"
       SrcPort		      1
-      Points		      [40, 0]
-      Branch {
-	Points			[0, -105]
-	DstBlock		"Scope4"
-	DstPort			1
-      }
-      Branch {
-	DstBlock		"Vehicle Model"
-	DstPort			2
-      }
-    }
-    Line {
-      SrcBlock		      "select epsL"
-      SrcPort		      1
-      Points		      [-610, 0; 0, -260]
-      DstBlock		      "LKA-Controller"
-      DstPort		      5
-    }
-    Line {
-      SrcBlock		      "Mux2"
-      SrcPort		      1
-      DstBlock		      "Scope3"
-      DstPort		      1
-    }
-    Line {
-      SrcBlock		      "Ramp"
-      SrcPort		      1
-      Points		      [0, 15]
-      DstBlock		      "Manual Switch"
-      DstPort		      1
+      Points		      [0, -15]
+      DstBlock		      "Mux2"
+      DstPort		      2
     }
   }
 }
@@ -2249,11 +2747,285 @@ Stateflow {
     name		    "LKA"
     created		    "16-Nov-2012 18:33:39"
     isLibrary		    0
-    firstTarget		    2
+    firstTarget		    18
     sfVersion		    76014001.00040001
   }
-  target {
+  chart {
     id			    2
+    name		    "Controller/MATLAB Function"
+    windowPosition	    [364.836 395.534 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1920 1080 1.611111111111111]
+    treeNode		    [0 3 0 0]
+    firstTransition	    5
+    firstJunction	    4
+    viewObj		    2
+    machine		    1
+    toolbarMode		    LIBRARY_TOOLBAR
+    ssIdHighWaterMark	    6
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    6
+    chartFileNumber	    1
+    disableImplicitCasting  1
+    eml {
+      name		      "polyVal"
+    }
+  }
+  state {
+    id			    3
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    2
+    treeNode		    [2 0 0 0]
+    superState		    SUBCHART
+    subviewer		    2
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function y = polyVal(p,x)\n%#codegen\n\ny = polyval(p,x);"
+      editorLayout	      "100 M4x1[10 5 700 500]"
+    }
+  }
+  junction {
+    id			    4
+    position		    [23.5747 49.5747 7]
+    chart		    2
+    linkNode		    [2 0 0]
+    subviewer		    2
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    5
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      4
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    2
+    linkNode		    [2 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    2
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    6
+    ssIdNumber		    4
+    name		    "p"
+    linkNode		    [2 0 7]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    7
+    ssIdNumber		    5
+    name		    "y"
+    linkNode		    [2 6 8]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    8
+    ssIdNumber		    6
+    name		    "x"
+    linkNode		    [2 7 0]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    9
+    name		    "Controller/MATLAB Function"
+    machine		    1
+    chart		    2
+  }
+  chart {
+    id			    10
+    name		    "Controller/MATLAB Function1"
+    windowPosition	    [379.836 380.534 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1920 1080 1.611111111111111]
+    treeNode		    [0 11 0 0]
+    firstTransition	    13
+    firstJunction	    12
+    viewObj		    10
+    machine		    1
+    toolbarMode		    LIBRARY_TOOLBAR
+    ssIdHighWaterMark	    6
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    14
+    chartFileNumber	    3
+    disableImplicitCasting  1
+    eml {
+      name		      "polyVal"
+    }
+  }
+  state {
+    id			    11
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    10
+    treeNode		    [10 0 0 0]
+    superState		    SUBCHART
+    subviewer		    10
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function y = polyVal(p,x)\n%#codegen\n\ny = polyval(p,x);"
+      editorLayout	      "100 M4x1[10 5 700 500]"
+    }
+  }
+  junction {
+    id			    12
+    position		    [23.5747 49.5747 7]
+    chart		    10
+    linkNode		    [10 0 0]
+    subviewer		    10
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    13
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      12
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    10
+    linkNode		    [10 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    10
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    14
+    ssIdNumber		    4
+    name		    "p"
+    linkNode		    [10 0 15]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    15
+    ssIdNumber		    5
+    name		    "y"
+    linkNode		    [10 14 16]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    16
+    ssIdNumber		    6
+    name		    "x"
+    linkNode		    [10 15 0]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    17
+    name		    "Controller/MATLAB Function1"
+    machine		    1
+    chart		    10
+  }
+  target {
+    id			    18
     name		    "sfun"
     description		    "Default Simulink S-Function Target."
     machine		    1

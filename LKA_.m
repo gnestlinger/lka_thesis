@@ -43,18 +43,6 @@ contr.s = lkaController_s(stringCvehicle,vx_Ctrl,LAD_Ctrl);
 
 %% Simulation parameter
 
-% Configureable Subsystem: select controller
-% set_param([mdlName,'/LKA-Controller'],'BlockChoice','LQR');
-% set_param([mdlName,'/LKA-Controller'],'BlockChoice','LQR_2int');
-lbl = get_param([mdlName,'/LKA-Controller'],'BlockChoice');
-
-% store selected control strategy in parameter-in structure pin
-try
-    pin.Controller.lka = contr.t.(lbl);
-catch exception
-    pin.Controller.lka = contr.s.(lbl);
-end
-
 % simulation: vehicle parameter
 stringSim = 'paramFile_SingleTrackMdl_BMW5';
 pin.VehicleModel.parameterFile = stringSim;
@@ -111,14 +99,11 @@ tic
 sim(mdlName);
 toc
 
-% get lka-controller-string used in simulation
-lbl = get_param([mdlName,'/LKA-Controller'],'BlockChoice');
-
 % Simulationsprogramm
-soli.(lbl).simProg = 'Simulink';
+soli.simProg = 'Simulink';
 
 % Zeitstempel
-soli.(lbl).simDate = datestr(now);
+soli.simDate = datestr(now);
 
 
 %% post-processing
