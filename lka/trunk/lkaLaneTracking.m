@@ -20,9 +20,9 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD,isValid_LAD] = ...
 %	corresponds to the i-th element of look-ahead distance LAD.
 
 % Subject: lka
-% $Author: georgne $
-% $LastChangedDate: 2017-03-14 16:33:03 +0100 (Di, 14 Mär 2017) $
-% $Revision: 124 $
+% $Author$
+% $LastChangedDate$
+% $Revision$
 
 	% Methode: Koordinatentransformation
 	if nargin <5
