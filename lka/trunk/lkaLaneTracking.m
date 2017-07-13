@@ -1,18 +1,23 @@
-function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
+function [out,latOff_LAD,angDev_LAD,curvat_LAD,isValid_LAD] = ...
 		lkaLaneTracking(obj,xyCG_global,yawAngle_global,LAD,mode)
-% laneTracking  Calculate lane tracking pose.
+% LANETRACKING  Calculate lane tracking pose.
 %	
-%	[~,LATOFF_LAD,ANGDEV_LAD,CURV_LAD] =
-%	laneTracking(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,lad) calculates
-%	the lateral offset LATOFF_LAD, the angular deviation ANGDEV_LAD
-%	and the curvature CURV_LAD at the look-ahead distance LAD in
-%	front of the vehicles center of gravity XYCG_GLOBAL along its
-%	longitudinal axis oriented with the angle YAWANGLE_GLOBAL with
-%	respect to the street segment OBJ.
+%	[~,LATOFF_LAD,ANGDEV_LAD,CURVAT_LAD,ISVALID_LAD] =
+%	LANETRACKING(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,LAD) calculates the
+%	lateral offset LATOFF_LAD, the angular deviation ANGDEV_LAD and the
+%	curvature CURVAT_LAD at the look-ahead distances LAD in front of the
+%	vehicles center of gravity XYCG_GLOBAL along its longitudinal axis
+%	oriented with the angle YAWANGLE_GLOBAL and with respect to the street
+%	segment OBJ. The logical vector ISVALID_LAD indicates if the
+%	corresponding entry of all other output arguments is valid (true) or
+%	not (false).
 %	
-%	OUT = laneTracking(...) is the syntax to be used from simulink,
-%	where OUT = [LATOFF_LAD;ANGDEV_LAD;CURV_LAD].
+%	OUT = LANETRACKING(...) is the syntax to be used from simulink, where
+%	OUT = [LAD;ISVALID_LAD;LATOFF_LAD;ANGDEV_LAD;CURVAT_LAD].
 %	
+%	The number of columns of all output arguments matches the length of
+%	input argument LAD, moreover the i-th column of any output argument
+%	corresponds to the i-th element of look-ahead distance LAD.
 
 % Subject: lka
 % $Author: georgne $
@@ -26,13 +31,13 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	
 	% ensure row format
 	LAD = LAD(:)';
-
-	%%% shift origin to vehicles CG/rotate so vehicle is oriented
-	%%% along x-axis
-	% CG (transformiert)
+	
+	%%% shift origin to vehicles CG/rotate so vehicle is oriented along
+	%%% x-axis
+	% CG (transformed)
 	xyCG_T = [0;0]; % xyCG_global - xyCG_global
-
-	% Sollbahn (transformiert)
+	
+	% Sollbahn (transformed)
 % 	obj_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
 	P = [obj.x(1);obj.y(1)] - xyCG_global;
 	obj_T.x = obj.x - obj.x(1) + P(1);
@@ -42,7 +47,7 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	obj_T.phi = obj.phi;
 	obj_T.type = obj.type;
 	
-% 	obj_T = rotate(obj_T,-yawAngle_global);
+% 	obj_T = rotate(obj_T, -yawAngle_global);
 	rotMat = [...
 		cos(-yawAngle_global) -sin(-yawAngle_global);...
 		sin(-yawAngle_global) +cos(-yawAngle_global)];
@@ -55,20 +60,24 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	obj_T.k = obj_T.k;
 	obj_T.phi = obj_T.phi-yawAngle_global;
 	obj_T.type = obj_T.type;
-
-	% Koordinaten des Punkts bei look-ahead distance (transformiert)
-% 	xyLAD_T = xyCG_T + [lad;0];
+	
+	% Koordinaten des Punkts bei look-ahead distance (transformed)
 	xyLAD_T = [xyCG_T(1) + LAD; xyCG_T(2)+zeros(size(LAD))];
+	
+	
+% 	%%% shift origin to point at LAD
+% 	xyCG_T	= xyCG_T - [lad;0];
+% 	obj_T	= shift(obj_T,[obj_T.x(1);obj_T.y(1)] - [lad;0]);
+%	xyLAD_T	= xyLAD_T - [lad;0];
 	
 	
 	%%% get indices of potential elements of desired path
 	% maximaler Abstand zwischen x-Werten der Sollbahn
 	deltaX_max = max(abs(diff(obj_T.x)));
 	
-	% Depending on the shape of the desired path (e.g. closed
-	% path), there might be multiple elements of the desired path
-	% whose x-coordinates are within the range of LAD +-
-	% DELTAX_MAX/2.
+	% Depending on the shape of the desired path (e.g. closed path), there
+	% might be multiple elements of the desired path whose x-coordinates
+	% are within the range of LAD +- DELTAX_MAX/2.
 	% 
 	% Get logical indices where OBJ_T.X is in the range of LADs
 	% x-coordinate
@@ -86,15 +95,16 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 			' aktuellen Fahrzeugposition gefunden'])
 	end%if
 	
-	% Numerical indices according to LOGINDX: NUMINDROW points to
-	% the according LAD, NUMINDCOL points to the according
-	% x-coordinate (see LOGINDX calculation above)
+	% Numerical indices according to LOGINDX: NUMINDROW points to the
+	% according LAD, NUMINDCOL points to the according x-coordinate (see
+	% LOGINDX calculation above)
 	[numIndRow,numIndCol] = find(logIndx);
 	
 	if mode
 		%%% reduce number of potential elements
-		% since there might be multiple elements within LAD +- DELTAX_MAX/2,
-		% get the closest in x-direction per LAD AND per contigous indices
+		% since there might be multiple elements within LAD +-
+		% DELTAX_MAX/2, get the closest in x-direction per LAD AND per
+		% contigous indices
 		
 		% split NUMINDCOL into segments of contigous indices and LAD values
 		splitByLAD = find(diff(numIndRow)>0);
@@ -109,8 +119,8 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 			numIndRow_i = numIndRow(splitInd(i)+1:splitInd(i+1));
 			numIndCol_i = numIndCol(splitInd(i)+1:splitInd(i+1));
 			
-			% since we grouped by contigous indices and LAD, NUMINDWOR_I must
-			% not contain different values
+			% since we grouped by contigous indices and LAD, NUMINDWOR_I
+			% must not contain different values
 			if ~all(numIndRow_i(1) == numIndRow_i)
 				error('This should not have happened!');
 			end%if
@@ -133,9 +143,8 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 	
 	
 	%%% get lateral offset for potential elements
-	% interpolation index-range: m>1 mainly increase the
-	% calculation time, lateral offset and angular deviation are
-	% rarely affected.
+	% interpolation index-range: m>1 mainly increase the calculation time,
+	% lateral offset and angular deviation are rarely affected.
 	m = 1;
 	[indl,indu] = interpIndexRange(numIndCol,[1,length(obj.x)],m);
 	
@@ -201,14 +210,12 @@ end%fcn
 
 function [indl,indu,ind] = interpIndexRange(ind,indMinMax,m)
 %INTERPINDEXRANGE	Index range for interpolation.
-%	[INDL,INDU] = INTERPINDEXRANGE(IND,INDMINMAX,M) returns the
-%	lower and upper indices INDL and INDU within index boundaries
-%	[INDMINMAX(1) INDMINMAX(2)] using an index difference M for
-%	givenen indices IND.
+%	[INDL,INDU] = INTERPINDEXRANGE(IND,INDMINMAX,M) returns the lower and
+%	upper indices INDL and INDU within index boundaries [INDMINMAX(1)
+%	INDMINMAX(2)] using an index difference M for givenen indices IND.
 %	
-%	Indices INDL/INDU define range of interpolation, basically
-%	IND-M and IND+M but ensure INDL>INDMINMAX(1) and
-%	INDU<INDMINMAX(2).
+%	Indices INDL/INDU define range of interpolation, basically IND-M and
+%	IND+M but ensure INDL>INDMINMAX(1) and INDU<INDMINMAX(2).
 
 
 	%%% handle input arguments
