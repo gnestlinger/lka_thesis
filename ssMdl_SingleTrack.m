@@ -59,9 +59,9 @@ function [sys] = ssMdl_SingleTrack(sw,paramFile,vx,LAD,varargin)
 % Source: see subfunctions
 % 
 % Subject: Diplomarbeit - LKA
-% $Author: georgnestlinger $
-% $LastChangedDate: 2017-05-24 08:16:45 +0200 (Mi, 24 Mai 2017) $
-% $Revision: 132 $
+% $Author$
+% $LastChangedDate$
+% $Revision$
 
 
 % check input arguments
