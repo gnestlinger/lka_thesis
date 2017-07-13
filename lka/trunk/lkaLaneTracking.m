@@ -183,6 +183,15 @@ function [out,latOff_LAD,angDev_LAD,curvat_LAD] = ...
 		
 	end%for
 	
+	% set multiple occurences of same LAD values to invalid
+	[LAD_unique,ia] = unique(LAD,'stable');
+	if numel(LAD_unique) ~= numel(LAD)
+		% duplicate indices
+		duplicate_ind = setdiff(1:numel(LAD),ia);
+		
+		% set to false
+		isValid_LAD(duplicate_ind) = false;
+	end%if
 	
 	% collect all output arguments (to be used in simulink)
 	out = [LAD;isValid_LAD;latOff_LAD;angDev_LAD;curvat_LAD];
