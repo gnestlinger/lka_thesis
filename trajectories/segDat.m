@@ -289,11 +289,11 @@ classdef segDat
 		
 		
 		function [out,latOff_LAD,angDev_LAD,curvat_LAD,isValid_LAD] = ...
-				laneTracking(obj,xyCG_global,yawAngle_global,LAD)
-		% laneTracking  Calculate lane tracking pose.
+				laneTracking(obj,xyCG_global,yawAngle_global,LAD,mode)
+		% LANETRACKING  Calculate lane tracking pose.
 		%	
 		%	[~,LATOFF_LAD,ANGDEV_LAD,CURVAT_LAD,ISVALID_LAD] =
-		%	laneTracking(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,LAD) calculates
+		%	LANETRACKING(OBJ,XYCG_GLOBAL,YAWANGLE_GLOBAL,LAD) calculates
 		%	the lateral offset LATOFF_LAD, the angular deviation ANGDEV_LAD
 		%	and the curvature CURVAT_LAD at the look-ahead distances LAD in
 		%	front of the vehicles center of gravity XYCG_GLOBAL along its
@@ -302,7 +302,7 @@ classdef segDat
 		%	ISVALID_LAD indicates if the corresponding entry of all other
 		%	output arguments is valid (true) or not (false).
 		%	
-		%	OUT = laneTracking(...) is the syntax to be used from simulink,
+		%	OUT = LANETRACKING(...) is the syntax to be used from simulink,
 		%	where OUT = [LAD;ISVALID_LAD;LATOFF_LAD;ANGDEV_LAD;CURVAT_LAD].
 		%	
 		%	The number of columns of all output arguments matches the
@@ -313,6 +313,9 @@ classdef segDat
 		% Subject: lka
 			
 			% Methode: Koordinatentransformation
+			if nargin <5
+				mode = 0;
+			end%if
 			
 			% ensure row format
 			LAD = LAD(:)';
@@ -322,11 +325,11 @@ classdef segDat
 			% CG (transformed)
 			xyCG_T = [0;0]; % xyCG_global - xyCG_global
 			
-			% Sollbahn (transformiert)
+			% Sollbahn (transformed)
 			obj_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
 			obj_T = rotate(obj_T, -yawAngle_global);
 			
-			% Koordinaten des Punkts bei look-ahead distance (transformiert)
+			% Koordinaten des Punkts bei look-ahead distance (transformed)
 			xyLAD_T = [xyCG_T(1) + LAD; xyCG_T(2)+zeros(size(LAD))];
 			
 			
@@ -366,6 +369,46 @@ classdef segDat
 			% x-coordinate (see LOGINDX calculation above)
 			[numIndRow,numIndCol] = find(logIndx);
 			
+			if mode
+				%%% reduce number of potential elements
+				% since there might be multiple elements within LAD +-
+				% DELTAX_MAX/2, get the closest in x-direction per LAD AND
+				% per contigous indices
+				
+				% split NUMINDCOL into segments of contigous indices and
+				% LAD values
+				splitByLAD = find(diff(numIndRow)>0);
+				splitByInd = find(diff(numIndCol)>1);	
+				splitInd = [0;unique([splitByLAD;splitByInd]);length(numIndRow)];
+				
+				% get index of element closest to LAD, do it for each
+				% index-segment defined by SPLITIND
+				numIndRow_red = zeros(length(splitInd)-1,1);
+				numIndCol_red = zeros(length(splitInd)-1,1);
+				for i = 1:length(splitInd)-1
+					numIndRow_i = numIndRow(splitInd(i)+1:splitInd(i+1));
+					numIndCol_i = numIndCol(splitInd(i)+1:splitInd(i+1));
+					
+					% since we grouped by contigous indices and LAD,
+					% NUMINDWOR_I must not contain different values
+					if ~all(numIndRow_i(1) == numIndRow_i)
+						error('This should not have happened!');
+					end%if
+					
+					%
+					if length(numIndRow_i) > 2
+						[~,winInd] = min(abs(obj_T.x(numIndCol_i) - xyLAD_T(1,numIndRow_i(1))));
+					else
+						winInd = 1;
+					end%if
+					
+					numIndRow_red(i) = numIndRow_i(winInd);
+					numIndCol_red(i) = numIndCol_i(winInd);
+				end%for
+				numIndRow = numIndRow_red;
+				numIndCol = numIndCol_red;
+			end%if
+			
 % 			plotLaneTracking(obj,xyCG_global,yawAngle_global,LAD,numIndCol,obj_T,xyCG_T);
 			
 			
@@ -399,24 +442,36 @@ classdef segDat
 			
 			
 			%%% select one of multiple lateral offsets per LAD-value
-			% get most possible value per LAD-value
+			% get most possible (by means of smallest) value per LAD-value
 			latOff_LAD	= zeros(size(LAD));
 			angDev_LAD	= zeros(size(LAD));
 			curvat_LAD	= zeros(size(LAD));
 			isValid_LAD = false(size(LAD));
 			for i = 1:length(latOff_LAD_candidates)
+				latOff_underTest = latOff_LAD_candidates(i);
 				angDev_underTest = angDev_LAD_candidates(i);
 				curvat_underTest = curvat_LAD_candidates(i);
-				latOff_underTest = latOff_LAD_candidates(i);
-				if abs(latOff_underTest) < abs(latOff_LAD(numIndRow(i))) || ~isValid_LAD(numIndRow(i))
-					latOff_LAD(numIndRow(i))	= latOff_underTest;
-					angDev_LAD(numIndRow(i))	= angDev_underTest;
-					curvat_LAD(numIndRow(i))	= curvat_underTest;
-					isValid_LAD(numIndRow(i))	= true;
+				LAD_group = numIndRow(i);
+				
+				if abs(latOff_underTest) < abs(latOff_LAD(LAD_group)) || ...
+						~isValid_LAD(LAD_group)
+					latOff_LAD(LAD_group)	= latOff_underTest;
+					angDev_LAD(LAD_group)	= angDev_underTest;
+					curvat_LAD(LAD_group)	= curvat_underTest;
+					isValid_LAD(LAD_group)	= true;
 				end%if
 				
 			end%for
 			
+			% set multiple occurences of same LAD values to invalid
+			[LAD_unique,ia] = unique(LAD,'stable');
+			if numel(LAD_unique) ~= numel(LAD)
+				% duplicate indices
+				duplicate_ind = setdiff(1:numel(LAD),ia);
+				
+				% set to false
+				isValid_LAD(duplicate_ind) = false;
+			end%if
 			
 			% collect all output arguments (to be used in simulink)
 			out = [LAD;isValid_LAD;latOff_LAD;angDev_LAD;curvat_LAD];
