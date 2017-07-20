@@ -76,29 +76,41 @@ if numel(vx) > 1; error('Dimension of 3rd input argument > 1'); end
 % yL2int ... 2fach integrierend bezüglich yL
 % DSR ...... Dynamic Steer Ratio (steering model)
 
-% call subfunction
+% tunable parameter
+if isempty(vx);		vx	= realp('vx',10); end%if
+if isempty(LAD);	LAD = realp('LAD',0); end%if
+
+% get state space data
 switch lower(sw)
     
     %%% ohne Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'st'} % Einspurmodell
-        sys = singleTrack(paramFile,vx);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM(paramFile,vx);
+		Name = 'Single Track Model';
         
     case {'stvis'} % Einspurmdl. + lane tracking
-        sys = singleTrack_lt(paramFile,vx,LAD);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT(paramFile,vx,LAD);
+		Name = 'Single Track + Lane Tracking Model';
         
     case {'stvis_2int'} % Einspurmdl. + lane tracking + 2fach int. bzgl. yL
-        sys = singleTrack_lt_yL2int(paramFile,vx,LAD);
-        
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL2int(paramFile,vx,LAD);
+		Name = 'Single Track + Lane Tracking + double integral action on lateral offset';
+		
+	
     %%% mit Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'stdsr'} % Einspurmdl. + Lenkmodell CarMaker DSR
-        sys = singleTrack_DSR(paramFile,vx,varargin{1});
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_DSR(paramFile,vx,varargin{1});
+		Name = 'Single Track + Steering Model CarMaker DSR';
     
     case {'stvisdsr'} % Einspurmdl. + lane tracking + Lenkmdl. CarMaker DSR
-        sys = singleTrack_lt_DSR(paramFile,vx,LAD,varargin{1});
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR(paramFile,vx,LAD,varargin{1});
+		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR';
         
     case {'stvisdsr_2int'}
-        sys = singleTrack_lt_DSR_yL2int(paramFile,vx,LAD,varargin{1});
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL2int(paramFile,vx,LAD,varargin{1});
+		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + double integral action on lateral offset';
     
+		
     %%% otherwise %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
     otherwise
         error('Unknown string sw');
@@ -106,11 +118,32 @@ switch lower(sw)
 end%switch
 
 
+% create state space model
+sys = ss(A,B,C,D);
+
+% set input/state/output names
+sys.InputName = IN;
+sys.InputUnit = IU;
+try
+	% In Matlab R2012a this does not work!
+	sys.StateName = SN;
+	sys.StateUnit = SU;
+catch exc
+	warning('This MATLAB release does not support properties "StateName" or "StateUnit" for class GENSS.');
+end
+sys.OutputName = ON;
+sys.OutputUnit = OU;
+
+% set info
+sys.Name = Name;
+sys.UserData = UD;
+
 end%fcn
 
 
 
-function [sys] = singleTrack(paramFile,vx)
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM(paramFile,vx)
 % singleTrack     state-space model of single track model
 % 
 %   Syntax:
@@ -143,30 +176,26 @@ B = [0; csv/m; 0; csv*lv/Iz];
 C = eye(size(A));
 D = 0;
 
-% create state space model
-sys = ss(A,B,C,D);
-
 % set state/input/output names
-sys.StateName = {'sy','vy','yaw angle','yaw rate'};
-sys.StateUnit = {'m','m/s','rad','rad/s'};
-sys.InputName = {'front wheel angle'};
-sys.InputUnit = {'rad'};
-sys.OutputName = sys.StateName;
-sys.OutputUnit = sys.StateUnit;
+StateName = {'sy','vy','yaw angle','yaw rate'};
+StateUnit = {'m','m/s','rad','rad/s'};
+InputName = {'front wheel angle'};
+InputUnit = {'rad'};
+OutputName = StateName;
+OutputUnit = StateUnit;
 
 % info
-sys.Name = 'Single Track Model';
-sys.UserData.vx.about = 'longitudinal velocity';
-sys.UserData.vx.value = vx;
-sys.UserData.vx.unit = 'm/s';
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
 
 end%fcn
 
 
 
-function sys = singleTrack_lt(paramFile,vx,LAD)
-% singleTrack_lt    state-space model of single track model + 
-% lane tracking
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM_LT(paramFile,vx,LAD)
+% singleTrack_lt    state-space model of single track model + lane tracking
 %   
 %   Syntax:
 %   ret = singleTrack_lt(paramFile,vx,lad)
@@ -187,7 +216,6 @@ function sys = singleTrack_lt(paramFile,vx,LAD)
 % 
 
 
-
 % load parameter
 eval(paramFile);
 
@@ -200,32 +228,28 @@ B = [[csv/m;csv*lv/Iz;0;0], [0;0;0;vx]];
 C = eye(size(A));
 D = 0;
 
-% create state space model
-sys = ss(A,B,C,D);
-
 % set state/input/output names
-sys.StateName = {'vy','yawRate','lateralOff','angularDev'};
-sys.StateUnit = {'m/s','rad/s','m','rad'};
-sys.InputName = {'steer angle','road curvature at LAD'};
-sys.InputUnit = {'rad','1/m'};
-sys.OutputName = sys.StateName;
-sys.OutputUnit = sys.StateUnit;
-
+StateName = {'vy','yawRate','lateralOff','angularDev'};
+StateUnit = {'m/s','rad/s','m','rad'};
+InputName = {'steer angle','road curvature at LAD'};
+InputUnit = {'rad','1/m'};
+OutputName = StateName;
+OutputUnit = StateUnit;
 
 % info
-sys.Name = 'Single Track + Lane Tracking Model';
-sys.UserData.vx.about = 'longitudinal velocity';
-sys.UserData.vx.value = vx;
-sys.UserData.vx.unit = 'm/s';
-sys.UserData.lad.about = 'look-ahead distance';
-sys.UserData.lad.value = LAD;
-sys.UserData.lad.unit = 'm';
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
+UD.LAD.about = 'look-ahead distance';
+UD.LAD.value = LAD;
+UD.LAD.unit = 'm';
 
 end%fcn
 
 
 
-function sys = singleTrack_lt_yL2int(paramFile,vx,LAD)
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM_LT_yL2int(paramFile,vx,LAD)
 % singleTrack_lt_yL2int     state-space model of single track modell + 
 % lane tracking + internal model of yL
 % 
@@ -267,32 +291,28 @@ B = [[csv/m;csv*lv/Iz;0;0;0;0], [0;0;0;vx;0;0]];
 C = eye(size(A));
 D = 0;
 
-% create state space model
-sys = ss(A,B,C,D);
-
 % set state/input/output names
-sys.StateName = {'vy','yawRate','lateralOff','angularDev','IntInt{lateralOff}','Int{lateralOff}'};
-sys.StateUnit = {'m/s','rad/s','m','rad','m*s^2','m*s'};
-sys.InputName = {'steer angle','road curvature at LAD'};
-sys.InputUnit = {'rad','1/m'};
-sys.OutputName = sys.StateName;
-sys.OutputUnit = sys.StateUnit;
-
+StateName = {'vy','yawRate','lateralOff','angularDev','IntInt{lateralOff}','Int{lateralOff}'};
+StateUnit = {'m/s','rad/s','m','rad','m*s^2','m*s'};
+InputName = {'steer angle','road curvature at LAD'};
+InputUnit = {'rad','1/m'};
+OutputName = StateName;
+OutputUnit = StateUnit;
 
 % info
-sys.Name = 'Single Track + Lane Tracking + double integral action on lateral offset';
-sys.UserData.vx.about = 'longitudinal velocity';
-sys.UserData.vx.value = vx;
-sys.UserData.vx.unit = 'm/s';
-sys.UserData.lad.about = 'look-ahead distance';
-sys.UserData.lad.value = LAD;
-sys.UserData.lad.unit = 'm';
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
+UD.LAD.about = 'look-ahead distance';
+UD.LAD.value = LAD;
+UD.LAD.unit = 'm';
 
 end%fcn
 
 
 
-function sys = singleTrack_DSR(paramFile,vx,paramFileSteer)
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM_DSR(paramFile,vx,paramFileSteer)
 % singleTrack_DSR   state-space model of single track modell + steering
 % model DSR
 % 
@@ -328,10 +348,6 @@ end
 eval(paramFile);
 eval(paramFileSteer);
 
-
-% init state space model
-sys = ss([],[],[],[]);
-
 % set state space elements
 A = [0 1 0 0;...
     0, -(csh+csv)/(m*vx), 0, (csh*lh-csv*lv)/(m*vx) - vx;...
@@ -339,33 +355,32 @@ A = [0 1 0 0;...
     0, (csh*lh-csv*lv)/(Iz*vx), 0, -(csh*lh^2+csv*lv^2)/(Iz*vx)];
 B = [0; csv/m; 0; csv*lv/Iz];
 
-sys.A = [A,B/alph,[0;0;0;0];...
+A = [A,B/alph,[0;0;0;0];...
     0,0,0,0,0,1;...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack)];
-sys.B = [0; 0; 0; 0; 0; iHR^2*V/xi];
-sys.C = eye(size(sys.A));
-sys.D = 0;
+B = [0; 0; 0; 0; 0; iHR^2*V/xi];
+C = eye(size(A));
+D = 0;
 
 % set state/input/output names
-sys.StateName = {'sy','vy','yawAngle','yawRate','SWAngle','SWAngleDot'};
-sys.StateUnit = {'m','m/s','rad','rad/s','rad','rad/s'};
-sys.InputName = {'SWTorque'};
-sys.InputUnit = {'Nm'};
-sys.OutputName = sys.StateName;
-sys.OutputUnit = sys.StateUnit;
-
+StateName = {'sy','vy','yawAngle','yawRate','SWAngle','SWAngleDot'};
+StateUnit = {'m','m/s','rad','rad/s','rad','rad/s'};
+InputName = {'SWTorque'};
+InputUnit = {'Nm'};
+OutputName = StateName;
+OutputUnit = StateUnit;
 
 % info
-sys.Name = 'Einspurmodell + Lenkmodell CarMaker DSR';
-sys.UserData.vx.about = 'longitudinal velocity';
-sys.UserData.vx.value = vx;
-sys.UserData.vx.unit = 'm/s';
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
 
 end%fcn
 
 
 
-function sys = singleTrack_lt_DSR(paramFile,vx,lad,paramFileSteer)
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM_LT_DSR(paramFile,vx,LAD,paramFileSteer)
 % singleTrack_lt_DSR    state-space model of single track modell + lane
 % tracking + steering model DSR
 % 
@@ -402,56 +417,52 @@ end
 eval(paramFile);
 eval(paramFileSteer);
 
-% init state space model
-sys = ss([],[],[],[]);
-
 % set state space elements
 A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0;...
     (csh*lh-csv*lv)/(Iz*vx),-(csh*lh^2+csv*lv^2)/(Iz*vx),0,0;    
-    -1,-lad,0,vx;...
+    -1,-LAD,0,vx;...
     0,-1,0,0];
 B = [csv/m; csv*lv/Iz; 0; 0];
 
-sys.A = [A,B/alph,[0;0;0;0];...
+A = [A,B/alph,[0;0;0;0];...
     0,0,0,0,0,1;...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack)];
-sys.B = [...
+B = [...
 	[0;0;0;0;0;iHR^2*V/xi],...
 	[0;0;0;vx;0;0],...
 	[0;0;0;0;0;iHR/xi],...
 	[0;0;0;0;0;-iHR/xi],...
 	];
-sys.C = eye(size(sys.A));
-sys.D = 0;
+C = eye(size(A));
+D = 0;
 
 % set state/input/output names
-sys.StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot'};
-sys.StateUnit = {'m/s','rad/s','m','rad','rad','rad/s'};
-sys.InputName = {...
+StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot'};
+StateUnit = {'m/s','rad/s','m','rad','rad','rad/s'};
+InputName = {...
 	'SWTorque',...
 	'road curvature at LAD',...
 	'left tie rod force',...
 	'right tie rod force',...
 	};
-sys.InputUnit = {'Nm','1/m','N','N'};
-sys.OutputName = sys.StateName;
-sys.OutputUnit = sys.StateUnit;
-
+InputUnit = {'Nm','1/m','N','N'};
+OutputName = StateName;
+OutputUnit = StateUnit;
 
 % info
-sys.Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR';
-sys.UserData.vx.about = 'longitudinal velocity';
-sys.UserData.vx.value = vx;
-sys.UserData.vx.unit = 'm/s';
-sys.UserData.lad.about = 'look-ahead distance';
-sys.UserData.lad.value = lad;
-sys.UserData.lad.unit = 'm';
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
+UD.LAD.about = 'look-ahead distance';
+UD.LAD.value = LAD;
+UD.LAD.unit = 'm';
 
 end%fcn
 
 
 
-function sys = singleTrack_lt_DSR_yL2int(paramFile,vx,lad,paramFileSteer)
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM_LT_DSR_yL2int(paramFile,vx,LAD,paramFileSteer)
 % singleTrack_lt_DSR_yL2int     state-space model of single track modell + 
 % lane tracking + steering model + internal model of yL
 % 
@@ -492,52 +503,47 @@ end
 eval(paramFile);
 eval(paramFileSteer);
 
-% init state space model
-sys = ss([],[],[],[]);
-
 % set state space elements
 A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
     (csh*lh-csv*lv)/(Iz*vx), -(csh*lh^2+csv*lv^2)/(Iz*vx), 0, 0;    
-    -1, -lad, 0, vx;...
+    -1, -LAD, 0, vx;...
     0 -1 0 0];
 B = [csv/m; csv*lv/Iz; 0; 0];
 
-sys.A = [A,B/alph,[0;0;0;0],zeros(4,2);...
+A = [A,B/alph,[0;0;0;0],zeros(4,2);...
     0 0 0 0 0 1 0 0;...
     0,0,0,0,0,-1/xi*(drot*iHR^2+drack),0,0;...
     0 0 0 0 0 0 0 1;...
     0 0 1 0 0 0 0 0];
-sys.B = [...
+B = [...
 	[0;0;0;0;0;iHR^2*V/xi;0;0],...
 	[0;0;0;vx;0;0;0;0],...
 	[0;0;0;0;0;iHR/xi;0;0],...
 	[0;0;0;0;0;-iHR/xi;0;0],...
 	];
-sys.C = eye(size(sys.A));
-sys.D = 0;
+C = eye(size(A));
+D = 0;
 
 % set state/input/output names
-sys.StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot',...
+StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot',...
     'IntInt{x3}','Int{x3}'};
-sys.StateUnit = {'m/s','rad/s','m','rad','rad','rad/s','m*s^2','m*s'};
-sys.InputName = {...
+StateUnit = {'m/s','rad/s','m','rad','rad','rad/s','m*s^2','m*s'};
+InputName = {...
 	'SWTorque',...
 	'road curvature at LAD',...
 	'left tie rod force',...
 	'right tie rod force',...
 	};
-sys.InputUnit = {'Nm','1/m','N','N'};
-sys.OutputName = sys.StateName;
-sys.OutputUnit = sys.StateUnit;
-
+InputUnit = {'Nm','1/m','N','N'};
+OutputName = StateName;
+OutputUnit = StateUnit;
 
 % info
-sys.Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + 2fach int. bzgl. yL';
-sys.UserData.vx.about = 'longitudinal velocity';
-sys.UserData.vx.value = vx;
-sys.UserData.vx.unit = 'm/s';
-sys.UserData.lad.about = 'look-ahead distance';
-sys.UserData.lad.value = lad;
-sys.UserData.lad.unit = 'm';
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
+UD.LAD.about = 'look-ahead distance';
+UD.LAD.value = LAD;
+UD.LAD.unit = 'm';
 
 end%fcn
