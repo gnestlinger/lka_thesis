@@ -105,6 +105,11 @@ soli.simProg = 'Simulink';
 % Zeitstempel
 soli.simDate = datestr(now);
 
+% input parameter
+sol.simIn = pin;
+
+% assign simulink to workspace output
+sol.simOut = simout;
 
 %% post-processing
 
@@ -113,11 +118,23 @@ soli.simDate = datestr(now);
 
 %% plot
 
-% figure
-% lkaPlot(sol,0,'traj');
-% lkaPlot(sol,0,'add');
-% lkaPlot(sol,pin.lad,'add');
-% lkaPlot(sol,0);
+figure;
+
+subplot(3,1,1);
+plot(sol.simOut.LaneSensor.curvature_LAD_Sensor);
+grid on
+
+subplot(3,1,2);
+plot(sol.simOut.Control);
+grid on
+
+subplot(3,1,3);
+plot(sol.simOut.LaneSensor.lateralOff_LAD_Sensor);
+hold all
+plot(sol.simOut.LaneSensor.poly_lateralOff_LAD_Sensor.Time,...
+	squeeze(sol.simOut.LaneSensor.poly_lateralOff_LAD_Sensor.Data(:,end,:)));
+grid on
+legend(['LAD = ',num2str(pin.LAD)],'LAD = 0');
 
 
 %% export
