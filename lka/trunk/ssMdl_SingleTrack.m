@@ -1,60 +1,21 @@
-function [sys] = ssMdl_SingleTrack(sw,paramFile,vx,LAD,varargin)
+function [sys] = ssMdl_SingleTrack(sw,pFile_Vhcl,vx,LAD,pFile_Steer)
 % SSMDL_SINGLETRACK		returns single-track-based state-space models
 %   sys = ssMdl_SingleTrack(SW,PARAMFILE,VX,LAD,varargin)
 %   ________________
 %   Input arguments:
-%   sw .......... string to choose state space model (st/stvis/. see below)
-%   paramFile ... m-file filename containing vehicle parameters
-%   vx .......... longitudinal velocity [m/s]
-%   lad ......... look-ahead distance [m]
-%   varargin .... opt. input arguments (e.g. additional parameter files)
+%   SW ............ string to choose state space model (st/stvis/. see below)
+%   PFILE_VCHL .... m-file filename containing vehicle parameters
+%   VX ............ longitudinal velocity [m/s]
+%   LAD ........... look-ahead distance [m]
+%   PFILE_STEER ... opt. input arguments (e.g. additional parameter files)
 %   ________________________________________________
-%   State variables: (Index V...Vehicle, g...global, *...additional state) 
-%   'st'
-%   x1 = Weg in Fahrzeugquerrichtung (sy_V) (*)
-%   x2 = Fahrzeugquergeschwindigkeit (vy_V)
-%   x3 = Gierwinkel (psi) (*)
-%   x4 = Giergeschwindigkeit (psiDot)
-% 
-%   'stvis'
-%   x1 = Fahrzeugquergeschwindigkeit (vy_V)
-%   x2 = Giergeschwindigkeit (psiDot)
-%   x3 = Querversatz (yL)
-%   x4 = Relativwinkel (epsL)
-% 
-%   'stvis_2int'
-%   x1 = Fahrzeugquergeschwindigkeit (vy_V)
-%   x2 = Giergeschwindigkeit (psiDot)
-%   x3 = Querversatz (yL)
-%   x4 = Relativwinkel (epsL)
-%   x5 = Int{Int{yL}} (*)
-%   x6 = Int{yL} (*)
-% 
-%   'stdsr'
-%   x1 = Weg in Fahrzeugquerrichtung (sy_V) (*)
-%   x2 = Fahrzeugquergeschwindigkeit (vy_V)
-%   x3 = Gierwinkel (psi) (*)
-%   x4 = Giergeschwindigkeit (psiDot)
-%   x5 = Lenkradwinkel (deltaH)
-%   x6 = Lenkradwinkelgeschwindigkeit (deltaHDot)
-% 
-%   'stvisdsr'
-%   x1 = Fahrzeugquergeschwindigkeit (vy_V)
-%   x2 = Giergeschwindigkeit (psiDot)
-%   x3 = Querversatz (yL)
-%   x4 = Relativwinkel (epsL)
-%   x5 = Lenkradwinkel (deltaH)
-%   x6 = Lenkradwinkelgeschwindigkeit (deltaHDot)
-% 
-%   'stvisdsr_2int'
-%   x1 = Fahrzeugquergeschwindigkeit (vy_V)
-%   x2 = Giergeschwindigkeit (psiDot)
-%   x3 = Querversatz (yL)
-%   x4 = Relativwinkel (epsL)
-%   x5 = Lenkradwinkel (deltaH)
-%   x6 = Lenkradwinkelgeschwindigkeit (deltaHDot)
-%   x7 = Int{Int{yL}} (*)
-%   x8 = Int{yL} (*)
+% 	SW can take the following values:
+%     - 'st'
+%     - 'stvis'
+%     - 'stvis_2int'
+%     - 'stdsr'
+%     - 'stvisdsr'
+%     - 'stvisdsr_2int'
 % 
 % Source: see subfunctions
 % 
@@ -64,11 +25,29 @@ function [sys] = ssMdl_SingleTrack(sw,paramFile,vx,LAD,varargin)
 % $Revision$
 
 
-% check input arguments
-if ~ischar(sw); error('1st input argument not of type char'); end
-if ~ischar(paramFile); error('2nd input argument not of type char'); end
-if numel(vx) > 1; error('Dimension of 3rd input argument > 1'); end
+%%% handle input arguments
+if nargin < 5
+	pFile_Steer = '';
+end%if
 
+
+%%% check input arguments
+if ~ischar(sw)
+	error('Input argument SW must be of class char!');
+end%if
+if ~ischar(pFile_Vhcl)
+	error('Input argument PFILE_VHCL must be of class char!');
+end%if
+if numel(vx) > 1
+	error('Input argument VX must be scalar!');
+end%if
+if numel(LAD) > 1
+	error('Input argument LAD must be scalar!');
+end%if
+if ~ischar(pFile_Steer)
+	error('Input argument PFILE_STEER must be of class char!');
+end%if
+	
 
 % subfunction shortcuts
 % st ....... single track
@@ -85,29 +64,29 @@ switch lower(sw)
     
     %%% ohne Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'st'} % Einspurmodell
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM(paramFile,vx);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM(pFile_Vhcl,vx);
 		Name = 'Single Track Model';
         
     case {'stvis'} % Einspurmdl. + lane tracking
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT(paramFile,vx,LAD);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT(pFile_Vhcl,vx,LAD);
 		Name = 'Single Track + Lane Tracking Model';
         
     case {'stvis_2int'} % Einspurmdl. + lane tracking + 2fach int. bzgl. yL
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL2int(paramFile,vx,LAD);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL2int(pFile_Vhcl,vx,LAD);
 		Name = 'Single Track + Lane Tracking + double integral action on lateral offset';
 		
 	
     %%% mit Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'stdsr'} % Einspurmdl. + Lenkmodell CarMaker DSR
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_DSR(paramFile,vx,varargin{1});
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_DSR(pFile_Vhcl,vx,pFile_Steer);
 		Name = 'Single Track + Steering Model CarMaker DSR';
     
     case {'stvisdsr'} % Einspurmdl. + lane tracking + Lenkmdl. CarMaker DSR
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR(paramFile,vx,LAD,varargin{1});
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR(pFile_Vhcl,vx,LAD,pFile_Steer);
 		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR';
         
     case {'stvisdsr_2int'}
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL2int(paramFile,vx,LAD,varargin{1});
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL2int(pFile_Vhcl,vx,LAD,pFile_Steer);
 		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + double integral action on lateral offset';
     
 		
@@ -137,6 +116,8 @@ sys.OutputUnit = OU;
 % set info
 sys.Name = Name;
 sys.UserData = UD;
+sys.UserData.params_Vehicle = paramFile2Struct(pFile_Vhcl);
+sys.UserData.params_Steer	= paramFile2Struct(pFile_Steer);
 
 end%fcn
 
