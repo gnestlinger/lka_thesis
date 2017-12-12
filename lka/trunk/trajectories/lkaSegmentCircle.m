@@ -190,7 +190,7 @@ classdef lkaSegmentCircle < lkaSegment
 				1);		% segment number
             
 			% shift segDat object so [x(1);y(1)] matches xyStart
-            segdat = shift(segdat,obj.xyStart);
+            segdat = shiftTo(segdat,obj.xyStart);
 			
         end%fcn
         

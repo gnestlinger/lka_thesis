@@ -26,13 +26,15 @@ classdef segDat
 %	 changeSignOfCurvature - Change street segments curvature sign.
 %	 plus	- Connect street segments using '+'.
 %	 reverseDirection - Reverse street segment direction.
-%	 rotate - Rotate street segment.
-%	 shift	- Shift street segment.
+%	 rotate	- Rotate street segment.
+%	 shiftTo - Shift street segment.
+%	 
 %	 - ANALYSIS
 %	 plot		 - Plot street segments.
 %	 plotdiff	 - Plot street segments with specific appearance.
 %	 plotdiff_	 - Plot street segment property with specific appearance.
 %	 plottangent - Plot street segments and specified tangents.
+%	 
 %	 - MISC
 %	 laneTracking - Get the lane tracking pose.
 %	 
@@ -70,9 +72,9 @@ classdef segDat
 		
 		% 1-by-n int8 of Street segment type [-]:
 		%	-1 .. undefined/mixed
-		%	0 .. straight
-		%	1 .. circular
-		%	2 .. clothoid
+		%	 0 .. straight
+		%	 1 .. circular
+		%	 2 .. clothoid
 		type
 		
 		% 1-by-n uint16 of Street segment number [-].
@@ -166,7 +168,7 @@ classdef segDat
 			phi0 = obj.phi(1);
 			
 			% shift to origin and rotate so initial slope is zero
-			obj = shift(obj);
+			obj = shiftTo(obj);
 			obj = rotate(obj,-phi0);
 			
 			% invert the curvature
@@ -181,7 +183,7 @@ classdef segDat
 			
 			% undo the shift/rotate procedure
 			obj = rotate(obj,phi0);
-			obj = shift(obj,P0);
+			obj = shiftTo(obj,P0);
 			
 		end%fcn
 		
@@ -267,12 +269,12 @@ classdef segDat
 		end%fcn
 		
 		
-		function obj = shift(obj,P)
-		% SHIFT		Shift street segment.
-		%	OBJ = SHIFT(OBJ,P) shifts the street segment OBJ so that its
+		function obj = shiftTo(obj,P)
+		% SHIFTTO	Shift street segment to desired point.
+		%	OBJ = SHIFTTO(OBJ,P) shifts the street segment OBJ so that its
 		%	starting point [OBJ.x(1) OBJ.y(1)] matches P.
 		%	
-		%	OBJ = SHIFT(OBJ) applies the default value [0 0] for P.
+		%	OBJ = SHIFTTO(OBJ) applies the default value [0 0] for P.
 			
 			
 			%%% handle input arguments
@@ -298,6 +300,16 @@ classdef segDat
 				obj.type,...
 				obj.nbr); 
 			
+		end%fcn
+				
+		
+		function obj = shift(obj,P)
+			
+			warning('SEGDAT:SHIFT',[...
+				'Method SHIFT will be removed in a future release! ',...
+				'Use method SHIFTTO instead.']);
+			obj = shiftTo(obj,P);
+		
 		end%fcn
 		
 		
@@ -339,7 +351,7 @@ classdef segDat
 			xyCG_T = [0;0]; % xyCG_global - xyCG_global
 			
 			% Sollbahn (transformed)
-			obj_T = shift(obj, [obj.x(1);obj.y(1)]-xyCG_global);
+			obj_T = shiftTo(obj, [obj.x(1);obj.y(1)]-xyCG_global);
 			obj_T = rotate(obj_T, -yawAngle_global);
 			
 			% Koordinaten des Punkts bei look-ahead distance (transformed)
@@ -348,7 +360,7 @@ classdef segDat
 			
 % 			%%% shift origin to point at LAD
 % 			xyCG_T	= xyCG_T - [lad;0];
-% 			obj_T	= shift(obj_T,[obj_T.x(1);obj_T.y(1)] - [lad;0]);
+% 			obj_T	= shiftTo(obj_T,[obj_T.x(1);obj_T.y(1)] - [lad;0]);
 % 			xyLAD_T	= xyLAD_T - [lad;0];
 			
 			
@@ -1272,7 +1284,7 @@ classdef segDat
 			
 			sd_b = b.segmentData;
 			
-			sd_b = shift(sd_b,P0);
+			sd_b = shiftTo(sd_b,P0);
 			
 			plotdiff(sd_b);
 			
@@ -1390,7 +1402,7 @@ classdef segDat
 		end%fcn
 		
 		
-		function test_shift()
+		function test_shiftTo()
 			
 			fig = figure;
 			a = lkaSegmentStraight([],100,pi/8);
@@ -1401,17 +1413,17 @@ classdef segDat
 			sd_b = b.segmentData;
 			sd_c = c.segmentData;
 			
-			sd_a = shift(sd_a,[10 30]);
-			sd_b = shift(sd_b,[20 20]);
-			sd_c = shift(sd_c,[30 10]);
+			sd_a = shiftTo(sd_a,[10 30]);
+			sd_b = shiftTo(sd_b,[20 20]);
+			sd_c = shiftTo(sd_c,[30 10]);
 			
 			plotdiff(sd_a);
 			plotdiff(sd_b);
 			plotdiff(sd_c);
 			
-			plotdiff(shift(sd_a));
-			plotdiff(shift(sd_b));
-			plotdiff(shift(sd_c));
+			plotdiff(shiftTo(sd_a));
+			plotdiff(shiftTo(sd_b));
+			plotdiff(shiftTo(sd_c));
 			
 			pause
 			close(fig)
