@@ -27,7 +27,8 @@ classdef segDat
 %	 plus	- Connect street segments using '+'.
 %	 reverseDirection - Reverse street segment direction.
 %	 rotate	- Rotate street segment.
-%	 shiftTo - Shift street segment.
+%	 shiftTo - Shift street segment to point.
+%	 shiftBy - Shift street segment by point.
 %	 
 %	 - ANALYSIS
 %	 plot		 - Plot street segments.
@@ -263,6 +264,34 @@ classdef segDat
 				obj.s,...
 				obj.k,...
 				obj.phi+phi,...
+				obj.type,...
+				obj.nbr); 
+			
+		end%fcn
+		
+		
+		function obj = shiftBy(obj,P)
+		% SHIFTBY	Shift street segment by given point.
+		%	OBJ = SHIFTBY(OBJ,P) shifts the street segment OBJ so that its
+		%	starting point is [OBJ.x(1)+P(1) OBJ.y(1)+P(2)].
+			
+			
+			%%% handle input arguments
+			narginchk(2,2);
+			
+			if numel(P) ~= 2 || ~isnumeric(P)
+				error(['Method SHIFT requires a numeric input',...
+					' argument with two elements.']);
+			end%if
+			
+			
+			%%% shift segment
+			obj = segDat(...
+				obj.x + P(1),...
+				obj.y + P(2),...
+				obj.s,...
+				obj.k,...
+				obj.phi,...
 				obj.type,...
 				obj.nbr); 
 			
