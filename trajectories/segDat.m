@@ -19,7 +19,7 @@ classdef segDat
 %	 K		- Curvature [1/m].
 %	 PHI	- Angle beetween the positive x-axis and the tangent [rad].
 %	 TYPE	- Integer indicating the street segment type.
-%	 NBR	- Street segment number of connected segments.
+%	 NBR	- Street segment number of distinctive segments.
 %	
 %	SEGDAT Methods:
 %	 - DESIGN
@@ -53,28 +53,29 @@ classdef segDat
 
 
 	properties (SetAccess = private)
-		% x-coordinate [m].
+		% 1-by-n double of X-coordinate [m].
 		x
 		
-		% y-coordinate [m].
+		% 1-by-n double of Y-coordinate [m].
 		y
 		
-		% Covered distance [m].
+		% 1-by-n double of Covered distance [m].
 		s
 		
-		% Curvature [1/m].
+		% 1-by-n double of Curvature [1/m].
 		k
 		
-		% Tangent angle [rad].
+		% 1-by-n double of Tangent angle [rad].
 		phi
 		
-		% Street segment type [-]:
+		% 1-by-n int8 of Street segment type [-]:
+		%	-1 .. undefined/mixed
 		%	0 .. straight
 		%	1 .. circular
 		%	2 .. clothoid
 		type
 		
-		% Street segment number of connected segments [-].
+		% 1-by-n uint16 of Street segment number [-].
 		nbr
 	end%properties
 	
@@ -106,12 +107,14 @@ classdef segDat
 		%SEGDAT 	Create an instance of the SEGDAT object.
 		
 		
-			% all inputs have to be non-empty column vectors, 
+			% all inputs have to be non-empty column vectors
 			[m,n] = size(x);
 			
 			% expand the lenght of TYPE/NBR if they are scalar
-			if isscalar(type) && isscalar(nbr)
+			if isscalar(type)
 				type = type*ones(m,n);
+			end%if
+			if isscalar(nbr)
 				nbr = nbr*ones(m,n);
 			end%if
 			
@@ -125,13 +128,23 @@ classdef segDat
 					'Inputs must have the same size.')
 			end%if
 			
-			obj.x = x;
-			obj.y = y;
-			obj.s = s;
-			obj.k = k;
-			obj.phi = phi;
-			obj.type = type;
-			obj.nbr = nbr;
+			% check class of TYPE
+			if ~isa(type,'int8')
+				type = int8(type);
+			end%if
+			
+			% check class of NBR
+			if ~isa(nbr,'uint16')
+				nbr = uint16(nbr);
+			end%if
+			
+			obj.x		= x;
+			obj.y		= y;
+			obj.s		= s;
+			obj.k		= k;
+			obj.phi		= phi;
+			obj.type	= type;
+			obj.nbr		= nbr;
 			
 		end%fcn
 		
@@ -948,11 +961,11 @@ classdef segDat
 			else
 				gettype = 'connected';
 			end%if
-			lengthStr = [sprintf('%.2f',obj.s(end)),' m'];
-			pointsStr = sprintf('%.0d',length(obj.s));
-			startStr = sprintf('(%g;%g)',obj.x(1),obj.y(1));
-			endStr = sprintf('(%g;%g)',obj.x(end),obj.y(end));
-			cellStr = {...
+			lengthStr	= [sprintf('%.2f',obj.s(end)),' m'];
+			pointsStr	= sprintf('%.0d',length(obj.s));
+			startStr	= sprintf('(%g;%g)',obj.x(1),obj.y(1));
+			endStr		= sprintf('(%g;%g)',obj.x(end),obj.y(end));
+			cellStr		= {...
 				['Street segment of type ''',gettype,''''],...
 				['length: ',lengthStr,' using ',pointsStr,' points'],...
 				['moves from ',startStr,' \rightarrow ', endStr]};
