@@ -894,9 +894,14 @@ classdef segDat
 		%	
 		%	See also SEGDAT/PLOT, SEGDAT/PLOTDIFF.
 		
-		
+			%%% handle input arguments
+			% check class input ind
+			if ~isnumeric(ind)
+				error('Input argument IND has to be numeric.');
+			end%if
+			
 			% check dimension of input ind
-			if ~isvector(ind) && ~isempty(ind)
+			if (~isvector(ind) && ~isempty(ind))
 				error('Input argument IND has to be of size 0xN or Nx0.');
 			end%if
 			
@@ -970,7 +975,7 @@ classdef segDat
 			
 			% set the axis limtis corresponding to segment data
 			axis([xLimits,yLimits]);
-						
+			
 		end%fcn
 		
 		
