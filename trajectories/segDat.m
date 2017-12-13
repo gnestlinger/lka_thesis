@@ -188,6 +188,60 @@ classdef segDat
 			
 		end%fcn
 		
+			
+		function write2file(obj,fn,format)
+		%WRITE2FILE		Write street segment to file.
+		%	WRITE2FILE(OBJ,FN) writes the street segment data OBJ to file
+		%	with filename FN (also specify extension!).
+		%	
+		%	WRITE2FILE(OBJ,FN,FORMAT) lets you specify the output format.
+		%	Supported values are:
+		%	  - 'CarMaker' .. digitized road for v4.0 - v5.0.1 (default value)
+			
+		
+			% set the default FORMAT
+			if nargin < 3 || isempty(format)
+				format = 'CarMaker';
+			end%if
+			
+			% open file with write-permission
+			fid = fopen(fn,'w');
+			
+			switch format
+				case 'CarMaker'
+					% x .. x-coordinate [m]
+					% y .. y-coordinate [m]
+					% z .. altitude [m]
+					% q .. slope
+					% wl/wr .. track width left/right [m]
+					% ml/mr .. margin width left/right [m]
+					N = numel(obj.x);
+					wl = 3*ones(N,1);
+					wr = 3*ones(N,1);
+					fprintf(fid,':	x	y	z	q	wl	wr	ml	mr\n');
+					fprintf(fid,'#\n# IPG ROADDATA\n');
+					fprintf(fid,'# This file was created automatically:\n');
+					fprintf(fid,'#  Export source: class SEGDAT\n');
+					fprintf(fid,'#  Export date: %s\n',datestr(now));
+					fprintf(fid,'#\n# Add your comments here!\n#\n#\n');
+					fprintf(fid,'#	x	y	z	q	wl	wr	ml	mr\n');
+					dlmwrite(fn,...
+						[obj.x(:),obj.y(:),zeros(N,1),zeros(N,1),wl,wr],...
+						'-append',...
+						'delimiter','	',...
+						'precision','%+f')
+					
+				otherwise
+					fclose(fid);
+					error('segDat:write2File','Unknown FORMAT specifier');
+					
+			end%switch
+			
+			% close file
+			fclose(fid);
+			
+		end%fcn
+		
 		
 		function obj = plus(obj1,obj2)
 		%+ Plus.
