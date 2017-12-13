@@ -27,8 +27,10 @@ classdef segDat
 %	 plus	- Connect street segments using '+'.
 %	 reverseDirection - Reverse street segment direction.
 %	 rotate	- Rotate street segment.
-%	 shiftTo - Shift street segment to point.
+%	 selectIndexRange - Select subset of street segment.
+%	 setStartIndex - Set an new starting starting element.
 %	 shiftBy - Shift street segment by point.
+%	 shiftTo - Shift street segment to point.
 %	 
 %	 - ANALYSIS
 %	 plot		 - Plot street segments.
@@ -38,6 +40,7 @@ classdef segDat
 %	 
 %	 - MISC
 %	 laneTracking - Get the lane tracking pose.
+%	 write2file	- Write segment data to file.
 %	 
 %	
 %	See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
@@ -188,60 +191,6 @@ classdef segDat
 			
 		end%fcn
 		
-			
-		function write2file(obj,fn,format)
-		%WRITE2FILE		Write street segment to file.
-		%	WRITE2FILE(OBJ,FN) writes the street segment data OBJ to file
-		%	with filename FN (also specify extension!).
-		%	
-		%	WRITE2FILE(OBJ,FN,FORMAT) lets you specify the output format.
-		%	Supported values are:
-		%	  - 'CarMaker' .. digitized road for v4.0 - v5.0.1 (default value)
-			
-		
-			% set the default FORMAT
-			if nargin < 3 || isempty(format)
-				format = 'CarMaker';
-			end%if
-			
-			% open file with write-permission
-			fid = fopen(fn,'w');
-			
-			switch format
-				case 'CarMaker'
-					% x .. x-coordinate [m]
-					% y .. y-coordinate [m]
-					% z .. altitude [m]
-					% q .. slope
-					% wl/wr .. track width left/right [m]
-					% ml/mr .. margin width left/right [m]
-					N = numel(obj.x);
-					wl = 3*ones(N,1);
-					wr = 3*ones(N,1);
-					fprintf(fid,':	x	y	z	q	wl	wr	ml	mr\n');
-					fprintf(fid,'#\n# IPG ROADDATA\n');
-					fprintf(fid,'# This file was created automatically:\n');
-					fprintf(fid,'#  Export source: class SEGDAT\n');
-					fprintf(fid,'#  Export date: %s\n',datestr(now));
-					fprintf(fid,'#\n# Add your comments here!\n#\n#\n');
-					fprintf(fid,'#	x	y	z	q	wl	wr	ml	mr\n');
-					dlmwrite(fn,...
-						[obj.x(:),obj.y(:),zeros(N,1),zeros(N,1),wl,wr],...
-						'-append',...
-						'delimiter','	',...
-						'precision','%+f')
-					
-				otherwise
-					fclose(fid);
-					error('segDat:write2File','Unknown FORMAT specifier');
-					
-			end%switch
-			
-			% close file
-			fclose(fid);
-			
-		end%fcn
-		
 		
 		function obj = plus(obj1,obj2)
 		%+ Plus.
@@ -250,8 +199,7 @@ classdef segDat
 		%	resulting in the street segment data OBJ12.
 		%	
 		%	Note that here plus (+) is a non-commutative operation!
-		
-		
+			
 			obj = segDat(...
 				[obj1.x,	obj1.x(end) + obj2.x(2:end) - obj2.x(1)],...
 				[obj1.y,	obj1.y(end) + obj2.y(2:end) - obj2.y(1)],...
@@ -270,7 +218,6 @@ classdef segDat
 		%	segment OBJ so [x(end),y(end)] becomes [x(1),y(1)] and so on.
 		%	
 		%	The other properties are manipulated accordingly.
-			
 			
 			%%% handle input arguments
 			narginchk(1,1);
@@ -292,7 +239,6 @@ classdef segDat
 		% ROTATE	Rotate street segment.
 		%	OBJ = ROTATE(OBJ,PHI) rotates the street segment OBJ by an
 		%	angle PHI in radians.
-			
 			
 			%%% handle input arguments
 			narginchk(2,2);
@@ -324,11 +270,83 @@ classdef segDat
 		end%fcn
 		
 		
+		function obj = selectIndexRange(obj,ind0,ind1)
+		% SELECTINDEXRANGE	Select subset of street segment.
+		%	OBJ = SELECTINDEXRANGE(OBJ,IND0,IND1) selects a subset of
+		%	street segment OBJ specified by start index IND0 and end index
+		%	IND1.
+		%	
+		%	If IND0 is empty, a default value of 1 is used. If IND1 is
+		%	empty or missing a default value of numel(OBJ.x) is used.
+		%	Indices IND0 and IND1 must satisfy IND0 <= IND1.
+			
+			%%% handle input arguments
+			narginchk(2,3);
+			
+			if isempty(ind0)
+				ind0 = 1;
+			end%if
+			
+			if nargin < 3 || isempty(ind1)
+				ind1 = numel(obj.x);
+			end%if
+			
+			if ind0 > ind1
+				error('segDat:selectIndexRange',...
+					'Upper/lower index IND0/IND1 must satisfy IND0 <= IND1.');
+			end%if
+			
+			
+			%%% get subset of street segment
+			obj = segDat(...
+				obj.x(ind0:ind1),...
+				obj.y(ind0:ind1),...
+				obj.s(ind0:ind1) - obj.s(ind0),...
+				obj.k(ind0:ind1),...
+				obj.phi(ind0:ind1),...
+				obj.type(ind0:ind1),...
+				obj.nbr(ind0:ind1));
+			
+		end%fcn
+		
+		
+		function obj = setStartIndex(obj,indx)
+		% SETSTARTINDEX		Reorder street segment.
+		%	OBJ = SETSTARTINDEX(OBJ,INDX) reorders the street segment OBJ
+		%	so that index INDX becomes the first element.
+		%
+		%	WARNING: this method only makes sense for circuits!
+			
+			%%% handle input arguments
+			if indx == 1
+				return;
+			end%
+			
+			% distance from last to first element
+			delta = sqrt((obj.x(1)-obj.x(end))^2 + (obj.y(1)-obj.y(end))^2);
+			
+			% the length should be stricly monotonically increasing
+			s_new = [...
+				obj.s(indx:end) - obj.s(indx),...
+				obj.s(1:indx-1) + obj.s(end) - obj.s(indx) + delta];
+			
+			%%% reorder street segment
+			obj = segDat(...
+				[obj.x(indx:end),	obj.x(1:indx-1)],...
+				[obj.y(indx:end),	obj.y(1:indx-1)],...
+				s_new,...
+				[obj.k(indx:end),	obj.k(1:indx-1)],...
+				[obj.phi(indx:end),	obj.phi(1:indx-1)],...
+				[obj.type(indx:end),obj.type(1:indx-1)],...
+				[obj.nbr(indx:end),	obj.nbr(1:indx-1)]);
+			
+		end%fcn
+		
+		
 		function obj = shiftBy(obj,P)
 		% SHIFTBY	Shift street segment by given point.
 		%	OBJ = SHIFTBY(OBJ,P) shifts the street segment OBJ so that its
 		%	starting point is [OBJ.x(1)+P(1) OBJ.y(1)+P(2)].
-			
 			
 			%%% handle input arguments
 			narginchk(2,2);
@@ -393,6 +411,60 @@ classdef segDat
 				'Use method SHIFTTO instead.']);
 			obj = shiftTo(obj,P);
 		
+		end%fcn
+		
+		
+		function write2file(obj,fn,format)
+		%WRITE2FILE		Write street segment to file.
+		%	WRITE2FILE(OBJ,FN) writes the street segment data OBJ to file
+		%	with filename FN (also specify extension!).
+		%	
+		%	WRITE2FILE(OBJ,FN,FORMAT) lets you specify the output format.
+		%	Supported values are:
+		%	  - 'CarMaker' .. digitized road for v4.0 - v5.0.1 (default value)
+			
+		
+			% set the default FORMAT
+			if nargin < 3 || isempty(format)
+				format = 'CarMaker';
+			end%if
+			
+			% open file with write-permission
+			fid = fopen(fn,'w');
+			
+			switch format
+				case 'CarMaker'
+					% x .. x-coordinate [m]
+					% y .. y-coordinate [m]
+					% z .. altitude [m]
+					% q .. slope
+					% wl/wr .. track width left/right [m]
+					% ml/mr .. margin width left/right [m]
+					N = numel(obj.x);
+					wl = 3*ones(N,1);
+					wr = 3*ones(N,1);
+					fprintf(fid,':	x	y	z	q	wl	wr	ml	mr\n');
+					fprintf(fid,'#\n# IPG ROADDATA\n');
+					fprintf(fid,'# This file was created automatically:\n');
+					fprintf(fid,'#  Export source: class SEGDAT\n');
+					fprintf(fid,'#  Export date: %s\n',datestr(now));
+					fprintf(fid,'#\n# Add your comments here!\n#\n#\n');
+					fprintf(fid,'#	x	y	z	q	wl	wr	ml	mr\n');
+					dlmwrite(fn,...
+						[obj.x(:),obj.y(:),zeros(N,1),zeros(N,1),wl,wr],...
+						'-append',...
+						'delimiter','	',...
+						'precision','%+f')
+					
+				otherwise
+					fclose(fid);
+					error('segDat:write2File','Unknown FORMAT specifier');
+					
+			end%switch
+			
+			% close file
+			fclose(fid);
+			
 		end%fcn
 		
 		
