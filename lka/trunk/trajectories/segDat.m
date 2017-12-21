@@ -270,30 +270,42 @@ classdef segDat
 		end%fcn
 		
 		
-		function obj = selectIndexRange(obj,ind0,ind1)
+		function obj = selectIndexRange(obj,indRange)
 		% SELECTINDEXRANGE	Select subset of street segment.
-		%	OBJ = SELECTINDEXRANGE(OBJ,IND0,IND1) selects a subset of
-		%	street segment OBJ specified by start index IND0 and end index
-		%	IND1.
+		%	OBJ = SELECTINDEXRANGE(OBJ,INDRANGE) selects a subset of street
+		%	segment OBJ specified by start index INDRANGE(1) and end index
+		%	INDRANGE(2).
 		%	
-		%	If IND0 is empty, a default value of 1 is used. If IND1 is
-		%	empty or missing a default value of numel(OBJ.x) is used.
-		%	Indices IND0 and IND1 must satisfy IND0 <= IND1.
+		%	If INDRANGE is scalar, index INDRANGE(1) is used as the start
+		%	index and the end index is set to the lenght of OBJ.
+		%	
+		%	Index-vector INDRANGE must satisfy INDRANGE(1) <= INDRANGE(2).
 			
 			%%% handle input arguments
-			narginchk(2,3);
+			narginchk(2,2);
 			
-			if isempty(ind0)
-				ind0 = 1;
+			if isempty(indRange)
+				error('SEGDAT:selectIndexRange',...
+					['Input argument INDRANGE needs to be specified. ',...
+					'Type help segDat/selectIndexRange.']);
 			end%if
 			
-			if nargin < 3 || isempty(ind1)
+			if numel(indRange) < 2
+				ind0 = indRange(1);
 				ind1 = numel(obj.x);
+			else
+				ind0 = indRange(1);
+				ind1 = indRange(2);
 			end%if
 			
 			if ind0 > ind1
 				error('segDat:selectIndexRange',...
 					'Upper/lower index IND0/IND1 must satisfy IND0 <= IND1.');
+			end%if
+			
+			if numel(indRange) > 2
+				warning('segDat:selectIndexRange:numelINDRANGE',...
+					'Ignoring additional elements of input argument INDRANGE.');
 			end%if
 			
 			
@@ -1170,9 +1182,9 @@ classdef segDat
 	%%% Static-Methods
 	methods (Static)
 		
-		function [r1 r2] = scaleTangentToAxis(xLimits,yLimits,xy,phi)
+		function [r1,r2] = scaleTangentToAxis(xLimits,yLimits,xy,phi)
 		%SCALETANGENTTOAXIS		Scale length of tangent to axis limits.
-		%   [R1 R2] = SCALETANGENTTOAXIS(XLIMITS,YLIMITS,XY,PHI) calculates
+		%   [R1,R2] = SCALETANGENTTOAXIS(XLIMITS,YLIMITS,XY,PHI) calculates
 		%   the lengths R1 and R2 for the tangent at point XY with angle
 		%   PHI, so that the tangent does not exceed given limits XLIMITS =
 		%   [xMin xMax] and YLIMITS = [yMin yMax].
@@ -1405,7 +1417,7 @@ classdef segDat
 		
 		function test_changeSignOfCurvature(obj)
 			
-			if nargin < 1;
+			if nargin < 1
 				b = lkaSegmentCircle([],5/3*pi,4/2*pi,50);
 				b = shift(b,[20,10]);
 				obj = b.segmentData;
@@ -1532,7 +1544,7 @@ classdef segDat
 			% run test cases
 			for i = 1:nbrOfTestCases
 				
-				[r1 r2] = segDat.scaleTangentToAxis(...
+				[r1,r2] = segDat.scaleTangentToAxis(...
 					tc{i,2},...
 					tc{i,3},...
 					tc{i,4},...
