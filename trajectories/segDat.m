@@ -190,6 +190,146 @@ classdef segDat
 			obj = shiftTo(obj,P0);
 			
 		end%fcn
+				
+		
+		function [lkaSeg,e,c,d] = fitStraight(obj,indMinMax,doPlot)
+		%FITSTRAIGHT	Fit a straight line to a set of points.
+		%	[LKASEG,E,C,D] = FITSTRAIGHT(OBJ) fits a straight
+		%	line with slope C and initial offset D to a set of given points
+		%	(OBJ.X,OBJ.Y) minimizing the error E. Object LKASEG is of class
+		%	LKASEGMENTSTRAIGHT
+		%	
+		%	[LKASEG,E,C,D] = FITSTRAIGHT(OBJ,INDMINMAX) lets you specify a
+		%	start index I = INDMINMAX(1) and end index U = INDMINMAX(2) for
+		%	considering only the range I:U for the fitting procedure.
+		%	
+		%	[LKASEG,E,C,D] = FITSTRAIGHT(OBJ,INDMINMAX,DOPLOT) allows to
+		%	disable the plot for checking the fitting result visually,
+		%	which is enabled by default.
+		%	
+		%	Parameters C and D model the fitted line according to
+		%	  y_fit = C*OBJ.X + D
+		%	
+		%	Minimization is performed in the least-squares sense minimizing
+		%	the sum of squared errors:
+		%	  SUM[(Y(i)-C*X(i) - D)^2]
+		%	   i
+		%	
+		%	See also LKASEGMENTSTRAIGHT.
+			
+			%%% handle input arguments
+			if nargin < 2
+				indMin = 1;
+				indMax = numel(obj.x);
+			else
+				indMin = indMinMax(1);
+				indMax = indMinMax(2);
+			end%if
+			
+			if nargin < 3
+				doPlot = true;
+			end%if
+			
+			% extract relevant x/y data
+			xsub = obj.x(indMin:indMax);
+			ysub = obj.y(indMin:indMax);
+			
+			% create (overdetermined) system of equations
+			A = [xsub',ones(indMax-indMin+1,1)];
+			b =  ysub';
+			
+			% solve system of equations: A*[c;d] = b, where y = c*x+d
+			cd = (A'*A)\A'*b;
+			c = cd(1);
+			d = cd(2);
+			
+			% the fitted y coordinates
+			yfit = c*xsub + d;
+			
+			% create LKASEGMENTSTRAIGHT object
+			dx = xsub(end) - xsub(1);
+			dy = yfit(end) - yfit(1);
+			lkaSeg = lkaSegmentStraight(...
+				min(diff(sqrt(xsub.^2 + ysub.^2))),...
+				sqrt(dx^2 + dy^2),...
+				atan2(dy,dx));
+			lkaSeg = shift(lkaSeg,[xsub(1);ysub(1)]);
+			
+			% calculate error
+			e = 1/numel(ysub)*sum((ysub - yfit).^2);
+			
+			% plot if required
+			if doPlot
+				plot(obj,'r');
+				hold on
+				plot(lkaSeg,'b');
+			end%if
+			
+			
+		end%fcn
+		
+		
+		function [lkaSeg,e,xc,yc,R] = fitCircle(obj,indMinMax,doPlot)
+		%FITCIRCLE	Fit a circle to a set of points.
+		%	[LKASEG,E,XC,YC,R] = FITCIRCLE(OBJ) fits a circle
+		%	with center(XC,YC) and radius R to a set of given points
+		%	(OBJ.X,OBJ.Y) minimizing the error E. Object LKASEG is of class
+		%	LKASEGMENTCIRCLE.
+		%	
+		%	[LKASEG,E,XC,YC,R] = FITCIRCLE(OBJ,INDMINMAX) lets you specify
+		%	a start index I = INDMINMAX(1) and end index U = INDMINMAX(2)
+		%	for considering only the range I:U for the fitting procedure.
+		%	
+		%	[LKASEG,E,XC,YC,R] = FITCIRCLE(OBJ,INDMINMAX,DOPLOT) allows to
+		%	disable the plot for checking the fitting result visually,
+		%	which is enabled by default.
+		%	
+		%	Minimization is performed in the least-squares sense minimizing
+		%	the sum of squared errors:
+		%	  SUM[(R(i)^2-R^2)^2]
+		%	   i
+		%	
+		%	See also LKASEGMENTCIRCLE.
+			
+			%%% handle input arguments
+			if nargin < 2
+				indMin = 1;
+				indMax = numel(obj.x);
+			else
+				indMin = indMinMax(1);
+				indMax = indMinMax(2);
+			end%if
+			
+			if nargin < 3
+				doPlot = true;
+			end%if
+			
+			
+			% extract relevant x/y data
+			xsub = obj.x(indMin:indMax);
+			ysub = obj.y(indMin:indMax);
+			
+			method = 'Kasa';
+			switch method
+				case 'Kasa'
+					[xc,yc,R,e] = fitCircle_Kasa(xsub,ysub);
+				otherwise
+					% 
+			end%switch
+			
+			% create LKASEGMENTCIRCLE object
+			lkaSeg = lkaSegmentCircle([],0,2*pi,R);
+			lkaSeg = shift(lkaSeg,[xc+lkaSeg.radius;yc]);
+			
+			
+			% plot if required
+			if doPlot
+				plot(obj,'r');
+				hold on
+				plot(lkaSeg,'b');
+			end%if			
+			
+		end%fcn
 		
 		
 		function obj = plus(obj1,obj2)
