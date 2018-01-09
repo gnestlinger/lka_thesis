@@ -27,7 +27,7 @@ function XDot = einspurMdl_dgl_vy(t,x,uIn,pIn)
 
 
 % vehicle parameters
-F = pIn.VehicleModel.singleTrack.parameter.values;
+F = pIn.VehicleModel.singleTrack.parameter;
 
 % system matrices
 A = [0 1 0 0;...

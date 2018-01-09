@@ -25,7 +25,7 @@ k = deg2rad(1); u = @(t,x) k*(t>=5); % [k] = °
 % simulation: vehicle parameter
 stringSim = 'paramFile_SingleTrackMdl_BMW5';
 pin.VehicleModel.singleTrack.parameterFile = stringSim;
-pin.VehicleModel.singleTrack.parameter = loadParameter(stringSim,'about');
+pin.VehicleModel.singleTrack.parameter = paramFile2Struct(stringSim);
 
 % Längsgeschwindigkeit [m/s]
 pin.vx = 25;  
