@@ -413,51 +413,43 @@ classdef segDat
 		function obj = selectIndexRange(obj,indRange)
 		% SELECTINDEXRANGE	Select subset of street segment.
 		%	OBJ = SELECTINDEXRANGE(OBJ,INDRANGE) selects a subset of street
-		%	segment OBJ specified by start index INDRANGE(1) and end index
-		%	INDRANGE(2).
+		%	segment OBJ specified by indices INDRANGE.
 		%	
-		%	If INDRANGE is scalar, index INDRANGE(1) is used as the start
-		%	index and the end index is set to the lenght of OBJ.
+		%	Indices INDRANGE must be strictly increasing.
 		%	
-		%	Index-vector INDRANGE must satisfy INDRANGE(1) <= INDRANGE(2).
+		%	If INDRANGE is scalar, it is used as the start index and the
+		%	end index is set to the lenght of OBJ.
 			
 			%%% handle input arguments
 			narginchk(2,2);
 			
 			if isempty(indRange)
 				error('SEGDAT:selectIndexRange',...
-					['Input argument INDRANGE needs to be specified. ',...
+					['Input argument INDRANGE must not be empty! ',...
 					'Type help segDat/selectIndexRange.']);
 			end%if
 			
 			if numel(indRange) < 2
-				ind0 = indRange(1);
-				ind1 = numel(obj.x);
+				ind = indRange:numel(obj.x);
 			else
-				ind0 = indRange(1);
-				ind1 = indRange(2);
+				ind = indRange;
 			end%if
 			
-			if ind0 > ind1
+			if any(diff(ind) <= 0)
 				error('segDat:selectIndexRange',...
-					'Upper/lower index IND0/IND1 must satisfy IND0 <= IND1.');
-			end%if
-			
-			if numel(indRange) > 2
-				warning('segDat:selectIndexRange:numelINDRANGE',...
-					'Ignoring additional elements of input argument INDRANGE.');
+					'Indices INDRANGE must be strictly increasing!');
 			end%if
 			
 			
 			%%% get subset of street segment
 			obj = segDat(...
-				obj.x(ind0:ind1),...
-				obj.y(ind0:ind1),...
-				obj.s(ind0:ind1) - obj.s(ind0),...
-				obj.k(ind0:ind1),...
-				obj.phi(ind0:ind1),...
-				obj.type(ind0:ind1),...
-				obj.nbr(ind0:ind1));
+				obj.x(ind),...
+				obj.y(ind),...
+				obj.s(ind) - obj.s(ind(1)),...
+				obj.k(ind),...
+				obj.phi(ind),...
+				obj.type(ind),...
+				obj.nbr(ind));
 			
 		end%fcn
 		
