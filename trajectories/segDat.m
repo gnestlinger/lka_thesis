@@ -566,26 +566,44 @@ classdef segDat
 		end%fcn
 		
 		
-		function write2file(obj,fn,format)
+		function write2file(obj,fn,format,varargin)
 		%WRITE2FILE		Write street segment to file.
 		%	WRITE2FILE(OBJ,FN) writes the street segment data OBJ to file
 		%	with filename FN (also specify extension!).
 		%	
-		%	WRITE2FILE(OBJ,FN,FORMAT) lets you specify the output format.
-		%	Supported values are:
-		%	  - 'CarMaker' .. digitized road for v4.0 - v5.0.1 (default value)
+		%	WRITE2FILE(OBJ,FN,FORMAT,VARARGIN) lets you specify the output
+		%	format. Supported values are:
+		%	  - 'raw' (default value)
+		%		 One column per property of OBJ. Property names are used as
+		%		 labels in the first row.
+		%	  - 'CarMaker4.0'
+		%		 ASCII file (cartesian coordinates), supports at least
+		%		 CarMaker v4.0 - v5.0.1.
+		%	  - 'CarMaker4.0_KML'
+		%		 KML file (WGS84-coordinates), supports at least
+		%		 CarMaker v4.0 - v5.0.1. Use VARARGIN to specify a scalar
+		%		 or vector of UTM zone integers.
 			
 		
 			% set the default FORMAT
 			if nargin < 3 || isempty(format)
-				format = 'CarMaker';
+				format = 'raw';
 			end%if
 			
 			% open file with write-permission
 			fid = fopen(fn,'w');
 			
 			switch format
-				case 'CarMaker'
+				case 'raw'
+					fprintf(fid,...
+						'%12s %12s %12s %12s %12s %4s %3s \n',...
+						'x [m]','y [m]','s [m]','k [1/m]','phi [rad]','type','nbr');
+					fprintf(fid,...
+						'%+12.3f %+12.3f %12.3f %12.3f %12.3f %4u %3u \n',...
+						[obj.x;obj.y;obj.s;obj.k;obj.phi;...
+						double(obj.type);double(obj.nbr)]);
+					
+				case 'CarMaker4.0'
 					% x .. x-coordinate [m]
 					% y .. y-coordinate [m]
 					% z .. altitude [m]
@@ -607,6 +625,22 @@ classdef segDat
 						'-append',...
 						'delimiter','	',...
 						'precision','%+f')
+					
+				case 'CarMaker4.0_KML'
+					
+					if isempty(varargin)
+						error('SEGDAT:WRITE2FILE:UTM_ZoneMissing',...
+							'You need to specify the UTM zone!');
+					end%if
+					[lat,lon] = utm2ll(obj.x,obj.y,varargin{1});
+					
+					fprintf(fid,...
+						'<Placemark>\n\t<LineString>\n\t\t<coordinates>\n');
+					fprintf(fid,...
+						'\t\t\t%+f,%+f,%+f \n',...
+						[lat;lon;zeros(size(obj.x))]);
+					fprintf(fid,...
+						'\t\t</coordinates>\n\t</LineString>\n</Placemark>');
 					
 				otherwise
 					fclose(fid);
