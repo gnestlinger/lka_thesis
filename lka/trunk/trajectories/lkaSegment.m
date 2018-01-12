@@ -347,7 +347,7 @@ classdef lkaSegment
             
 			% show calculation notes only for other segments than
 			% 'connected'
-			if ~strcmp(obj.segmentType,'connected')
+			if strcmp(obj.segmentType,'clothoid')
 				showCalcNote = true;
 			else
 				showCalcNote = false;
