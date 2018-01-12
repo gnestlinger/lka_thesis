@@ -79,7 +79,7 @@ classdef lkaSegmentConnect < lkaSegment
 			obj = shift@lkaSegment(obj,point);
 			
 			% shift segDat object manually
-			sd = shift(obj.segmentData,point);
+			sd = shiftTo(obj.segmentData,point);
 			
 			% recreate LKASEGMENTCONNECT object by calling its constructor
 			obj = lkaSegmentConnect(sd);
