@@ -880,6 +880,41 @@ classdef segDat
 		end%fcn
 		
 		
+		function h = quiver(obj,varargin)
+		%QUIVER		Quiver plot of street segment.
+		%	QUIVER(OBJ) plots vectors as arrows at coordinates
+		%	(OBJ.y,OBJ.x) with components (diff(OBJ.x),diff(obj.y))
+		%	
+		%	QUIVER(OBJ,S) additionally applies the line specification
+		%	S. Property 'AutoScale' is disabled permanently!
+		%	
+		%	H = QUIVER(...) returns the handle H to Quiver object.
+		%	
+		%	The line specification S is a character string supported by the
+		%	standard QUIVER command.
+		%	
+		%	See also QUIVER.
+		
+		
+			% apply plot options if unspecified
+			if isempty(varargin)
+%				varargin = {'o','MarkerSize',2,'MarkerFaceColor','blue'};
+				varargin = {'-b','LineWidth',2};
+			end%if
+			
+			% plot street segment
+			h = quiver_raw(obj,varargin{:});
+			
+			% apply plot styles
+			grid on;
+			axis equal;
+			title(getLegendCellString(obj));
+			ylabel('y [m]');
+			xlabel('x [m]');
+		
+		end%fcn
+		
+		
 		function h = plotdiff(obj,fh)
 		%PLOTDIFF	Plot the street segment with specific appearance.
 		%	PLOTDIFF(OBJ) plots each street segment type of OBJ using the
@@ -1274,26 +1309,10 @@ classdef segDat
 		
 		function h = plot_raw(obj,varargin)
 		%PLOT_RAW	Basic plot of street segment.
-		%	PLOT_RAW(OBJ) plots OBJ.y over OBJ.x
-		%	
-		%	PLOT(OBJ,S) additionally applies the line specification
-		%	S.
-		%	
-		%	H = PLOT(...) returns the handle H to lineseries objects.
-		%	
-		%	The line specification S is a character string supported by the
-		%	standard PLOT command. For example
-		%		PLOT(OBJ,'LineWidth',2,'Color',[.6 0 0]) 
-		%	will create a plot with a dark red line width of 2 points.
-		%	
 		%	To be used by public plot methods to avoid multiple calls to
 		%	plot styles like AXIS, TITLE, XLABEL, ...!
-		
-		
-			% check for class
-			if ~isa(obj,'segDat')
-				error('OBJ has to be of class SEGDAT!')
-			end%if
+		%
+		% See also SEGDAT/PLOT.
 			
 			% plot street segment
 			h(1) = plot(obj.x,obj.y,varargin{:});
@@ -1307,6 +1326,22 @@ classdef segDat
 				'Color',color,...
 				'MarkerFaceColor',color);
 			hold off
+			
+		end%fcn
+		
+		
+		function h = quiver_raw(obj,varargin)
+		%QUIVER_RAW		Basic quiver plot of street segment.
+		%	To be used by public plot methods to avoid multiple calls to
+		%	plot styles like AXIS, TITLE, XLABEL, ...!
+		%	
+		% See also SEGDAT/QUIVER.
+		
+			% plot street segment
+			u = diff(obj.x);
+			v = diff(obj.y);
+			h(1) = quiver(obj.x(1:end-1),obj.y(1:end-1),u,v,...
+				varargin{:},'AutoScale','off');
 			
 		end%fcn
 		
