@@ -74,29 +74,31 @@ classdef segDat
 		% 1-by-n double of Tangent angle [rad].
 		phi
 		
-		% 1-by-n int8 of Street segment type [-]:
-		%	-1 .. undefined/mixed
+		% 1-by-n int8 of curvature type [-]:
+		%	-1 .. unknown
 		%	 0 .. straight
 		%	 1 .. circular
 		%	 2 .. clothoid
 		type
+		% See also SEGDAT/CURVTYPES
 		
 		% 1-by-n uint16 of Street segment number [-].
 		nbr
 	end%properties
 	
 	
-	properties (Hidden)
+	properties (Constant, Hidden)
 		
-		%%% plot specifications
+		% curvature types
+		curvTypes = {'unknown','straight','circle','clothoid'};
 		
-		% Plot color
-		plotColor = {'b','g','r'};
+		% Plot color: one color per SEGDAT/TYPE
+		plotColor = {'m','b','g','r'};
 		
 		% Plot marker symbol/size
 		plotMarker = {...
 			'o','diamond';... % marker symbol
-			5,4}; % marker size
+			5,	4}; % marker size
 		
 	end%properties
 	
@@ -962,7 +964,7 @@ classdef segDat
 				hold on
 				h(i) = plot_raw(sd,...
 					'LineStyle','none',...
-					'Color',obj.plotColor{obj.type(indRange(1))+1},...
+					'Color',obj.plotColor{sd.type(1)+2},...
 					'Marker',plotMarker_{1,i},...
 					'MarkerSize',plotMarker_{2,i});
 				hold off
@@ -1305,11 +1307,10 @@ classdef segDat
 		
 		function cellStr = getLegendCellString(obj)
 			
-			ts = {'straight','circle','clothoid'};
 			if all(obj.type(1) == obj.type)
-				gettype = ts{obj.type(1)+1};
+				gettype = obj.curvTypes{obj.type(1) + 2};
 			else
-				gettype = 'connected';
+				gettype = 'mixed';
 			end%if
 			lengthStr	= [sprintf('%.2f',obj.s(end)),' m'];
 			pointsStr	= sprintf('%.0d',length(obj.s));
@@ -1328,16 +1329,13 @@ classdef segDat
 	%%% SET-Methods
 	methods
 		
-		function obj = set.plotColor(obj,value)
+		function obj = set.type(obj,value)
 			
-			[m,n] = size(value);
-			if min(m,n) > 1
-				error('Color specification seems to be matrix, but should be vector.')
-			end%if
-			
-			if max(m,n) < 3
-				error(['You have to specify at least three colors. ',...
-					'One for straight/circle/clohoid segments.'])
+			if any(value < -1) || any(value > 3)
+				error(['Street segment TYPE out of range! ',...
+					'Type help SEGDAT/TYPE for valid values.']);
+			else
+				obj.type = value;
 			end%if
 			
 		end%fcn
