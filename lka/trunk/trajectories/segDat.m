@@ -961,7 +961,9 @@ classdef segDat
 					ones(size(indRange))...
 					);
 				
-				hold on
+				if i > 1
+					hold on
+				end
 				h(i) = plot_raw(sd,...
 					'LineStyle','none',...
 					'Color',obj.plotColor{sd.type(1)+2},...
@@ -1271,7 +1273,7 @@ classdef segDat
 	methods (Access = private)
 		
 		function h = plot_raw(obj,varargin)
-		%PLOT_RAW	Basic plot of the street segment.
+		%PLOT_RAW	Basic plot of street segment.
 		%	PLOT_RAW(OBJ) plots OBJ.y over OBJ.x
 		%	
 		%	PLOT(OBJ,S) additionally applies the line specification
@@ -1299,7 +1301,11 @@ classdef segDat
 			% highlight first element as starting position
 			hold on;
 % 			h(2) = plot(obj.x(1),obj.y(1),varargin{:},'Marker','o');
-			plot(obj.x(1),obj.y(1),varargin{:},'Marker','o');
+% 			plot(obj.x(1),obj.y(1),varargin{:},'Marker','o');
+			color = get(h(1),'Color');
+			plot(obj.x(1),obj.y(1),varargin{:},...
+				'Color',color,...
+				'MarkerFaceColor',color);
 			hold off
 			
 		end%fcn
