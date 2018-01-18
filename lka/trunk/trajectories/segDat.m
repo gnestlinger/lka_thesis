@@ -294,12 +294,17 @@ classdef segDat
 		%	See also LKASEGMENTCIRCLE.
 			
 			%%% handle input arguments
-			if nargin < 2
+			if nargin < 2 || isempty(indMinMax)
 				indMin = 1;
 				indMax = numel(obj.x);
 			else
 				indMin = indMinMax(1);
 				indMax = indMinMax(2);
+			end%if
+			
+			if indMin >= indMax
+				error('SEGDAT:FITCIRCLE:index',...
+					'Start index must be smaller than end index!');
 			end%if
 			
 			if nargin < 3
@@ -326,9 +331,10 @@ classdef segDat
 			
 			% plot if required
 			if doPlot
-				plot(obj,'r');
+				plot(obj,'r','Marker','o','DisplayName','Original path');
 				hold on
-				plot(lkaSeg,'b');
+				plot(xsub,ysub,'r','Marker','.','DisplayName','Path under test');
+				plot(lkaSeg,'b','DisplayName','Fitted path');
 			end%if			
 			
 		end%fcn
