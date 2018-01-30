@@ -344,7 +344,12 @@ classdef segDat
 		%+ Plus.
 		%	OBJ12 = OBJ1 + OBJ2 adds the street segment data OBJ2 with its
 		%	starting point to the end point of street segment data OBJ1
-		%	resulting in the street segment data OBJ12.
+		%	resulting in the street segment data OBJ12. 
+		%	
+		%	End point of OBJ1 and starting point of OBJ2 are assumed to
+		%	overlap! Therefore, the resulting segment OBJ consists of one
+		%	element less than the total number of elements of OBJ1 and
+		%	OBJ2.
 		%	
 		%	Note that here plus (+) is a non-commutative operation!
 			
