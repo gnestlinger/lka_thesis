@@ -35,6 +35,7 @@ classdef segDat
 %	 
 %	 - ANALYSIS
 %	 plot		 - Plot street segments.
+%	 plotcmp	 - Plot variable number of street segments to same figure.
 %	 plotdiff	 - Plot street segments with specific appearance.
 %	 plotdiff_	 - Plot street segment property with specific appearance.
 %	 plottangent - Plot street segments and specified tangents.
@@ -927,6 +928,36 @@ classdef segDat
 		end%fcn
 		
 		
+		function h = plotcmp(obj,varargin)
+		%PLOTCMP	Compare street segments.
+		%	PLOTCMP(OBJ,VARARGIN) plots the street segments OBJ and
+		%	VARARGIN to the same figure to compare them against each other.
+		%	
+		%	H = PLOTCMP(...) returns the handle H to lineseries objects.
+		%	
+		%	See also segDat/plot.
+		
+			
+			h = zeros(1+numel(varargin),1);
+			h(1) = plot_raw(obj);
+			
+			for i = 1:numel(varargin)
+				if i == 1; hold all; end
+				
+				h(i+1) = plot_raw(varargin{i});
+				
+				if i == numel(varargin); hold off; end
+			end%for
+			
+			% apply plot styles
+			grid on;
+			axis equal;
+			ylabel('y [m]');
+			xlabel('x [m]');
+		
+		end%fcn
+		
+		
 		function h = plotdiff(obj,fh)
 		%PLOTDIFF	Plot the street segment with specific appearance.
 		%	PLOTDIFF(OBJ) plots each street segment type of OBJ using the
@@ -1325,19 +1356,23 @@ classdef segDat
 		%	plot styles like AXIS, TITLE, XLABEL, ...!
 		%
 		% See also SEGDAT/PLOT.
+		
+			% get current status of 'NextPlot' property
+			axh = gca;
+			npState = get(axh,'NextPlot');
 			
 			% plot street segment
 			h(1) = plot(obj.x,obj.y,varargin{:});
 			
 			% highlight first element as starting position
-			hold on;
+			set(axh,'NextPlot','add');
 % 			h(2) = plot(obj.x(1),obj.y(1),varargin{:},'Marker','o');
 % 			plot(obj.x(1),obj.y(1),varargin{:},'Marker','o');
 			color = get(h(1),'Color');
 			plot(obj.x(1),obj.y(1),varargin{:},...
 				'Color',color,...
 				'MarkerFaceColor',color);
-			hold off
+			set(axh,'NextPlot',npState); % reset to initial state
 			
 		end%fcn
 		
