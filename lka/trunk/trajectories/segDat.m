@@ -31,7 +31,6 @@ classdef segDat
 %	 setStartIndex - Set an new starting starting element.
 %	 shiftBy - Shift street segment by point.
 %	 shiftTo - Shift street segment to point.
-%	 xy2segDat - Convert x/y-coordinates to SEGDAT object.
 %	 
 %	 - ANALYSIS
 %	 plot		 - Plot street segments.
@@ -43,6 +42,7 @@ classdef segDat
 %	 - MISC
 %	 laneTracking - Get the lane tracking pose.
 %	 write2file	- Write segment data to file.
+%	 xy2segDat - Convert x/y-coordinates to SEGDAT object.
 %	 
 %	
 %	See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
@@ -430,7 +430,8 @@ classdef segDat
 		%	OBJ = SELECTINDEXRANGE(OBJ,INDRANGE) selects a subset of street
 		%	segment OBJ specified by indices INDRANGE.
 		%	
-		%	Indices INDRANGE must be strictly increasing.
+		%	Indices INDRANGE must be strictly increasing, otherwise a
+		%	warning will be issued!
 		%	
 		%	If INDRANGE is scalar, it is used as the start index and the
 		%	end index is set to the lenght of OBJ.
@@ -451,8 +452,9 @@ classdef segDat
 			end%if
 			
 			if any(diff(ind) <= 0)
-				error('segDat:selectIndexRange',...
-					'Indices INDRANGE must be strictly increasing!');
+				warning('segDat:selectIndexRange',...
+					['Indices INDRANGE are not strictly increasing! ',...
+					'This might result in incorrect results (property S)!']);
 			end%if
 			
 			
