@@ -31,6 +31,7 @@ classdef segDat
 %	 setStartIndex - Set an new starting starting element.
 %	 shiftBy - Shift street segment by point.
 %	 shiftTo - Shift street segment to point.
+%	 xy2segDat - Convert x/y-coordinates to SEGDAT object.
 %	 
 %	 - ANALYSIS
 %	 plot		 - Plot street segments.
@@ -1625,6 +1626,43 @@ classdef segDat
 			
 		end%fcn
 		
+		
+		function sd = xy2segDat(x,y)
+		%XY2SEGDAT	Convert x/y coordinates to SEGDAT class.
+		%   OBJ = XY2SEGDAT(X,Y) creates the instace OBJ of class SEGDAT
+		%   from X/Y-coordinates given in meter.
+		%
+		%	Property S is calculated using cumulative sum.
+		%	Properties K and PHI are set to NaN.
+		%	Property TYPE is set to -1.
+		%	Property NBR is set to 1.
+		
+			
+			%%% handle input arguments
+			if ~isvector(x) || ~isvector(y)
+				error('Input arguments X/Y must be vectors!');
+			end%if
+			
+			if numel(x) ~= numel(y)
+				error('Input arguments X/Y must have the same number of elements!');
+			else
+				x = x(:)';
+				y = y(:)';
+			end%if
+			
+			
+			%%% convert to SEGDAT
+			sd = segDat(...
+				x,...
+				y,...	
+				[0,cumsum(sqrt(diff(x).^2 + diff(y).^2))],...
+				NaN(size(x)),...
+				NaN(size(x)),...
+				-1,...
+				1);
+			
+		end%fcn
+
 	end%methods
 	
 	
