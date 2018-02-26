@@ -1566,13 +1566,13 @@ classdef segDat
 		%	[INDL,INDU] = INTERPINDEXRANGE(IND,INDMINMAX,M) returns the
 		%	lower and upper indices INDL and INDU within index boundaries
 		%	[INDMINMAX(1) INDMINMAX(2)] using an index difference M for
-		%	givenen indices IND.
+		%	given indices IND.
 		%	
-		%	Indices INDL/INDU define range of interpolation, basically
-		%	IND-M and IND+M but ensure INDL>INDMINMAX(1) and
-		%	INDU<INDMINMAX(2).
+		%	Indices INDL/INDU define the range of interpolation, basically
+		%	IND-M and IND+M but ensure INDL > INDMINMAX(1) and INDU <
+		%	INDMINMAX(2).
 		
-
+		
 			%%% handle input arguments
 			% input IND
 			if  ~isvector(ind) % check size
@@ -1624,7 +1624,7 @@ classdef segDat
 			indu = indLU(:,2);
 			
 		end%fcn
-
+		
 	end%methods
 	
 	
