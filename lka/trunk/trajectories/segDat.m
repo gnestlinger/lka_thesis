@@ -592,6 +592,7 @@ classdef segDat
 		%		 KML file (WGS84-coordinates), supports at least
 		%		 CarMaker v4.0 - v5.0.1. Use VARARGIN to specify a scalar
 		%		 or vector of UTM zone integers.
+		%		 The file extension is set to '.kml'.
 			
 		
 			% set the default FORMAT
@@ -599,11 +600,12 @@ classdef segDat
 				format = 'raw';
 			end%if
 			
-			% open file with write-permission
-			fid = fopen(fn,'w');
 			
 			switch format
 				case 'raw'
+					% open file
+					fid = segDat.openFileWithExt(fn);
+					
 					fprintf(fid,...
 						'%12s %12s %12s %12s %12s %4s %3s \n',...
 						'x [m]','y [m]','s [m]','k [1/m]','phi [rad]','type','nbr');
@@ -613,6 +615,9 @@ classdef segDat
 						double(obj.type);double(obj.nbr)]);
 					
 				case 'CarMaker4.0'
+					% open file
+					fid = segDat.openFileWithExt(fn);
+					
 					% x .. x-coordinate [m]
 					% y .. y-coordinate [m]
 					% z .. altitude [m]
@@ -636,6 +641,8 @@ classdef segDat
 						'precision','%+f')
 					
 				case 'CarMaker4.0_KML'
+					% open file
+					fid = segDat.openFileWithExt(fn,'.kml');
 					
 					if isempty(varargin)
 						error('SEGDAT:WRITE2FILE:UTM_ZoneMissing',...
@@ -652,7 +659,6 @@ classdef segDat
 						'\t\t</coordinates>\n\t</LineString>\n</Placemark>');
 					
 				otherwise
-					fclose(fid);
 					error('segDat:write2File','Unknown FORMAT specifier');
 					
 			end%switch
@@ -1661,6 +1667,28 @@ classdef segDat
 			indl = indLU(:,1);
 			indu = indLU(:,2);
 			
+		end%fcn
+		
+		
+		function fid = openFileWithExt(fn,fExt_set)
+			
+			if nargin > 1
+				[~,fName,fExt] = fileparts(fn);
+				if isempty(fExt)
+					warning('segDat:write2file:fileExtension',...
+						'Adding file extension ''%s'' to file name!',...
+						fExt_set);
+				elseif ~strcmp(fExt,fExt_set)
+					warning('segDat:write2file:fileExtension',...
+						'Replacing file extension ''%s'' by ''%s''!',...
+						fExt,fExt_set);
+				end%if
+				fn = [fName,fExt_set];
+			end%if
+			
+			% open file with write-permission
+			fid = fopen(fn,'w');
+				
 		end%fcn
 		
 		
