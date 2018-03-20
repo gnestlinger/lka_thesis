@@ -1693,17 +1693,32 @@ classdef segDat
 		
 		
 		function sd = xy2segDat(x,y)
-		%XY2SEGDAT	Convert x/y coordinates to SEGDAT class.
+		%XY2SEGDAT	Convert x/y coordinates to SEGDAT class. 
 		%   OBJ = XY2SEGDAT(X,Y) creates the instace OBJ of class SEGDAT
-		%   from X/Y-coordinates given in meter.
+		%   from X/Y-coordinates given in meter. X and Y must be vectors
+		%   with the same number of elements!
+		% 
+		%   OBJ = XY2SEGDAT(XY) X/Y-coordinates are given in the array XY
+		%   of size 2-by-n.
 		%
 		%	Property S is calculated using cumulative sum.
 		%	Properties K and PHI are set to NaN.
 		%	Property TYPE is set to -1.
 		%	Property NBR is set to 1.
 		
-			
+		
+			narginchk(1,2);
+		
 			%%% handle input arguments
+			if nargin < 2
+				if size(x,1) ~= 2
+					error('When using one argument syntax, array must have 2 rows!');
+				else
+					y = x(2,:);
+					x = x(1,:);
+				end%if
+			end%if
+			
 			if ~isvector(x) || ~isvector(y)
 				error('Input arguments X/Y must be vectors!');
 			end%if
