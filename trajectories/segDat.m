@@ -585,9 +585,13 @@ classdef segDat
 		%	  - 'raw' (default value)
 		%		 One column per property of OBJ. Property names are used as
 		%		 labels in the first row.
+		%		 
 		%	  - 'CarMaker4.0'
 		%		 ASCII file (cartesian coordinates), supports at least
 		%		 CarMaker v4.0 - v5.0.1.
+		%		 Set the lane widths using VARARGIN = [width_left width
+		%		 right].
+		%		 
 		%	  - 'CarMaker4.0_KML'
 		%		 KML file (WGS84-coordinates), supports at least
 		%		 CarMaker v4.0 - v5.0.1. Use VARARGIN to specify a scalar
@@ -625,8 +629,13 @@ classdef segDat
 					% wl/wr .. track width left/right [m]
 					% ml/mr .. margin width left/right [m]
 					N = numel(obj.x);
-					wl = 3*ones(N,1);
-					wr = 3*ones(N,1);
+					if nargin < 4
+						laneWidth_left	= 0;
+						laneWidth_right = 0;
+					else
+						laneWidth_left	= varargin{1}(1);
+						laneWidth_right = varargin{1}(2);
+					end
 					fprintf(fid,':	x	y	z	q	wl	wr	ml	mr\n');
 					fprintf(fid,'#\n# IPG ROADDATA\n');
 					fprintf(fid,'# This file was created automatically:\n');
@@ -635,7 +644,8 @@ classdef segDat
 					fprintf(fid,'#\n# Add your comments here!\n#\n#\n');
 					fprintf(fid,'#	x	y	z	q	wl	wr	ml	mr\n');
 					dlmwrite(fn,...
-						[obj.x(:),obj.y(:),zeros(N,1),zeros(N,1),wl,wr],...
+						[obj.x(:),obj.y(:),zeros(N,1),zeros(N,1),...
+						laneWidth_left*ones(N,1),laneWidth_right*ones(N,1)],...
 						'-append',...
 						'delimiter','	',...
 						'precision','%+f')
