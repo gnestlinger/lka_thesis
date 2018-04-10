@@ -1,12 +1,12 @@
 classdef lkaSegmentClothoid < lkaSegment
 %LKASEGMENTCLOTHOID		Create clothoidal street segment.
 %	
-%	SEG = LKASEGMENTCLOTHOID(DELTASET,CURVSTART,CURVSTOP,SLOPESTART,A)
-%	creates a clothoidal shaped street segment with an initial/end
+%	OBJ = LKASEGMENTCLOTHOID(DELTASET,CURVSTART,CURVSTOP,SLOPESTART,A)
+%	creates a clothoidal shaped street segment OBJ with an initial/end
 %	curvature CURVSTART/CURVSTOP, an initial slope SLOPESTART and the
 %	clothoid parameter A>0.
 %	
-%	SEG = LKASEGMENTCLOTHOID([],CURVSTART,CURVSTOP,SLOPESTART,A) applies
+%	OBJ = LKASEGMENTCLOTHOID([],CURVSTART,CURVSTOP,SLOPESTART,A) applies
 %	the default value for DELTASET (see superclass LKASEGMENT).
 %	
 %	Interpretation of the clothoid parameter A: a clothiods curvature k is

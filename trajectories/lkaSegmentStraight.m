@@ -1,11 +1,11 @@
 classdef lkaSegmentStraight < lkaSegment
 %LKASEGMENTSTRAIGHT		Create straight street segment.
 %
-%	SEG = LKASEGMENTSTRAIGHT(DELTASET,LENGTH,ANGLE) creates a straight
-%	street segment SEG of length LENGTH and orientation ANGLE. Each two
+%	OBJ = LKASEGMENTSTRAIGHT(DELTASET,LENGTH,ANGLE) creates a straight
+%	street segment OBJ of length LENGTH and orientation ANGLE. Each two
 %	nearby street segment points have a distance of at most DELTASET.
 %	
-%	SEG = LKASEGMENTSTRAIGHT([],LENGTH,ANGLE) applies the default value
+%	OBJ = LKASEGMENTSTRAIGHT([],LENGTH,ANGLE) applies the default value
 %	for DELTASET (see superclass LKASEGMENT).
 %
 %	See also LKASEGMENT.
