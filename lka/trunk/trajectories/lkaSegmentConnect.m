@@ -1,9 +1,7 @@
 classdef lkaSegmentConnect < lkaSegment
 %LKASEGMENTCONNECT	Create connected segments.
 %	
-%	--- (just used by subclasse-methods) ---------------------------------
 %	SEG = LKASEGMENTCONNECT(SEGDAT) stores the segment data SEGDAT object.
-%	----------------------------------------------------------------------
 %	
 %	See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
 %	LKASEGMENTCLOTHOID.
@@ -52,7 +50,8 @@ classdef lkaSegmentConnect < lkaSegment
         function obj = lkaSegmentConnect(segmentData)
             
             % call superclass constructor
-            obj = obj@lkaSegment('connected',NaN,[0,0]);
+            obj = obj@lkaSegment('connected',NaN,...
+				[segmentData.x(1) segmentData.y(1)]);
             
             obj.nbrOfPoints_stored = length(segmentData.x);
 			obj.segmentData_stored = segmentData;
@@ -64,9 +63,8 @@ classdef lkaSegmentConnect < lkaSegment
     
     %%% User-facing methods
     methods
-         
-        %%% redefine superclass-method
-        function obj = shift(obj,point)
+		
+        function obj = shift(obj,point) % redefine superclass-method
         %SHIFT  Shift the street segment.
 		%	See also LKASEGMENT/SHIFT.
         
@@ -86,9 +84,8 @@ classdef lkaSegmentConnect < lkaSegment
             
         end%fcn
         
-        
-        %%% redefine superclass-method
-        function obj = resample(obj,deltaNew)
+          
+        function obj = resample(obj,deltaNew) % redefine superclass-method
         %RESAMPLE   Apply a set distance between points.
         %   For objects of class LKASEGMENTCONNECT, resampling the
         %   connected street segment is not possible.
@@ -110,7 +107,7 @@ classdef lkaSegmentConnect < lkaSegment
 	
 	%%% GET-Methods
     methods
-        
+		
         function value = get.length(obj)
 %             disp('getting length...')
             value = obj.segmentData.s;
@@ -144,6 +141,13 @@ classdef lkaSegmentConnect < lkaSegment
 	%%% Implementation of abstract methods
     methods (Access = protected)
         
+		function obj = rotate_abstract(obj,phi)
+			
+			sd_rot	= rotate(obj.segmentData,phi);
+			obj		= lkaSegmentConnect(sd_rot);
+			
+		end%fcn
+		
         function value = getNbrOfPoints_abstract(obj)
 % 			disp('getting NbrOfPoints...')
 			value = obj.nbrOfPoints_stored;

@@ -226,6 +226,15 @@ classdef lkaSegmentClothoid < lkaSegment
 	%%% Implementation of abstract methods
     methods (Access = protected)
         
+		function obj = rotate_abstract(obj,phi)
+			
+			obj	= shift(obj,...
+				[obj.rotMatX(phi);obj.rotMatY(phi)]*obj.xyStart');
+			
+			obj.slopeStart = obj.slopeStart + phi;
+			
+		end%fcn
+		
         function value = getNbrOfPoints_abstract(obj)
             % calc the number of points of segment to match 'deltaSet'
             

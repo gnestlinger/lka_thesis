@@ -3,9 +3,10 @@ classdef lkaSegment
 %	
 %	This class is not user-facing and cannot be instantiated!
 %	User-facing subclasses include:
-%	  * Straight segments: LKASEGMENTSTRAIGHT
-%	  * Circular segments: LKASEGMENTCIRCLE
-%	  * Clothoid segments: LKASEGMENTCLOTHOID
+%	  * Straight segments:	LKASEGMENTSTRAIGHT
+%	  * Circular segments:	LKASEGMENTCIRCLE
+%	  * Clothoid segments:	LKASEGMENTCLOTHOID
+%	  * Connected segments: LKASEGMENTCONNECT
 %	
 %	LKASEGMENT Properties:
 %	 segmentType - Name of the segment type.
@@ -18,8 +19,13 @@ classdef lkaSegment
 %	 length		 - Arc length of the segment.
 %	
 %	LKASEGMENT Methods:
+%	 - DESIGN
+%	 plus		 - Connect segments.
 %	 resample	 - Apply a new value for DELTASET.
+%	 rotate		 - Rotate segment.
 %	 shift		 - Shift segment.
+% 
+%	 - ANALYSIS
 %	 plot		 - Plot segment.
 %	 plotdiff	 - Plot segment using segment-type specific plot styles.
 %	 plottangent - Plot segment and tangents of specified segment points.
@@ -34,7 +40,7 @@ classdef lkaSegment
 %	----------------------------------------------------------------------
 %	
 %	See also LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE, LKASEGMENTCLOTHOID,
-%	SEGDAT.
+%	LKASEGMENTCONNECT, SEGDAT.
 % 
 
 % Subject: lka
@@ -49,6 +55,10 @@ classdef lkaSegment
 %	
 %	(2) Implement method GETNBROFPINTS_ABSTRACT in supercalls LKASEGMENT
 %	and overload it for sublass LKASEGMENTCONNECT?
+%	
+%	(3) Check if properties ROTMAT* are used, ROTMAT() seems to fail.
+%	
+%	(4) Fix value of property DELTAACT for class LKASEGMENTCONNECT.
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%% PROPERTIES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -219,6 +229,18 @@ classdef lkaSegment
             obj.deltaSet = deltaNew;
             
         end%fcn
+		
+		
+		function obj = rotate(obj,phi)
+		%ROTATE		Rotate the street segment.
+		%	OBJ = ROTATE(OBJ,PHI) rotates the street segment OBJ by an
+		%	angle PHI counter-clockwise.
+		%
+		
+			% call abstract method
+			obj	= rotate_abstract(obj,phi);
+			
+		end%fcn
 		
 		
 		function obj = shift(obj,point)
@@ -464,6 +486,8 @@ classdef lkaSegment
     methods (Abstract, Access = protected)
         % abstract methods to be implemented by subclasses
 		
+		obj		= rotate_abstract(obj,phi);
+		
         nbr		= getNbrOfPoints_abstract(obj);
         endP	= getEndPoint_abstract(obj)      
         segdat	= getSegmentData_abstract(obj)
@@ -498,7 +522,7 @@ classdef lkaSegment
             
             % create messages
             msg1 = ['You cannot set ''',prop,''' explicitly. '];
-            msg2 = 'This object owns the folloing adjustable properties: ';
+            msg2 = 'This object owns the following adjustable properties: ';
             msg3 = ['Try setting one or more of these to get the desired ''',prop,'''.'];
             
             if nbrOfDesignProps > 1
