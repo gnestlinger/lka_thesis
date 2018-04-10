@@ -111,8 +111,7 @@ classdef lkaSegmentStraight < lkaSegment
         
 		function obj = rotate_abstract(obj,phi)
 			
-			obj	= shift(obj,...
-				[obj.rotMatX(phi);obj.rotMatY(phi)]*obj.xyStart');
+			obj	= shift(obj, obj.rotMat(phi)*obj.xyStart' );
 			obj.angle = obj.angle + phi;
 			
 		end%fcn
