@@ -56,7 +56,8 @@ classdef lkaSegment
 %	(2) Implement method GETNBROFPINTS_ABSTRACT in supercalls LKASEGMENT
 %	and overload it for sublass LKASEGMENTCONNECT?
 %	
-%	(3) Check if properties ROTMAT* are used, ROTMAT() seems to fail.
+%	(3) Check if properties ROTMAT* are used, ROTMAT() seems to fail. FIXED
+%	in r228 @ 2018-04-10.
 %	
 %	(4) Fix value of property DELTAACT for class LKASEGMENTCONNECT.
 
@@ -68,51 +69,45 @@ classdef lkaSegment
         
         % segmentTypeValid - Valid segment types.
         %	Cell of strings defining the valid segment types.
-        %
         segmentTypeValid = {'connected','straight','circle','clothoid'};
         
-    end
-    
-    
+	end%
+	
+	
     properties (Constant, Hidden, GetAccess = protected)
         
         % rotMatX - Rotation matrix x-component.
         %   The x-component of a vector p = [x;y] is rotated by an angle
-        %   phi counter-clockwise by rotMatX(phi)*p.
-        %   
+        %   PHI counter-clockwise by rotMatX(PHI)*p.
         rotMatX = @(phi) [cos(phi) -sin(phi)];
         
         % rotMatY - Rotation matrix y-component.
         %   The y-component of a vector p = [x;y] is rotated by an angle
-        %   phi counter-clockwise by rotMatY(phi)*p.
-        %
+        %   PHI counter-clockwise by rotMatY(PHI)*p.
         rotMatY = @(phi) [sin(phi) +cos(phi)];
         
 		% rotMat - Rotation matrix in R^2.
-		%	A vector p = [x;y] is rotated by an angle phi counter-clockwise
-		%	by rotMat(phi)*p.
-		%
-		rotMat = @(phi) [lkaSegment.rotMatX(phi);lkaSegment.rotMatY(phi)];
+		%	A vector p = [x;y] is rotated by an angle PHI counter-clockwise
+		%	by rotMat(PHI)*p.
+		rotMat = @(phi) [cos(phi) -sin(phi); sin(phi) +cos(phi)];
 		
-    end
-    
-    
+	end%
+	
+	
     properties (Constant, Hidden, Abstract)
         
         % designProperties - User adjustable properties for segment design.
-        %   Cell of strings defining the user-adjustable properties used
-        %   for segment design.
-        %
+        %   Cell of strings defining user-adjustable properties used for
+        %   segment design.
         designProperties;
         
-    end
-    
-    
+    end%
+	
+	
     properties (SetAccess = private)
         
         % segmentType - The segment type.
         %   String indicating the type of the segment.
-        %
         segmentType; %segment info data
         
         % deltaSet - Desired distance between two consecutive points [m].
@@ -122,60 +117,53 @@ classdef lkaSegment
 		%	an upper bound.
 		%	
 		%	The default value is DELTASET = 1.
-		%
         deltaSet = 1; %segment design data
         
-    end
-    
-    
+    end%
+	
+	
     properties (Dependent, SetAccess = private)
         
         % deltaAct - Actual distance between two nearby points [m].
 		%	Currently used distance between two nearby segment points. In
 		%	general, this value differs from the desired distance DELTASET.
-		%	
         deltaAct; %segment info data
         
         % nbrOfPoints - Number of segment-points [-].
 		%	This is the minimum and currently used number of segment points
 		%	required, to fullfill DELTAACT < DELTASET.
-		%	
         nbrOfPoints; %segment info data
         
-    end
-    
-    
+	end%
+	
+	
     properties (SetAccess = private)
         
         % xyStart - Starting point in x/y-plane [m].
-        %   
         xyStart; %segment design data
         
-    end
-    
-    
+    end%
+	
+	
     properties (Dependent, SetAccess = private)
         
-        % xyStop - Endpoint in x/y-plane [m].
-        %   
+        % xyStop - Endpoint in x/y-plane [m].  
         xyStop; %segment info data 
         
-        % segmentData - Object of street segment data.
-        %   
+        % segmentData - Object of street segment data. 
         segmentData;
         
-    end
-    
-    
+    end%
+	
+	
     properties (Abstract)
         
         % length - Arc length of the segment [m].
 		%	Depending on the implementation of the subclass, this property
 		%	is either just for info purpose or can be set by the user.
-		%	
         length; %segment design or info data
         
-    end
+    end%
     
     
     
