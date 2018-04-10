@@ -1,10 +1,11 @@
 classdef lkaSegmentConnect < lkaSegment
 %LKASEGMENTCONNECT	Create connected segments.
 %	
-%	SEG = LKASEGMENTCONNECT(SEGDAT) stores the segment data SEGDAT object.
+%	OBJ = LKASEGMENTCONNECT(SEGDAT) stores object SEGDAT of class segDat in
+%	OBJ.
 %	
 %	See also LKASEGMENT, LKASEGMENTSTRAIGHT, LKASEGMENTCIRCLE,
-%	LKASEGMENTCLOTHOID.
+%	LKASEGMENTCLOTHOID, SEGDAT.
 
 % Subject: lka
 % Author: $Author$

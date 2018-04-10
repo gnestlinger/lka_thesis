@@ -1,13 +1,13 @@
 classdef lkaSegmentCircle < lkaSegment
 %LKASEGMENTCIRCLE 	Create circular street segment.
 %	
-%	SEG = LKASEGMENTCIRCLE(DELTASET,ANGLESTART,ANGLESTOP,RADIUS) creates a
-%	circular street segment of radius RADIUS>0 starting at the angle
+%	OBJ = LKASEGMENTCIRCLE(DELTASET,ANGLESTART,ANGLESTOP,RADIUS) creates a
+%	circular street segment OBJ of radius RADIUS>0 starting at the angle
 %	ANGLESTART and finishing at the angle ANGLESTOP
 %	 .) clockwise if ANGLESTART > ANGLESTOP with curvature < 0,
 %	 .) counter-clockwise if ANGLESTART < ANGLESTOP with curvature > 0.
 %	
-%	SEG = LKASEGMENTCIRCLE([],ANGLESTART,ANGLESTOP,RADIUS) applies the
+%	OBJ = LKASEGMENTCIRCLE([],ANGLESTART,ANGLESTOP,RADIUS) applies the
 %	default value for DELTASET (see superclass LKASEGMENT).
 % 
 %	See also LKASEGMENT.
