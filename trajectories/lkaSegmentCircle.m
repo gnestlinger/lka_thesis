@@ -145,6 +145,17 @@ classdef lkaSegmentCircle < lkaSegment
 	%%% Implementation of abstract methods
     methods (Access = protected)
         
+		function obj = rotate_abstract(obj,phi)
+			
+			obj	= shift(obj,...
+				[obj.rotMatX(phi);obj.rotMatY(phi)]*obj.xyStart');
+			
+			obj.angleStart	= obj.angleStart + phi;
+			obj.angleStop	= obj.angleStop + phi;
+			
+		end%fcn
+		
+		
         function value = getNbrOfPoints_abstract(obj)
             % calc the number of elements of segment to match 'deltaSet'
             
