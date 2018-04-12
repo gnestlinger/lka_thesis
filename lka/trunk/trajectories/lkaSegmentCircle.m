@@ -175,8 +175,8 @@ classdef lkaSegmentCircle < lkaSegment
         function segdat = getSegmentData_abstract(obj)
         % create circular segment based on object data    
             
-            % get sign of curvature k !!!!!!! liefert vlt. FALSCHE Ergebnisse
-            if obj.angleStop < obj.angleStart; 
+            % get sign of curvature k
+            if obj.angleStop < obj.angleStart
                 signk = -1;
             else
                 signk = 1;

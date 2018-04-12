@@ -290,9 +290,9 @@ classdef lkaSegment
         
             %%% handle input arguments
 			% call SEGDAT-class method
-			if nargin < 2;
+			if nargin < 2
 				h = plotdiff(obj.segmentData);
-			else			
+			else
 				h = plotdiff(obj.segmentData,fh);
 			end%if
         
