@@ -243,7 +243,7 @@ classdef lkaSegmentClothoid < lkaSegment
         
         function value = getEndPoint_abstract(obj)
             
-			value = obj.xyStop_stored;
+            value = 'currently unsupported to get that value';
             
         end%fcn
         
@@ -281,8 +281,6 @@ classdef lkaSegmentClothoid < lkaSegment
 			
 			% shift whole trajectory so [x(1);y(1)] matches xyStart
 			segdat = shiftTo(segdat,obj.xyStart);
-			
-			obj.xyStop_stored = [segdat.x(end), segdat.y(end)];
 			
 			% just for debugging
 % 			plottangent(segdat,[1,length(segdat.x)]);
