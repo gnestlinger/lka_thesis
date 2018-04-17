@@ -173,6 +173,30 @@ classdef lkaSegmentConnect < lkaSegment
         end%fcn
         
     end%methods
+	
+	
+	methods (Access = protected)
+		
+		function value = get_deltaAct_(obj) % redefine superclass method
+		% GET_DELTAACT_		Calcuate ds for connected segments.
+			
+			% get the segment data
+			sd = obj.segmentData;
+			
+			% starting indices of individual segments
+			ind = [1, find(diff(sd.nbr)) + 1, numel(sd.x)];
+			
+			value = zeros(1,numel(ind)-1);
+			for i = 1:numel(ind)-1
+				nbrel = ind(i+1) - 1 - ind(i);
+				lengt = sd.s(ind(i+1)-1) - sd.s(ind(i));
+				
+				value(i) = lengt/nbrel; 
+			end%for
+			
+		end%fcn
+		
+	end
     
         
 end%classdef
