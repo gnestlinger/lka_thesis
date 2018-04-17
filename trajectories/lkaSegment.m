@@ -327,9 +327,9 @@ classdef lkaSegment
         
 		function value = get.deltaAct(obj)
 			
-			value = obj.length/(obj.nbrOfPoints-1);
+			value = get_deltaAct_(obj);
 			
-			if (value < 0) || (value > obj.deltaSet)
+			if any((value < 0) | (value > obj.deltaSet))
 				warning('MATLAB:lkaSegment:get:deltaAct',...
 					'Actual delta has an invalid value!!!')
 			end%if
@@ -482,8 +482,17 @@ classdef lkaSegment
         
     end%Abstract-Methods
     
+	
+    methods (Access = protected)
+		
+		% must not be private for overloading in subclasses
+		function value = get_deltaAct_(obj)
+			value = obj.length/(obj.nbrOfPoints-1);
+		end%fcn
+		
+	end
     
-    
+	
     methods (Access = protected)
         
         %%% error message
