@@ -96,9 +96,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Georg"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jun 06 19:11:46 2018"
-  RTWModifiedTimeStamp	  450212187
-  ModelVersionFormat	  "1.%<AutoIncrement:884>"
+  LastModifiedDate	  "Wed Jun 06 19:13:46 2018"
+  RTWModifiedTimeStamp	  450213221
+  ModelVersionFormat	  "1.%<AutoIncrement:885>"
   ConfigurationManager	  "none"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -5816,7 +5816,7 @@ Library {
 	      Ports		      [1, 1]
 	      Position		      [170, 20, 240, 50]
 	      ZOrder		      -16
-	      MATLABFcn		      "lkaLaneTracking(pin.traj_sd,u(1:2),u(3),u(4:end))"
+	      MATLABFcn		      "laneTracking(pin.traj_sd,u(1:2),u(3),u(4:end))"
 	      Output1D		      off
 	    }
 	    Block {
