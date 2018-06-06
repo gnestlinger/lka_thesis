@@ -38,7 +38,7 @@ LAD_Ctrl = 10;
 % LKA-controler design: calculate controller with upper parameters
 contr.t = lkaController_t(stringCvehicle,vx_Ctrl,LAD_Ctrl);
 addpath('algSynth');
-contr.s = lkaController_s(stringCvehicle,vx_Ctrl,LAD_Ctrl);
+% contr.s = lkaController_s(stringCvehicle,vx_Ctrl,LAD_Ctrl);
 
 
 %% Simulation parameter
