@@ -107,7 +107,7 @@ try
 	% In Matlab R2012a this does not work!
 	sys.StateName = SN;
 	sys.StateUnit = SU;
-catch exc
+catch %exc
 	warning('This MATLAB release does not support properties "StateName" or "StateUnit" for class GENSS.');
 end
 sys.OutputName = ON;
@@ -320,7 +320,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % check input arguments
-if ~ischar(paramFileSteer); 
+if ~ischar(paramFileSteer) 
     error('Input argument steering-parameter-filename not of type char'); 
 end
 
@@ -389,7 +389,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % check input arguments
-if ~ischar(paramFileSteer); 
+if ~ischar(paramFileSteer) 
     error('Input argument steering-parameter-filename not of type char'); 
 end
 
@@ -475,7 +475,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % check input arguments
-if ~ischar(paramFileSteer); 
+if ~ischar(paramFileSteer) 
     error('Input argument steering-parameter-filename not of type char'); 
 end
 
