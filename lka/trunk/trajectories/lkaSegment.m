@@ -156,7 +156,7 @@ classdef lkaSegment
     end%
 	
 	
-    properties (Abstract, SetAccess = protected)
+    properties (Abstract, SetAccess = private)
         
         % length - Arc length of the segment [m].
 		%	Depending on the implementation of the subclass, this property

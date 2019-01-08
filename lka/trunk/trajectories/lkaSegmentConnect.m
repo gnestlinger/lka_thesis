@@ -14,7 +14,7 @@ classdef lkaSegmentConnect < lkaSegment
 
 
 
-	properties (Constant, Hidden = false)
+	properties (Constant, Hidden = true)
 		
 		% designProperties - User adjustable properties.
 		%	Since LKASEGMENTCONNECT just holds the street segment data of
@@ -25,7 +25,7 @@ classdef lkaSegmentConnect < lkaSegment
     end
     
     
-    properties (Dependent, SetAccess = protected)
+    properties (Dependent, SetAccess = private)
         
         length
         

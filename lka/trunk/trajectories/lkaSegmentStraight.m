@@ -25,12 +25,11 @@ classdef lkaSegmentStraight < lkaSegment
 		%	properties LENGTH and ANGLE.
 		designProperties = {'length','angle'};
 		
-	end
+	end%properties
     
     
-    properties (SetAccess = protected)
+    properties (SetAccess = private)% design data: straight segment
         
-        %%% design data: straight segment
         length; % length of the segment [m]
         angle; % angle (counterclockwise where positive x-axis is 0) [rad]
         

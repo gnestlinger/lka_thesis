@@ -32,7 +32,7 @@ classdef lkaSegmentClothoid < lkaSegment
 		%	properties CURVSTART, CURVSTOP, SLOPESTART and A.
 		designProperties = {'curvStart','curvStop','slopeStart','A'};
 		
-	end
+	end%properties
 	
 	properties (Constant, Hidden = true)
         % clothoid relation of curve length as a function of curvature
@@ -54,9 +54,8 @@ classdef lkaSegmentClothoid < lkaSegment
 	end%properties
     
     
-    properties
+    properties (SetAccess = private)% design data: clothoid segment
         
-        %%% design data: clothoid segment
         curvStart; % curvature at starting point [1/m]
         curvStop; % curvature at endpoint [1/m]
         slopeStart; % slope of clothoide at starting point [rad]
@@ -65,7 +64,7 @@ classdef lkaSegmentClothoid < lkaSegment
     end%properties
     
     
-    properties (Dependent, SetAccess = protected)
+    properties (Dependent, SetAccess = private)
         
         %%% info data
         length

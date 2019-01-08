@@ -27,12 +27,11 @@ classdef lkaSegmentCircle < lkaSegment
 		%	properties ANGLESTART, ANGLESTOP and RADIUS.
 		designProperties = {'angleStart','angleStop','radius'};
 		
-	end
+	end%properties
     
     
-    properties
-        
-        %%% design data: circular segment
+    properties (SetAccess = private)% design data: circular segment
+		
         angleStart;
         angleStop;
         radius;
@@ -40,12 +39,12 @@ classdef lkaSegmentCircle < lkaSegment
     end%properties
     
     
-    properties (Dependent, SetAccess = protected)
+    properties (Dependent, SetAccess = private)
         
         %%% info data
         length
         
-    end
+    end%properties
     
     
     
