@@ -108,7 +108,7 @@ classdef lkaSegment
 		%	an upper bound.
 		%	
 		%	The default value is DELTASET = 1.
-        deltaSet(1,:) double = 1; %segment design data
+        deltaSet(1,:) double {mustBeFinite,mustBePositive} = 1; %segment design data
         
     end%
 	
@@ -131,7 +131,7 @@ classdef lkaSegment
     properties (SetAccess = private)
         
         % xyStart - Starting point in x/y-plane [m].
-        xyStart(1,2) double; %segment design data
+        xyStart(1,2) double {mustBeFinite}; %segment design data
         
     end%
 	
@@ -449,7 +449,7 @@ classdef lkaSegment
 		
 		% must not be private for overloading in subclasses
 		function value = get_deltaAct_(obj)
-			value = obj.length/(obj.nbrOfPoints-1);
+			value = obj.length/(double(obj.nbrOfPoints)-1);
 		end%fcn
 		
 	end
