@@ -25,7 +25,7 @@ classdef lkaSegmentConnect < lkaSegment
     end
     
     
-    properties (Dependent)
+    properties (Dependent, SetAccess = protected)
         
         length
         
@@ -122,15 +122,6 @@ classdef lkaSegmentConnect < lkaSegment
     
     %%% SET-Methods
     methods
-        
-        %%% error at attempt to set dependent property length
-        function obj = set.length(obj,~)
-            
-            errorMsg_SetDependent(obj,'length'); 
-            
-        end%fcn
-        
-        
     end%SET-Methods
     
     

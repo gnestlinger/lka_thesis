@@ -109,7 +109,7 @@ classdef lkaSegment
         % segmentType - The segment type.
         %   String indicating the type of the segment.
         segmentType; %segment info data
-        
+		
         % deltaSet - Desired distance between two consecutive points [m].
 		%	The desired distance DELTASET between two consecutive points
 		%	can not always be fullfilled exactly (depending on the other
@@ -156,7 +156,7 @@ classdef lkaSegment
     end%
 	
 	
-    properties (Abstract)
+    properties (Abstract, SetAccess = protected)
         
         % length - Arc length of the segment [m].
 		%	Depending on the implementation of the subclass, this property
@@ -603,7 +603,7 @@ classdef lkaSegment
             for i = 1:length(accepted_type)
                 
                 % if actual type matches accepted type set flag to true
-                if strcmp(accepted_type{i},actual_type);
+                if strcmp(accepted_type{i},actual_type)
                     flag(i) = true;
                 end%if
                 

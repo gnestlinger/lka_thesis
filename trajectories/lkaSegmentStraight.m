@@ -28,7 +28,7 @@ classdef lkaSegmentStraight < lkaSegment
 	end
     
     
-    properties
+    properties (SetAccess = protected)
         
         %%% design data: straight segment
         length; % length of the segment [m]
@@ -78,31 +78,7 @@ classdef lkaSegmentStraight < lkaSegment
     
     
     %%% SET-Methods
-    methods
-        
-        function obj = set.length(obj,value)
-            
-            if (value <= 0)
-                error('length <= 0');
-            end%if
-            
-            % set value
-            obj.length = value;
-            
-        end%fcn
-        
-        
-        function obj = set.angle(obj,value)
-            
-            if (numel(value) ~= 1)
-                error('numel(angle) ~= 1');
-            end%if
-            
-            % set value
-            obj.angle = value;
-            
-        end%fcn
-        
+    methods	
     end%SET-Methods
     
     

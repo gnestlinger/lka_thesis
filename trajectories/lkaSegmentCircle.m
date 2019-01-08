@@ -40,7 +40,7 @@ classdef lkaSegmentCircle < lkaSegment
     end%properties
     
     
-    properties (Dependent)
+    properties (Dependent, SetAccess = protected)
         
         %%% info data
         length
@@ -128,14 +128,6 @@ classdef lkaSegmentCircle < lkaSegment
             
             % set value
             obj.radius = value;
-            
-        end%fcn
-        
-        
-        %%% error at attempt to set dependent property length
-        function obj = set.length(obj,~)
-            
-            errorMsg_SetDependent(obj,'length'); 
             
         end%fcn
           
