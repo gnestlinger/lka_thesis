@@ -65,16 +65,7 @@ classdef lkaSegment
     %%% PROPERTIES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    properties (Constant, Hidden, GetAccess = private)
-        
-        % segmentTypeValid - Valid segment types.
-        %	Cell of strings defining the valid segment types.
-        segmentTypeValid = {'connected','straight','circle','clothoid'};
-        
-	end%
-	
-	
-    properties (Constant, Hidden, GetAccess = protected)
+	properties (Constant, Hidden, GetAccess = protected)
         
         % rotMatX - Rotation matrix x-component.
         %   The x-component of a vector p = [x;y] is rotated by an angle
@@ -108,7 +99,7 @@ classdef lkaSegment
         
         % segmentType - The segment type.
         %   String indicating the type of the segment.
-        segmentType; %segment info data
+        segmentType(1,1) string; %segment info data
 		
         % deltaSet - Desired distance between two consecutive points [m].
 		%	The desired distance DELTASET between two consecutive points
@@ -117,7 +108,7 @@ classdef lkaSegment
 		%	an upper bound.
 		%	
 		%	The default value is DELTASET = 1.
-        deltaSet = 1; %segment design data
+        deltaSet(1,:) double = 1; %segment design data
         
     end%
 	
@@ -127,12 +118,12 @@ classdef lkaSegment
         % deltaAct - Actual distance between two nearby points [m].
 		%	Currently used distance between two nearby segment points. In
 		%	general, this value differs from the desired distance DELTASET.
-        deltaAct; %segment info data
+        deltaAct(1,:) double; %segment info data
         
         % nbrOfPoints - Number of segment-points [-].
 		%	This is the minimum and currently used number of segment points
 		%	required, to fullfill DELTAACT < DELTASET.
-        nbrOfPoints; %segment info data
+        nbrOfPoints(1,:) uint64; %segment info data
         
 	end%
 	
@@ -140,7 +131,7 @@ classdef lkaSegment
     properties (SetAccess = private)
         
         % xyStart - Starting point in x/y-plane [m].
-        xyStart; %segment design data
+        xyStart(1,2) double; %segment design data
         
     end%
 	
@@ -148,10 +139,10 @@ classdef lkaSegment
     properties (Dependent, SetAccess = private)
         
         % xyStop - Endpoint in x/y-plane [m].  
-        xyStop; %segment info data 
+        xyStop(1,2) double; %segment info data 
         
         % segmentData - Object of street segment data. 
-        segmentData;
+        segmentData(1,1);
         
     end%
 	
@@ -161,7 +152,7 @@ classdef lkaSegment
         % length - Arc length of the segment [m].
 		%	Depending on the implementation of the subclass, this property
 		%	is either just for info purpose or can be set by the user.
-        length; %segment design or info data
+        length(1,1) double; %segment design or info data
         
     end%
     
@@ -340,7 +331,7 @@ classdef lkaSegment
         function value = get.nbrOfPoints(obj)
             
             % call abstract method
-            value = getNbrOfPoints_abstract(obj);
+            value = uint64(getNbrOfPoints_abstract(obj));
             
         end%fcn
         
@@ -383,28 +374,6 @@ classdef lkaSegment
     
     %%% SET-Methods
     methods
-        
-        function obj = set.segmentType(obj,value)
-            
-            % property name
-            pN = 'segmentType';
-            
-            % class check
-            if (~ischar(value)) 
-                obj.errorMsg_xyz('class',pN,'char',class(value));
-            end%if
-            
-            % check value
-            if ~strcmpi(value,obj.segmentTypeValid)
-%                 error('Segment type must be straight, circle or clothoid.')
-                error('Segment type must be ''%s''.\n',obj.segmentTypeValid{:})
-            end%if
-            
-            % set the property value
-            obj.segmentType = value;
-            
-        end%fcn
-        
         
         function obj = set.deltaSet(obj,value)
             
@@ -456,13 +425,6 @@ classdef lkaSegment
             % set the property value
             % ensure row-vector (so the values will be displayed)
             obj.xyStart = obj.col(value)';
-            
-        end%fcn
-        
-        
-        function obj = set.xyStop(obj,~)
-            
-            errorMsg_SetDependent(obj,'xyStop'); 
             
         end%fcn
         

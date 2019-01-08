@@ -25,7 +25,7 @@ classdef lkaSegmentClothoid < lkaSegment
 
 
 
-	properties (Constant, Hidden = false)
+	properties (Constant, Hidden = true)
 		
 		% designProperties - User adjustable properties.
 		%	Design the street segment LKASEGMENTCLOTHOID by adjusting its
@@ -56,10 +56,10 @@ classdef lkaSegmentClothoid < lkaSegment
     
     properties (SetAccess = private)% design data: clothoid segment
         
-        curvStart; % curvature at starting point [1/m]
-        curvStop; % curvature at endpoint [1/m]
-        slopeStart; % slope of clothoide at starting point [rad]
-        A; % clothoid parameter [m]
+        curvStart(1,1) double {mustBeFinite};	% curvature at starting point [1/m]
+        curvStop(1,1) double {mustBeFinite};	% curvature at endpoint [1/m]
+        slopeStart(1,1) double {mustBeFinite}; % slope of clothoide at starting point [rad]
+        A(1,1) double {mustBeFinite,mustBeNonnegative}; % clothoid parameter [m]
         
     end%properties
     
@@ -91,7 +91,7 @@ classdef lkaSegmentClothoid < lkaSegment
         function obj = lkaSegmentClothoid(deltaSet,curvStart,curvStop,slopeStart,A)
             
             % call superclass constructor
-            obj = obj@lkaSegment('clothoid',deltaSet,[0;0]);
+            obj = obj@lkaSegment("clothoid",deltaSet,[0;0]);
             
             % set design data of clothoid segment
             obj.curvStart = curvStart;
@@ -137,59 +137,6 @@ classdef lkaSegmentClothoid < lkaSegment
     
     %%% SET-Methods
     methods
-        
-        function obj = set.curvStart(obj,value)
-            
-            if (numel(value) ~= 1)
-                error('numel(curvStart) ~= 1');
-            end%if
-            
-            % set value
-            obj.curvStart = value;
-            
-        end%fcn
-        
-        
-        function obj = set.curvStop(obj,value)
-            
-            if (numel(value) ~= 1)
-                error('numel(curvStop) ~= 1');
-            end%if
-            
-            % set value
-            obj.curvStop = value;
-            
-        end%fcn
-        
-        
-        function obj = set.slopeStart(obj,value)
-            
-            if (numel(value) ~= 1)
-                error('numel(slopeStart) ~= 1');
-            end%if
-            
-            % set value
-            obj.slopeStart = value;
-            
-        end%fcn
-        
-        
-        function obj = set.A(obj,value)
-            
-            if (numel(value) ~= 1)
-                error('numel(A) ~= 1');
-            end%if
-            
-            % limit to A > 0
-			if value <= 0
-				error('Clothoid parameter ''A'' has to be positive!');
-			end%if
-            
-            % set value
-            obj.A = value;
-            
-        end%fcn
-        
     end%SET-Methods
     
 	
