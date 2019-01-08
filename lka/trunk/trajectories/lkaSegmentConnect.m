@@ -92,14 +92,9 @@ classdef lkaSegmentConnect < lkaSegment
         %   connected street segment is not possible.
         
            
-            msg = ['You are trying to resample a connected street segment ',...
-                'with a current average delta of %.2f ',...
-                'with a new delta of %.2f.\n'];
-            msg = sprintf(msg,obj.deltaAct,deltaNew);
-            
             errmsg = ['For objects of class lkaSegmentConnect, ',...
-                'resampling the street segment is not allowed!'];
-            error([msg,errmsg]);
+                'resampling the street segment is not supported!'];
+            error(errmsg);
             
         end%fcn
          
