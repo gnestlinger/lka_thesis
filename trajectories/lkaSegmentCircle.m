@@ -20,21 +20,21 @@ classdef lkaSegmentCircle < lkaSegment
 
 
 
-	properties (Constant, Hidden = false)
+	properties (Constant, Hidden = true)
 		
 		% designProperties - User adjustable properties.
 		%	Design the street segment LKASEGMENTCIRCLE by adjusting its
 		%	properties ANGLESTART, ANGLESTOP and RADIUS.
-		designProperties = {'angleStart','angleStop','radius'};
+		designProperties = ["angleStart","angleStop","radius"];
 		
 	end%properties
     
     
     properties (SetAccess = private)% design data: circular segment
-		
-        angleStart;
-        angleStop;
-        radius;
+        
+        angleStart(1,1) double {mustBeFinite};
+        angleStop(1,1) double {mustBeFinite};
+        radius(1,1) double {mustBeFinite,mustBeNonnegative};
         
     end%properties
     
@@ -58,7 +58,7 @@ classdef lkaSegmentCircle < lkaSegment
         function obj = lkaSegmentCircle(deltaSet,angleStart,angleStop,radius)
             
             % call superclass constructor
-            obj = obj@lkaSegment('circle',deltaSet,[0;0]);
+            obj = obj@lkaSegment("circle",deltaSet,[0;0]);
             
             if (angleStart == angleStop)
                 warning('MATLAB:lkaSegmentCircle:angleStartEQUALangleStop',...
@@ -91,45 +91,7 @@ classdef lkaSegmentCircle < lkaSegment
     
     
     %%% SET-Methods
-    methods
-        
-        function obj = set.angleStart(obj,value)
-            
-            if (numel(value) ~= 1)
-                error('numel(angleStart) ~= 1');
-            end%if
-            
-            % set value
-            obj.angleStart = value;
-            
-        end%fcn
-        
-        
-        function obj = set.angleStop(obj,value)
-            
-            if (numel(value) ~= 1)
-                error('numel(angleStop) ~= 1');
-            end%if
-            
-            % set value
-            obj.angleStop = value;
-            
-        end%fcn
-        
-        
-        function obj = set.radius(obj,value)
-            
-            if (value <= 0)
-                error('radius <= 0');
-            elseif (numel(value) ~= 1)
-                error('numel(radius) ~= 1');
-            end%if
-            
-            % set value
-            obj.radius = value;
-            
-        end%fcn
-          
+    methods    
     end%SET-Methods
     
     

@@ -18,21 +18,21 @@ classdef lkaSegmentStraight < lkaSegment
 
 
 
-	properties (Constant, Hidden = false)
+	properties (Constant, Hidden = true)
 		
 		% designProperties - User adjustable properties.
 		%	Design the street segment LKASEGMENTSTRAIGHT by adjusting its
 		%	properties LENGTH and ANGLE.
-		designProperties = {'length','angle'};
+		designProperties = ["length","angle"];
 		
 	end%properties
     
     
     properties (SetAccess = private)% design data: straight segment
-        
+		
         length; % length of the segment [m]
-        angle; % angle (counterclockwise where positive x-axis is 0) [rad]
-        
+        angle(1,1) double {mustBeFinite}; % angle (counterclockwise where positive x-axis is 0) [rad]
+		
     end%properties
     
     
@@ -48,7 +48,7 @@ classdef lkaSegmentStraight < lkaSegment
         function obj = lkaSegmentStraight(deltaSet,length,angle)
             
             % call superclass constructor
-            obj = obj@lkaSegment('straight',deltaSet,[0;0]);
+            obj = obj@lkaSegment("straight",deltaSet,[0;0]);
             
             % set length and angle
             obj.length = length;
