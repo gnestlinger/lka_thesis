@@ -191,11 +191,10 @@ classdef lkaSegment
 		%	Note that here + is a non-commutative operation!
         %
         %   See also LKASEGMENTCONNECT.
-        
-        
+		
             obj_segDat = plus(obj1.segmentData,obj2.segmentData);
-            obj = lkaSegmentConnect(obj_segDat);
-                
+            obj = lkaSegmentConnect(obj_segDat,[obj1.deltaSet obj2.deltaSet]);
+			
         end%fcn
         
 		
@@ -380,20 +379,9 @@ classdef lkaSegment
             % property name
             pN = 'deltaSet';
             
-            % dimension check
-            obj.check_dimension_isSVM(pN,value,{'scalar'});
-            
             % check data of value
             if ~isreal(value)
                 obj.errorMsg_xyz('data set',pN,'real valued','complex valued');
-            end%if
-            
-            if ~isnumeric(value)
-                obj.errorMsg_xyz('data type',pN,'numeric','non-numeric');
-            end%if
-            
-            if (value <= 0) % value range check
-                obj.errorMsg_xyz('value',pN,'> 0','<= 0');
             end%if
             
             % set the property value
@@ -407,19 +395,9 @@ classdef lkaSegment
             % property name
             pN = 'xyStart';
             
-            % dimension check
-            obj.check_dimension_isSVM(pN,value,{'vector'});
-            if numel(value) > 2 % < 2 alredy checked
-                obj.errorMsg_xyz('dimension',pN,'two-dimensional','N-dimensional (N>2)');
-            end%if
-            
             % check data of value
             if ~isreal(value)
                 obj.errorMsg_xyz('data set',pN,'real valued','complex valued');
-            end%if
-            
-            if ~isnumeric(value)
-                obj.errorMsg_xyz('data type',pN,'numeric','non-numeric');
             end%if
             
             % set the property value
