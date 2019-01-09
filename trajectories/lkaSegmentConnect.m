@@ -48,10 +48,10 @@ classdef lkaSegmentConnect < lkaSegment
     %%% CONSTRUCTOR
     methods
         
-        function obj = lkaSegmentConnect(segmentData)
+        function obj = lkaSegmentConnect(segmentData,deltaSet)
             
             % call superclass constructor
-            obj = obj@lkaSegment("connected",NaN,...
+            obj = obj@lkaSegment("connected",deltaSet,...
 				[segmentData.x(1) segmentData.y(1)]);
             
             obj.nbrOfPoints_stored = length(segmentData.x);
