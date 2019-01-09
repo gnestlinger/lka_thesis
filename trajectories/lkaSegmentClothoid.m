@@ -59,7 +59,7 @@ classdef lkaSegmentClothoid < lkaSegment
         curvStart(1,1) double {mustBeFinite};	% curvature at starting point [1/m]
         curvStop(1,1) double {mustBeFinite};	% curvature at endpoint [1/m]
         slopeStart(1,1) double {mustBeFinite}; % slope of clothoide at starting point [rad]
-        A(1,1) double {mustBeFinite,mustBeNonnegative}; % clothoid parameter [m]
+        A(1,1) double {mustBeFinite,mustBePositive} = 1; % clothoid parameter [m]
         
     end%properties
     

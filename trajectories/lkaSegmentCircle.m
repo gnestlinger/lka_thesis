@@ -34,7 +34,7 @@ classdef lkaSegmentCircle < lkaSegment
         
         angleStart(1,1) double {mustBeFinite};
         angleStop(1,1) double {mustBeFinite};
-        radius(1,1) double {mustBeFinite,mustBeNonnegative};
+        radius(1,1) double {mustBeFinite,mustBePositive} = 1;
         
     end%properties
     
