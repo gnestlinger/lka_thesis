@@ -10,6 +10,7 @@ classdef lkaSegment
 %	
 %	LKASEGMENT Properties:
 %	 segmentType - Name of the segment type.
+%	 segmentDate - Date of segment creation.
 %	 deltaSet	 - Desired distance between nearby points of segment.
 %	 deltaAct	 - Actual distance between nearby points of segment.
 %	 nbrOfPoints - Number of points representing the segment.
@@ -101,6 +102,12 @@ classdef lkaSegment
         %   String indicating the type of the segment.
         segmentType(1,1) string; %segment info data
 		
+        % segmentDate - The date of segment creation.
+        %   Time instance of calling class constructor. Therefore class
+        %   methods like shift, resample a.s.o. do not update the property
+        %   value!
+        segmentDate(1,1) datetime; %segment info data
+		
         % deltaSet - Desired distance between two consecutive points [m].
 		%	The desired distance DELTASET between two consecutive points
 		%	can not always be fullfilled exactly (depending on the other
@@ -168,9 +175,12 @@ classdef lkaSegment
         function obj = lkaSegment(segmentType,deltaSet,xyStart)
             
             obj.segmentType = segmentType;
+			obj.segmentDate = datetime('now');
             
             % set only if specified, otherwise default values are used
-            if ~isempty(deltaSet); obj.deltaSet = deltaSet; end%if
+			if ~isempty(deltaSet)
+				obj.deltaSet = deltaSet;
+			end%if
             
             obj.xyStart = xyStart;
              
@@ -191,10 +201,10 @@ classdef lkaSegment
 		%	Note that here + is a non-commutative operation!
         %
         %   See also LKASEGMENTCONNECT.
-		
+        
             obj_segDat = plus(obj1.segmentData,obj2.segmentData);
             obj = lkaSegmentConnect(obj_segDat,[obj1.deltaSet obj2.deltaSet]);
-			
+                
         end%fcn
         
 		
