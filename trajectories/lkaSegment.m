@@ -152,7 +152,7 @@ classdef lkaSegment
         % length - Arc length of the segment [m].
 		%	Depending on the implementation of the subclass, this property
 		%	is either just for info purpose or can be set by the user.
-        length(1,1) double; %segment design or info data
+        length(1,1) double {mustBeFinite,mustBePositive}; %segment design or info data
         
     end%
     
