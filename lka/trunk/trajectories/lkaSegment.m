@@ -443,56 +443,6 @@ classdef lkaSegment
 	end
     
 	
-    methods (Access = protected)
-        
-        %%% error message
-        function errorMsg_SetDependent(obj,prop)
-            
-            value = obj.(prop);
-            
-            switch class(value)
-                case 'double'
-                    formatString = ['%s',repmat('%.3E\t',1,length(value)),'\n'];
-                    
-                case 'char'
-                    formatString = '%s\n';
-                    
-                otherwise
-                    
-            end
-            
-            % print current value of prop
-            fprintf(formatString,['Property ',prop,' is: '],value);
-            
-            % the number of adjustable design properties
-            nbrOfDesignProps = length(obj.designProperties);
-            
-            % create messages
-            msg1 = ['You cannot set ''',prop,''' explicitly. '];
-            msg2 = 'This object owns the following adjustable properties: ';
-            msg3 = ['Try setting one or more of these to get the desired ''',prop,'''.'];
-            
-            if nbrOfDesignProps > 1
-                error([msg1,msg2,...
-                    repmat('%s, ',1,nbrOfDesignProps-1),'%s. ',...
-                    msg3],...
-                    obj.designProperties{:});
-            elseif nbrOfDesignProps > 0
-                error([msg1,msg2,...
-                    '%s. ',...
-                    msg3],...
-                    obj.designProperties{:});
-            else
-                error([msg1,...
-                    'There are no adjustable properties for class ',class(obj),'.']);
-            end%if
-            
-        end%fcn
-        
-    end
-    
-    
-    
     methods (Static, Hidden)
         
         %%% ensure column orientation of input vector
@@ -518,65 +468,13 @@ classdef lkaSegment
         end%fcn
         
         
-        %%% check dimension
-        function check_dimension_isSVM(pN,value,accepted_type)
-        % check if value is scalar/vector/matrix
-        
-        
-            % create string of accepted dimension types
-            string_accepted = accepted_type{1};
-            for i = 2:length(accepted_type)
-                string_accepted = [string_accepted,' or ',accepted_type{i}];
-            end%for
-            
-            
-            % value has more than two dimensions?
-            if numel(size(value)) > 2
-                errorMsg_dimension(pN,string_accepted,'three dimensional array');
-            end%if
-            
-            
-            %%% get dimension type of value
-            if isscalar(value) % value is scalar?
-                actual_type = 'scalar';
-            elseif isvector(value)% && ~isscalar(value) % value is vector?
-                actual_type = 'vector';
-            elseif isempty(value)
-                actual_type = 'empty';
-            elseif ismatrix(value)% && ~isscalar(value) && ~isvector(value) % value is matrix?
-                actual_type = 'matrix';
-            end%if
-            
-            
-            %%% compare actual type to accepted types
-            flag = false(length(accepted_type),1);
-            for i = 1:length(accepted_type)
-                
-                % if actual type matches accepted type set flag to true
-                if strcmp(accepted_type{i},actual_type)
-                    flag(i) = true;
-                end%if
-                
-            end%for
-            
-            
-            %%% print error message if actual type is no accepted type
-            flag_full = any(flag);
-            if ~flag_full
-                error(['Invalid dimension of parameter ''',pN,'''. ',...
-                    'Should be ',string_accepted,' but seems to be ',actual_type,'!']);
-            end%if
-            
-        end%fcn
-        
-        
         %%% error mesage
         function errorMsg_xyz(xyz,pN,string_desired,string_is)
             error(['Invalid ',xyz,' of parameter ''',pN,'''. ',...
                 'Should be ',string_desired,' but seems to be ',string_is,'!']);
         end%fcn
         
-    end
+	end
     
-    
+	
 end%classdef
