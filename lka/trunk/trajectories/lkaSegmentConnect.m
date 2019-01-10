@@ -48,14 +48,17 @@ classdef lkaSegmentConnect < lkaSegment
     %%% CONSTRUCTOR
     methods
         
-        function obj = lkaSegmentConnect(segmentData,deltaSet)
+        function obj = lkaSegmentConnect(obj1,obj2)
             
+			% call plus from class SEGDAT
+			sd = plus(obj1.segmentData,obj2.segmentData);
+			deltaSet = [obj1.deltaSet obj2.deltaSet];
+			
             % call superclass constructor
-            obj = obj@lkaSegment("connected",deltaSet,...
-				[segmentData.x(1) segmentData.y(1)]);
+            obj = obj@lkaSegment("connected",deltaSet,[sd.x(1); sd.y(1)]);
             
-            obj.nbrOfPoints_stored = length(segmentData.x);
-			obj.segmentData_stored = segmentData;
+            obj.nbrOfPoints_stored = numel(sd.x);
+			obj.segmentData_stored = sd;
 			
         end%Constructor
 		
@@ -69,7 +72,6 @@ classdef lkaSegmentConnect < lkaSegment
         %SHIFT  Shift the street segment.
 		%	See also LKASEGMENT/SHIFT.
         
-        
             if nargin < 2
                 point = [0,0];
             end%if
@@ -78,22 +80,18 @@ classdef lkaSegmentConnect < lkaSegment
 			obj = shift@lkaSegment(obj,point);
 			
 			% shift segDat object manually
-			sd = shiftTo(obj.segmentData,point);
-			
-			% recreate LKASEGMENTCONNECT object by calling its constructor
-			obj = lkaSegmentConnect(sd);
+			obj.segmentData_stored = shiftTo(obj.segmentData,point);
             
         end%fcn
         
           
-        function obj = resample(obj,deltaNew) % redefine superclass-method
+        function obj = resample(~) % redefine superclass-method
         %RESAMPLE   Apply a set distance between points.
         %   For objects of class LKASEGMENTCONNECT, resampling the
         %   connected street segment is not possible.
         
-           
             errmsg = ['For objects of class lkaSegmentConnect, ',...
-                'resampling the street segment is not supported!'];
+                'resampling is not supported!'];
             error(errmsg);
             
         end%fcn
@@ -130,8 +128,8 @@ classdef lkaSegmentConnect < lkaSegment
         
 		function obj = rotate_abstract(obj,phi)
 			
-			sd_rot	= rotate(obj.segmentData,phi);
-			obj		= lkaSegmentConnect(sd_rot);
+			obj.segmentData_stored = rotate(obj.segmentData,phi);
+% 			obj		= lkaSegmentConnect(sd_rot);
 			
 		end%fcn
 		
@@ -182,7 +180,7 @@ classdef lkaSegmentConnect < lkaSegment
 			
 		end%fcn
 		
-	end
+	end%methods
     
         
 end%classdef

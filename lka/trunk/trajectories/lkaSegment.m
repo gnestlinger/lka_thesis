@@ -202,9 +202,10 @@ classdef lkaSegment
         %
         %   See also LKASEGMENTCONNECT.
         
-            obj_segDat = plus(obj1.segmentData,obj2.segmentData);
-            obj = lkaSegmentConnect(obj_segDat,[obj1.deltaSet obj2.deltaSet]);
-                
+%             obj_segDat = plus(obj1.segmentData,obj2.segmentData);
+%             obj = lkaSegmentConnect(obj_segDat,[obj1.deltaSet obj2.deltaSet]);
+			obj = lkaSegmentConnect(obj1,obj2);
+			
         end%fcn
         
 		
