@@ -44,7 +44,7 @@ classdef lkaSegment
 %	LKASEGMENTCONNECT, SEGDAT.
 % 
 
-% Subject: lka
+% Subject: Working with road segment data.
 % Author: $Author$
 % Date: $LastChangedDate$
 % Revision: $Revision$
@@ -100,13 +100,13 @@ classdef lkaSegment
         
         % segmentType - The segment type.
         %   String indicating the type of the segment.
-        segmentType(1,1) string; %segment info data
+        segmentType(1,1) string; % info data
 		
         % segmentDate - The date of segment creation.
         %   Time instance of calling class constructor. Therefore class
         %   methods like shift, resample a.s.o. do not update the property
         %   value!
-        segmentDate(1,1) datetime; %segment info data
+        segmentDate(1,1) datetime; % info data
 		
         % deltaSet - Desired distance between two consecutive points [m].
 		%	The desired distance DELTASET between two consecutive points
@@ -115,7 +115,7 @@ classdef lkaSegment
 		%	an upper bound.
 		%	
 		%	The default value is DELTASET = 1.
-        deltaSet(1,:) double {mustBeFinite,mustBePositive} = 1; %segment design data
+        deltaSet(1,:) double {mustBeFinite,mustBePositive,mustBeReal} = 1; % design data
         
     end%
 	
@@ -125,12 +125,12 @@ classdef lkaSegment
         % deltaAct - Actual distance between two nearby points [m].
 		%	Currently used distance between two nearby segment points. In
 		%	general, this value differs from the desired distance DELTASET.
-        deltaAct(1,:) double; %segment info data
+        deltaAct(1,:) double; % info data
         
         % nbrOfPoints - Number of segment-points [-].
 		%	This is the minimum and currently used number of segment points
 		%	required, to fullfill DELTAACT < DELTASET.
-        nbrOfPoints(1,:) uint64; %segment info data
+        nbrOfPoints(1,:) uint64; % info data
         
 	end%
 	
@@ -138,7 +138,7 @@ classdef lkaSegment
     properties (SetAccess = private)
         
         % xyStart - Starting point in x/y-plane [m].
-        xyStart(1,2) double {mustBeFinite}; %segment design data
+        xyStart(1,2) double {mustBeFinite,mustBeReal}; % design data
         
     end%
 	
@@ -146,7 +146,7 @@ classdef lkaSegment
     properties (Dependent, SetAccess = private)
         
         % xyStop - Endpoint in x/y-plane [m].  
-        xyStop(1,2) double; %segment info data 
+        xyStop(1,2) double; % info data 
         
         % segmentData - Object of street segment data. 
         segmentData(1,1);
@@ -159,7 +159,7 @@ classdef lkaSegment
         % length - Arc length of the segment [m].
 		%	Depending on the implementation of the subclass, this property
 		%	is either just for info purpose or can be set by the user.
-        length(1,1) double {mustBeFinite,mustBePositive}; %segment design or info data
+        length(1,1) double {mustBeFinite,mustBePositive}; % design or info data
         
     end%
     
@@ -237,7 +237,7 @@ classdef lkaSegment
         %   OBJ = SHIFT(OBJ,POINT) shifts the starting point of street
         %   segment OBJ to coordinate POINT.
         %
-        %   OBJ = SHIFT(OBJ) shifts to the origin [0,0].
+        %   OBJ = SHIFT(OBJ) shifts to the origin [0;0].
         %
         
             if nargin < 2
@@ -338,7 +338,7 @@ classdef lkaSegment
 		end%fcn
         
         
-        function value = get.nbrOfPoints(obj)
+        function value = get.nbrOfPoints(obj)%calls abstract method
             
             % call abstract method
             value = uint64(getNbrOfPoints_abstract(obj));
@@ -346,7 +346,7 @@ classdef lkaSegment
         end%fcn
         
         
-        function value = get.xyStop(obj)
+        function value = get.xyStop(obj)%calls abstract method
             
             % call abstract method to get xyStop dependent on subclass
             value = getEndPoint_abstract(obj);
@@ -354,7 +354,7 @@ classdef lkaSegment
         end%fcn
         
         
-        function segdat = get.segmentData(obj)
+        function segdat = get.segmentData(obj)%calls abstract method
             
 			% show calculation notes only for other segments than
 			% 'connected'
@@ -384,36 +384,15 @@ classdef lkaSegment
     
     %%% SET-Methods
     methods
-        
-        function obj = set.deltaSet(obj,value)
-            
-            % property name
-            pN = 'deltaSet';
-            
-            % check data of value
-            if ~isreal(value)
-                obj.errorMsg_xyz('data set',pN,'real valued','complex valued');
-            end%if
-            
-            % set the property value
-            obj.deltaSet = value;
-            
-        end%fcn
-        
-        
+
         function obj = set.xyStart(obj,value)
             
-            % property name
-            pN = 'xyStart';
-            
-            % check data of value
-            if ~isreal(value)
-                obj.errorMsg_xyz('data set',pN,'real valued','complex valued');
-            end%if
-            
-            % set the property value
             % ensure row-vector (so the values will be displayed)
-            obj.xyStart = obj.col(value)';
+			if ~isvector(value)
+				error('Set value for property xyStart is not vector sized!');
+			else
+				obj.xyStart = value(:)';
+			end%if
             
         end%fcn
         
@@ -441,41 +420,18 @@ classdef lkaSegment
 			value = obj.length/(double(obj.nbrOfPoints)-1);
 		end%fcn
 		
-	end
+	end%methods
     
 	
     methods (Static, Hidden)
         
-        %%% ensure column orientation of input vector
-        function in = col(in)
-        % COL column vector of input
-        % 
-        % checks if input is of dimension 1*x or x*1 (vector, not matrix)
-        % and returns column vector of input.
-            
-            % get dimension of input argument
-            [a,b] = size(in);
-            
-            % error if input is matrix
-            if (a>1) && (b>1)
-                error('Input Argument should be vector but is matrix.')
-            end%if
-            
-            % transpose into column vector if input is row vector
-            if (b > 1)
-                in = in(:);
-            end%if
-            
-        end%fcn
+%         %%% error mesage
+%         function errorMsg_xyz(xyz,pN,string_desired,string_is)
+%             error(['Invalid ',xyz,' of parameter ''',pN,'''. ',...
+%                 'Should be ',string_desired,' but seems to be ',string_is,'!']);
+%         end%fcn
         
-        
-        %%% error mesage
-        function errorMsg_xyz(xyz,pN,string_desired,string_is)
-            error(['Invalid ',xyz,' of parameter ''',pN,'''. ',...
-                'Should be ',string_desired,' but seems to be ',string_is,'!']);
-        end%fcn
-        
-	end
+	end%methods
     
 	
 end%classdef
