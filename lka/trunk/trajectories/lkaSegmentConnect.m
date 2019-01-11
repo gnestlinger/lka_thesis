@@ -70,6 +70,7 @@ classdef lkaSegmentConnect < lkaSegment
 		
         function obj = shift(obj,point) % redefine superclass-method
         %SHIFT  Shift the street segment.
+		% 
 		%	See also LKASEGMENT/SHIFT.
         
             if nargin < 2
@@ -84,11 +85,12 @@ classdef lkaSegmentConnect < lkaSegment
             
         end%fcn
         
-          
-        function obj = resample(~) % redefine superclass-method
-        %RESAMPLE   Apply a set distance between points.
-        %   For objects of class LKASEGMENTCONNECT, resampling the
-        %   connected street segment is not possible.
+        function obj = resample(~,~) % redefine superclass-method
+        %RESAMPLE   Apply a desired distance between points.
+        %   For objects of class LKASEGMENTCONNECT, resampling is not
+        %   supported.
+		% 
+		%	See also LKASEGMENT/RESAMPLE.
         
             errmsg = ['For objects of class lkaSegmentConnect, ',...
                 'resampling is not supported!'];
@@ -104,14 +106,13 @@ classdef lkaSegmentConnect < lkaSegment
 		
         function value = get.length(obj)
 %             disp('getting length...')
-            value = obj.segmentData.s;
+            s = obj.segmentData.s;
 			
 			% avoid multiple calls of superclass method for dependent
 			% property 'segmentData' by getting the last element from
-			% buffered data 'value'
-			value = value(end);
+			% buffered data 's'
+			value = s(end);
 			
-% 			value = obj.segmentDataConnected.s(end);
 %             disp('...done')
         end%fcn
 
@@ -128,8 +129,18 @@ classdef lkaSegmentConnect < lkaSegment
         
 		function obj = rotate_abstract(obj,phi)
 			
-			obj.segmentData_stored = rotate(obj.segmentData,phi);
-% 			obj		= lkaSegmentConnect(sd_rot);
+			sd = rotate(obj.segmentData,phi);
+			
+			% call method shift to set property xyStart
+			obj = shift(obj,[sd.x(1);sd.y(1)]);
+			
+			% overwrite proeprty segmentData_stored
+			obj.segmentData_stored = sd;
+			
+			% check xyStart for correctness
+			if ~isequal(obj.xyStart(:)',[sd.x(1) sd.y(1)])
+				error('Rotating road segment failed!');
+			end%
 			
 		end%fcn
 		
@@ -138,8 +149,7 @@ classdef lkaSegmentConnect < lkaSegment
 			value = obj.nbrOfPoints_stored;
 % 			disp('...done')
         end%fcn
-        
-        
+           
         function value = getEndPoint_abstract(obj)
 %             disp('getting endPoint...')
 			sd = obj.segmentData;
@@ -150,7 +160,6 @@ classdef lkaSegmentConnect < lkaSegment
             value = [sd.x(end), sd.y(end)];
 %             disp('...done')
         end%fcn
-        
             
         function segdat = getSegmentData_abstract(obj)
             segdat = obj.segmentData_stored;
