@@ -11,7 +11,7 @@ classdef lkaSegmentStraight < lkaSegment
 %	See also LKASEGMENT.
 % 
 
-% Subject: lka
+% Subject: Analytical road segment design.
 % Author: $Author$
 % Date: $LastChangedDate$
 % Revision: $Revision$
@@ -51,8 +51,8 @@ classdef lkaSegmentStraight < lkaSegment
             obj = obj@lkaSegment("straight",deltaSet,[0;0]);
             
             % set length and angle
-            obj.length = length;
-            obj.angle = angle;
+            obj.length	= length;
+            obj.angle	= angle;
             
         end%Constructor
         
@@ -66,7 +66,6 @@ classdef lkaSegmentStraight < lkaSegment
 %             lSep = lkaSegmentStraight(obj.delta,xyStart,obj.length,obj.angle);    
 %             
 %         end%fcn
-        
         
     end%CONSTRUCTOR-methods
     
@@ -86,30 +85,29 @@ classdef lkaSegmentStraight < lkaSegment
         
 		function obj = rotate_abstract(obj,phi)
 			
-			obj	= shift(obj, obj.rotMat(phi)*obj.xyStart' );
+			% set new origin
+			obj	= shift(obj, obj.rotMat(phi)*obj.xyStart');
+			
+			% set new orientation
 			obj.angle = obj.angle + phi;
 			
 		end%fcn
 		
 		
         function value = getNbrOfPoints_abstract(obj)
-            
-            % calc the number of points of segment to match 'deltaSet'
+		% calc the number of points of segment to match 'deltaSet'
             value = ceil(obj.length/obj.deltaSet) + 1;
-            
         end%fcn
         
         
         function value = getEndPoint_abstract(obj)
         % get endpoint
-		
             value = obj.xyStart + obj.length*[cos(obj.angle) sin(obj.angle)];
-            
         end%fcn
         
         
         function segdat = getSegmentData_abstract(obj)
-		% create straight segment based on object data
+		% create straight segment based on object design properties
             
             % get dependent property 'xyStop'
             xyStopDEP = obj.xyStop;
@@ -123,9 +121,7 @@ classdef lkaSegmentStraight < lkaSegment
             s = sqrt((x-obj.xyStart(1)).^2 + (y-obj.xyStart(2)).^2);
             k = zeros(1,nbrOfPointsDEP);
             phi = obj.angle*ones(1,nbrOfPointsDEP);
-%             type = zeros(1,nbrOfPointsDEP);
-%             nbr = ones(1,nbrOfPointsDEP);
-            
+			
             % store data in segDat class
             segdat = segDat(x,y,s,k,phi,0,1);
             
