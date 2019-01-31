@@ -22,3 +22,4 @@ addpath 'misc';
 % parameter related files
 addpath 'paramFiles'
 
+addpath 'SLlibs'
