@@ -1,10 +1,10 @@
-function [sys] = ssMdl_SingleTrack(sw,pFile_Vhcl,vx,LAD,pFile_Steer)
+function [sys] = ssMdl_SingleTrack(sw,paramsVhcl,vx,LAD,pFile_Steer)
 % SSMDL_SINGLETRACK		returns single-track-based state-space models
-%   sys = ssMdl_SingleTrack(SW,PARAMFILE,VX,LAD,varargin)
+%   sys = ssMdl_SingleTrack(SW,PARAMSVHCL,VX,LAD,varargin)
 %   ________________
 %   Input arguments:
 %   SW ............ string to choose state space model (st/stvis/. see below)
-%   PFILE_VCHL .... m-file filename containing vehicle parameters
+%   PARAMSVHCL .... Struct of vehicle parameters
 %   VX ............ longitudinal velocity [m/s]
 %   LAD ........... look-ahead distance [m]
 %   PFILE_STEER ... opt. input arguments (e.g. additional parameter files)
@@ -29,14 +29,22 @@ function [sys] = ssMdl_SingleTrack(sw,pFile_Vhcl,vx,LAD,pFile_Steer)
 if nargin < 5
 	pFile_Steer = '';
 end%if
+% tunable parameter
+if nargin < 4 || isempty(LAD)
+	LAD = realp('LAD',0);
+end%if
+if nargin < 3 || isempty(vx)
+	vx	= realp('vx',10);
+end%if
+
 
 
 %%% check input arguments
 if ~ischar(sw)
 	error('Input argument SW must be of class char!');
 end%if
-if ~ischar(pFile_Vhcl)
-	error('Input argument PFILE_VHCL must be of class char!');
+if ~isstruct(paramsVhcl)
+	error('Input argument PARAMVHCL must be of class struct!');
 end%if
 if numel(vx) > 1
 	error('Input argument VX must be scalar!');
@@ -47,49 +55,55 @@ end%if
 if ~ischar(pFile_Steer)
 	error('Input argument PFILE_STEER must be of class char!');
 end%if
-	
+
 
 % subfunction shortcuts
-% st ....... single track
-% lt ....... lane tracking
+% STM ...... Single Track Model
+% LT ....... Lane Tracking
+% yL1int ... 1fach integrierend bezüglich yL
 % yL2int ... 2fach integrierend bezüglich yL
 % DSR ...... Dynamic Steer Ratio (steering model)
 
-% tunable parameter
-if isempty(vx);		vx	= realp('vx',10); end%if
-if isempty(LAD);	LAD = realp('LAD',0); end%if
 
 % get state space data
 switch lower(sw)
     
     %%% ohne Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'st'} % Einspurmodell
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM(pFile_Vhcl,vx);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM(paramsVhcl,vx);
 		Name = 'Single Track Model';
         
     case {'stvis'} % Einspurmdl. + lane tracking
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT(pFile_Vhcl,vx,LAD);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT(paramsVhcl,vx,LAD);
 		Name = 'Single Track + Lane Tracking Model';
+	
+	case {'stvis_1int'}
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL1int(paramsVhcl,vx,LAD);
+		Name = 'Single Track + Lane Tracking + single integral action on lateral offset';
         
     case {'stvis_2int'} % Einspurmdl. + lane tracking + 2fach int. bzgl. yL
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL2int(pFile_Vhcl,vx,LAD);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL2int(paramsVhcl,vx,LAD);
 		Name = 'Single Track + Lane Tracking + double integral action on lateral offset';
 		
 	
     %%% mit Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'stdsr'} % Einspurmdl. + Lenkmodell CarMaker DSR
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_DSR(pFile_Vhcl,vx,pFile_Steer);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_DSR(paramsVhcl,vx,pFile_Steer);
 		Name = 'Single Track + Steering Model CarMaker DSR';
     
     case {'stvisdsr'} % Einspurmdl. + lane tracking + Lenkmdl. CarMaker DSR
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR(pFile_Vhcl,vx,LAD,pFile_Steer);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR(paramsVhcl,vx,LAD,pFile_Steer);
 		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR';
-        
+    
+	case {'stvisdsr_1int'}
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL1int(paramsVhcl,vx,LAD,pFile_Steer);
+		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + single integral action on lateral offset';
+		
     case {'stvisdsr_2int'}
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL2int(pFile_Vhcl,vx,LAD,pFile_Steer);
+        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL2int(paramsVhcl,vx,LAD,pFile_Steer);
 		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + double integral action on lateral offset';
     
-		
+	
     %%% otherwise %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
     otherwise
         error('Unknown string sw');
@@ -107,7 +121,7 @@ try
 	% In Matlab R2012a this does not work!
 	sys.StateName = SN;
 	sys.StateUnit = SU;
-catch %exc
+catch exc
 	warning('This MATLAB release does not support properties "StateName" or "StateUnit" for class GENSS.');
 end
 sys.OutputName = ON;
@@ -116,15 +130,14 @@ sys.OutputUnit = OU;
 % set info
 sys.Name = Name;
 sys.UserData = UD;
-sys.UserData.params_Vehicle = paramFile2Struct(pFile_Vhcl);
+sys.UserData.params_Vehicle = paramsVhcl;
 sys.UserData.params_Steer	= paramFile2Struct(pFile_Steer);
 
 end%fcn
 
 
-
 function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
-	STM(paramFile,vx)
+	STM(params,vx)
 % singleTrack     state-space model of single track model
 % 
 %   Syntax:
@@ -146,7 +159,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % load parameter
-eval(paramFile);
+[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
 
 % set state space elements
 A = [0 1 0 0;...
@@ -172,10 +185,8 @@ UD.vx.unit = 'm/s';
 
 end%fcn
 
-
-
 function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
-	STM_LT(paramFile,vx,LAD)
+	STM_LT(params,vx,LAD)
 % singleTrack_lt    state-space model of single track model + lane tracking
 %   
 %   Syntax:
@@ -198,7 +209,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % load parameter
-eval(paramFile);
+[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
 
 % set state space elements
 A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
@@ -227,10 +238,68 @@ UD.LAD.unit = 'm';
 
 end%fcn
 
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM_LT_yL1int(params,vx,LAD)
+% singleTrack_lt_yL1int     state-space model of single track modell + 
+% lane tracking + internal model of yL
+% 
+%   Syntax:
+%   ret = singleTrack_lt_yL2int(paramFile,vx,lad)
+% 
+%   Input arguments:
+%   paramFile ... m-file filename containing vehicle parameters
+%   vx .......... longitudinal velocity
+%   lad ......... look-ahead distance
+% 
+%   State variables: (Index V...Vehicle, g...global) 
+%   x1 = Fahrzeugquergeschwindigkeit (vy_V)
+%   x2 = Giergeschwindigkeit (psiDot)
+%   x3 = Querversatz (yL)
+%   x4 = Relativwinkel (epsL)
+%   x5 = Int{Int{yL}} (*)
+%   x6 = Int{yL} (*)
+%   (* ... additional state)
+% 
+% Source: A Comparative Study of Vision-Based Lateral Control Strategies 
+% for Autonomous Highway Driving.
+% Source int. Model: Dynamic Controller for Lane Keeping and Obstacle 
+% Avoidance Assistance System.
+% 
 
+
+% load parameter
+[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
+
+% set state space elements
+A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0,0;...
+    (csh*lh-csv*lv)/(Iz*vx),-(csh*lh^2+csv*lv^2)/(Iz*vx),0,0,0;    
+    -1,-LAD,0,vx,0;...
+    0,-1,0,0,0;...
+    0,0,1,0,0];
+B = [[csv/m;csv*lv/Iz;0;0;0], [0;0;0;vx;0]];
+C = eye(size(A));
+D = 0;
+
+% set state/input/output names
+StateName = {'vy','yawRate','lateralOff','angularDev','Int{lateralOff}'};
+StateUnit = {'m/s','rad/s','m','rad','m*s'};
+InputName = {'steer angle','road curvature at LAD'};
+InputUnit = {'rad','1/m'};
+OutputName = StateName;
+OutputUnit = StateUnit;
+
+% info
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
+UD.LAD.about = 'look-ahead distance';
+UD.LAD.value = LAD;
+UD.LAD.unit = 'm';
+
+end%fcn
 
 function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
-	STM_LT_yL2int(paramFile,vx,LAD)
+	STM_LT_yL2int(params,vx,LAD)
 % singleTrack_lt_yL2int     state-space model of single track modell + 
 % lane tracking + internal model of yL
 % 
@@ -259,7 +328,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % load parameter
-eval(paramFile);
+[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
 
 % set state space elements
 A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0,0,0;...
@@ -293,7 +362,7 @@ end%fcn
 
 
 function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
-	STM_DSR(paramFile,vx,paramFileSteer)
+	STM_DSR(paramsVhcl,vx,paramFileSteer)
 % singleTrack_DSR   state-space model of single track modell + steering
 % model DSR
 % 
@@ -318,15 +387,8 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 % Ratio').
 % 
 
-
-% check input arguments
-if ~ischar(paramFileSteer) 
-    error('Input argument steering-parameter-filename not of type char'); 
-end
-
-
 % load parameter
-eval(paramFile);
+[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
 eval(paramFileSteer);
 
 % set state space elements
@@ -358,10 +420,8 @@ UD.vx.unit = 'm/s';
 
 end%fcn
 
-
-
 function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
-	STM_LT_DSR(paramFile,vx,LAD,paramFileSteer)
+	STM_LT_DSR(paramsVhcl,vx,LAD,paramFileSteer)
 % singleTrack_lt_DSR    state-space model of single track modell + lane
 % tracking + steering model DSR
 % 
@@ -387,15 +447,8 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 % Ratio').
 % 
 
-
-% check input arguments
-if ~ischar(paramFileSteer) 
-    error('Input argument steering-parameter-filename not of type char'); 
-end
-
-
 % load parameter
-eval(paramFile);
+[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
 eval(paramFileSteer);
 
 % set state space elements
@@ -440,10 +493,86 @@ UD.LAD.unit = 'm';
 
 end%fcn
 
+function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+	STM_LT_DSR_yL1int(paramsVhcl,vx,LAD,paramFileSteer)
+% singleTrack_lt_DSR_yL1int     state-space model of single track modell + 
+% lane tracking + steering model + internal model of yL
+% 
+%   Syntax:
+%   ret = singleTrack_lt_DSR_yL1int(paramFile,vx,lad)
+% 
+%   Input arguments:
+%   paramFile ........ m-file filename containing vehicle parameters
+%   vx ............... longitudinal velocity
+%   lad .............. look-ahead distance
+%   paramFileSteer ... m-file filename containing steering parameters
+% 
+% 	State variables: (Index V...Vehicle, g...global)
+%   x1 = Fahrzeugquergeschwindigkeit (vy_V)
+%   x2 = Giergeschwindigkeit (psiDot)
+%   x3 = Querversatz (yL)
+%   x4 = Relativwinkel (epsL)
+%   x5 = Lenkradwinkel (deltaH)
+%   x6 = Lenkradwinkelgeschwindigkeit (deltaHDot)
+%   x7 = Int{yL}
+% 
+% Based on: 'A Comparative Study of Vision-Based Lateral Control Strategies 
+% for Autonomous Highway Driving' and CarMaker Manual (see 'Dynamic Steer
+% Ratio').
+% Source int. Model: 'Dynamic Controller for Lane Keeping and Obstacle 
+% Avoidance Assistance System'.
+% 
 
+% load parameter
+[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
+eval(paramFileSteer);
+
+% set state space elements
+A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
+    (csh*lh-csv*lv)/(Iz*vx), -(csh*lh^2+csv*lv^2)/(Iz*vx), 0, 0;    
+    -1, -LAD, 0, vx;...
+    0 -1 0 0];
+B = [csv/m; csv*lv/Iz; 0; 0];
+
+A = [A,B/alph,[0;0;0;0],zeros(4,1);...
+    0 0 0 0 0 1 0;...
+    0,0,0,0,0,-1/xi*(drot*iHR^2+drack),0;...
+    0 0 1 0 0 0 0];
+B = [...
+	[0;0;0;0;0;iHR^2*V/xi;0],...
+	[0;0;0;vx;0;0;0],...
+	[0;0;0;0;0;iHR/xi;0],...
+	[0;0;0;0;0;-iHR/xi;0],...
+	];
+C = eye(size(A));
+D = 0;
+
+% set state/input/output names
+StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot',...
+    'Int{x3}'};
+StateUnit = {'m/s','rad/s','m','rad','rad','rad/s','m*s'};
+InputName = {...
+	'SWTorque',...
+	'road curvature at LAD',...
+	'left tie rod force',...
+	'right tie rod force',...
+	};
+InputUnit = {'Nm','1/m','N','N'};
+OutputName = StateName;
+OutputUnit = StateUnit;
+
+% info
+UD.vx.about = 'longitudinal velocity';
+UD.vx.value = vx;
+UD.vx.unit = 'm/s';
+UD.LAD.about = 'look-ahead distance';
+UD.LAD.value = LAD;
+UD.LAD.unit = 'm';
+
+end%fcn
 
 function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
-	STM_LT_DSR_yL2int(paramFile,vx,LAD,paramFileSteer)
+	STM_LT_DSR_yL2int(paramsVhcl,vx,LAD,paramFileSteer)
 % singleTrack_lt_DSR_yL2int     state-space model of single track modell + 
 % lane tracking + steering model + internal model of yL
 % 
@@ -473,15 +602,8 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 % Avoidance Assistance System'.
 % 
 
-
-% check input arguments
-if ~ischar(paramFileSteer) 
-    error('Input argument steering-parameter-filename not of type char'); 
-end
-
-
 % load parameter
-eval(paramFile);
+[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
 eval(paramFileSteer);
 
 % set state space elements
@@ -527,4 +649,14 @@ UD.LAD.about = 'look-ahead distance';
 UD.LAD.value = LAD;
 UD.LAD.unit = 'm';
 
+end%fcn
+
+
+function [csv,csr,lv,lr,m,Izz] = getSTMparams(S)
+csv = S.cs_front;
+csr = S.cs_rear;
+lv	= S.l_front;
+lr	= S.l_rear;
+m	= S.m;
+Izz	= S.Izz;
 end%fcn

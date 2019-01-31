@@ -16,14 +16,14 @@ about.vehicle = 'MCC-Smart';
 about.source = 'FTG-LV';
 
 m = 820;		% Fahrzeugmasse [kg]
-Iz = 3000;		% Trägheitsmoment um die Hochachse [kg*m^2]
+Izz = 3000;		% Trägheitsmoment um die Hochachse [kg*m^2]
 
-lv = 1.142;		% Schwerpunktlage/Vorderachse [m]
-lh = 0.670;		% Schwerpunktlage/Hinterachse [m]
-l = lv+lh;		% Achsabstand [m]
+l_front = 1.142;		% Schwerpunktlage/Vorderachse [m]
+l_rear = 0.670;		% Schwerpunktlage/Hinterachse [m]
+l = lv+l_rear;		% Achsabstand [m]
 
-csv = 70000;	% Schräglaufsteifigkeit vorne [N/rad]
-csh = 90000;	% Schräglaufsteifigkeit hinten [N/rad]
+cs_front = 70000;	% Schräglaufsteifigkeit vorne [N/rad]
+cs_rear = 90000;	% Schräglaufsteifigkeit hinten [N/rad]
 
 vmax = 150/3.6;	% maximale Geschwindigkeit [m/s]
 
