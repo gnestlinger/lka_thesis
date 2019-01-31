@@ -20,9 +20,5 @@ addpath 'algSynth'
 addpath 'misc';
 
 % parameter related files
-addpath 'parameter'
-
-% trajectory generation
-addpath 'trajectories'
-addpath 'trajectories\old'
+addpath 'paramFiles'
 

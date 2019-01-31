@@ -16,14 +16,14 @@ about.vehicle = 'BMW 5 - Variation';
 about.source = 'IPG Carmaker 4.0';
 
 m = 1564;		% Fahrzeugmasse [kg]
-Iz = 2230;		% Trägheitsmoment um die Hochachse [kg*m^2]
+Izz = 2230;		% Trägheitsmoment um die Hochachse [kg*m^2]
 
-lv = 1.268;		% Schwerpunktlage/Vorderachse [m]
-lh = 1.620;		% Schwerpunktlage/Hinterachse [m]
-l = lv+lh;		% Achsabstand [m]
+l_front = 1.268;		% Schwerpunktlage/Vorderachse [m]
+l_rear = 1.620;		% Schwerpunktlage/Hinterachse [m]
+l = l_front+l_rear;		% Achsabstand [m]
 
-csv = 2*70000;	% Schräglaufsteifigkeit vorne [N/rad]
-csh = 2*70000;	% Schräglaufsteifigkeit hinten [N/rad]
+cs_front = 2*70000;	% Schräglaufsteifigkeit vorne [N/rad]
+cs_rear = 2*70000;	% Schräglaufsteifigkeit hinten [N/rad]
 
 
 %%% Parametervariation
@@ -36,7 +36,7 @@ csh = 2*70000;	% Schräglaufsteifigkeit hinten [N/rad]
 %%% Zuladung 
 mzu = [400,0];
 % bei Position
-lzu = [-lh,lv];
+lzu = [-l_rear,l_front];
 
 % neue Gesamtmasse
 m = m + sum(mzu);
@@ -44,9 +44,9 @@ m = m + sum(mzu);
 S = 1/m*dot(mzu,lzu);
 
 % neue Schwerpunktlage
-lv = lv - S;
-lh = lh + S;
+l_front = l_front - S;
+l_rear = l_rear + S;
 
 % neues Trägheitsmoment
-Iz = Iz + dot(mzu,lzu.^2);
+Izz = Izz + dot(mzu,lzu.^2);
 
