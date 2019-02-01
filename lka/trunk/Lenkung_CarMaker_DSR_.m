@@ -11,9 +11,6 @@ clc
 clear all
 % close all
 
-% run init file
-initFile_;
-
 % load Simulink model
 mdlName = 'Lenkung_CarMaker_DSR';
 load_system(mdlName);

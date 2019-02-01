@@ -10,9 +10,6 @@ clc
 clear
 % close all
 
-% run init file
-initFile_;
-
 % load Simulink model
 mdlName = 'test_yL_epsL';
 load_system(mdlName);

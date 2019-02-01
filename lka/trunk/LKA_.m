@@ -10,9 +10,6 @@ clc
 clear
 % close all
 
-% run init file
-initFile_;
-
 % load Simulink model
 mdlName = 'LKA';
 load_system(mdlName);
