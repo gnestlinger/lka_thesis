@@ -36,7 +36,7 @@ Library {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[58]
+	Filter			[59]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -87,9 +87,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 31 15:58:17 2019"
-  RTWModifiedTimeStamp	  470850950
-  ModelVersionFormat	  "1.%<AutoIncrement:888>"
+  LastModifiedDate	  "Fri Feb 01 09:53:12 2019"
+  RTWModifiedTimeStamp	  470915581
+  ModelVersionFormat	  "1.%<AutoIncrement:889>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -1461,7 +1461,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3504"
+    SIDHighWatermark	    "3506"
     Block {
       BlockType		      SubSystem
       Name		      "AW-Test"
@@ -1472,7 +1472,7 @@ Library {
       RequestExecContextInheritance off
       System {
 	Name			"AW-Test"
-	Location		[446, 52, 1920, 1095]
+	Location		[-8, -8, 1610, 869]
 	Open			off
 	PortBlocksUseCompactNotation off
 	SetDomainSpec		off
@@ -1499,7 +1499,7 @@ Library {
 	  RequestExecContextInheritance	off
 	  System {
 	    Name		    "AW-Loop"
-	    Location		    [446, 52, 1920, 1095]
+	    Location		    [-8, -8, 1610, 869]
 	    Open		    off
 	    PortBlocksUseCompactNotation off
 	    SetDomainSpec	    off
@@ -2282,7 +2282,7 @@ Library {
 	      RequestExecContextInheritance off
 	      System {
 		Name			"Vehicle Model"
-		Location		[254, 52, 1944, 1165]
+		Location		[-8, -8, 1610, 869]
 		Open			off
 		PortBlocksUseCompactNotation off
 		SetDomainSpec		off
@@ -2302,7 +2302,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "SWTorque [Nm]"
 		  SID			  "3477"
-		  Position		  [45, 33, 75, 47]
+		  Position		  [25, 18, 55, 32]
 		  ZOrder		  -1
 		  BackgroundColor	  "yellow"
 		  IconDisplay		  "Port number"
@@ -2311,7 +2311,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "F_left [N]"
 		  SID			  "3478"
-		  Position		  [45, 213, 75, 227]
+		  Position		  [25, 198, 55, 212]
 		  ZOrder		  -2
 		  BackgroundColor	  "yellow"
 		  Port			  "2"
@@ -2321,7 +2321,7 @@ Library {
 		  BlockType		  Inport
 		  Name			  "curvature_LAD [1/m]"
 		  SID			  "3479"
-		  Position		  [45, 183, 75, 197]
+		  Position		  [25, 168, 55, 182]
 		  ZOrder		  -3
 		  BackgroundColor	  "yellow"
 		  Port			  "3"
@@ -2348,7 +2348,7 @@ Library {
 		  BlockType		  Constant
 		  Name			  "Constant1"
 		  SID			  "3481"
-		  Position		  [45, 271, 75, 289]
+		  Position		  [25, 256, 55, 274]
 		  ZOrder		  -4
 		  ShowName		  off
 		  Value			  "0"
@@ -2357,7 +2357,7 @@ Library {
 		  BlockType		  Constant
 		  Name			  "Constant14"
 		  SID			  "3482"
-		  Position		  [45, 301, 75, 319]
+		  Position		  [25, 286, 55, 304]
 		  ZOrder		  -4
 		  ShowName		  off
 		  Value			  "0"
@@ -2366,7 +2366,7 @@ Library {
 		  BlockType		  Constant
 		  Name			  "Constant18"
 		  SID			  "3483"
-		  Position		  [45, 151, 75, 169]
+		  Position		  [25, 136, 55, 154]
 		  ZOrder		  -4
 		  ShowName		  off
 		  Value			  "pin.L"
@@ -2375,7 +2375,7 @@ Library {
 		  BlockType		  Constant
 		  Name			  "Constant19"
 		  SID			  "3484"
-		  Position		  [45, 121, 75, 139]
+		  Position		  [25, 106, 55, 124]
 		  ZOrder		  -4
 		  ShowName		  off
 		  Value			  "pin.vx"
@@ -2384,7 +2384,7 @@ Library {
 		  BlockType		  From
 		  Name			  "From4"
 		  SID			  "3485"
-		  Position		  [15, 61, 105, 79]
+		  Position		  [-5, 46, 85, 64]
 		  ZOrder		  -9
 		  ShowName		  off
 		  GotoTag		  "VhclParam"
@@ -2394,7 +2394,7 @@ Library {
 		  BlockType		  From
 		  Name			  "From5"
 		  SID			  "3486"
-		  Position		  [15, 91, 105, 109]
+		  Position		  [-5, 76, 85, 94]
 		  ZOrder		  -9
 		  ShowName		  off
 		  GotoTag		  "SteerParam"
@@ -2404,7 +2404,7 @@ Library {
 		  BlockType		  Gain
 		  Name			  "Gain1"
 		  SID			  "3487"
-		  Position		  [120, 236, 155, 264]
+		  Position		  [120, 221, 155, 249]
 		  ZOrder		  -8
 		  Gain			  "-1"
 		  ParamDataTypeStr	  "Inherit: Inherit via internal rule"
@@ -2413,14 +2413,35 @@ Library {
 		}
 		Block {
 		  BlockType		  Reference
+		  Name			  "Single Track Model (linear)\n[Initial Values; masked]"
+		  SID			  "3506"
+		  Ports			  [0, 1]
+		  Position		  [-40, 344, 120, 366]
+		  ZOrder		  2
+		  LibraryVersion	  "1.888"
+		  SourceBlock		  "$bdroot/Vehicle Models ext./Single Track Model (linear)\n[Initial Values; masked]"
+		  SourceType		  "Linear Single Track Model Inital Values"
+		  ContentPreviewEnabled	  off
+		  sy			  "0"
+		  vy			  "0"
+		  yawAngle		  "0"
+		  yawRate		  "0"
+		  x_global		  "0"
+		  y_global		  "0"
+		  s_global		  "0"
+		}
+		Block {
+		  BlockType		  Reference
 		  Name			  "Single Track Model/LaneTracking/Steering Model"
 		  SID			  "3488"
-		  Ports			  [11, 1]
-		  Position		  [190, 26, 375, 354]
+		  Ports			  [12, 1]
+		  Position		  [190, 15, 375, 365]
 		  ZOrder		  -12
 		  BackgroundColor	  "lightBlue"
-		  SourceBlock		  "$bdroot/Vehicle Models/Single Track Model//LaneTracking//Steering Model"
+		  LibraryVersion	  "1.888"
+		  SourceBlock		  "$bdroot/Vehicle Models ext./Single Track Model//Lane Tracking//Steering Model"
 		  SourceType		  "SubSystem"
+		  ContentPreviewEnabled	  off
 		}
 		Block {
 		  BlockType		  Outport
@@ -2435,17 +2456,17 @@ Library {
 		  ZOrder		  1
 		  SrcBlock		  "F_left [N]"
 		  SrcPort		  1
-		  Points		  [15, 0]
+		  Points		  [35, 0]
+		  Branch {
+		    ZOrder		    17
+		    Points		    [0, 30]
+		    DstBlock		    "Gain1"
+		    DstPort		    1
+		  }
 		  Branch {
 		    ZOrder		    2
 		    DstBlock		    "Single Track Model/LaneTracking/Steering Model"
 		    DstPort		    7
-		  }
-		  Branch {
-		    ZOrder		    3
-		    Points		    [0, 30]
-		    DstBlock		    "Gain1"
-		    DstPort		    1
 		  }
 		}
 		Line {
@@ -2506,7 +2527,7 @@ Library {
 		  Labels		  [0, 0]
 		  SrcBlock		  "Bus\nSelector5"
 		  SrcPort		  1
-		  Points		  [-130, 0; 0, -65]
+		  Points		  [-125, 0; 0, -80]
 		  DstBlock		  "Single Track Model/LaneTracking/Steering Model"
 		  DstPort		  11
 		}
@@ -2537,6 +2558,13 @@ Library {
 		  SrcPort		  1
 		  DstBlock		  "Single Track Model/LaneTracking/Steering Model"
 		  DstPort		  6
+		}
+		Line {
+		  ZOrder		  19
+		  SrcBlock		  "Single Track Model (linear)\n[Initial Values; masked]"
+		  SrcPort		  1
+		  DstBlock		  "Single Track Model/LaneTracking/Steering Model"
+		  DstPort		  12
 		}
 	      }
 	    }
@@ -2657,6 +2685,7 @@ Library {
 	      ZOrder		      14
 	      SrcBlock		      "Sum"
 	      SrcPort		      1
+	      Points		      [15, 0]
 	      DstBlock		      "Vehicle Model"
 	      DstPort		      1
 	    }
@@ -2667,6 +2696,7 @@ Library {
 	      Points		      [-110, 0; 0, -60]
 	      Branch {
 		ZOrder			16
+		Points			[65, 0]
 		DstBlock		"Vehicle Model"
 		DstPort			3
 	      }
@@ -2689,6 +2719,7 @@ Library {
 	      ZOrder		      19
 	      SrcBlock		      "Gain2"
 	      SrcPort		      1
+	      Points		      [5, 0]
 	      DstBlock		      "Vehicle Model"
 	      DstPort		      2
 	    }
@@ -2712,7 +2743,7 @@ Library {
 	  RequestExecContextInheritance	off
 	  System {
 	    Name		    "Plot Interface"
-	    Location		    [254, 52, 1861, 958]
+	    Location		    [-8, -8, 1610, 869]
 	    Open		    off
 	    PortBlocksUseCompactNotation off
 	    SetDomainSpec	    off
@@ -6212,6 +6243,7 @@ Library {
 	      BackgroundColor	      "[1.000000, 0.000000, 0.000000]"
 	      DropShadow	      on
 	      Interpreter	      "rich"
+	      ZOrder		      -1
 	    }
 	  }
 	}
@@ -16933,10 +16965,7 @@ Stateflow {
     screen		    [1 1 1920 1080 1.611111111111111]
     treeNode		    [0 3 0 0]
     viewObj		    2
-    visible		    1
     toolbarMode		    LIBRARY_TOOLBAR
-    subviewS {
-    }
     ssIdHighWaterMark	    20
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
