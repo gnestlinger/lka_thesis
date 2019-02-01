@@ -1,4 +1,4 @@
-% LKA-Analyse: vx konstant, lad variabel
+% LKA-Analyse: vx konstant, LAD variabel
 % 
 % .) des um Relativposition erw. Einspurmodells
 % 
@@ -6,28 +6,33 @@
 % Author: georgnoname
 % Date: 07.03.2013
 
-clear all;
+clc
+clear;
 
 figure;
 hold all;
 
-
 vx = 20;
 i = 0;
-w = logspace(-2,3,100);
+w = logspace(-1,2,100);
 
-for lad = 0:5:50
+params = paramFile2Struct('paramFile_SingleTrackMdl_BMW5');
+LAD = [10,15,20,30];
+for lad = LAD
     i = i+1;
     
-    sys = ssMdl_SingleTrack('stvis','paramFile_SingleTrackMdl_BMW5',vx,lad);
+    sys = ssMdl_SingleTrack('stvis',params,vx,lad);
+	sys = sys(3,1);
     
-    bode(sys);
+    bode(sys,w);
     [mag,phase] = bode(sys,w);
     magdb(:,i) = 20*log10(mag(:));
     Phase(:,i) = phase(:);
     
-    
 end%for
+
+grid on
+legend(cellfun(@num2str,num2cell(LAD),'UniformOutput',false));
 
 
 % i = 0;
@@ -55,5 +60,4 @@ end%for
 %     'abs_lad40',magdb(:,09),'arg_lad40',Phase(:,09),...
 %     'abs_lad45',magdb(:,10),'arg_lad45',Phase(:,10),...
 %     'abs_lad50',magdb(:,11),'arg_lad50',Phase(:,11))
-
 

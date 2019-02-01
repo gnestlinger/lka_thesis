@@ -6,22 +6,25 @@
 % Author: georgnoname
 % Date: 07.03.2013
 
-clear all;
+clc
+clear;
 
 figure;
 hold all;
 
-
 lad = 5;
 i = 0;
-w = logspace(-2,3,100);
+w = logspace(-1,2,100);
 
-for vx = 5:5:50
+params = paramFile2Struct('paramFile_SingleTrackMdl_BMW5');
+VX = 5:5:50;
+for vx = VX
     i = i+1;
     
-    sys = ssMdl_SingleTrack('stvis','paramFile_SingleTrackMdl_BMW5',vx,lad);
-    
-    bode(sys);
+    sys = ssMdl_SingleTrack('stvis',params,vx,lad);
+    sys = sys(3,1);
+	
+    bode(sys,w);
     [mag,phase] = bode(sys,w);
     magdb(:,i) = 20*log10(mag(:));
     Phase(:,i) = phase(:);
@@ -29,6 +32,8 @@ for vx = 5:5:50
     
 end%for
 
+grid on
+legend(cellfun(@num2str,num2cell(VX),'UniformOutput',false));
 
 % saveFigure_txt('EinspurMdlVis_Bode_BMW5_vxVar',[],...
 %     'w_rad/s',w,...
