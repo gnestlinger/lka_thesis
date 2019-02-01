@@ -7,7 +7,7 @@
 % Date: 08.11.2012 - 29.04.2013
 
 clc
-clear all
+clear
 % close all
 
 % run init file
@@ -23,7 +23,7 @@ load_system(mdlName);
 paramFile_SingleTrackMdl_BMW5
 
 % nicht steuerbar bei
-vx0 = sqrt(-csh*(Iz-lv*lh*m)*(lv+lh)/(lv^2*m^2));
+vx0 = sqrt(-cs_front*(Izz-l_front*l_rear*m)*(l_front+l_rear)/(l_front^2*m^2));
 
 % LKA-controller design: vehicle parameter
 stringCvehicle = 'paramFile_SingleTrackMdl_BMW5';
@@ -60,12 +60,12 @@ pin.LAD = LAD_Ctrl;
 % load desired path
 % [pin.traj,trajErr] = lka_trajectory_07(0,0.05);
 pin.traj = ...
-	lkaSegmentStraight(0.05,50,0) + ...
-	lkaSegmentCircle(0.05,-pi/2,0,200);
-pin.traj_sd = pin.traj.segmentData;
+	LkPathStraight(0.05,50,0) + ...
+	LkPathCircle(0.05,-pi/2,0,200);
+pin.traj_sd = pin.traj.pathData;
 
 % simulation: interval of integration
-tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.LAD/pin.vx;
+tend = pin.traj.length/pin.vx - 2*pin.LAD/pin.vx;
 
 % vehicle model: initial condition
 pin.VehicleModel.initialValue.sy = 0;

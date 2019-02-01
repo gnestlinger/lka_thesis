@@ -53,7 +53,7 @@ Library {
 	LoadSaveID		"0"
 	Extents			[1529.0, 852.0]
 	ZoomFactor		[1.0]
-	Offset			[-184.19130434782608, -150.61739130434779]
+	Offset			[-79.426086956521772, -92.1826086956521]
       }
       Object {
 	$PropName		"DockComponentsInfo"
@@ -87,9 +87,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Feb 01 09:53:12 2019"
-  RTWModifiedTimeStamp	  470915581
-  ModelVersionFormat	  "1.%<AutoIncrement:889>"
+  LastModifiedDate	  "Fri Feb 01 10:06:11 2019"
+  RTWModifiedTimeStamp	  470916368
+  ModelVersionFormat	  "1.%<AutoIncrement:891>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -1461,7 +1461,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3506"
+    SIDHighWatermark	    "3509"
     Block {
       BlockType		      SubSystem
       Name		      "AW-Test"
@@ -2685,7 +2685,6 @@ Library {
 	      ZOrder		      14
 	      SrcBlock		      "Sum"
 	      SrcPort		      1
-	      Points		      [15, 0]
 	      DstBlock		      "Vehicle Model"
 	      DstPort		      1
 	    }
@@ -2696,7 +2695,6 @@ Library {
 	      Points		      [-110, 0; 0, -60]
 	      Branch {
 		ZOrder			16
-		Points			[65, 0]
 		DstBlock		"Vehicle Model"
 		DstPort			3
 	      }
@@ -2719,7 +2717,6 @@ Library {
 	      ZOrder		      19
 	      SrcBlock		      "Gain2"
 	      SrcPort		      1
-	      Points		      [5, 0]
 	      DstBlock		      "Vehicle Model"
 	      DstPort		      2
 	    }
@@ -5250,8 +5247,8 @@ Library {
 	  BlockType		  SubSystem
 	  Name			  "Lane Tracking Model (linear&nonlinear)"
 	  SID			  "3348"
-	  Ports			  [8, 1]
-	  Position		  [625, 13, 820, 212]
+	  Ports			  [7, 1]
+	  Position		  [625, 15, 820, 215]
 	  ZOrder		  -19
 	  RequestExecContextInheritance	off
 	  System {
@@ -5370,25 +5367,11 @@ Library {
 	      SignalType	      "real"
 	    }
 	    Block {
-	      BlockType		      Inport
-	      Name		      "lateralOff_LAD_exact [m]"
-	      SID		      "3360"
-	      Position		      [50, 413, 80, 427]
-	      ZOrder		      -8
-	      BackgroundColor	      "yellow"
-	      Port		      "8"
-	      IconDisplay	      "Port number"
-	      OutDataTypeStr	      "double"
-	      PortDimensions	      "1"
-	      VarSizeSig	      "No"
-	      SignalType	      "real"
-	    }
-	    Block {
 	      BlockType		      BusCreator
 	      Name		      "Bus\nCreator"
 	      SID		      "3362"
 	      Ports		      [4, 1]
-	      Position		      [680, 14, 685, 431]
+	      Position		      [685, 14, 690, 431]
 	      ZOrder		      -2
 	      ShowName		      off
 	      Inputs		      "4"
@@ -5404,9 +5387,9 @@ Library {
 	      Name		      "Lane Tracking Model (linear)"
 	      SID		      "3351"
 	      Ports		      [7, 2]
-	      Position		      [335, 12, 530, 218]
+	      Position		      [335, 14, 530, 216]
 	      ZOrder		      -10
-	      LibraryVersion	      "1.887"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Lane Tracking/Lane Tracking Model (linear)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -5425,10 +5408,10 @@ Library {
 	      BlockType		      Reference
 	      Name		      "Lane Tracking Model (nonlinear)"
 	      SID		      "3361"
-	      Ports		      [8, 2]
-	      Position		      [335, 233, 530, 432]
+	      Ports		      [7, 2]
+	      Position		      [335, 229, 530, 431]
 	      ZOrder		      -11
-	      LibraryVersion	      "1.887"
+	      LibraryVersion	      "1.889"
 	      SourceBlock	      "$bdroot/Lane Tracking/Lane Tracking Model (nonlinear)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -5464,7 +5447,7 @@ Library {
 	      }
 	      Branch {
 		ZOrder			3
-		Points			[0, 220]
+		Points			[0, 215]
 		DstBlock		"Lane Tracking Model (nonlinear)"
 		DstPort			1
 	      }
@@ -5498,7 +5481,7 @@ Library {
 	      }
 	      Branch {
 		ZOrder			9
-		Points			[0, 210]
+		Points			[0, 215]
 		DstBlock		"Lane Tracking Model (nonlinear)"
 		DstPort			3
 	      }
@@ -5515,7 +5498,7 @@ Library {
 	      }
 	      Branch {
 		ZOrder			12
-		Points			[0, 205]
+		Points			[0, 215]
 		DstBlock		"Lane Tracking Model (nonlinear)"
 		DstPort			4
 	      }
@@ -5532,7 +5515,7 @@ Library {
 	      }
 	      Branch {
 		ZOrder			15
-		Points			[0, 200]
+		Points			[0, 215]
 		DstBlock		"Lane Tracking Model (nonlinear)"
 		DstPort			5
 	      }
@@ -5549,7 +5532,7 @@ Library {
 	      }
 	      Branch {
 		ZOrder			18
-		Points			[0, 195]
+		Points			[0, 215]
 		DstBlock		"Lane Tracking Model (nonlinear)"
 		DstPort			6
 	      }
@@ -5566,51 +5549,10 @@ Library {
 	      }
 	      Branch {
 		ZOrder			21
-		Points			[0, 190]
+		Points			[0, 215]
 		DstBlock		"Lane Tracking Model (nonlinear)"
 		DstPort			7
 	      }
-	    }
-	    Line {
-	      ZOrder		      22
-	      SrcBlock		      "lateralOff_LAD_exact [m]"
-	      SrcPort		      1
-	      DstBlock		      "Lane Tracking Model (nonlinear)"
-	      DstPort		      8
-	    }
-	    Line {
-	      ZOrder		      23
-	      Labels		      [0, 0]
-	      SrcBlock		      "Lane Tracking Model (linear)"
-	      SrcPort		      1
-	      DstBlock		      "Bus\nCreator"
-	      DstPort		      1
-	    }
-	    Line {
-	      ZOrder		      24
-	      Labels		      [0, 0]
-	      SrcBlock		      "Lane Tracking Model (linear)"
-	      SrcPort		      2
-	      DstBlock		      "Bus\nCreator"
-	      DstPort		      2
-	    }
-	    Line {
-	      ZOrder		      25
-	      Labels		      [2, 0]
-	      SrcBlock		      "Lane Tracking Model (nonlinear)"
-	      SrcPort		      1
-	      Points		      [0, -10]
-	      DstBlock		      "Bus\nCreator"
-	      DstPort		      3
-	    }
-	    Line {
-	      ZOrder		      26
-	      Labels		      [0, 0]
-	      SrcBlock		      "Lane Tracking Model (nonlinear)"
-	      SrcPort		      2
-	      Points		      [0, -5]
-	      DstBlock		      "Bus\nCreator"
-	      DstPort		      4
 	    }
 	    Line {
 	      Name		      "LaneTracking"
@@ -5620,6 +5562,36 @@ Library {
 	      SrcPort		      1
 	      DstBlock		      "LaneTracking"
 	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      28
+	      SrcBlock		      "Lane Tracking Model (linear)"
+	      SrcPort		      1
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      29
+	      SrcBlock		      "Lane Tracking Model (nonlinear)"
+	      SrcPort		      2
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      4
+	    }
+	    Line {
+	      ZOrder		      30
+	      SrcBlock		      "Lane Tracking Model (linear)"
+	      SrcPort		      2
+	      Points		      [45, 0; 0, 5]
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      31
+	      SrcBlock		      "Lane Tracking Model (nonlinear)"
+	      SrcPort		      1
+	      Points		      [45, 0; 0, -5]
+	      DstBlock		      "Bus\nCreator"
+	      DstPort		      3
 	    }
 	  }
 	}
@@ -5648,7 +5620,7 @@ Library {
 	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
+	    ZoomFactor		    "102"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "vx [m/s]"
@@ -6251,8 +6223,8 @@ Library {
 	  BlockType		  SubSystem
 	  Name			  "Lane Tracking Model (nonlinear)"
 	  SID			  "1840"
-	  Ports			  [8, 2]
-	  Position		  [325, 14, 520, 246]
+	  Ports			  [7, 2]
+	  Position		  [325, 14, 520, 216]
 	  ZOrder		  -21
 	  RequestExecContextInheritance	off
 	  System {
@@ -6272,7 +6244,7 @@ Library {
 	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
+	    ZoomFactor		    "97"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "vx [m/s]"
@@ -6347,7 +6319,7 @@ Library {
 	      BlockType		      Inport
 	      Name		      "roadCurvat_LAD [1/m] (n-by-1)"
 	      SID		      "2702"
-	      Position		      [65, 378, 95, 392]
+	      Position		      [65, 363, 95, 377]
 	      ZOrder		      -5
 	      BackgroundColor	      "yellow"
 	      Port		      "5"
@@ -6387,19 +6359,6 @@ Library {
 	      SignalType	      "real"
 	    }
 	    Block {
-	      BlockType		      Inport
-	      Name		      "lateralOff_LAD_exact [m] (n-by-1)"
-	      SID		      "1863"
-	      Position		      [65, 343, 95, 357]
-	      ZOrder		      -8
-	      BackgroundColor	      "yellow"
-	      Port		      "8"
-	      IconDisplay	      "Port number"
-	      OutDataTypeStr	      "double"
-	      VarSizeSig	      "No"
-	      SignalType	      "real"
-	    }
-	    Block {
 	      BlockType		      Sum
 	      Name		      "Add"
 	      SID		      "1882"
@@ -6433,14 +6392,6 @@ Library {
 	      Name		      "Assertion2"
 	      SID		      "3408"
 	      Position		      [960, 578, 1020, 612]
-	      ZOrder		      -1
-	      ShowName		      off
-	    }
-	    Block {
-	      BlockType		      Assertion
-	      Name		      "Assertion3"
-	      SID		      "3409"
-	      Position		      [960, 618, 1020, 652]
 	      ZOrder		      -1
 	      ShowName		      off
 	    }
@@ -6513,23 +6464,10 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Probe
-	      Name		      "Probe3"
-	      SID		      "3394"
-	      Ports		      [1, 1]
-	      Position		      [780, 612, 845, 638]
-	      ZOrder		      -9
-	      ShowName		      off
-	      ProbeWidth	      off
-	      ProbeSampleTime	      off
-	      ProbeComplexSignal      off
-	      ProbeSignalDimensions   on
-	    }
-	    Block {
-	      BlockType		      Probe
 	      Name		      "Probe4"
 	      SID		      "3410"
 	      Ports		      [1, 1]
-	      Position		      [780, 647, 845, 673]
+	      Position		      [780, 612, 845, 638]
 	      ZOrder		      -9
 	      ShowName		      off
 	      ProbeWidth	      off
@@ -6616,18 +6554,6 @@ Library {
 	      SID		      "3405"
 	      Ports		      [2, 1]
 	      Position		      [905, 577, 935, 608]
-	      ZOrder		      -18
-	      ShowName		      off
-	      Operator		      "=="
-	      InputSameDT	      off
-	      OutDataTypeStr	      "boolean"
-	    }
-	    Block {
-	      BlockType		      RelationalOperator
-	      Name		      "Relational\nOperator3"
-	      SID		      "3406"
-	      Ports		      [2, 1]
-	      Position		      [905, 617, 935, 648]
 	      ZOrder		      -18
 	      ShowName		      off
 	      Operator		      "=="
@@ -6777,17 +6703,16 @@ Library {
 	      SrcPort		      1
 	      Points		      [80, 0]
 	      Branch {
-		ZOrder			10
-		Labels			[-1, 1]
-		Points			[25, 0; 0, -15]
-		DstBlock		"Product7"
-		DstPort			2
-	      }
-	      Branch {
-		ZOrder			11
-		Points			[0, 275]
+		ZOrder			56
+		Points			[0, 255]
 		DstBlock		"Probe4"
 		DstPort			1
+	      }
+	      Branch {
+		ZOrder			10
+		Labels			[-1, 1]
+		DstBlock		"Product7"
+		DstPort			2
 	      }
 	    }
 	    Line {
@@ -6851,8 +6776,18 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Integrator1"
 	      SrcPort		      1
-	      DstBlock		      "lateralOff_LAD [m] (n-by-1)"
-	      DstPort		      1
+	      Points		      [42, 0]
+	      Branch {
+		ZOrder			58
+		Points			[0, 156; -597, 0]
+		DstBlock		"Product6"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			57
+		DstBlock		"lateralOff_LAD [m] (n-by-1)"
+		DstPort			1
+	      }
 	    }
 	    Line {
 	      Name		      "yawRate"
@@ -6870,15 +6805,14 @@ Library {
 		ZOrder			23
 		Points			[0, 240]
 		Branch {
-		  ZOrder		  24
-		  Labels		  [2, 0]
-		  Points		  [0, 45]
+		  ZOrder		  62
+		  Points		  [0, 60]
 		  DstBlock		  "Product6"
-		  DstPort		  1
+		  DstPort		  2
 		}
 		Branch {
-		  ZOrder		  25
-		  Labels		  [-1, 1]
+		  ZOrder		  61
+		  Labels		  [2, 0]
 		  DstBlock		  "Sum4"
 		  DstPort		  1
 		}
@@ -6961,23 +6895,6 @@ Library {
 	      DstPort		      1
 	    }
 	    Line {
-	      ZOrder		      37
-	      SrcBlock		      "lateralOff_LAD_exact [m] (n-by-1)"
-	      SrcPort		      1
-	      Points		      [90, 0]
-	      Branch {
-		ZOrder			38
-		DstBlock		"Product6"
-		DstPort			2
-	      }
-	      Branch {
-		ZOrder			39
-		Points			[0, 275]
-		DstBlock		"Probe3"
-		DstPort			1
-	      }
-	    }
-	    Line {
 	      ZOrder		      40
 	      SrcBlock		      "Probe"
 	      SrcPort		      1
@@ -7003,13 +6920,6 @@ Library {
 	      SrcBlock		      "Relational\nOperator2"
 	      SrcPort		      1
 	      DstBlock		      "Assertion2"
-	      DstPort		      1
-	    }
-	    Line {
-	      ZOrder		      44
-	      SrcBlock		      "Relational\nOperator3"
-	      SrcPort		      1
-	      DstBlock		      "Assertion3"
 	      DstPort		      1
 	    }
 	    Line {
@@ -7047,28 +6957,11 @@ Library {
 	      }
 	    }
 	    Line {
-	      ZOrder		      51
-	      SrcBlock		      "Probe3"
-	      SrcPort		      1
-	      Points		      [10, 0]
-	      Branch {
-		ZOrder			52
-		DstBlock		"Relational\nOperator3"
-		DstPort			1
-	      }
-	      Branch {
-		ZOrder			53
-		Points			[0, -25]
-		DstBlock		"Relational\nOperator2"
-		DstPort			2
-	      }
-	    }
-	    Line {
-	      ZOrder		      54
+	      ZOrder		      55
 	      SrcBlock		      "Probe4"
 	      SrcPort		      1
-	      Points		      [10, 0; 0, -20]
-	      DstBlock		      "Relational\nOperator3"
+	      Points		      [25, 0; 0, -25]
+	      DstBlock		      "Relational\nOperator2"
 	      DstPort		      2
 	    }
 	    Annotation {
@@ -13732,7 +13625,7 @@ Library {
 	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
 	TiledPageScale		1
 	ShowPageBoundaries	off
-	ZoomFactor		"100"
+	ZoomFactor		"113"
 	Block {
 	  BlockType		  SubSystem
 	  Name			  "Single Track Model (linear)\n[Initial Values; Interface]"
@@ -14657,8 +14550,8 @@ Library {
 	  BlockType		  SubSystem
 	  Name			  "Single Track Model/Lane Tracking"
 	  SID			  "3066"
-	  Ports			  [9, 1]
-	  Position		  [275, 14, 435, 236]
+	  Ports			  [8, 1]
+	  Position		  [275, 18, 430, 217]
 	  ZOrder		  -23
 	  BackgroundColor	  "lightBlue"
 	  RequestExecContextInheritance	off
@@ -14751,22 +14644,12 @@ Library {
 	    }
 	    Block {
 	      BlockType		      Inport
-	      Name		      "y_LAD_exact [m]"
-	      SID		      "3075"
-	      Position		      [35, 778, 65, 792]
-	      ZOrder		      -8
-	      BackgroundColor	      "yellow"
-	      Port		      "8"
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
-	      BlockType		      Inport
 	      Name		      "Vhcl_InitValues"
 	      SID		      "3188"
 	      Position		      [35, 243, 65, 257]
 	      ZOrder		      -9
 	      BackgroundColor	      "yellow"
-	      Port		      "9"
+	      Port		      "8"
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
@@ -14838,7 +14721,7 @@ Library {
 	      Ports		      [7, 2]
 	      Position		      [585, 323, 770, 537]
 	      ZOrder		      -13
-	      LibraryVersion	      "1.886"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Lane Tracking/Lane Tracking Model (linear)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -14847,10 +14730,10 @@ Library {
 	      BlockType		      Reference
 	      Name		      "Lane Tracking (nonlinear)"
 	      SID		      "3086"
-	      Ports		      [8, 2]
-	      Position		      [585, 560, 770, 800]
+	      Ports		      [7, 2]
+	      Position		      [585, 558, 770, 772]
 	      ZOrder		      -14
-	      LibraryVersion	      "1.886"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Lane Tracking/Lane Tracking Model (nonlinear)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -14862,7 +14745,7 @@ Library {
 	      Ports		      [15, 7]
 	      Position		      [215, 16, 375, 324]
 	      ZOrder		      -15
-	      LibraryVersion	      "1.886"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Vehicle Models/Single Track Models/Single Track Model (linear)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -14987,7 +14870,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking (nonlinear)"
 	      SrcPort		      1
-	      Points		      [65, 0; 0, -180]
+	      Points		      [65, 0; 0, -175]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      10
 	    }
@@ -14996,7 +14879,7 @@ Library {
 	      Labels		      [-1, 1]
 	      SrcBlock		      "Lane Tracking (nonlinear)"
 	      SrcPort		      2
-	      Points		      [85, 0; 0, -255]
+	      Points		      [85, 0; 0, -235]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      11
 	    }
@@ -15091,13 +14974,6 @@ Library {
 	      SrcPort		      3
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      3
-	    }
-	    Line {
-	      ZOrder		      36
-	      SrcBlock		      "y_LAD_exact [m]"
-	      SrcPort		      1
-	      DstBlock		      "Lane Tracking (nonlinear)"
-	      DstPort		      8
 	    }
 	    Line {
 	      ZOrder		      37
@@ -15246,14 +15122,14 @@ Library {
 	  BlockType		  SubSystem
 	  Name			  "Single Track Model/Lane Tracking/Steering Model"
 	  SID			  "3067"
-	  Ports			  [12, 1]
-	  Position		  [535, 14, 695, 311]
+	  Ports			  [11, 1]
+	  Position		  [520, 18, 675, 292]
 	  ZOrder		  -24
 	  BackgroundColor	  "lightBlue"
 	  RequestExecContextInheritance	off
 	  System {
 	    Name		    "Single Track Model/Lane Tracking/Steering Model"
-	    Location		    [467, 52, 1873, 1063]
+	    Location		    [-8, -8, 1610, 869]
 	    Open		    off
 	    PortBlocksUseCompactNotation off
 	    SetDomainSpec	    off
@@ -15268,7 +15144,7 @@ Library {
 	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
+	    ZoomFactor		    "91"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "SWTorque [Nm]"
@@ -15379,16 +15255,6 @@ Library {
 	      IconDisplay	      "Port number"
 	    }
 	    Block {
-	      BlockType		      Inport
-	      Name		      "Vhcl_InitValues"
-	      SID		      "3221"
-	      Position		      [35, 583, 65, 597]
-	      ZOrder		      -12
-	      BackgroundColor	      "yellow"
-	      Port		      "12"
-	      IconDisplay	      "Port number"
-	    }
-	    Block {
 	      BlockType		      BusCreator
 	      Name		      "Bus\nCreator1"
 	      SID		      "3100"
@@ -15424,7 +15290,7 @@ Library {
 	      Name		      "Bus\nSelector1"
 	      SID		      "3102"
 	      Ports		      [1, 11]
-	      Position		      [920, 355, 925, 585]
+	      Position		      [920, 340, 925, 570]
 	      ZOrder		      -3
 	      ShowName		      off
 	      OutputSignals	      "sy,vy,yawAngle,yawRate,x_global,y_global,s_global,lateralOff_LAD_linear,angularDev_LAD_lin"
@@ -15553,11 +15419,11 @@ Library {
 	      BlockType		      Reference
 	      Name		      "Single Track Model/Lane Tracking"
 	      SID		      "3107"
-	      Ports		      [9, 1]
-	      Position		      [715, 340, 875, 600]
+	      Ports		      [8, 1]
+	      Position		      [715, 332, 875, 578]
 	      ZOrder		      -20
 	      BackgroundColor	      "lightBlue"
-	      LibraryVersion	      "1.885"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Vehicle Models ext./Single Track Model//Lane Tracking"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -15569,7 +15435,7 @@ Library {
 	      Ports		      [13, 2]
 	      Position		      [275, 14, 440, 336]
 	      ZOrder		      -21
-	      LibraryVersion	      "1.885"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Steering Models/Steering Model (CarMaker DSR)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -15731,7 +15597,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      1
-	      Points		      [120, 0; 0, -315]
+	      Points		      [120, 0; 0, -300]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      1
 	    }
@@ -15741,7 +15607,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      2
-	      Points		      [130, 0; 0, -310]
+	      Points		      [130, 0; 0, -295]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      2
 	    }
@@ -15751,7 +15617,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      3
-	      Points		      [140, 0; 0, -305]
+	      Points		      [140, 0; 0, -290]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      3
 	    }
@@ -15761,7 +15627,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      4
-	      Points		      [150, 0; 0, -300]
+	      Points		      [150, 0; 0, -285]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      4
 	    }
@@ -15771,7 +15637,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      5
-	      Points		      [160, 0; 0, -295]
+	      Points		      [160, 0; 0, -280]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      5
 	    }
@@ -15781,7 +15647,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      6
-	      Points		      [170, 0; 0, -290]
+	      Points		      [170, 0; 0, -275]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      6
 	    }
@@ -15791,7 +15657,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      7
-	      Points		      [180, 0; 0, -285]
+	      Points		      [180, 0; 0, -270]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      7
 	    }
@@ -15801,7 +15667,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      8
-	      Points		      [190, 0; 0, -230]
+	      Points		      [190, 0; 0, -215]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      10
 	    }
@@ -15811,7 +15677,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      9
-	      Points		      [200, 0; 0, -225]
+	      Points		      [200, 0; 0, -210]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      11
 	    }
@@ -15821,7 +15687,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      10
-	      Points		      [210, 0; 0, -220]
+	      Points		      [210, 0; 0, -205]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      12
 	    }
@@ -15831,7 +15697,7 @@ Library {
 	      Labels		      [0, 0]
 	      SrcBlock		      "Bus\nSelector1"
 	      SrcPort		      11
-	      Points		      [220, 0; 0, -215]
+	      Points		      [220, 0; 0, -200]
 	      DstBlock		      "Bus\nCreator1"
 	      DstPort		      13
 	    }
@@ -15935,13 +15801,6 @@ Library {
 	      DstBlock		      "Steering Model: CM DSR"
 	      DstPort		      13
 	    }
-	    Line {
-	      ZOrder		      43
-	      SrcBlock		      "Vhcl_InitValues"
-	      SrcPort		      1
-	      DstBlock		      "Single Track Model/Lane Tracking"
-	      DstPort		      9
-	    }
 	  }
 	}
 	Block {
@@ -15949,13 +15808,13 @@ Library {
 	  Name			  "Single Track Model/Steering Model"
 	  SID			  "3368"
 	  Ports			  [7, 1]
-	  Position		  [780, 15, 940, 225]
+	  Position		  [760, 20, 920, 230]
 	  ZOrder		  -25
 	  BackgroundColor	  "lightBlue"
 	  RequestExecContextInheritance	off
 	  System {
 	    Name		    "Single Track Model/Steering Model"
-	    Location		    [467, 52, 1873, 1063]
+	    Location		    [-8, -8, 1610, 869]
 	    Open		    off
 	    PortBlocksUseCompactNotation off
 	    SetDomainSpec	    off
@@ -15970,7 +15829,7 @@ Library {
 	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
 	    TiledPageScale	    1
 	    ShowPageBoundaries	    off
-	    ZoomFactor		    "100"
+	    ZoomFactor		    "96"
 	    Block {
 	      BlockType		      Inport
 	      Name		      "SWTorque [Nm]"
@@ -16174,7 +16033,7 @@ Library {
 	      Ports		      [15, 7]
 	      Position		      [740, 336, 900, 644]
 	      ZOrder		      -16
-	      LibraryVersion	      "1.885"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Vehicle Models/Single Track Models/Single Track Model (linear)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -16221,7 +16080,7 @@ Library {
 	      Ports		      [13, 2]
 	      Position		      [275, 14, 440, 336]
 	      ZOrder		      -17
-	      LibraryVersion	      "1.885"
+	      LibraryVersion	      "1.890"
 	      SourceBlock	      "$bdroot/Steering Models/Steering Model (CarMaker DSR)"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off

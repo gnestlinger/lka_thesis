@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.970"
+    ComputedModelVersion    "1.971"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -155,9 +155,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jan 31 16:09:13 2019"
-  RTWModifiedTimeStamp	  470851749
-  ModelVersionFormat	  "1.%<AutoIncrement:970>"
+  LastModifiedDate	  "Fri Feb 01 10:07:48 2019"
+  RTWModifiedTimeStamp	  470916452
+  ModelVersionFormat	  "1.%<AutoIncrement:971>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -1418,7 +1418,7 @@ Model {
 	  Ports			  [5, 1]
 	  Position		  [745, 12, 860, 198]
 	  ZOrder		  -7
-	  LibraryVersion	  "1.888"
+	  LibraryVersion	  "1.891"
 	  SourceBlock		  "library/LKA-Controller/LQR_2int"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -1874,7 +1874,7 @@ Model {
 	  Ports			  [4, 1]
 	  Position		  [275, 19, 455, 131]
 	  ZOrder		  -5
-	  LibraryVersion	  "1.888"
+	  LibraryVersion	  "1.891"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -2022,38 +2022,6 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  BusSelector
-	  Name			  "Bus\nSelector2"
-	  SID			  "1795"
-	  Ports			  [1, 1]
-	  Position		  [95, 258, 100, 282]
-	  ZOrder		  -3
-	  ShowName		  off
-	  OutputSignals		  "lateralOff_LAD_Sensor"
-	  OutputAsBus		  off
-	  Port {
-	    PortNumber		    1
-	    Name		    "<lateralOff_LAD_Sensor>"
-	  }
-	}
-	Block {
-	  BlockType		  BusSelector
-	  Name			  "Bus\nSelector3"
-	  SID			  "1800"
-	  Ports			  [1, 1]
-	  Position		  [550, 326, 555, 364]
-	  ZOrder		  -3
-	  BlockMirror		  on
-	  NamePlacement		  "alternate"
-	  ShowName		  off
-	  OutputSignals		  "lateralOff_LAD_nonlinear"
-	  OutputAsBus		  off
-	  Port {
-	    PortNumber		    1
-	    Name		    "<lateralOff_LAD_nonlinear>"
-	  }
-	}
-	Block {
 	  BlockType		  Constant
 	  Name			  "Constant1"
 	  SID			  "1792"
@@ -2087,24 +2055,24 @@ Model {
 	  BlockType		  Ground
 	  Name			  "Ground"
 	  SID			  "1803"
-	  Position		  [405, 450, 425, 470]
+	  Position		  [395, 355, 415, 375]
 	  ZOrder		  -12
 	}
 	Block {
 	  BlockType		  Ground
 	  Name			  "Ground1"
 	  SID			  "1804"
-	  Position		  [405, 485, 425, 505]
+	  Position		  [395, 370, 415, 390]
 	  ZOrder		  -12
 	}
 	Block {
 	  BlockType		  Reference
 	  Name			  "Lane Tracking Model (linear/nonlinear)"
 	  SID			  "1799"
-	  Ports			  [8, 1]
-	  Position		  [455, 83, 650, 282]
+	  Ports			  [7, 1]
+	  Position		  [455, 79, 630, 261]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.888"
+	  LibraryVersion	  "1.891"
 	  SourceBlock		  "library/Lane Tracking/Lane Tracking Model (linear&nonlinear)"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -2114,7 +2082,7 @@ Model {
 	  Name			  "MATLAB Function"
 	  SID			  "1775"
 	  Ports			  [2, 1]
-	  Position		  [505, 470, 600, 505]
+	  Position		  [495, 355, 590, 390]
 	  ZOrder		  -4
 	  LibraryVersion	  "1.32"
 	  ErrorFcn		  "Stateflow.Translate.translate"
@@ -2241,24 +2209,17 @@ Model {
 	  }
 	}
 	Block {
-	  BlockType		  ManualSwitch
-	  Name			  "Manual Switch"
-	  SID			  "1798"
-	  Position		  [345, 252, 375, 288]
-	  ZOrder		  -13
-	}
-	Block {
 	  BlockType		  Terminator
 	  Name			  "Terminator"
 	  SID			  "1802"
-	  Position		  [695, 480, 715, 500]
+	  Position		  [630, 365, 650, 385]
 	  ZOrder		  -5
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "LaneTracking"
 	  SID			  "1781"
-	  Position		  [775, 178, 805, 192]
+	  Position		  [760, 163, 790, 177]
 	  ZOrder		  -2
 	  BackgroundColor	  "gray"
 	  IconDisplay		  "Port number"
@@ -2267,18 +2228,8 @@ Model {
 	  ZOrder		  1
 	  SrcBlock		  "LaneSensor"
 	  SrcPort		  1
-	  Points		  [10, 0]
-	  Branch {
-	    ZOrder		    2
-	    DstBlock		    "Bus\nSelector"
-	    DstPort		    1
-	  }
-	  Branch {
-	    ZOrder		    3
-	    Points		    [0, 85]
-	    DstBlock		    "Bus\nSelector2"
-	    DstPort		    1
-	  }
+	  DstBlock		  "Bus\nSelector"
+	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  4
@@ -2345,54 +2296,16 @@ Model {
 	  DstPort		  5
 	}
 	Line {
-	  Name			  "<lateralOff_LAD_nonlinear>"
-	  ZOrder		  12
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector3"
-	  SrcPort		  1
-	  Points		  [-215, 0]
-	  DstBlock		  "Manual Switch"
-	  DstPort		  2
-	}
-	Line {
-	  Name			  "<lateralOff_LAD_Sensor>"
-	  ZOrder		  13
-	  Labels		  [0, 0]
-	  SrcBlock		  "Bus\nSelector2"
-	  SrcPort		  1
-	  Points		  [225, 0]
-	  DstBlock		  "Manual Switch"
-	  DstPort		  1
-	}
-	Line {
-	  ZOrder		  14
-	  SrcBlock		  "Manual Switch"
-	  SrcPort		  1
-	  DstBlock		  "Lane Tracking Model (linear/nonlinear)"
-	  DstPort		  8
-	}
-	Line {
 	  ZOrder		  15
 	  SrcBlock		  "Lane Tracking Model (linear/nonlinear)"
 	  SrcPort		  1
-	  Points		  [55, 0]
-	  Branch {
-	    ZOrder		    16
-	    Points		    [0, 160]
-	    DstBlock		    "Bus\nSelector3"
-	    DstPort		    1
-	  }
-	  Branch {
-	    ZOrder		    17
-	    DstBlock		    "LaneTracking"
-	    DstPort		    1
-	  }
+	  DstBlock		  "LaneTracking"
+	  DstPort		  1
 	}
 	Line {
 	  ZOrder		  18
 	  SrcBlock		  "Ground"
 	  SrcPort		  1
-	  Points		  [45, 0; 0, 20]
 	  DstBlock		  "MATLAB Function"
 	  DstPort		  1
 	}
@@ -2504,7 +2417,7 @@ Model {
       Ports		      [4]
       Position		      [675, 326, 760, 389]
       ZOrder		      -26
-      LibraryVersion	      "1.888"
+      LibraryVersion	      "1.891"
       SourceBlock	      "library/Misc/Simout"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -2772,7 +2685,7 @@ Model {
 	  Ports			  [15, 7]
 	  Position		  [415, 26, 575, 334]
 	  ZOrder		  -12
-	  LibraryVersion	  "1.888"
+	  LibraryVersion	  "1.891"
 	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -2784,7 +2697,7 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [15, 100, 175, 120]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.888"
+	  LibraryVersion	  "1.891"
 	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
 	  SourceType		  "Linear Single Track Model Parameter"
 	  ContentPreviewEnabled	  off
@@ -2943,10 +2856,6 @@ Model {
 	}
 	Line {
 	  Name			  "<cs_rear>"
-	  FontName		  "Helvetica"
-	  FontSize		  9
-	  FontWeight		  "normal"
-	  FontAngle		  "normal"
 	  ZOrder		  20
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
@@ -2956,10 +2865,6 @@ Model {
 	}
 	Line {
 	  Name			  "<l_front>"
-	  FontName		  "Helvetica"
-	  FontSize		  9
-	  FontWeight		  "normal"
-	  FontAngle		  "normal"
 	  ZOrder		  21
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
@@ -2969,10 +2874,6 @@ Model {
 	}
 	Line {
 	  Name			  "<l_rear>"
-	  FontName		  "Helvetica"
-	  FontSize		  9
-	  FontWeight		  "normal"
-	  FontAngle		  "normal"
 	  ZOrder		  22
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
@@ -2982,10 +2883,6 @@ Model {
 	}
 	Line {
 	  Name			  "<m>"
-	  FontName		  "Helvetica"
-	  FontSize		  9
-	  FontWeight		  "normal"
-	  FontAngle		  "normal"
 	  ZOrder		  23
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
@@ -2995,10 +2892,6 @@ Model {
 	}
 	Line {
 	  Name			  "<Izz>"
-	  FontName		  "Helvetica"
-	  FontSize		  9
-	  FontWeight		  "normal"
-	  FontAngle		  "normal"
 	  ZOrder		  24
 	  Labels		  [0, 0]
 	  SrcBlock		  "Bus\nSelector"
@@ -3719,7 +3612,9 @@ Stateflow {
     screen		    [1 1 1920 1080 1.611111111111111]
     treeNode		    [0 19 0 0]
     viewObj		    18
-    toolbarMode		    LIBRARY_TOOLBAR
+    visible		    1
+    subviewS {
+    }
     ssIdHighWaterMark	    6
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -3843,7 +3738,7 @@ Stateflow {
     }
     midPoint		    [23.5747 24.9468]
     chart		    18
-    dataLimits		    [23.575 23.575 14.625 34.575]
+    dataLimits		    [21.175 25.975 14.625 42.575]
     subviewer		    18
     drawStyle		    SMART
     slide {
