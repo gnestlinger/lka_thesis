@@ -2,8 +2,6 @@
 
 
 
-initFile_
-
 vx = 10;
 LAD = 0;
 % vx = realp('vx',vx);

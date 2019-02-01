@@ -7,9 +7,6 @@
 clc
 % clear all
 
-% run init file
-initFile_;
-
 % Zustandsvektor: x = [sy_V; vy_V; psi; psiDot; sx_0; sy_0]
 % initial condition
 xInit = [0;0;0;0;0;0;0];

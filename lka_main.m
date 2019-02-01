@@ -8,9 +8,6 @@ clc
 clear all
 % close all
 
-% run init file
-initFile_;
-
 
 %% LKA-controller design
 

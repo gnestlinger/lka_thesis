@@ -12,9 +12,6 @@ clc
 clear all
 % close all
 
-% run init file
-initFile_;
-
 % load Simulink model
 mdlName = 'LKA_Lenkung_CarMaker_DSR_kaskadiert';
 load_system(mdlName);
