@@ -27,7 +27,7 @@ function ret = lkaController_s(paramFile,vx,lad)
 %   x2 = Giergeschwindigkeit (psiDot)
 %   x3 = yL
 %   x4 = epsL
-sysSingleTrackVis = ssMdl_SingleTrack('stvis',paramFile,vx,lad);
+sysSingleTrackVis = ssMdl_SingleTrack('stvis',paramFile2Struct(paramFile),vx,lad);
 
 % single track modell + "lane tracking" + internal model
 %   State variables: (Index V...Vehicle, 0...global) 
