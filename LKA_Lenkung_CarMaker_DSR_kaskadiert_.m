@@ -9,7 +9,7 @@
 % Date: 11.12.2012 - 26.04.2013
 
 clc
-clear all
+clear
 % close all
 
 % load Simulink model
@@ -77,8 +77,8 @@ contr.s = lkaController_s(stringC,vxC,ladC);
 %% Simulation parameter
 
 % Configureable Subsystem: choose controller
-set_param([mdlName,'/LKA-Controller'],'BlockChoice','LQR_2int');
-lbl = get_param([mdlName,'/LKA-Controller'],'BlockChoice');
+set_param([mdlName,'/Controller 1'],'BlockChoice','LQR_2int');
+lbl = get_param([mdlName,'/Controller 1'],'BlockChoice');
 
 % store selected control strategy in parameter-in structure pin
 try
@@ -106,12 +106,12 @@ pin.LAD = ladC;
 % load intended trajectory
 % [pin.traj,trajErr] = lka_trajectory_07(0,0.05);
 pin.traj = ...
-	lkaSegmentStraight(0.05,50,0) + ...
-	lkaSegmentCircle(0.05,3/2*pi,4/2*pi,200);
-pin.traj_sd = pin.traj.segmentData;
+	LkPathStraight(0.05,50,0) + ...
+	LkPathCircle(0.05,3/2*pi,4/2*pi,200);
+pin.traj_sd = pin.traj.pathData;
 
 % simulation: interval of integration
-tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.LAD/pin.vx;
+tend = pin.traj.length/pin.vx - 2*pin.LAD/pin.vx;
 
 % vehicle model: initial condition
 pin.VehicleModel.initialValue.sy = 0;
@@ -146,7 +146,7 @@ sim('LKA_Lenkung_CarMaker_DSR_kaskadiert');
 toc
 
 % get lka-controller-string used in simulation
-lbl = get_param([mdlName,'/LKA-Controller'],'BlockChoice');
+lbl = get_param([mdlName,'/Controller 1'],'BlockChoice');
 
 % Simulationsprogramm
 soli.(lbl).simProg = 'Simulink';
