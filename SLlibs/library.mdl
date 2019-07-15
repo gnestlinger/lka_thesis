@@ -53,7 +53,7 @@ Library {
 	LoadSaveID		"0"
 	Extents			[1684.0, 858.0]
 	ZoomFactor		[1.0]
-	Offset			[-79.426086956521772, -92.1826086956521]
+	Offset			[-279.83636363636367, -249.40000000000003]
       }
       Object {
 	$PropName		"DockComponentsInfo"
@@ -87,9 +87,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Wed Jul 10 16:47:41 2019"
-  RTWModifiedTimeStamp	  484678057
-  ModelVersionFormat	  "1.%<AutoIncrement:903>"
+  LastModifiedDate	  "Mon Jul 15 16:20:04 2019"
+  RTWModifiedTimeStamp	  485108402
+  ModelVersionFormat	  "1.%<AutoIncrement:904>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -1502,7 +1502,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3653"
+    SIDHighWatermark	    "3654"
     Block {
       BlockType		      SubSystem
       Name		      "AW-Test"
@@ -8757,6 +8757,34 @@ Library {
 	  }
 	}
       }
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Model Info"
+      SID		      "3654"
+      Ports		      []
+      Position		      [100, -126, 813, 13]
+      ZOrder		      3
+      BackgroundColor	      "[0.952941, 0.333333, 0.341176]"
+      ShowName		      off
+      LibraryVersion	      "1.441"
+      FontName		      "Arial"
+      SourceBlock	      "simulink/Model-Wide\nUtilities/Model Info"
+      SourceType	      "CMBlock"
+      SourceProductName	      "Simulink"
+      SourceProductBaseCode   "SL"
+      ContentPreviewEnabled   on
+      Frame		      "on"
+      DisplayStringWithTags   "Author: Georg Nestlinger\nMaster thesis: Modellbildung und Simulation eines Spurhalteas"
+      "sistenzsystems \n\nCreated: %<Created>\n\nModifiedBy: %<ModifiedBy>\nModifiedComment: %<ModifiedComment>\n\nMode"
+      "lVersion: %<ModelVersion>\nModelName: %<ModelName>\n\nLastModifiedBy: %<LastModifiedBy>\nLastModidifiedDate: %<L"
+      "astModificationDate>"
+      MaskDisplayString	      "Author: Georg Nestlinger\\nMaster thesis: Modellbildung und Simulation eines Spurhaltea"
+      "ssistenzsystems \\n\\nCreated: Mon Jan 28 16:36:36 2013\\n\\nModifiedBy: georgnestlinger\\nModifiedComment: \\n\\"
+      "nModelVersion: 1.903\\nModelName: library\\n\\nLastModifiedBy: georgnestlinger\\nLastModidifiedDate: Wed Jul 10 "
+      "16:47:41 2019"
+      HorizontalTextAlignment "Left"
+      LeftAlignmentValue      "0.02"
     }
     Block {
       BlockType		      SubSystem
