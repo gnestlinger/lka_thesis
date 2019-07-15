@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.824"
+    ComputedModelVersion    "1.825"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -18,19 +18,19 @@ Model {
     NumParameterArguments   0
     NumExternalFileReferences 9
     ExternalFileReference {
-      Reference		      "library/LKA-Controller/LQR_2int"
+      Reference		      "SLlib_lka_thesis/LKA-Controller/LQR_2int"
       Path		      "LKA/Controller/LQR_2int"
       SID		      "1158"
       Type		      "LIBRARY_BLOCK"
     }
     ExternalFileReference {
-      Reference		      "library/Lane Tracking/Lane Tracking Sensor"
+      Reference		      "SLlib_lka_thesis/Lane Tracking/Lane Tracking Sensor"
       Path		      "LKA/Lane Sensor/Lane Tracking Sensor"
       SID		      "1149"
       Type		      "LIBRARY_BLOCK"
     }
     ExternalFileReference {
-      Reference		      "library/Lane Tracking/Lane Tracking Model (linear&nonlinear)"
+      Reference		      "SLlib_lka_thesis/Lane Tracking/Lane Tracking Model (linear&nonlinear)"
       Path		      "LKA/Lane Tracking/Lane Tracking Model (linear//nonlinear)"
       SID		      "1174"
       Type		      "LIBRARY_BLOCK"
@@ -48,19 +48,19 @@ Model {
       Type		      "LIBRARY_BLOCK"
     }
     ExternalFileReference {
-      Reference		      "library/Misc/Simout"
+      Reference		      "SLlib_lka_thesis/Misc/Simout"
       Path		      "LKA/Simout"
       SID		      "1180"
       Type		      "LIBRARY_BLOCK"
     }
     ExternalFileReference {
-      Reference		      "library/Vehicle Models/Single Track Models/Single Track Model (linear)"
+      Reference		      "SLlib_lka_thesis/Vehicle Models/Single Track Models/Single Track Model (linear)"
       Path		      "LKA/Vehicle/Single Track Model (linear)"
       SID		      "1142"
       Type		      "LIBRARY_BLOCK"
     }
     ExternalFileReference {
-      Reference		      "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
+      Reference		      "SLlib_lka_thesis/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
       Path		      "LKA/Vehicle/Single Track Model (linear) [Parameter]"
       SID		      "1200"
       Type		      "LIBRARY_BLOCK"
@@ -161,9 +161,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Feb 01 10:18:10 2019"
-  RTWModifiedTimeStamp	  470917077
-  ModelVersionFormat	  "1.%<AutoIncrement:824>"
+  LastModifiedDate	  "Mon Jul 15 16:25:40 2019"
+  RTWModifiedTimeStamp	  485108740
+  ModelVersionFormat	  "1.%<AutoIncrement:825>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -1178,7 +1178,7 @@ Model {
   System {
     Name		    "LKA"
     Location		    [79, 43, 1445, 754]
-    Open		    on
+    Open		    off
     PortBlocksUseCompactNotation off
     SetDomainSpec	    off
     DomainSpecType	    "Deduce"
@@ -1392,8 +1392,8 @@ Model {
 	  Ports			  [5, 1]
 	  Position		  [745, 12, 860, 198]
 	  ZOrder		  -7
-	  LibraryVersion	  "1.891"
-	  SourceBlock		  "library/LKA-Controller/LQR_2int"
+	  LibraryVersion	  "1.904"
+	  SourceBlock		  "SLlib_lka_thesis/LKA-Controller/LQR_2int"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
 	  Port {
@@ -1848,8 +1848,8 @@ Model {
 	  Ports			  [4, 1]
 	  Position		  [275, 19, 455, 131]
 	  ZOrder		  -5
-	  LibraryVersion	  "1.891"
-	  SourceBlock		  "library/Lane Tracking/Lane Tracking Sensor"
+	  LibraryVersion	  "1.904"
+	  SourceBlock		  "SLlib_lka_thesis/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
 	  Port {
@@ -2043,8 +2043,8 @@ Model {
 	  Ports			  [7, 1]
 	  Position		  [455, 80, 650, 260]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.891"
-	  SourceBlock		  "library/Lane Tracking/Lane Tracking Model (linear&nonlinear)"
+	  LibraryVersion	  "1.904"
+	  SourceBlock		  "SLlib_lka_thesis/Lane Tracking/Lane Tracking Model (linear&nonlinear)"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
 	  Port {
@@ -2346,8 +2346,8 @@ Model {
       Ports		      [4]
       Position		      [765, 346, 850, 409]
       ZOrder		      -29
-      LibraryVersion	      "1.891"
-      SourceBlock	      "library/Misc/Simout"
+      LibraryVersion	      "1.904"
+      SourceBlock	      "SLlib_lka_thesis/Misc/Simout"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
     }
@@ -2538,8 +2538,8 @@ Model {
 	  Ports			  [15, 7]
 	  Position		  [415, 26, 575, 334]
 	  ZOrder		  -12
-	  LibraryVersion	  "1.891"
-	  SourceBlock		  "library/Vehicle Models/Single Track Models/Single Track Model (linear)"
+	  LibraryVersion	  "1.904"
+	  SourceBlock		  "SLlib_lka_thesis/Vehicle Models/Single Track Models/Single Track Model (linear)"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
 	}
@@ -2550,8 +2550,8 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [15, 100, 175, 120]
 	  ZOrder		  1
-	  LibraryVersion	  "1.891"
-	  SourceBlock		  "library/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
+	  LibraryVersion	  "1.904"
+	  SourceBlock		  "SLlib_lka_thesis/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
 	  SourceType		  "Linear Single Track Model Parameter"
 	  ContentPreviewEnabled	  off
 	  cs_front		  "pin.VehicleModel.parameter.cs_front"
