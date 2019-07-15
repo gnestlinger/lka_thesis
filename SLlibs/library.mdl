@@ -87,9 +87,9 @@ Library {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Thu Jul 04 16:17:32 2019"
-  RTWModifiedTimeStamp	  484157849
-  ModelVersionFormat	  "1.%<AutoIncrement:902>"
+  LastModifiedDate	  "Wed Jul 10 16:47:41 2019"
+  RTWModifiedTimeStamp	  484678057
+  ModelVersionFormat	  "1.%<AutoIncrement:903>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -972,11 +972,46 @@ Library {
       BusSelectionMode	      off
     }
     Block {
+      BlockType		      DiscreteIntegrator
+      IntegratorMethod	      "Integration: Forward Euler"
+      gainval		      "1.0"
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      InitialConditionSetting "Output"
+      SampleTime	      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      IgnoreLimit	      off
+      StateMustResolveToSignalObject off
+      RTWStateStorageClass    "Auto"
+    }
+    Block {
       BlockType		      Display
       Format		      "short"
       Decimation	      "10"
       Floating		      off
       Lockdown		      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      DotProduct
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	off
       SampleTime	      "-1"
     }
     Block {
@@ -1467,7 +1502,7 @@ Library {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "3591"
+    SIDHighWatermark	    "3653"
     Block {
       BlockType		      SubSystem
       Name		      "AW-Test"
@@ -2931,7 +2966,7 @@ Library {
       RequestExecContextInheritance off
       System {
 	Name			"LKA-Controller"
-	Location		[-8, -8, 1610, 869]
+	Location		[-8, -8, 1683, 909]
 	Open			off
 	PortBlocksUseCompactNotation off
 	SetDomainSpec		off
@@ -3656,7 +3691,7 @@ Library {
 	      Position		      [100, 40, 140, 80]
 	      ZOrder		      -6
 	      BackgroundColor	      "darkGreen"
-	      LibraryVersion	      "1.892"
+	      LibraryVersion	      "1.902"
 	      SourceBlock	      "$bdroot/LKA-Controller/LQR_2int"
 	      SourceType	      "SubSystem"
 	      ContentPreviewEnabled   off
@@ -4125,6 +4160,434 @@ Library {
 	      SrcPort		      1
 	      DstBlock		      "delta [rad]"
 	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "State Feedback"
+	  SID			  "3592"
+	  Ports			  [4, 1]
+	  Position		  [-140, 38, -45, 137]
+	  ZOrder		  106
+	  TreatAsAtomicUnit	  on
+	  RequestExecContextInheritance	off
+	  Object {
+	    $PropName		    "MaskObject"
+	    $ObjectID		    19
+	    $ClassName		    "Simulink.Mask"
+	    RunInitForIconRedraw    "off"
+	    Object {
+	      $PropName		      "Parameters"
+	      $ObjectID		      20
+	      $ClassName	      "Simulink.MaskParameter"
+	      Type		      "edit"
+	      Name		      "fdbk"
+	      Prompt		      "Feedback parameter:"
+	      Value		      "0"
+	    }
+	    Array {
+	      Type		      "Simulink.dialog.Group"
+	      Dimension		      2
+	      Object {
+		$ObjectID		21
+		Prompt			"%<MaskType>"
+		Object {
+		  $PropName		  "DialogControls"
+		  $ObjectID		  22
+		  $ClassName		  "Simulink.dialog.Text"
+		  Prompt		  "%<MaskDescription>"
+		  Name			  "DescTextVar"
+		}
+		Name			"DescGroupVar"
+	      }
+	      Object {
+		$ObjectID		23
+		Prompt			"Simulink:studio:ToolBarParametersMenu"
+		Object {
+		  $PropName		  "DialogControls"
+		  $ObjectID		  24
+		  $ClassName		  "Simulink.dialog.parameter.Edit"
+		  PromptLocation	  "left"
+		  Name			  "fdbk"
+		}
+		Name			"ParameterGroupVar"
+	      }
+	      PropName		      "DialogControls"
+	    }
+	  }
+	  System {
+	    Name		    "State Feedback"
+	    Location		    [-8, -8, 1683, 909]
+	    Open		    off
+	    PortBlocksUseCompactNotation off
+	    SetDomainSpec	    off
+	    DomainSpecType	    "Deduce"
+	    ModelBrowserVisibility  on
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "usletter"
+	    PaperUnits		    "inches"
+	    TiledPaperMargins	    [0.500000, 0.500000, 0.500000, 0.500000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Inport
+	      Name		      "u_FF(0)"
+	      SID		      "3633"
+	      Position		      [25, 328, 55, 342]
+	      ZOrder		      313
+	      BackgroundColor	      "yellow"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "x_e"
+	      SID		      "3634"
+	      Position		      [-120, 98, -90, 112]
+	      ZOrder		      305
+	      BackgroundColor	      "yellow"
+	      Port		      "2"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "u[k-1]"
+	      SID		      "3635"
+	      Position		      [25, 248, 55, 262]
+	      ZOrder		      309
+	      BackgroundColor	      "yellow"
+	      Port		      "3"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "u[k-2]"
+	      SID		      "3636"
+	      Position		      [25, 293, 55, 307]
+	      ZOrder		      320
+	      BackgroundColor	      "yellow"
+	      Port		      "4"
+	      IconDisplay	      "Port number"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add"
+	      SID		      "3653"
+	      Ports		      [2, 1]
+	      Position		      [120, 277, 150, 308]
+	      ZOrder		      323
+	      Inputs		      "+-"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Add1"
+	      SID		      "3637"
+	      Ports		      [4, 1]
+	      Position		      [195, 239, 225, 391]
+	      ZOrder		      314
+	      ShowName		      off
+	      Inputs		      "++--"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant3"
+	      SID		      "3638"
+	      Position		      [15, 372, 65, 388]
+	      ZOrder		      311
+	      ShowName		      off
+	      Value		      "fdbk(1:4)"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Constant4"
+	      SID		      "3639"
+	      Position		      [15, 397, 65, 413]
+	      ZOrder		      315
+	      ShowName		      off
+	      Value		      "fdbk(5)"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux"
+	      SID		      "3640"
+	      Ports		      [1, 4]
+	      Position		      [5, 48, 10, 162]
+	      ZOrder		      306
+	      ShowName		      off
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      DiscreteIntegrator
+	      Name		      "Discrete-Time\nIntegrator"
+	      SID		      "3641"
+	      Ports		      [1, 1]
+	      Position		      [195, 152, 230, 188]
+	      ZOrder		      317
+	      InitialConditionSetting "Auto"
+	      SampleTime	      "-1"
+	      ICPrevOutput	      "DiscIntNeverNeededParam"
+	      ICPrevScaledInput	      "DiscIntNeverNeededParam"
+	    }
+	    Block {
+	      BlockType		      DiscreteIntegrator
+	      Name		      "Discrete-Time\nIntegrator1"
+	      SID		      "3642"
+	      Ports		      [2, 1]
+	      Position		      [360, 162, 395, 198]
+	      ZOrder		      318
+	      InitialConditionSource  "external"
+	      InitialConditionSetting "Auto"
+	      SampleTime	      "-1"
+	      ICPrevOutput	      "DiscIntNeverNeededParam"
+	      ICPrevScaledInput	      "DiscIntNeverNeededParam"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Divide"
+	      SID		      "3643"
+	      Ports		      [2, 1]
+	      Position		      [265, 271, 295, 449]
+	      ZOrder		      312
+	      Inputs		      "*/"
+	      InputSameDT	      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      RndMeth		      "Floor"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      DotProduct
+	      Name		      "Dot Product2"
+	      SID		      "3644"
+	      Position		      [120, 357, 150, 388]
+	      ZOrder		      310
+	      ShowName		      off
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "Gain"
+	      SID		      "3645"
+	      Position		      [495, 111, 575, 159]
+	      ZOrder		      308
+	      ShowName		      off
+	      Gain		      "fdbk"
+	      Multiplication	      "Matrix(K*u) (u vector)"
+	      ParamDataTypeStr	      "Inherit: Inherit via internal rule"
+	      OutDataTypeStr	      "Inherit: Inherit via internal rule"
+	      SaturateOnIntegerOverflow	off
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux2"
+	      SID		      "3648"
+	      Ports		      [6, 1]
+	      Position		      [430, 49, 435, 221]
+	      ZOrder		      307
+	      ShowName		      off
+	      Inputs		      "6"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "u_FB"
+	      SID		      "3651"
+	      Position		      [635, 128, 665, 142]
+	      ZOrder		      304
+	      BackgroundColor	      "gray"
+	      IconDisplay	      "Port number"
+	    }
+	    Line {
+	      ZOrder		      69
+	      SrcBlock		      "u[k-2]"
+	      SrcPort		      1
+	      DstBlock		      "Add"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      33
+	      SrcBlock		      "Demux"
+	      SrcPort		      1
+	      DstBlock		      "Mux2"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      36
+	      SrcBlock		      "Divide"
+	      SrcPort		      1
+	      Points		      [40, 0; 0, -170]
+	      DstBlock		      "Discrete-Time\nIntegrator1"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      39
+	      SrcBlock		      "x_e"
+	      SrcPort		      1
+	      Points		      [60, 0]
+	      Branch {
+		ZOrder			38
+		Points			[0, 260]
+		DstBlock		"Dot Product2"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			37
+		DstBlock		"Demux"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      ZOrder		      40
+	      SrcBlock		      "Add1"
+	      SrcPort		      1
+	      DstBlock		      "Divide"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      41
+	      SrcBlock		      "Demux"
+	      SrcPort		      2
+	      DstBlock		      "Mux2"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      42
+	      SrcBlock		      "Mux2"
+	      SrcPort		      1
+	      DstBlock		      "Gain"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      55
+	      SrcBlock		      "u[k-1]"
+	      SrcPort		      1
+	      Points		      [32, 0]
+	      Branch {
+		ZOrder			70
+		Points			[0, 30]
+		DstBlock		"Add"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			68
+		DstBlock		"Add1"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      ZOrder		      46
+	      SrcBlock		      "Demux"
+	      SrcPort		      3
+	      Points		      [130, 0]
+	      Branch {
+		ZOrder			45
+		Points			[0, 50]
+		DstBlock		"Discrete-Time\nIntegrator"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			44
+		DstBlock		"Mux2"
+		DstPort			3
+	      }
+	    }
+	    Line {
+	      ZOrder		      47
+	      SrcBlock		      "Constant4"
+	      SrcPort		      1
+	      DstBlock		      "Divide"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      48
+	      SrcBlock		      "Constant3"
+	      SrcPort		      1
+	      DstBlock		      "Dot Product2"
+	      DstPort		      2
+	    }
+	    Line {
+	      ZOrder		      51
+	      SrcBlock		      "Demux"
+	      SrcPort		      4
+	      DstBlock		      "Mux2"
+	      DstPort		      4
+	    }
+	    Line {
+	      ZOrder		      52
+	      SrcBlock		      "Discrete-Time\nIntegrator1"
+	      SrcPort		      1
+	      DstBlock		      "Mux2"
+	      DstPort		      5
+	    }
+	    Line {
+	      ZOrder		      72
+	      SrcBlock		      "Gain"
+	      SrcPort		      1
+	      DstBlock		      "u_FB"
+	      DstPort		      1
+	    }
+	    Line {
+	      ZOrder		      59
+	      SrcBlock		      "Discrete-Time\nIntegrator"
+	      SrcPort		      1
+	      Points		      [47, 0]
+	      Branch {
+		ZOrder			62
+		DstBlock		"Discrete-Time\nIntegrator1"
+		DstPort			1
+	      }
+	      Branch {
+		ZOrder			61
+		Points			[0, 40]
+		DstBlock		"Mux2"
+		DstPort			6
+	      }
+	    }
+	    Line {
+	      ZOrder		      63
+	      SrcBlock		      "Dot Product2"
+	      SrcPort		      1
+	      DstBlock		      "Add1"
+	      DstPort		      4
+	    }
+	    Line {
+	      ZOrder		      64
+	      SrcBlock		      "u_FF(0)"
+	      SrcPort		      1
+	      DstBlock		      "Add1"
+	      DstPort		      3
+	    }
+	    Line {
+	      ZOrder		      71
+	      SrcBlock		      "Add"
+	      SrcPort		      1
+	      DstBlock		      "Add1"
+	      DstPort		      2
+	    }
+	    Annotation {
+	      SID		      "3652"
+	      Name		      "Integrator initialization"
+	      Position		      [5, 224, 320, 471]
+	      InternalMargins	      [0, 0, 0, 0]
+	      FixedHeight	      on
+	      FixedWidth	      on
+	      HorizontalAlignment     "left"
+	      VerticalAlignment	      "top"
+	      ForegroundColor	      "[0.901961, 0.901961, 1.000000]"
+	      BackgroundColor	      "[0.901961, 0.901961, 1.000000]"
+	      DropShadow	      on
+	      AnnotationType	      "area_annotation"
+	      ZOrder		      66
+	      FontSize		      12
 	    }
 	  }
 	}
@@ -9860,7 +10323,7 @@ Library {
 	  RequestExecContextInheritance	off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    19
+	    $ObjectID		    25
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Steering model parameterization"
 	    Description		    "Enter parameters of steering model 'CarMaker Dynamic Steer Ratio'.\nThis model is taken from 'C"
@@ -9870,63 +10333,63 @@ Library {
 	      Type		      "Simulink.MaskParameter"
 	      Dimension		      9
 	      Object {
-		$ObjectID		20
+		$ObjectID		26
 		Type			"edit"
 		Name			"d_rot"
 		Prompt			"d_rot [Nm*s/rad]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		21
+		$ObjectID		27
 		Type			"edit"
 		Name			"d_rack"
 		Prompt			"d_rack [N*s/rad]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		22
+		$ObjectID		28
 		Type			"edit"
 		Name			"i"
 		Prompt			"i [rad/m]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		23
+		$ObjectID		29
 		Type			"edit"
 		Name			"I_rot"
 		Prompt			"I_rot [kg*m²]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		24
+		$ObjectID		30
 		Type			"edit"
 		Name			"m_left"
 		Prompt			"m_left [kg]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		25
+		$ObjectID		31
 		Type			"edit"
 		Name			"m_right"
 		Prompt			"m_right [kg]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		26
+		$ObjectID		32
 		Type			"edit"
 		Name			"m_rack"
 		Prompt			"m_rack [kg]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		27
+		$ObjectID		33
 		Type			"edit"
 		Name			"V"
 		Prompt			"V [-]"
 		Value			"0"
 	      }
 	      Object {
-		$ObjectID		28
+		$ObjectID		34
 		Type			"edit"
 		Name			"x0"
 		Prompt			"Initial value [SWAngle(0); SWRate(0)]"
@@ -12959,7 +13422,7 @@ Library {
 	      RequestExecContextInheritance off
 	      Object {
 		$PropName		"MaskObject"
-		$ObjectID		29
+		$ObjectID		35
 		$ClassName		"Simulink.Mask"
 		Type			"Linear Single Track Model"
 		Description		"Specify parameters for the linear single track model."
@@ -12968,7 +13431,7 @@ Library {
 		  Type			  "Simulink.MaskParameter"
 		  Dimension		  10
 		  Object {
-		    $ObjectID		    30
+		    $ObjectID		    36
 		    Type		    "edit"
 		    Name		    "cs_front_rear"
 		    Prompt		    "Cornering stiffness [N/rad]: [cs_front;cs_rear]"
@@ -12976,7 +13439,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    31
+		    $ObjectID		    37
 		    Type		    "edit"
 		    Name		    "l_front_rear"
 		    Prompt		    "Distance COG - front/rear axle [m]: [l_front;l_rear]"
@@ -12984,7 +13447,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    32
+		    $ObjectID		    38
 		    Type		    "edit"
 		    Name		    "m"
 		    Prompt		    "Vehicle mass [kg]"
@@ -12992,7 +13455,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    33
+		    $ObjectID		    39
 		    Type		    "edit"
 		    Name		    "Izz"
 		    Prompt		    "Moment of inertia of yaw axis [kg*m²]"
@@ -13000,7 +13463,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    34
+		    $ObjectID		    40
 		    Type		    "edit"
 		    Name		    "vx"
 		    Prompt		    "Longitudinal velocity [m/s]"
@@ -13008,7 +13471,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    35
+		    $ObjectID		    41
 		    Type		    "edit"
 		    Name		    "sy_init"
 		    Prompt		    "Initial value sy [m]"
@@ -13016,7 +13479,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    36
+		    $ObjectID		    42
 		    Type		    "edit"
 		    Name		    "vy_init"
 		    Prompt		    "Initial value vy [m/s]"
@@ -13024,7 +13487,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    37
+		    $ObjectID		    43
 		    Type		    "edit"
 		    Name		    "yawAngle_init"
 		    Prompt		    "Initial value yawAngle [rad]"
@@ -13032,7 +13495,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    38
+		    $ObjectID		    44
 		    Type		    "edit"
 		    Name		    "yawRate_init"
 		    Prompt		    "Initial value yawRate [rad/s]"
@@ -13040,7 +13503,7 @@ Library {
 		    Tunable		    "off"
 		  }
 		  Object {
-		    $ObjectID		    39
+		    $ObjectID		    45
 		    Type		    "edit"
 		    Name		    "xys_global_init"
 		    Prompt		    "Initial position [m]: [x_global;y_global;s_global]"
@@ -13700,7 +14163,7 @@ Library {
 	  RequestExecContextInheritance	off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    40
+	    $ObjectID		    46
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Linear Single Track Model Inital Values"
 	    Description		    "Specify initial values for the linear single track model."
@@ -13709,7 +14172,7 @@ Library {
 	      Type		      "Simulink.MaskParameter"
 	      Dimension		      7
 	      Object {
-		$ObjectID		41
+		$ObjectID		47
 		Type			"edit"
 		Name			"sy"
 		Prompt			"sy"
@@ -13717,7 +14180,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		42
+		$ObjectID		48
 		Type			"edit"
 		Name			"vy"
 		Prompt			"vy"
@@ -13725,7 +14188,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		43
+		$ObjectID		49
 		Type			"edit"
 		Name			"yawAngle"
 		Prompt			"yawAngle"
@@ -13733,7 +14196,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		44
+		$ObjectID		50
 		Type			"edit"
 		Name			"yawRate"
 		Prompt			"yawRate"
@@ -13741,7 +14204,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		45
+		$ObjectID		51
 		Type			"edit"
 		Name			"x_global"
 		Prompt			"x_global"
@@ -13749,7 +14212,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		46
+		$ObjectID		52
 		Type			"edit"
 		Name			"y_global"
 		Prompt			"y_global"
@@ -13757,7 +14220,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		47
+		$ObjectID		53
 		Type			"edit"
 		Name			"s_global"
 		Prompt			"s_global"
@@ -14164,7 +14627,7 @@ Library {
 	  RequestExecContextInheritance	off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    48
+	    $ObjectID		    54
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Linear Single Track Model Parameter"
 	    Description		    "Specify parameters for the linear single track model."
@@ -14173,7 +14636,7 @@ Library {
 	      Type		      "Simulink.MaskParameter"
 	      Dimension		      6
 	      Object {
-		$ObjectID		49
+		$ObjectID		55
 		Type			"edit"
 		Name			"cs_front"
 		Prompt			"Cornering stiffness front [N/rad]"
@@ -14181,7 +14644,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		50
+		$ObjectID		56
 		Type			"edit"
 		Name			"cs_rear"
 		Prompt			"Cornering stiffness rear [N/rad]"
@@ -14189,7 +14652,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		51
+		$ObjectID		57
 		Type			"edit"
 		Name			"l_front"
 		Prompt			"Distance COG - front axle [m]"
@@ -14197,7 +14660,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		52
+		$ObjectID		58
 		Type			"edit"
 		Name			"l_rear"
 		Prompt			"Distance COG - rear axle [m]"
@@ -14205,7 +14668,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		53
+		$ObjectID		59
 		Type			"edit"
 		Name			"m"
 		Prompt			"Vehicle mass [kg]"
@@ -14213,7 +14676,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		54
+		$ObjectID		60
 		Type			"edit"
 		Name			"Izz"
 		Prompt			"Moment of inertia of yaw axis [kg*m²]"
@@ -16325,7 +16788,7 @@ Library {
 	  RequestExecContextInheritance	off
 	  Object {
 	    $PropName		    "MaskObject"
-	    $ObjectID		    55
+	    $ObjectID		    61
 	    $ClassName		    "Simulink.Mask"
 	    Type		    "Steering Model Parameter: Dynamic Steer Ratio"
 	    Description		    "Specify parameters for the CarMaker steering model Dynamic Steer Ratio (DSR)."
@@ -16334,7 +16797,7 @@ Library {
 	      Type		      "Simulink.MaskParameter"
 	      Dimension		      9
 	      Object {
-		$ObjectID		56
+		$ObjectID		62
 		Type			"edit"
 		Name			"d_rot"
 		Prompt			"Damping coefficient of rotating parts [Nm*s/rad]"
@@ -16342,7 +16805,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		57
+		$ObjectID		63
 		Type			"edit"
 		Name			"d_rack"
 		Prompt			"Damping coefficient of steering rack [Ns/m]"
@@ -16350,7 +16813,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		58
+		$ObjectID		64
 		Type			"edit"
 		Name			"i_HR"
 		Prompt			"Steering gear ratio steering wheel angle/rack travel [rad/m]"
@@ -16358,7 +16821,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		59
+		$ObjectID		65
 		Type			"edit"
 		Name			"I_rot"
 		Prompt			"Steering inertia of all rotating parts [kg*m²]"
@@ -16366,7 +16829,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		60
+		$ObjectID		66
 		Type			"edit"
 		Name			"m_left"
 		Prompt			"Left wheel suspension mass [kg]"
@@ -16374,7 +16837,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		61
+		$ObjectID		67
 		Type			"edit"
 		Name			"m_right"
 		Prompt			"Right wheel suspension mass [kg]"
@@ -16382,7 +16845,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		62
+		$ObjectID		68
 		Type			"edit"
 		Name			"m_rack"
 		Prompt			"Steering rack mass [kg]"
@@ -16390,7 +16853,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		63
+		$ObjectID		69
 		Type			"edit"
 		Name			"V"
 		Prompt			"Amplification of the steering torque [-]"
@@ -16398,7 +16861,7 @@ Library {
 		Tunable			"off"
 	      }
 	      Object {
-		$ObjectID		64
+		$ObjectID		70
 		Type			"edit"
 		Name			"alpha"
 		Prompt			"Ratio steering wheel angle/front wheel angle [-]"
