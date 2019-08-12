@@ -70,37 +70,37 @@ switch lower(sw)
     
     %%% ohne Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'st'} % Einspurmodell
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM(paramsVhcl,vx);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM(paramsVhcl,vx);
 		Name = 'Single Track Model';
         
     case {'stvis'} % Einspurmdl. + lane tracking
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT(paramsVhcl,vx,LAD);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM_LT(paramsVhcl,vx,LAD);
 		Name = 'Single Track + Lane Tracking Model';
 	
 	case {'stvis_1int'}
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL1int(paramsVhcl,vx,LAD);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM_LT_yL1int(paramsVhcl,vx,LAD);
 		Name = 'Single Track + Lane Tracking + single integral action on lateral offset';
         
     case {'stvis_2int'} % Einspurmdl. + lane tracking + 2fach int. bzgl. yL
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_yL2int(paramsVhcl,vx,LAD);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM_LT_yL2int(paramsVhcl,vx,LAD);
 		Name = 'Single Track + Lane Tracking + double integral action on lateral offset';
 		
 	
     %%% mit Lenkmodell %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     case {'stdsr'} % Einspurmdl. + Lenkmodell CarMaker DSR
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_DSR(paramsVhcl,vx,pFile_Steer);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM_DSR(paramsVhcl,vx,pFile_Steer);
 		Name = 'Single Track + Steering Model CarMaker DSR';
     
     case {'stvisdsr'} % Einspurmdl. + lane tracking + Lenkmdl. CarMaker DSR
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR(paramsVhcl,vx,LAD,pFile_Steer);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM_LT_DSR(paramsVhcl,vx,LAD,pFile_Steer);
 		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR';
     
 	case {'stvisdsr_1int'}
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL1int(paramsVhcl,vx,LAD,pFile_Steer);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM_LT_DSR_yL1int(paramsVhcl,vx,LAD,pFile_Steer);
 		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + single integral action on lateral offset';
 		
     case {'stvisdsr_2int'}
-        [A,B,C,D,IN,IU,SN,SU,ON,OU,UD] = STM_LT_DSR_yL2int(paramsVhcl,vx,LAD,pFile_Steer);
+        [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM_LT_DSR_yL2int(paramsVhcl,vx,LAD,pFile_Steer);
 		Name = 'Single Track + Lane Tracking + Steering Model CarMaker DSR + double integral action on lateral offset';
     
 	
@@ -115,28 +115,28 @@ end%switch
 sys = ss(A,B,C,D);
 
 % set input/state/output names
-sys.InputName = IN;
-sys.InputUnit = IU;
+sys.InputName = InDesc(1,:);
+sys.InputUnit = InDesc(2,:);
 try
 	% In Matlab R2012a this does not work!
-	sys.StateName = SN;
-	sys.StateUnit = SU;
+	sys.StateName = StateDesc(1,:);
+	sys.StateUnit = StateDesc(2,:);
 catch exc
 	warning('This MATLAB release does not support properties "StateName" or "StateUnit" for class GENSS.');
 end
-sys.OutputName = ON;
-sys.OutputUnit = OU;
+sys.OutputName = OutDesc(1,:);
+sys.OutputUnit = OutDesc(2,:);
 
 % set info
 sys.Name = Name;
-sys.UserData = UD;
+sys.UserData = UserData;
 sys.UserData.params_Vehicle = paramsVhcl;
 sys.UserData.params_Steer	= paramFile2Struct(pFile_Steer);
 
 end%fcn
 
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM(params,vx)
 % singleTrack     state-space model of single track model
 % 
@@ -159,24 +159,23 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(params);
 
 % set state space elements
-A = [0 1 0 0;...
-	0, -(csh+csv)/(m*vx), 0, (csh*lh-csv*lv)/(m*vx) - vx;...
-	0 0 0 1;...
-	0, (csh*lh-csv*lv)/(Iz*vx), 0, -(csh*lh^2+csv*lv^2)/(Iz*vx)];
-B = [0; csv/m; 0; csv*lv/Iz];
+A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx;...
+	(csh*lh-csv*lv)/(Iz*vx), -(csh*lh^2+csv*lv^2)/(Iz*vx)];
+B = [csv/m; csv*lv/Iz];
 C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'sy','vy','yaw angle','yaw rate'};
-StateUnit = {'m','m/s','rad','rad/s'};
-InputName = {'front wheel angle'};
-InputUnit = {'rad'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'vy','yaw rate';
+	'm/s','rad/s'};
+InputDesc = {...
+	'front wheel angle';
+	'rad'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -185,7 +184,7 @@ UD.vx.unit = 'm/s';
 
 end%fcn
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM_LT(params,vx,LAD)
 % singleTrack_lt    state-space model of single track model + lane tracking
 %   
@@ -209,7 +208,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(params);
 
 % set state space elements
 A = [-(csh+csv)/(m*vx), (csh*lh-csv*lv)/(m*vx) - vx, 0, 0;...
@@ -221,12 +220,13 @@ C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'vy','yawRate','lateralOff','angularDev'};
-StateUnit = {'m/s','rad/s','m','rad'};
-InputName = {'steer angle','road curvature at LAD'};
-InputUnit = {'rad','1/m'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'vy','yawRate','lateralOff','angularDev';
+	'm/s','rad/s','m','rad'};
+InputDesc = {...
+	'steer angle','road curvature at LAD';
+	'rad','1/m'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -238,7 +238,7 @@ UD.LAD.unit = 'm';
 
 end%fcn
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM_LT_yL1int(params,vx,LAD)
 % singleTrack_lt_yL1int     state-space model of single track modell + 
 % lane tracking + internal model of yL
@@ -268,7 +268,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(params);
 
 % set state space elements
 A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0,0;...
@@ -281,12 +281,13 @@ C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'vy','yawRate','lateralOff','angularDev','Int{lateralOff}'};
-StateUnit = {'m/s','rad/s','m','rad','m*s'};
-InputName = {'steer angle','road curvature at LAD'};
-InputUnit = {'rad','1/m'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'vy','yawRate','lateralOff','angularDev','Int{lateralOff}';
+	'm/s','rad/s','m','rad','m*s'};
+InputDesc = {...
+	'steer angle','road curvature at LAD';
+	'rad','1/m'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -298,7 +299,7 @@ UD.LAD.unit = 'm';
 
 end%fcn
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM_LT_yL2int(params,vx,LAD)
 % singleTrack_lt_yL2int     state-space model of single track modell + 
 % lane tracking + internal model of yL
@@ -328,7 +329,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(params);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(params);
 
 % set state space elements
 A = [-(csh+csv)/(m*vx),(csh*lh-csv*lv)/(m*vx) - vx,0,0,0,0;...
@@ -342,12 +343,13 @@ C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'vy','yawRate','lateralOff','angularDev','IntInt{lateralOff}','Int{lateralOff}'};
-StateUnit = {'m/s','rad/s','m','rad','m*s^2','m*s'};
-InputName = {'steer angle','road curvature at LAD'};
-InputUnit = {'rad','1/m'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'vy','yawRate','lateralOff','angularDev','IntInt{lateralOff}','Int{lateralOff}';
+	'm/s','rad/s','m','rad','m*s^2','m*s'};
+InputDesc = {...
+	'steer angle','road curvature at LAD';
+	'rad','1/m'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -361,7 +363,7 @@ end%fcn
 
 
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM_DSR(paramsVhcl,vx,paramFileSteer)
 % singleTrack_DSR   state-space model of single track modell + steering
 % model DSR
@@ -388,7 +390,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 % 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(paramsVhcl);
 eval(paramFileSteer);
 
 % set state space elements
@@ -406,12 +408,13 @@ C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'sy','vy','yawAngle','yawRate','SWAngle','SWAngleDot'};
-StateUnit = {'m','m/s','rad','rad/s','rad','rad/s'};
-InputName = {'SWTorque'};
-InputUnit = {'Nm'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'sy','vy','yawAngle','yawRate','SWAngle','SWAngleDot';
+	'm','m/s','rad','rad/s','rad','rad/s'};
+InputDesc = {...
+	'SWTorque';
+	'Nm'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -420,7 +423,7 @@ UD.vx.unit = 'm/s';
 
 end%fcn
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM_LT_DSR(paramsVhcl,vx,LAD,paramFileSteer)
 % singleTrack_lt_DSR    state-space model of single track modell + lane
 % tracking + steering model DSR
@@ -448,7 +451,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 % 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(paramsVhcl);
 eval(paramFileSteer);
 
 % set state space elements
@@ -471,17 +474,13 @@ C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot'};
-StateUnit = {'m/s','rad/s','m','rad','rad','rad/s'};
-InputName = {...
-	'SWTorque',...
-	'road curvature at LAD',...
-	'left tie rod force',...
-	'right tie rod force',...
-	};
-InputUnit = {'Nm','1/m','N','N'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot';
+	'm/s','rad/s','m','rad','rad','rad/s'};
+InputDesc = {...
+	'SWTorque','road curvature at LAD','left tie rod force','right tie rod force';
+	'Nm','1/m','N','N'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -493,7 +492,7 @@ UD.LAD.unit = 'm';
 
 end%fcn
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM_LT_DSR_yL1int(paramsVhcl,vx,LAD,paramFileSteer)
 % singleTrack_lt_DSR_yL1int     state-space model of single track modell + 
 % lane tracking + steering model + internal model of yL
@@ -524,7 +523,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 % 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(paramsVhcl);
 eval(paramFileSteer);
 
 % set state space elements
@@ -548,18 +547,13 @@ C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot',...
-    'Int{x3}'};
-StateUnit = {'m/s','rad/s','m','rad','rad','rad/s','m*s'};
-InputName = {...
-	'SWTorque',...
-	'road curvature at LAD',...
-	'left tie rod force',...
-	'right tie rod force',...
-	};
-InputUnit = {'Nm','1/m','N','N'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot','Int{x3}';
+	'm/s','rad/s','m','rad','rad','rad/s','m*s'};
+InputDesc = {...
+	'SWTorque','road curvature at LAD','left tie rod force','right tie rod force';
+	'Nm','1/m','N','N'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -571,7 +565,7 @@ UD.LAD.unit = 'm';
 
 end%fcn
 
-function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,UD] = ...
+function [A,B,C,D,InputDesc,StateDesc,OutputDesc,UD] = ...
 	STM_LT_DSR_yL2int(paramsVhcl,vx,LAD,paramFileSteer)
 % singleTrack_lt_DSR_yL2int     state-space model of single track modell + 
 % lane tracking + steering model + internal model of yL
@@ -603,7 +597,7 @@ function [A,B,C,D,InputName,InputUnit,StateName,StateUnit,OutputName,OutputUnit,
 % 
 
 % load parameter
-[csv,csh,lv,lh,m,Iz] = getSTMparams(paramsVhcl);
+[csv,csh,lv,lh,m,Iz] = getParams_STM(paramsVhcl);
 eval(paramFileSteer);
 
 % set state space elements
@@ -628,18 +622,13 @@ C = eye(size(A));
 D = 0;
 
 % set state/input/output names
-StateName = {'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot',...
-    'IntInt{x3}','Int{x3}'};
-StateUnit = {'m/s','rad/s','m','rad','rad','rad/s','m*s^2','m*s'};
-InputName = {...
-	'SWTorque',...
-	'road curvature at LAD',...
-	'left tie rod force',...
-	'right tie rod force',...
-	};
-InputUnit = {'Nm','1/m','N','N'};
-OutputName = StateName;
-OutputUnit = StateUnit;
+StateDesc = {...
+	'vy','yawRate','lateralOff','angularDev','SWAngle','SWAngleDot','IntInt{x3}','Int{x3}';
+	'm/s','rad/s','m','rad','rad','rad/s','m*s^2','m*s'};
+InputDesc = {...
+	'SWTorque','road curvature at LAD','left tie rod force','right tie rod force';
+	'Nm','1/m','N','N'};
+OutputDesc = StateDesc;
 
 % info
 UD.vx.about = 'longitudinal velocity';
@@ -652,11 +641,25 @@ UD.LAD.unit = 'm';
 end%fcn
 
 
-function [csv,csr,lv,lr,m,Izz] = getSTMparams(S)
+% --- Get parameters from structure ------------------------------------- %
+function [csv,csr,lv,lr,m,Izz] = getParams_STM(S)
 csv = S.cs_front;
 csr = S.cs_rear;
 lv	= S.l_front;
 lr	= S.l_rear;
 m	= S.m;
 Izz	= S.Izz;
+end%fcn
+
+function [J,V,alph,drack,drot,iHR,mL,mR,mr,xi] = getParams_CarMakerDSR(S)
+J		= S.J;
+V		= S.V;
+alph	= S.alph;
+drack	= S.drack;
+drot	= S.drot;
+iHR		= S.iHR;
+mL		= S.mL;
+mR		= S.mR;
+mr		= S.mr;
+xi		= S.xi;
 end%fcn
