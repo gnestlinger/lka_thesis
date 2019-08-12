@@ -9,7 +9,7 @@ LAD = 0;
 vx = [];
 LAD = [];
 
-paramsVhcl = paramFile2Struct('paramFile_SingleTrackMdl_BMW5');
+paramsVhcl = paramFile2Struct('paramFile_SingleTrackMdl_CarMaker_BMW5');
 
 sys_a = ssMdl_SingleTrack('st',paramsVhcl,vx,LAD);
 
