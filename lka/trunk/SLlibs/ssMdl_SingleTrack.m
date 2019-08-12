@@ -20,7 +20,7 @@ function [sys] = ssMdl_SingleTrack(sw,paramsVhcl,vx)
 % $Revision$
 
 
-
+%%% handle input arguments
 % tunable parameter
 if nargin < 3 || isempty(vx)
 	vx	= realp('vx',10);
@@ -34,7 +34,7 @@ end%if
 if ~isstruct(paramsVhcl)
 	error('Input argument PARAMVHCL must be of class struct!');
 end%if
-if ~isscalar(vx) > 1
+if ~isscalar(vx)
 	error('Input argument VX must be scalar!');
 end%if
 
@@ -43,12 +43,12 @@ end%if
 % get state space data
 switch lower(sw)
     
-    case {'st'} % Linear dynamic single track model
+    case {'stm'} % Linear dynamic single track model
         [A,B,C,D,InDesc,StateDesc,OutDesc,UserData] = STM(paramsVhcl,vx);
 		Name = 'Single Track Model';
-        
+	
     otherwise
-        error('Unknown string sw');
+        error('Unknown string SW');
         
 end%switch
 
@@ -101,7 +101,7 @@ D = 0;
 
 % set state/input/output names
 StateDesc = {...
-	'vy','yaw rate';
+	'v_y','yaw rate';
 	'm/s','rad/s'};
 InputDesc = {...
 	'front wheel angle';
@@ -111,7 +111,7 @@ OutputDesc = StateDesc;
 % info
 UD.vx.about = 'longitudinal velocity';
 UD.vx.value = vx;
-UD.vx.unit = 'm/s';
+UD.vx.unit	= 'm/s';
 UD.params	= params;
 
 end%fcn
