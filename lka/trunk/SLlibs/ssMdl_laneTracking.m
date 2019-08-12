@@ -1,8 +1,11 @@
 function sys = ssMdl_laneTracking(sw,vx,LAD)
-% SSMDL_LANETRACKING	Lane trackind state-space model.
+% SSMDL_LANETRACKING	Lane tracking state-space model.
 %	SYS = SSMDL_LANETRACKING(SW,VX,LAD) returns the lane tracking model
 %	representation SW using longitudinal velocity VX and look-ahead
 %	distance LAD as a state-space model SYS.
+% 
+%	Source: A Comparative Study of Vision-Based Lateral Control Strategies
+%	for Autonomous Highway Driving. Kosecka, 1998.
 
 % Subject: Master's Thesis - LKA
 % $Author$
@@ -11,7 +14,7 @@ function sys = ssMdl_laneTracking(sw,vx,LAD)
 
 
 %%% check input arguments
-narginchk(1,3)
+narginchk(0,3);
 
 % tunable parameter
 if nargin < 3 || isempty(LAD)
@@ -20,9 +23,12 @@ end%if
 if nargin < 2 || isempty(vx)
 	vx	= realp('vx',10);
 end%if
+if nargin < 1
+	sw = 'LTM';
+end%if
 
 
-
+%%% get state space data
 switch upper(sw)
 	case 'LTM'
 		 [A,B,C,D,InDesc,StateDesc,OutDesc,UD] = LTM(vx, LAD);
@@ -34,7 +40,7 @@ end%fcn
 
 
 
-% create state space model
+%%% create state space model
 sys = ss(A,B,C,D);
 
 % set input/state/output names
@@ -69,7 +75,7 @@ D = zeros(size(B));
 % set state/input/output names
 StateDesc = {...
 	'latOff(LAD)','angDev(LAD)';
-	'm/s','rad/s'};
+	'm','rad'};
 InputDesc = {...
 	'v_y','yaw rate','curv(LAD)';
 	'm/s','rad/s','1/m'};
