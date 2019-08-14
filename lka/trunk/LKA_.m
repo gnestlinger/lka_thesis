@@ -17,7 +17,7 @@ load_system(mdlName);
 
 %% LKA-controller design
 
-paramFile_SingleTrackMdl_BMW5
+paramFile_SingleTrackMdl_CarMaker_BMW5
 
 % nicht steuerbar bei
 vx0 = sqrt(-cs_front*(Izz-l_front*l_rear*m)*(l_front+l_rear)/(l_front^2*m^2));

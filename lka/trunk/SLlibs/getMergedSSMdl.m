@@ -1,6 +1,6 @@
 function [sys] = getMergedSSMdl(sw,paramsVhcl,vx,LAD,paramsSteer)
 % SSMDL_SINGLETRACK		returns single-track-based state-space models
-%   sys = ssMdl_SingleTrack(SW,PARAMSVHCL,VX,LAD,varargin)
+%   SYS = GETMERGEDSSMDL(SW,PARAMSVHCL,VX,LAD,varargin)
 %   ________________
 %   Input arguments:
 %   SW ............ string to choose state space model (st/stvis/. see below)
@@ -30,11 +30,11 @@ if nargin < 5
 	paramsSteer = struct();
 end%if
 % tunable parameter
-if nargin < 4 || isempty(LAD)
-	LAD = realp('LAD',0);
+if nargin < 4
+	LAD = [];
 end%if
-if nargin < 3 || isempty(vx)
-	vx	= realp('vx',10);
+if nargin < 3
+	vx	= [];
 end%if
 
 
@@ -160,7 +160,7 @@ function [sys,UserData] = STM_LT(params,vx,LAD)
 % B = [[csv/m;csv*lv/Iz;0;0], [0;0;0;vx]];
 
 % load single track model
-stm = ssMdl_SingleTrack('stm', params, vx);
+stm = ssMdl_singleTrack('stm', params, vx);
 
 % load lane tracking model
 ltm = ssMdl_laneTracking('ltm', vx, LAD);
@@ -307,7 +307,7 @@ function [sys,UserData] = STM_DSR(paramsVhcl,vx,paramsSteer)
 % B = [csv/m; csv*lv/Iz];
 
 % load single track model
-stm = ssMdl_SingleTrack('stm', paramsVhcl, vx);
+stm = ssMdl_singleTrack('stm', paramsVhcl, vx);
 
 % Create series connection with steering model manually
 A = [stm.A,stm.B/alph,[0;0];...

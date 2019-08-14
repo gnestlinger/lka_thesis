@@ -16,12 +16,12 @@ lad = 5;
 i = 0;
 w = logspace(-1,2,100);
 
-params = paramFile2Struct('paramFile_SingleTrackMdl_BMW5');
+params = paramFile2Struct('paramFile_SingleTrackMdl_CarMaker_BMW5');
 VX = 5:5:50;
 for vx = VX
     i = i+1;
     
-    sys = ssMdl_SingleTrack('stvis',params,vx,lad);
+    sys = getMergedSSMdl('stvis',params,vx,lad);
     sys = sys(3,1);
 	
     bode(sys,w);

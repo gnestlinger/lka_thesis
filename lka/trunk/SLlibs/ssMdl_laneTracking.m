@@ -18,7 +18,7 @@ narginchk(0,3);
 
 % tunable parameter
 if nargin < 3 || isempty(LAD)
-	LAD = realp('LAD',0);
+	LAD = realp('LAD',5);
 end%if
 if nargin < 2 || isempty(vx)
 	vx	= realp('vx',10);

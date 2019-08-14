@@ -8,7 +8,7 @@
 % $LastChangedDate$
 % $Revision$
 clc
-clear all
+clear
 % close all
 
 % load Simulink model
@@ -19,8 +19,8 @@ load_system(mdlName);
 %% LKA-controller design
 
 % LKA-controller design: control plant parameter
-stringCvehicle = 'paramFile_SingleTrackMdl_BMW5';
-stringCsteer = 'paramFile_SteeringMdl_CarMaker_DSR';
+paramsCVehicle	= paramFile2Struct('paramFile_SingleTrackMdl_CarMaker_BMW5');
+paramsCSteer	= paramFile2Struct('paramFile_SteeringMdl_CarMaker_DSR');
 
 % LKA-controller design: longitudinal velocity vx [m/s]
 vxC = 20;
@@ -30,7 +30,7 @@ ladC = 10;
 
 % load state-space model
 sysSingleTrackVisDSR = ...
-    ssMdl_SingleTrack('stvisdsr',stringCvehicle,vxC,ladC,stringCsteer);
+    getMergedSSMdl('stvisdsr',paramsCVehicle,vxC,ladC,paramsCSteer);
 
 % Streckenübertragungsfunktion
 P = tf(sysSingleTrackVisDSR);
@@ -65,8 +65,8 @@ Tsoll = Tsoll*(ws/ws)^(5+1);
 % design parameter
 contr.s.AlgSynth.label = 'AlgSynth';
 contr.s.AlgSynth.desc = 'Algebraische Synthese';
-contr.s.AlgSynth.designParam.file.vehicle = stringCvehicle;
-contr.s.AlgSynth.designParam.file.steer = stringCsteer;
+contr.s.AlgSynth.designParam.file.vehicle = paramsCVehicle;
+contr.s.AlgSynth.designParam.file.steer = paramsCSteer;
 contr.s.AlgSynth.designParam.P = P;
 contr.s.AlgSynth.designParam.vx = vxC;
 contr.s.AlgSynth.designParam.lad = ladC;

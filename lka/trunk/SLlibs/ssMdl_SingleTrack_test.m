@@ -9,10 +9,10 @@ LAD = 0;
 % vx = [];
 % LAD = [];
 
-paramsVhcl = paramFile2Struct('paramFile_SingleTrackMdl_BMW5');
+paramsVhcl = paramFile2Struct('paramFile_SingleTrackMdl_CarMaker_BMW5');
 paramsSteer = paramFile2Struct('paramFile_SteeringMdl_CarMaker_DSR');
 
-sys_a = ssMdl_SingleTrack('stm', paramsVhcl, vx);
+sys_a = ssMdl_singleTrack('stm', paramsVhcl, vx);
 
 sys_b = getMergedSSMdl('stvis', paramsVhcl, vx, LAD);
 
