@@ -5,14 +5,14 @@
 % Date: 24.09.2012 - 24.02.2013
 
 clc
-clear all
+clear
 % close all
 
 
 %% LKA-controller design
 
 % controller design: vehicle parameter
-vehicleParameterC = 'paramFile_SingleTrackMdl_BMW5';
+vehicleParameterC = 'paramFile_SingleTrackMdl_CarMaker_BMW5';
 
 % controller design: longitudinal velocity vx [m/s]
 vxC = 20;
@@ -32,9 +32,9 @@ disp(fNamesContr);
 %% Simulation parameter
 
 % simulation: vehicle parameter
-string = 'paramFile_SingleTrackMdl_BMW5';
+string = 'paramFile_SingleTrackMdl_CarMaker_BMW5';
 pin.VehicleModel.singleTrack.parameterFile = string;
-pin.VehicleModel.singleTrack.parameter = loadParameter(string,'about');
+pin.VehicleModel.singleTrack.parameter = paramFile2Struct(string);
 
 % load intended trajectory
 [pin.traj,err] = lka_trajectory_07(0,0.05);

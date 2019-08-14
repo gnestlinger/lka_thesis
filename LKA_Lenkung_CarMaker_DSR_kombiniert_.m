@@ -20,8 +20,8 @@ load_system(mdlName);
 %% LKA-controller design
 
 % LKA-controller design: control plant parameter
-stringCvehicle = 'paramFile_SingleTrackMdl_BMW5';
-stringCsteer = 'paramFile_SteeringMdl_CarMaker_DSR';
+paramsCvehicle	= paramFile2Struct('paramFile_SingleTrackMdl_CarMaker_BMW5');
+paramsCsteer	= paramFile2Struct('paramFile_SteeringMdl_CarMaker_DSR');
 
 % LKA-controller design: longitudinal velocity vx [m/s]
 vxC = 20;
@@ -31,14 +31,14 @@ ladC = 10;
 
 % load state-space model
 sysSingleTrackVisDSR = ...
-    ssMdl_SingleTrack('stvisdsr',stringCvehicle,vxC,ladC,stringCsteer);
+    getMergedSSMdl('stvisdsr',paramsCvehicle,vxC,ladC,paramsCsteer);
 sysSingleTrackVisDSR_1int = ss(...
     [[sysSingleTrackVisDSR.a,zeros(6,1)];[0 0 1 0 0 0 0]],...
     [sysSingleTrackVisDSR.b(:,1);0],...
     [sysSingleTrackVisDSR.c(3,:),0],...
     0);
 sysSingleTrackVisDSR_2int = ...
-    ssMdl_SingleTrack('stvisdsr_2int',stringCvehicle,vxC,ladC,stringCsteer);
+    getMergedSSMdl('stvisdsr_2int',paramsCvehicle,vxC,ladC,paramsCsteer);
 
 R = 10;
 
@@ -63,8 +63,8 @@ Q2int = diag([0 0 1 0 0 0 1 1]);
 [k2int,~,~] = lqr(sysSingleTrackVisDSR_2int(:,1),Q2int,R);
 
 % overall design parameter
-contr.t.LQR_DSR.designParam.file.vehicle = stringCvehicle;
-contr.t.LQR_DSR.designParam.file.steer = stringCsteer;
+contr.t.LQR_DSR.designParam.file.vehicle = paramsCvehicle;
+contr.t.LQR_DSR.designParam.file.steer = paramsCsteer;
 contr.t.LQR_DSR.designParam.vx = vxC;
 contr.t.LQR_DSR.designParam.lad = ladC;
 
@@ -100,7 +100,7 @@ pin.SteeringModel.parameterFile = stringSim;
 pin.SteeringModel.parameter = paramFile2Struct(stringSim);
 
 % simulation: vehicle parameter
-stringSim = 'paramFile_SingleTrackMdl_BMW5';
+stringSim = 'paramFile_SingleTrackMdl_CarMaker_BMW5';
 pin.VehicleModel.parameterFile = stringSim;
 pin.VehicleModel.parameter = paramFile2Struct(stringSim);
 
@@ -113,12 +113,12 @@ pin.LAD = ladC;
 % load intended trajectory
 % [pin.traj,trajErr] = lka_trajectory_08(0,0.05);
 pin.traj = ...
-	lkaSegmentStraight(0.05,50,0) + ...
-	lkaSegmentClothoid(0.05,0,0.005,0,400);
-pin.traj_sd = pin.traj.segmentData;
+	LkPathStraight(0.05,50,0) + ...
+	LkPathClothoid(0.05,0,0.005,0,400);
+pin.traj_sd = pin.traj.pathData;
 
 % simulation: interval of integration
-tend = pin.traj.segmentData.s(end)/pin.vx - 2*pin.LAD/pin.vx;
+tend = pin.traj.pathData.s(end)/pin.vx - 2*pin.LAD/pin.vx;
 
 % vehicle model: initial condition
 pin.VehicleModel.initialValue.sy = 0;

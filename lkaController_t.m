@@ -27,7 +27,7 @@ if numel(lad) > 1; error('Dimension of input argument lad > 1'); end
 %   x2 = Giergeschwindigkeit (psiDot)
 %   x3 = yL
 %   x4 = epsL
-sysSingleTrackVis = ssMdl_SingleTrack('stvis',paramFile2Struct(paramFile),vx,lad);
+sysSingleTrackVis = getMergedSSMdl('stvis',paramFile2Struct(paramFile),vx,lad);
 
 % single track modell + "lane tracking" + internal model
 %   State variables: (Index V...Vehicle, 0...global) 
@@ -37,7 +37,7 @@ sysSingleTrackVis = ssMdl_SingleTrack('stvis',paramFile2Struct(paramFile),vx,lad
 %   x4 = Relativwinkel epsL
 %   x5 = Int{Int{yL}}
 %   x6 = Int{yL}
-sysSingleTrackVis_2int = ssMdl_SingleTrack('stvis_2int',paramFile2Struct(paramFile),vx,lad);
+sysSingleTrackVis_2int = getMergedSSMdl('stvis_2int',paramFile2Struct(paramFile),vx,lad);
 
 
 %%% load parameter %%%
