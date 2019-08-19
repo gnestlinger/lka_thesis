@@ -1,5 +1,5 @@
 function [sys] = getMergedSSMdl(sw,paramsVhcl,vx,LAD,paramsSteer)
-% SSMDL_SINGLETRACK		returns single-track-based state-space models
+% GETMERGEDSSMDL		returns state-space models
 %   SYS = GETMERGEDSSMDL(SW,PARAMSVHCL,VX,LAD,varargin)
 %   ________________
 %   Input arguments:
@@ -30,11 +30,11 @@ if nargin < 5
 	paramsSteer = struct();
 end%if
 % tunable parameter
-if nargin < 4
-	LAD = [];
+if nargin < 4 || isempty(LAD)
+	LAD = realp('LAD',0);
 end%if
-if nargin < 3
-	vx	= [];
+if nargin < 3 || isempty(vx)
+	vx	= realp('vx',10);
 end%if
 
 
@@ -496,10 +496,10 @@ end%fcn
 
 
 % --- Get parameters from structure ------------------------------------- %
-function [J,V,alph,drack,drot,iHR,mL,mR,mr,xi] = getParams_CarMakerDSR(S)
+function [J,V,sr,drack,drot,iHR,mL,mR,mr,xi] = getParams_CarMakerDSR(S)
 J		= S.J;
 V		= S.V;
-alph	= S.alph;
+sr		= S.steeringRatio;
 drack	= S.drack;
 drot	= S.drot;
 iHR		= S.iHR;

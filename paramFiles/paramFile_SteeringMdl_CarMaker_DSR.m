@@ -25,7 +25,7 @@ mL = 10;    % steering mass left [kg]
 mR = 10;    % steering mass right [kg]
 V = 3;      % Amplification [-]
 
-alph = 13;	% Übersetzung Lenkrad-/Radlenkwinkel [-]
+steeringRatio = 13;	% Übersetzung Lenkrad-/Radlenkwinkel [-]
 
 xi = mL + mR + J*iHR^2 + mr;    % shortcut [kg]
 

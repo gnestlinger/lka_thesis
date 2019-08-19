@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.230"
+    ComputedModelVersion    "1.231"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -116,7 +116,7 @@ Model {
 	DockPosition		"Left"
 	Width			[50]
 	Height			[50]
-	Filter			[56]
+	Filter			[57]
       }
       Object {
 	$PropName		"ExplorerBarInfo"
@@ -131,7 +131,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1268.0, 730.0]
+	Extents			[1202.0, 692.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -146,18 +146,18 @@ Model {
 	UserData		""
 	Floating		[0]
 	DockPosition		"Right"
-	Width			[534]
-	Height			[400]
+	Width			[558]
+	Height			[418]
       }
-      WindowState	      "AAAA/wAAAAD9AAAAAgAAAAAAAAC9AAADG/wCAAAAA/sAAAAWAEQAbwBjAGsAVwBpAGQAZwBlAHQAMwEAAAAxAAAB+AAAA"
+      WindowState	      "AAAA/wAAAAD9AAAAAgAAAAAAAAC9AAAC9vwCAAAAA/sAAAAWAEQAbwBjAGsAVwBpAGQAZwBlAHQAMwEAAAAxAAAB+AAAA"
       "AAAAAAA+wAAABYARABvAGMAawBXAGkAZABnAGUAdAA0AAAAAAD/////AAAAAAAAAAD7AAAAUgBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0Ac"
-      "ABvAG4AZQBuAHQALwBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0AcABvAG4AZQBuAHQBAAAARwAAAxsAAABzAP///wAAAAEAAAAAAAAAAPwCA"
+      "ABvAG4AZQBuAHQALwBHAEwAVQBFADIAIAB0AHIAZQBlACAAYwBvAG0AcABvAG4AZQBuAHQBAAAARQAAAvYAAABtAP///wAAAAEAAAAAAAAAAPwCA"
       "AAAAfsAAABUAEcATABVAEUAMgA6AFAAcgBvAHAAZQByAHQAeQBJAG4AcwBwAGUAYwB0AG8AcgAvAFAAcgBvAHAAZQByAHQAeQAgAEkAbgBzAHAAZ"
-      "QBjAHQAbwByAAAAAAD/////AAAAMgD///8AAAUgAAADGwAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
+      "QBjAHQAbwByAAAAAAD/////AAAALwD///8AAATdAAAC9gAAAAEAAAACAAAAAQAAAAL8AAAAAQAAAAIAAAAP/////wAAAAAA/////wAAAAAAAAAA/"
       "////wEAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/"
-      "////wEAAACM/////wAAAAAAAAAA/////wEAAAD8/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAGI/////wAAAAAAAAAA/"
-      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAOt/////wAAAAAAAAAA/"
-      "////wEAAAPj/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA"
+      "////wEAAACH/////wAAAAAAAAAA/////wEAAAD0/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAAF7/////wAAAAAAAAAA/"
+      "////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA/////wEAAANX/////wAAAAAAAAAA/"
+      "////wEAAAOL/////wAAAAAAAAAA/////wAAAAAA/////wAAAAAAAAAA"
     }
   }
   HideAutomaticNames	  on
@@ -167,9 +167,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Jul 15 16:25:41 2019"
-  RTWModifiedTimeStamp	  485108741
-  ModelVersionFormat	  "1.%<AutoIncrement:230>"
+  LastModifiedDate	  "Mon Aug 19 10:39:53 2019"
+  RTWModifiedTimeStamp	  488111960
+  ModelVersionFormat	  "1.%<AutoIncrement:231>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -1236,7 +1236,7 @@ Model {
   System {
     Name		    "LKA_Lenkung_CarMaker_DSR_kombiniert"
     Location		    [265, 14, 1536, 795]
-    Open		    off
+    Open		    on
     PortBlocksUseCompactNotation off
     SetDomainSpec	    off
     DomainSpecType	    "Deduce"
@@ -1845,7 +1845,7 @@ Model {
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[2 2]"
 	      SFunctionDeploymentMode off
-	      EnableBusSupport	      off
+	      EnableBusSupport	      on
 	      SFcnIsStateOwnerBlock   off
 	      Port {
 		PortNumber		2
@@ -1976,7 +1976,7 @@ Model {
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[2 2]"
 	      SFunctionDeploymentMode off
-	      EnableBusSupport	      off
+	      EnableBusSupport	      on
 	      SFcnIsStateOwnerBlock   off
 	      Port {
 		PortNumber		2
@@ -2276,7 +2276,7 @@ Model {
 	  Ports			  [4, 1]
 	  Position		  [275, 19, 455, 131]
 	  ZOrder		  -5
-	  LibraryVersion	  "1.904"
+	  LibraryVersion	  "1.906"
 	  SourceBlock		  "SLlib_lka_thesis/Lane Tracking/Lane Tracking Sensor"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -2506,7 +2506,7 @@ Model {
 	  Ports			  [7, 1]
 	  Position		  [455, 85, 650, 285]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.904"
+	  LibraryVersion	  "1.906"
 	  SourceBlock		  "SLlib_lka_thesis/Lane Tracking/Lane Tracking Model (linear&nonlinear)"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -2580,7 +2580,7 @@ Model {
 	      FunctionName	      "sf_sfun"
 	      PortCounts	      "[2 2]"
 	      SFunctionDeploymentMode off
-	      EnableBusSupport	      off
+	      EnableBusSupport	      on
 	      SFcnIsStateOwnerBlock   off
 	      Port {
 		PortNumber		2
@@ -2860,7 +2860,7 @@ Model {
       Position		      [245, 155, 275, 185]
       ZOrder		      -23
       ShowName		      off
-      LibraryVersion	      "1.391"
+      LibraryVersion	      "1.441"
       SourceBlock	      "simulink/Sources/Ramp"
       SourceType	      "Ramp"
       SourceProductName	      "Simulink"
@@ -2868,7 +2868,7 @@ Model {
       ContentPreviewEnabled   off
       slope		      "1"
       start		      "10"
-      X0		      "0"
+      InitialOutput	      "0"
       VectorParams1D	      on
     }
     Block {
@@ -2879,7 +2879,7 @@ Model {
       Position		      [525, 215, 555, 245]
       ZOrder		      -24
       ShowName		      off
-      LibraryVersion	      "1.391"
+      LibraryVersion	      "1.441"
       SourceBlock	      "simulink/Sources/Ramp"
       SourceType	      "Ramp"
       SourceProductName	      "Simulink"
@@ -2887,7 +2887,7 @@ Model {
       ContentPreviewEnabled   off
       slope		      "1"
       start		      "10"
-      X0		      "0"
+      InitialOutput	      "0"
       VectorParams1D	      on
     }
     Block {
@@ -2967,7 +2967,7 @@ Model {
       Ports		      [4]
       Position		      [845, 471, 930, 534]
       ZOrder		      -29
-      LibraryVersion	      "1.904"
+      LibraryVersion	      "1.906"
       SourceBlock	      "SLlib_lka_thesis/Misc/Simout"
       SourceType	      "SubSystem"
       ContentPreviewEnabled   off
@@ -3057,7 +3057,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Vehicle"
-	Location		[476, 52, 1584, 923]
+	Location		[265, 14, 1536, 795]
 	Open			off
 	PortBlocksUseCompactNotation off
 	SetDomainSpec		off
@@ -3189,7 +3189,7 @@ Model {
 	  Ports			  [7, 1]
 	  Position		  [315, 201, 475, 339]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.904"
+	  LibraryVersion	  "1.906"
 	  SourceBlock		  "SLlib_lka_thesis/Vehicle Models ext./Single Track Model (linear)\n[Initial Values; Interface]"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -3201,16 +3201,16 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [90, 65, 250, 85]
 	  ZOrder		  -19
-	  LibraryVersion	  "1.904"
+	  LibraryVersion	  "1.906"
 	  SourceBlock		  "SLlib_lka_thesis/Vehicle Models ext./Single Track Model (linear)\n[Parameter; masked]"
 	  SourceType		  "Linear Single Track Model Parameter"
 	  ContentPreviewEnabled	  off
-	  cs_front		  "pin.VehicleModel.parameter.csv"
-	  cs_rear		  "pin.VehicleModel.parameter.csh"
-	  l_front		  "pin.VehicleModel.parameter.lv"
-	  l_rear		  "pin.VehicleModel.parameter.lh"
+	  cs_front		  "pin.VehicleModel.parameter.cs_front"
+	  cs_rear		  "pin.VehicleModel.parameter.cs_rear"
+	  l_front		  "pin.VehicleModel.parameter.l_front"
+	  l_rear		  "pin.VehicleModel.parameter.l_rear"
 	  m			  "pin.VehicleModel.parameter.m"
-	  Izz			  "pin.VehicleModel.parameter.Iz"
+	  Izz			  "pin.VehicleModel.parameter.Izz"
 	}
 	Block {
 	  BlockType		  Reference
@@ -3220,7 +3220,7 @@ Model {
 	  Position		  [600, 30, 760, 240]
 	  ZOrder		  -21
 	  BackgroundColor	  "lightBlue"
-	  LibraryVersion	  "1.904"
+	  LibraryVersion	  "1.906"
 	  SourceBlock		  "SLlib_lka_thesis/Vehicle Models ext./Single Track Model//Steering Model"
 	  SourceType		  "SubSystem"
 	  ContentPreviewEnabled	  off
@@ -3232,7 +3232,7 @@ Model {
 	  Ports			  [0, 1]
 	  Position		  [280, 94, 440, 116]
 	  ZOrder		  -22
-	  LibraryVersion	  "1.904"
+	  LibraryVersion	  "1.906"
 	  SourceBlock		  "SLlib_lka_thesis/Vehicle Models ext./Steering Model (CarMaker DSR)\n[Parameter; masked]"
 	  SourceType		  "Steering Model Parameter: Dynamic Steer Ratio"
 	  ContentPreviewEnabled	  off
@@ -3244,7 +3244,7 @@ Model {
 	  m_right		  "pin.SteeringModel.parameter.mR"
 	  m_rack		  "pin.SteeringModel.parameter.mr"
 	  V			  "pin.SteeringModel.parameter.V"
-	  alpha			  "pin.SteeringModel.parameter.alph"
+	  alpha			  "pin.SteeringModel.parameter.steeringRatio"
 	}
 	Block {
 	  BlockType		  Outport
@@ -3370,7 +3370,7 @@ Model {
       Ports		      [2]
       Position		      [990, 179, 1020, 221]
       ZOrder		      -40
-      LibraryVersion	      "1.391"
+      LibraryVersion	      "1.441"
       SourceBlock	      "simulink/Sinks/XY Graph"
       SourceType	      "XY scope."
       SourceProductName	      "Simulink"
