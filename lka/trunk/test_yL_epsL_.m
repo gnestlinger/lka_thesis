@@ -18,7 +18,7 @@ load_system(mdlName);
 %% LKA-controller design
 
 % LKA-controller design: vehicle parameter
-stringC = 'paramFile_SingleTrackMdl_BMW5';
+stringC = 'paramFile_SingleTrackMdl_CarMaker_BMW5';
 
 % LKA-controller design: longitudinal velocity vx [m/s]
 vx_Ctrl = 30;
@@ -33,7 +33,7 @@ contr.t = lkaController_t(stringC,vx_Ctrl,LAD_Ctrl);
 %% Simulation parameter
 
 % simulation: vehicle parameter
-stringSim = 'paramFile_SingleTrackMdl_BMW5';
+stringSim = 'paramFile_SingleTrackMdl_CarMaker_BMW5';
 pin.VehicleModel.parameterFile = stringSim;
 pin.VehicleModel.parameter = paramFile2Struct(stringSim);
 

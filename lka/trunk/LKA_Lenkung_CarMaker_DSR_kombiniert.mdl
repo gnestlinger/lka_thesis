@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.231"
+    ComputedModelVersion    "1.233"
     NumModelReferences	    0
     NumTestPointedSignals   0
     NumProvidedFunctions    0
@@ -107,7 +107,7 @@ Model {
       $ObjectID		      2
       $ClassName	      "Simulink.WindowInfo"
       IsActive		      [1]
-      Location		      [265.0, 14.0, 1271.0, 781.0]
+      Location		      [127.0, 22.0, 1271.0, 781.0]
       Object {
 	$PropName		"ModelBrowserInfo"
 	$ObjectID		3
@@ -131,7 +131,7 @@ Model {
 	IsActive		[1]
 	ViewObjType		"SimulinkTopLevel"
 	LoadSaveID		"0"
-	Extents			[1202.0, 692.0]
+	Extents			[1202.0, 696.0]
 	ZoomFactor		[1.0]
 	Offset			[0.0, 0.0]
       }
@@ -167,9 +167,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "georgnestlinger"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Mon Aug 19 10:39:53 2019"
-  RTWModifiedTimeStamp	  488111960
-  ModelVersionFormat	  "1.%<AutoIncrement:231>"
+  LastModifiedDate	  "Wed Aug 21 11:58:52 2019"
+  RTWModifiedTimeStamp	  488289528
+  ModelVersionFormat	  "1.%<AutoIncrement:233>"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
   LibraryLinkDisplay	  "all"
@@ -1235,7 +1235,7 @@ Model {
   }
   System {
     Name		    "LKA_Lenkung_CarMaker_DSR_kombiniert"
-    Location		    [265, 14, 1536, 795]
+    Location		    [127, 22, 1398, 803]
     Open		    on
     PortBlocksUseCompactNotation off
     SetDomainSpec	    off
@@ -1399,7 +1399,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Controller"
-	Location		[347, 315, 988, 726]
+	Location		[127, 22, 1398, 803]
 	Open			off
 	PortBlocksUseCompactNotation off
 	SetDomainSpec		off
@@ -1525,7 +1525,7 @@ Model {
 	  }
 	  System {
 	    Name		    "LQR-Regler"
-	    Location		    [549, 80, 1840, 978]
+	    Location		    [127, 22, 1398, 803]
 	    Open		    off
 	    PortBlocksUseCompactNotation off
 	    SetDomainSpec	    off
@@ -2054,7 +2054,7 @@ Model {
 	}
 	Block {
 	  BlockType		  Outport
-	  Name			  "steerAngle [rad]"
+	  Name			  "SWTorque"
 	  SID			  "830"
 	  Position		  [1000, 158, 1030, 172]
 	  ZOrder		  -12
@@ -2100,7 +2100,7 @@ Model {
 	  Labels		  [0, 0]
 	  SrcBlock		  "LQR-Regler"
 	  SrcPort		  1
-	  DstBlock		  "steerAngle [rad]"
+	  DstBlock		  "SWTorque"
 	  DstPort		  1
 	}
 	Line {
@@ -3057,7 +3057,7 @@ Model {
       RequestExecContextInheritance off
       System {
 	Name			"Vehicle"
-	Location		[265, 14, 1536, 795]
+	Location		[127, 22, 1398, 803]
 	Open			off
 	PortBlocksUseCompactNotation off
 	SetDomainSpec		off
@@ -3236,13 +3236,13 @@ Model {
 	  SourceBlock		  "SLlib_lka_thesis/Vehicle Models ext./Steering Model (CarMaker DSR)\n[Parameter; masked]"
 	  SourceType		  "Steering Model Parameter: Dynamic Steer Ratio"
 	  ContentPreviewEnabled	  off
-	  d_rot			  "pin.SteeringModel.parameter.drot"
-	  d_rack		  "pin.SteeringModel.parameter.drack"
-	  i_HR			  "pin.SteeringModel.parameter.iHR"
-	  I_rot			  "pin.SteeringModel.parameter.J"
-	  m_left		  "pin.SteeringModel.parameter.mL"
-	  m_right		  "pin.SteeringModel.parameter.mR"
-	  m_rack		  "pin.SteeringModel.parameter.mr"
+	  d_rot			  "pin.SteeringModel.parameter.d_rot"
+	  d_rack		  "pin.SteeringModel.parameter.d_rack"
+	  i_HR			  "pin.SteeringModel.parameter.i_HR"
+	  I_rot			  "pin.SteeringModel.parameter.I_rot"
+	  m_left		  "pin.SteeringModel.parameter.m_left"
+	  m_right		  "pin.SteeringModel.parameter.m_right"
+	  m_rack		  "pin.SteeringModel.parameter.m_rack"
 	  V			  "pin.SteeringModel.parameter.V"
 	  alpha			  "pin.SteeringModel.parameter.steeringRatio"
 	}
@@ -3498,9 +3498,9 @@ Model {
       }
       Branch {
 	ZOrder			18
-	Points			[0, 320]
+	Points			[0, 305]
 	DstBlock		"Simout"
-	DstPort			3
+	DstPort			2
       }
     }
     Line {
@@ -3517,43 +3517,39 @@ Model {
 	ZOrder			21
 	Points			[0, 95]
 	Branch {
+	  ZOrder		  58
+	  Points		  [0, 185]
+	  DstBlock		  "Simout"
+	  DstPort		  1
+	}
+	Branch {
 	  ZOrder		  22
 	  DstBlock		  "Bus\nSelector1"
 	  DstPort		  1
 	}
 	Branch {
 	  ZOrder		  23
-	  Points		  [-20, 0]
+	  Points		  [-225, 0]
 	  Branch {
-	    ZOrder		    24
-	    Points		    [-205, 0]
-	    Branch {
-	      ZOrder		      25
-	      Points		      [0, 50]
-	      DstBlock		      "Lane Tracking"
-	      DstPort		      1
-	    }
-	    Branch {
-	      ZOrder		      26
-	      Points		      [-235, 0]
-	      Branch {
-		ZOrder			27
-		DstBlock		"Controller"
-		DstPort			3
-	      }
-	      Branch {
-		ZOrder			28
-		Points			[-275, 0]
-		DstBlock		"Lane Sensor"
-		DstPort			1
-	      }
-	    }
+	    ZOrder		    25
+	    Points		    [0, 50]
+	    DstBlock		    "Lane Tracking"
+	    DstPort		    1
 	  }
 	  Branch {
-	    ZOrder		    29
-	    Points		    [0, 200]
-	    DstBlock		    "Simout"
-	    DstPort		    2
+	    ZOrder		    26
+	    Points		    [-235, 0]
+	    Branch {
+	      ZOrder		      27
+	      DstBlock		      "Controller"
+	      DstPort		      3
+	    }
+	    Branch {
+	      ZOrder		      28
+	      Points		      [-275, 0]
+	      DstBlock		      "Lane Sensor"
+	      DstPort		      1
+	    }
 	  }
 	}
       }
@@ -3714,16 +3710,16 @@ Model {
       ZOrder		      54
       SrcBlock		      "Lane Tracking"
       SrcPort		      1
-      Points		      [35, 0]
+      Points		      [19, 0]
       Branch {
-	ZOrder			55
-	DstBlock		"Bus\nSelector6"
-	DstPort			1
+	ZOrder			62
+	Points			[0, 150]
+	DstBlock		"Simout"
+	DstPort			3
       }
       Branch {
-	ZOrder			56
-	Points			[0, 120]
-	DstBlock		"Simout"
+	ZOrder			61
+	DstBlock		"Bus\nSelector6"
 	DstPort			1
       }
     }
