@@ -496,15 +496,15 @@ end%fcn
 
 
 % --- Get parameters from structure ------------------------------------- %
-function [J,V,sr,drack,drot,iHR,mL,mR,mr,xi] = getParams_CarMakerDSR(S)
-J		= S.J;
+function [I_rot,V,sr,d_rack,d_rot,i_HR,m_left,m_right,m_rack,xi] = getParams_CarMakerDSR(S)
+I_rot	= S.I_rot;
 V		= S.V;
 sr		= S.steeringRatio;
-drack	= S.drack;
-drot	= S.drot;
-iHR		= S.iHR;
-mL		= S.mL;
-mR		= S.mR;
-mr		= S.mr;
-xi		= S.xi;
+d_rack	= S.d_rack;
+d_rot	= S.d_rot;
+i_HR	= S.i_HR;
+m_left	= S.m_left;
+m_right	= S.m_right;
+m_rack	= S.m_rack;
+xi		= m_left + m_right + I_rot*i_HR^2 + m_rack; 
 end%fcn
