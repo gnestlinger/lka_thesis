@@ -309,45 +309,29 @@ function [sys,UserData] = STM_DSR(paramsVhcl,vx,paramsSteer)
 % load single track model
 stm = ssMdl_singleTrack('stm', paramsVhcl, vx);
 
-% Create series connection with steering model manually
-A = [stm.A,stm.B/alph,[0;0];...
-    0,0,0,1;...
-    0,0,0,-1/xi*(drot*iHR^2+drack)];
-B = [...
-	0 0 0;
-	0 0 0;
-	0 0 0;
-	iHR^2*V/xi, iHR/xi, -iHR/xi,...
-	];
-C = eye(size(A));
-D = 0;
+% steering wheel angle/front wheel angle
+str = ss([],[],[],[1/paramsSteer.steeringRatio 0],...
+	'InputName',{'SWAngle' 'SWVelocity'},'InputUnit',{'rad' 'rad/s'},...
+	'OutputName',{'front wheel angle'},'OutputUnit',{'rad'});
 
+% Steering model "Dynamic Steer Ratio" (CarMaker)
+A = [0, 1; 0, -1/xi*(drot*iHR^2+drack)];
+B = [0, 0, 0; iHR^2*V/xi, iHR/xi, -iHR/xi];
+dsr = ss(A, B, eye(size(A)), 0);
+dsr.InputName = {'SWTorque', 'F_tieRod_left', 'F_tieRod_right'};
+dsr.InputUnit = {'Nm', 'N', 'N'};
+dsr.StateName = {'SWAngle', 'SWVelocity'};
+dsr.StateUnit = {'rad','rad/s'};
+dsr.OutputName = dsr.StateName;
+dsr.OutputUnit = dsr.StateUnit;
 
-% set state/input/output names
-StateDesc = [...
-	stm.StateName','SWAngle','SWVelocity';...
-	{'m/s','rad/s','rad','rad/s'}];
-InputDesc = {...
-	'SWTorque' 'F_tieRod_left' 'F_tieRod_right';
-	'Nm' 'N' 'N'};
-OutputDesc = StateDesc;
-
-
-%%% create state space model
-sys = ss(A,B,C,D);
-
-% set input/state/output names
-sys.InputName = InputDesc(1,:);
-sys.InputUnit = InputDesc(2,:);
-try
-	% In Matlab R2012a this does not work!
-	sys.StateName = StateDesc(1,:);
-	sys.StateUnit = StateDesc(2,:);
-catch exc
-	warning('This MATLAB release does not support properties "StateName" or "StateUnit" for class GENSS.');
-end
-sys.OutputName = OutputDesc(1,:);
-sys.OutputUnit = OutputDesc(2,:);
+% create series conenction drs -> str -> stm
+% steering torque -> SWAngle/Velocity -> Wheel Angle/Velocity -> Vehicle
+% States
+sys = connect(dsr, str, stm, ...
+	{'SWTorque','F_tieRod_left','F_tieRod_right'}, ...
+	{'v_y', 'yaw rate','SWAngle', 'SWVelocity'});
+sys = xperm(sys, [3 4 1 2]);
 
 % info
 UserData = stm.UserData;

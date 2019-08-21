@@ -60,7 +60,7 @@ sys = ss(A,B,C,D);
 sys.InputName = InDesc(1,:);
 sys.InputUnit = InDesc(2,:);
 try
-	% In Matlab R2012a this does not work!
+	% GENSS objects don't have properties STATENAME/STATEUNIT before R2017a!
 	sys.StateName = StateDesc(1,:);
 	sys.StateUnit = StateDesc(2,:);
 catch exc
