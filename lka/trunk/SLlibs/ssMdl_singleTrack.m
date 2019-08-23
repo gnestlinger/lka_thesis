@@ -1,6 +1,6 @@
-function [sys] = ssMdl_SingleTrack(sw,paramsVhcl,vx)
-% SSMDL_SINGLETRACK		returns single-track-based state-space models
-%   sys = ssMdl_SingleTrack(SW,PARAMSVHCL,VX,LAD,varargin)
+function [sys] = ssMdl_singleTrack(sw,paramsVhcl,vx)
+% SSMDL_SINGLETRACK		Single-track state-space model.
+%   SYS = SSMDL_SINGLETRACK(SW,PARAMSVHCL,VX,LAD,varargin)
 %   ________________
 %   Input arguments:
 %   SW ............ string to choose state space model (st/stvis/. see below)
