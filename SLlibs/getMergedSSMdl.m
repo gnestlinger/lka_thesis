@@ -1,5 +1,5 @@
 function [sys] = getMergedSSMdl(sw,paramsVhcl,vx,LAD,paramsSteer)
-% GETMERGEDSSMDL		returns state-space models
+% GETMERGEDSSMDL	Return state-space models.
 %   SYS = GETMERGEDSSMDL(SW,PARAMSVHCL,VX,LAD,varargin)
 %   ________________
 %   Input arguments:
