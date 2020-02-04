@@ -23,7 +23,7 @@ paramFile_SingleTrackMdl_CarMaker_BMW5
 vx0 = sqrt(-cs_front*(Izz-l_front*l_rear*m)*(l_front+l_rear)/(l_front^2*m^2));
 
 % LKA-controller design: vehicle parameter
-stringCvehicle = 'paramFile_SingleTrackMdl_BMW5';
+stringCvehicle = 'paramFile_SingleTrackMdl_CarMaker_BMW5';
 
 % LKA-controller design: longitudinal velocity vx [m/s]
 % vxC = vx0;
@@ -41,7 +41,7 @@ addpath('algSynth');
 %% Simulation parameter
 
 % simulation: vehicle parameter
-stringSim = 'paramFile_SingleTrackMdl_BMW5';
+stringSim = 'paramFile_SingleTrackMdl_CarMaker_BMW5';
 pin.VehicleModel.parameterFile = stringSim;
 pin.VehicleModel.parameter = paramFile2Struct(stringSim);
 
