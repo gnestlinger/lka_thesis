@@ -1,0 +1,380 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Info>
+    <MetadataNode>
+        <path value="Extensions:type:Root">
+            <path value="DependencyAnalysis:type:Extension">
+                <path value="ExternalFiles:type:Extension">
+                    <node name="Info">
+                        <entry value="LkPathClothoid" key="File0" />
+                        <entry value="LkPathCircle" key="File1" />
+                        <entry value="LkPathStraight" key="File2" />
+                    </node>
+                </path>
+            </path>
+        </path>
+        <path value="ProjectData:type:Info">
+            <node name="Info">
+                <entry value="Waypoints" key="Name" />
+            </node>
+        </path>
+        <path value="Root:type:Categories">
+            <path value="FileClassCategory:type:Category">
+                <node name="Info">
+                    <entry value="None" key="DataType" />
+                    <entry value="Classification" key="Name" />
+                    <entry value="1" key="ReadOnly" />
+                    <entry value="1" key="SingleValued" />
+                </node>
+                <path value="artifact:type:Label">
+                    <node name="Info">
+                        <entry value="Artifact" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="convenience:type:Label">
+                    <node name="Info">
+                        <entry value="Convenience" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="derived:type:Label">
+                    <node name="Info">
+                        <entry value="Derived" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="design:type:Label">
+                    <node name="Info">
+                        <entry value="Design" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="none:type:Label">
+                    <node name="Info">
+                        <entry value="None" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="other:type:Label">
+                    <node name="Info">
+                        <entry value="Other" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="test:type:Label">
+                    <node name="Info">
+                        <entry value="Test" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+            </path>
+        </path>
+        <path value="Root:type:EntryPoints" />
+        <path value="Root:type:Extensions" />
+        <path value="Root:type:Files">
+            <path value="Waypoints.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="private:type:File">
+                <node name="Info" />
+                <path value="1:type:DIR_SIGNIFIER">
+                    <node name="Info" />
+                </path>
+                <path value="curvFrom_head_s.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="curvHeadFrom_x_y.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="fitCircle_Kasa.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="ll2utm.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="ppdiff.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="sFrom_x_y.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="utm2ll.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+            </path>
+            <path value="test_model.slx:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="test_script.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="testfiles:type:File">
+                <node name="Info" />
+                <path value="1:type:DIR_SIGNIFIER">
+                    <node name="Info" />
+                </path>
+                <path value="gpsrec.mat:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_changeSignOfCurvature.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_plotdiff.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_plotdiff_.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_resample.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_reverse.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_rotate.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_scaleTangentToAxis.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+                <path value="test_shiftTo.m:type:File">
+                    <node name="Info">
+                        <node name="Category">
+                            <entry value="FileClassCategory" key="UUID" />
+                            <node name="Label">
+                                <entry value="design" key="UUID" />
+                            </node>
+                        </node>
+                    </node>
+                </path>
+            </path>
+        </path>
+        <path value="Root:type:ProjectData" />
+        <path value="Root:type:ProjectPath">
+            <path value="b5ebcb56-9055-437a-9c08-a86cd9afce6f:type:Reference">
+                <node name="Info">
+                    <entry value="testfiles" key="Ref" />
+                    <entry value="Relative" key="Type" />
+                </node>
+            </path>
+            <path value="e73bd454-a20b-41c7-814b-9a24f86cc197:type:Reference">
+                <node name="Info">
+                    <entry value="" key="Ref" />
+                    <entry value="Relative" key="Type" />
+                </node>
+            </path>
+        </path>
+        <path value="Toolbox.Packaging:type:Files">
+            <node name="Info">
+                <entry value="39274f57-b970-4cea-9829-12fa19e3701c" key="toolbox.packaging.id" />
+            </node>
+            <path value="1:type:DIR_SIGNIFIER">
+                <node name="Info" />
+            </path>
+        </path>
+    </MetadataNode>
+    <Files>
+        <File path="Waypoints.m" value="5702f5fd" />
+        <File path="Waypoints.prj" value="fe84b66d" />
+        <File path="private/curvFrom_head_s.m" value="7b75620d" />
+        <File path="private/curvHeadFrom_x_y.m" value="6f9a7bb5" />
+        <File path="private/fitCircle_Kasa.m" value="51f65213" />
+        <File path="private/ll2utm.m" value="df70ec37" />
+        <File path="private/ppdiff.m" value="fc43c5eb" />
+        <File path="private/sFrom_x_y.m" value="5b931e1a" />
+        <File path="private/utm2ll.m" value="60e0724e" />
+        <File path="private" value="-1" />
+        <File path="resources/project/Extensions.type.Root/DependencyAnalysis.type.Extension/ExternalFiles.type.Extension.xml" value="c2dcb01f" />
+        <File path="resources/project/Extensions.type.Root/DependencyAnalysis.type.Extension" value="-1" />
+        <File path="resources/project/Extensions.type.Root" value="-1" />
+        <File path="resources/project/Project.xml" value="c576b26a" />
+        <File path="resources/project/ProjectData.type.Info.xml" value="c64795a8" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category.xml" value="d2dc6b71" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/artifact.type.Label.xml" value="3a808e07" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/convenience.type.Label.xml" value="9fa19c1e" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/derived.type.Label.xml" value="b32f4cc5" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/design.type.Label.xml" value="657f94e3" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/none.type.Label.xml" value="4434695f" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/other.type.Label.xml" value="7716e543" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/test.type.Label.xml" value="eff7b485" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category" value="-1" />
+        <File path="resources/project/Root.type.Categories" value="-1" />
+        <File path="resources/project/Root.type.EntryPoints" value="-1" />
+        <File path="resources/project/Root.type.Extensions" value="-1" />
+        <File path="resources/project/Root.type.Files/Waypoints.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File.xml" value="3af507e" />
+        <File path="resources/project/Root.type.Files/private.type.File/1.type.DIR_SIGNIFIER.xml" value="3af507e" />
+        <File path="resources/project/Root.type.Files/private.type.File/curvFrom_head_s.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File/curvHeadFrom_x_y.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File/fitCircle_Kasa.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File/ll2utm.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File/ppdiff.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File/sFrom_x_y.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File/utm2ll.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/private.type.File" value="-1" />
+        <File path="resources/project/Root.type.Files/test_model.slx.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/test_script.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File.xml" value="3af507e" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/1.type.DIR_SIGNIFIER.xml" value="3af507e" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/gpsrec.mat.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_changeSignOfCurvature.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_plotdiff.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_plotdiff_.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_resample.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_reverse.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_rotate.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_scaleTangentToAxis.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File/test_shiftTo.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/testfiles.type.File" value="-1" />
+        <File path="resources/project/Root.type.Files" value="-1" />
+        <File path="resources/project/Root.type.ProjectData" value="-1" />
+        <File path="resources/project/Root.type.ProjectPath/b5ebcb56-9055-437a-9c08-a86cd9afce6f.type.Reference.xml" value="c66fb370" />
+        <File path="resources/project/Root.type.ProjectPath/e73bd454-a20b-41c7-814b-9a24f86cc197.type.Reference.xml" value="23431c7a" />
+        <File path="resources/project/Root.type.ProjectPath" value="-1" />
+        <File path="resources/project/Toolbox.Packaging.type.Files.xml" value="3e92f394" />
+        <File path="resources/project/Toolbox.Packaging.type.Files/1.type.DIR_SIGNIFIER.xml" value="3af507e" />
+        <File path="resources/project/Toolbox.Packaging.type.Files" value="-1" />
+        <File path="resources/project/uuid-4ed390f7-e2cc-4843-8673-cbc5fd6b8392.xml" value="3af507e" />
+        <File path="resources/project" value="-1" />
+        <File path="resources" value="-1" />
+        <File path="test_model.slx" value="d1b98796" />
+        <File path="test_script.m" value="9d650f45" />
+        <File path="testfiles/gpsrec.mat" value="3d9afc6b" />
+        <File path="testfiles/test_changeSignOfCurvature.m" value="b021ad43" />
+        <File path="testfiles/test_plotdiff.m" value="62f61627" />
+        <File path="testfiles/test_plotdiff_.m" value="2d37aa32" />
+        <File path="testfiles/test_resample.m" value="7445117d" />
+        <File path="testfiles/test_reverse.m" value="be167a64" />
+        <File path="testfiles/test_rotate.m" value="a66bf49a" />
+        <File path="testfiles/test_scaleTangentToAxis.m" value="7e17d670" />
+        <File path="testfiles/test_shiftTo.m" value="d9b0d0a6" />
+        <File path="testfiles" value="-1" />
+    </Files>
+    <Date value="15. Mai 2021 11:02:51" />
+</Info>
