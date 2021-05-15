@@ -1,0 +1,220 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Info>
+    <Files>
+        <File path="LkPath.m" value="7f773af0" />
+        <File path="LkPath.prj" value="fe84b66d" />
+        <File path="LkPathCircle.m" value="3614dc70" />
+        <File path="LkPathClothoid.m" value="10fd6520" />
+        <File path="LkPathRec.m" value="e4a15c5" />
+        <File path="LkPathRec_test.m" value="3832c68a" />
+        <File path="LkPathStraight.m" value="9db7dcae" />
+        <File path="LkPath_Test.m" value="468e4d4" />
+        <File path="LkPath_TestSub1.m" value="10bdcdf9" />
+        <File path="gpsrec.mat" value="3d9afc6b" />
+        <File path="profile_mtimes.m" value="c5841f0c" />
+        <File path="resources/project/Project.xml" value="c576b26a" />
+        <File path="resources/project/ProjectData.type.Info.xml" value="a15d7269" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category.xml" value="d2dc6b71" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/artifact.type.Label.xml" value="3a808e07" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/convenience.type.Label.xml" value="9fa19c1e" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/derived.type.Label.xml" value="b32f4cc5" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/design.type.Label.xml" value="657f94e3" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/none.type.Label.xml" value="4434695f" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/other.type.Label.xml" value="7716e543" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category/test.type.Label.xml" value="eff7b485" />
+        <File path="resources/project/Root.type.Categories/FileClassCategory.type.Category" value="-1" />
+        <File path="resources/project/Root.type.Categories" value="-1" />
+        <File path="resources/project/Root.type.EntryPoints" value="-1" />
+        <File path="resources/project/Root.type.Extensions" value="-1" />
+        <File path="resources/project/Root.type.Files/LkPath.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/LkPathCircle.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/LkPathClothoid.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/LkPathRec.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/LkPathRec_test.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/LkPathStraight.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/LkPath_Test.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/LkPath_TestSub1.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/gpsrec.mat.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files/profile_mtimes.m.type.File.xml" value="df0217e1" />
+        <File path="resources/project/Root.type.Files" value="-1" />
+        <File path="resources/project/Root.type.ProjectData" value="-1" />
+        <File path="resources/project/Root.type.ProjectPath/bea07f2e-6eec-4b6b-8e2b-45618ad38afd.type.Reference.xml" value="23431c7a" />
+        <File path="resources/project/Root.type.ProjectPath" value="-1" />
+        <File path="resources/project/uuid-88ee86b6-830d-496f-9931-2ce306d08a9a.xml" value="3af507e" />
+        <File path="resources/project" value="-1" />
+        <File path="resources" value="-1" />
+    </Files>
+    <MetadataNode>
+        <path value="ProjectData:type:Info">
+            <node name="Info">
+                <entry value="LkPath" key="Name" />
+            </node>
+        </path>
+        <path value="Root:type:Categories">
+            <path value="FileClassCategory:type:Category">
+                <node name="Info">
+                    <entry value="None" key="DataType" />
+                    <entry value="Classification" key="Name" />
+                    <entry value="1" key="ReadOnly" />
+                    <entry value="1" key="SingleValued" />
+                </node>
+                <path value="artifact:type:Label">
+                    <node name="Info">
+                        <entry value="Artifact" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="convenience:type:Label">
+                    <node name="Info">
+                        <entry value="Convenience" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="derived:type:Label">
+                    <node name="Info">
+                        <entry value="Derived" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="design:type:Label">
+                    <node name="Info">
+                        <entry value="Design" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="none:type:Label">
+                    <node name="Info">
+                        <entry value="None" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="other:type:Label">
+                    <node name="Info">
+                        <entry value="Other" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+                <path value="test:type:Label">
+                    <node name="Info">
+                        <entry value="Test" key="Name" />
+                        <entry value="READ_ONLY" key="ReadOnly" />
+                    </node>
+                </path>
+            </path>
+        </path>
+        <path value="Root:type:EntryPoints" />
+        <path value="Root:type:Extensions" />
+        <path value="Root:type:Files">
+            <path value="LkPath.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="LkPathCircle.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="LkPathClothoid.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="LkPathRec.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="LkPathRec_test.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="LkPathStraight.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="LkPath_Test.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="LkPath_TestSub1.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="gpsrec.mat:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+            <path value="profile_mtimes.m:type:File">
+                <node name="Info">
+                    <node name="Category">
+                        <entry value="FileClassCategory" key="UUID" />
+                        <node name="Label">
+                            <entry value="design" key="UUID" />
+                        </node>
+                    </node>
+                </node>
+            </path>
+        </path>
+        <path value="Root:type:ProjectData" />
+        <path value="Root:type:ProjectPath">
+            <path value="bea07f2e-6eec-4b6b-8e2b-45618ad38afd:type:Reference">
+                <node name="Info">
+                    <entry value="" key="Ref" />
+                    <entry value="Relative" key="Type" />
+                </node>
+            </path>
+        </path>
+    </MetadataNode>
+    <Date value="15. Mai 2021 10:58:12" />
+</Info>
